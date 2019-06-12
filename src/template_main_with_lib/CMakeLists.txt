@@ -16,15 +16,6 @@ add_library(${build_temp}_dev SHARED ${${build_temp}cpps} ${common_cpps})
 # 可执行文件
 add_executable(${build_temp} main/main.cpp)
 
-# 复制配置文件
-add_custom_command(
-        TARGET ${build_temp}
-        COMMAND echo copying files to ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
-        COMMAND rm -rf ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/configure/
-        COMMAND mkdir ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/configure/
-        COMMAND cp -v ${PROJECT_SOURCE_DIR}/common/properties/boost_log_settings.ini ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/configure/
-        COMMAND echo copying files is finished.
-)
 #boost log 的宏
 add_definitions(-DBOOST_LOG_DYN_LINK)
 #通用动态链接库

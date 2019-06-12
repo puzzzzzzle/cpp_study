@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.2)
-project(boost_study)
+project(cpp_study_template)
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -42,6 +42,8 @@ include_directories(${PROJECT_SOURCE_DIR}/common/third_party_include)
 # 库文件
 link_directories(${PROJECT_SOURCE_DIR}/common/lib)
 
+## 复制配置文件
+configure_file(${PROJECT_SOURCE_DIR}/common/properties/boost_log_settings.ini ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/configure/boost_log_settings.ini)
 
 #### 添加子文件夹
 
