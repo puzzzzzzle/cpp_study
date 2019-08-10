@@ -11,7 +11,7 @@
 #include <gtest/gtest.h>
 
 //>其他文件中的方法
-#include "log_init.h"
+//#include "log_init.h"
 //<
 
 /**
