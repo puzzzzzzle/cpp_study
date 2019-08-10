@@ -1,11 +1,18 @@
-cmake_minimum_required(VERSION 3.2)
+cmake_minimum_required(VERSION 3.14.3)
 project(cpp_study_template)
-
-set(CMAKE_CXX_STANDARD 17)
-
+# 环境
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/Lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/Lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/Bin)
+
+#选项
+option(show_lib
+        "is show lib information"
+        on)
+option(boost_static
+        "use static boost lib"
+        OFF)
 
 ### 设置编译flags
 message("cmake env flags ${CMAKE_BUILD_TYPE}")
@@ -33,19 +40,56 @@ configure_file(
 )
 
 
-
 # 头文件
 include_directories(${PROJECT_SOURCE_DIR}/common/common_include)
 include_directories(${PROJECT_BINARY_DIR}/convent)
 include_directories(${PROJECT_SOURCE_DIR}/common/third_party_include)
-
-# 库文件
+# 通用cpp文件
+set(common_cpps ${PROJECT_SOURCE_DIR}/common/common_include/common_funcs.cpp
+        ${PROJECT_SOURCE_DIR}/common/common_include/log_init.cpp)
+# 私有库文件
 link_directories(${PROJECT_SOURCE_DIR}/common/lib)
+
+#通用动态链接库
+
+#gtest
+find_package(gtest REQUIRED)
+include_directories(${GTEST_INCLUDE_DIRS})
+
+
+#boost dynamic
+if (boost_static)
+    set(Boost_USE_STATIC_LIBS ON)
+else ()
+    set(Boost_USE_STATIC_LIBS OFF)
+    add_definitions(-DBOOST_ALL_DYN_LINK)
+    add_definitions(-DBOOST_LOG_DYN_LINK)
+endif ()
+
+find_package(Boost REQUIRED COMPONENTS thread log_setup log system filesystem)
+include_directories(${Boost_INCLUDE_DIRS})
+
+
+# set libs
+set(libs pthread ${GTEST_LIBRARIES} ${Boost_LIBRARIES})
+
+# show libs
+if (show_lib)
+    if (GTEST_FOUND)
+        message("gtest lib:    ${GTEST_LIBRARIES}")
+        message("gtest inc:    ${GTEST_INCLUDE_DIRS}")
+    endif ()
+    if (Boost_FOUND)
+        message("boost lib:    ${Boost_LIBRARIES}")
+        message("boost inc:    ${Boost_INCLUDE_DIRS}")
+    endif ()
+    message("all libs:    ${libs}")
+endif ()
+
 
 ## 复制配置文件
 configure_file(${PROJECT_SOURCE_DIR}/common/properties/boost_log_settings.ini ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/configure/boost_log_settings.ini)
 
-#### 添加子文件夹
 
 set(auto_analisis_dir ${PROJECT_SOURCE_DIR}/src/)
 execute_process(
