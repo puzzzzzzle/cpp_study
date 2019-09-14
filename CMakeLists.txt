@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.14.3)
 project(cpp_study_template)
+
+
+################################## 通用配置 begin ####################################
 # 环境
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/Lib)
@@ -12,7 +15,7 @@ option(show_lib
         on)
 option(boost_static
         "use static boost lib"
-        OFF)
+        on)
 option(use_boost_log
         "use boost log for logger"
         ON)
@@ -42,15 +45,6 @@ configure_file(
 ## 复制配置文件
 configure_file(${PROJECT_SOURCE_DIR}/common/properties/boost_log_settings.ini ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/configure/boost_log_settings.ini)
 
-#编译线程数
-#add_compile_options(-j10)
-
-#log 选项
-if (use_boost_log)
-    add_definitions(-DLOG_BOOST)
-endif ()
-
-
 # 头文件
 include_directories(${PROJECT_SOURCE_DIR}/common/common_include)
 include_directories(${PROJECT_BINARY_DIR}/convent)
@@ -63,6 +57,15 @@ set(common_cpps ${PROJECT_SOURCE_DIR}/common/common_include/common_funcs.cpp
 # 私有库文件
 link_directories(${PROJECT_SOURCE_DIR}/common/lib)
 
+################################## 通用配置 end ####################################
+
+################################## 项目配置 begin ####################################
+
+#log 选项
+if (use_boost_log)
+    add_definitions(-DLOG_BOOST)
+endif ()
+
 #通用动态链接库
 
 #gtest
@@ -73,15 +76,20 @@ include_directories(${GTEST_INCLUDE_DIRS})
 #boost dynamic
 if (boost_static)
     set(Boost_USE_STATIC_LIBS ON)
+    add_definitions(-DBOOST_LOG_NO_THREADS)     #单线程，多线程经常出问题
 else ()
     set(Boost_USE_STATIC_LIBS OFF)
     add_definitions(-DBOOST_ALL_DYN_LINK)
     add_definitions(-DBOOST_LOG_DYN_LINK)
+    add_definitions(-DBOOST_LOG_NO_THREADS)     #单线程，多线程经常出问题
 endif ()
 find_package(Boost REQUIRED COMPONENTS thread log_setup log system filesystem)
 include_directories(${Boost_INCLUDE_DIRS})
 
+################################## 项目配置 end ####################################
 
+
+################################## 遍历文件 begin ####################################
 # set libs
 set(libs pthread ${GTEST_LIBRARIES} ${Boost_LIBRARIES})
 
@@ -112,3 +120,4 @@ foreach (f ${RPLACE_LIST})
     add_subdirectory(${auto_analisis_dir}${f})
 endforeach (f ${RPLACE_LIST})
 
+################################## 遍历文件 end ####################################
