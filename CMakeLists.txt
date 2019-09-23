@@ -86,6 +86,15 @@ endif ()
 find_package(Boost REQUIRED COMPONENTS thread log_setup log system filesystem)
 include_directories(${Boost_INCLUDE_DIRS})
 
+
+#protobuf
+find_package(Protobuf REQUIRED)
+if(PROTOBUF_FOUND)
+   message(STATUS "protobuf library found")
+else()
+    message(FATAL_ERROR "protobuf library is needed but cant be found")
+endif()
+include_directories(${PROTOBUF_INCLUDE_DIRS})
 ################################## 项目配置 end ####################################
 
 
