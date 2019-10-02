@@ -25,5 +25,6 @@
     "gtest-adapter.debugConfig": [
         "protobuf_template"
     ],
-    "gtest-adapter.supportLocation": false
+    "gtest-adapter.supportLocation": false,
+    "C_Cpp.configurationWarnings": "Disabled"
 }
