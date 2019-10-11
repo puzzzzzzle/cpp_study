@@ -11,6 +11,7 @@ add_executable(${build_temp} ${${build_temp}cpps} ${common_cpps})
 
 #boost log 的宏
 #通用动态链接库
-target_link_libraries(${build_temp} ${libs} ${PROTOBUF_LIBRARY})
+message("${CONAN_LIBS}")
+target_link_libraries(${build_temp} ${CONAN_LIBS})
 
 message("${build_temp} cmake finish\n###############################\n")

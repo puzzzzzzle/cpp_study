@@ -26,5 +26,8 @@
         "protobuf_template"
     ],
     "gtest-adapter.supportLocation": false,
-    "C_Cpp.configurationWarnings": "Disabled"
+    "C_Cpp.configurationWarnings": "Disabled",
+    "files.associations": {
+        "*.inc": "cpp"
+    }
 }

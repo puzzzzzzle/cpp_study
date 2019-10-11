@@ -2,20 +2,18 @@ cmake_minimum_required(VERSION 3.14.3)
 project(cpp_study_template)
 
 
-################################## 通用配置 begin ####################################
+################################## 通用配置 ####################################
 # 环境
-set(CMAKE_CXX_STANDARD 14)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/Lib)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/Lib)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/Bin)
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 #选项
-option(show_lib
-        "is show lib information"
-        on)
+
 option(boost_static
         "use static boost lib"
-        on)
+        ON)
 option(use_boost_log
         "use boost log for logger"
         ON)
@@ -57,63 +55,73 @@ set(common_cpps ${PROJECT_SOURCE_DIR}/common/common_include/common_funcs.cpp
 # 私有库文件
 link_directories(${PROJECT_SOURCE_DIR}/common/lib)
 
-################################## 通用配置 end ####################################
-
-################################## 项目配置 begin ####################################
+################################## 项目配置  ####################################
 
 #log 选项
 if (use_boost_log)
     add_definitions(-DLOG_BOOST)
 endif ()
 
-#通用动态链接库
-
-#gtest
-find_package(gtest REQUIRED)
-include_directories(${GTEST_INCLUDE_DIRS})
-
 
 #boost dynamic
 if (boost_static)
+    message("boost log static")
     set(Boost_USE_STATIC_LIBS ON)
-    add_definitions(-DBOOST_LOG_NO_THREADS)     #单线程，多线程经常出问题
+    # add_definitions(-DBOOST_LOG_NO_THREADS)     #单线程，多线程经常出问题
 else ()
+    message("boost log DYN")
+
     set(Boost_USE_STATIC_LIBS OFF)
     add_definitions(-DBOOST_ALL_DYN_LINK)
     add_definitions(-DBOOST_LOG_DYN_LINK)
-    add_definitions(-DBOOST_LOG_NO_THREADS)     #单线程，多线程经常出问题
+    # add_definitions(-DBOOST_LOG_NO_THREADS)     #单线程，多线程经常出问题
 endif ()
-find_package(Boost REQUIRED COMPONENTS thread log_setup log system filesystem)
-include_directories(${Boost_INCLUDE_DIRS})
+
+################################# 动态链接库 以废弃使用Conanfile 管理 #########################################
+
+# #gtest
+# find_package(gtest REQUIRED)
+# include_directories(${GTEST_INCLUDE_DIRS})
 
 
-#protobuf
-find_package(Protobuf REQUIRED)
-if(PROTOBUF_FOUND)
-   message(STATUS "protobuf library found")
-else()
-    message(FATAL_ERROR "protobuf library is needed but cant be found")
-endif()
-include_directories(${PROTOBUF_INCLUDE_DIRS})
-################################## 项目配置 end ####################################
+# find_package(Boost REQUIRED COMPONENTS thread log_setup log system filesystem)
+# include_directories(${Boost_INCLUDE_DIRS})
+
+
+# #protobuf
+# find_package(Protobuf REQUIRED)
+# if(PROTOBUF_FOUND)
+#    message(STATUS "protobuf library found")
+# else()
+#     message(FATAL_ERROR "protobuf library is needed but cant be found")
+# endif()
+# include_directories(${PROTOBUF_INCLUDE_DIRS})
+
+
+# # set libs
+# set(libs pthread ${GTEST_LIBRARIES} ${Boost_LIBRARIES})
+
+# # show libs
+# if (show_lib)
+#     if (GTEST_FOUND)
+#         message("gtest lib:    ${GTEST_LIBRARIES}")
+#         message("gtest inc:    ${GTEST_INCLUDE_DIRS}")
+#     endif ()
+#     if (Boost_FOUND)
+#         message("boost lib:    ${Boost_LIBRARIES}")
+#         message("boost inc:    ${Boost_INCLUDE_DIRS}")
+#     endif ()
+#     message("all libs:    ${libs}")
+# endif ()
+################################## conan ####################################
+
+
+include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+ conan_basic_setup()
 
 
 ################################## 遍历文件 begin ####################################
-# set libs
-set(libs pthread ${GTEST_LIBRARIES} ${Boost_LIBRARIES})
 
-# show libs
-if (show_lib)
-    if (GTEST_FOUND)
-        message("gtest lib:    ${GTEST_LIBRARIES}")
-        message("gtest inc:    ${GTEST_INCLUDE_DIRS}")
-    endif ()
-    if (Boost_FOUND)
-        message("boost lib:    ${Boost_LIBRARIES}")
-        message("boost inc:    ${Boost_INCLUDE_DIRS}")
-    endif ()
-    message("all libs:    ${libs}")
-endif ()
 
 
 set(auto_analisis_dir ${PROJECT_SOURCE_DIR}/src/)
