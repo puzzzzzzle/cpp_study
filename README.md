@@ -1,5 +1,15 @@
 #### 通用依赖
-- boost 库(...) cygwin : 包管理器中有 linux :apt 获取
-- gtest 库   获取源码,直接cmake -DCMAKE_INSTALL_PREFIX=/usr ..
+- 使用conan 获取
+```
+mkdir build & cd build
 
+# libgo packaged by khalidzhang
+conan remote add khalid https://api.bintray.com/conan/puzzzzzzle1/khalidzhang 
+conan install libgo/v3.1-stable@tao/test -r khalid
+
+# other libs
+conan install .. --build missing -r=conan-center
+cmake .. 
+make -j8
+```
 
