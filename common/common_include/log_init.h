@@ -36,6 +36,19 @@ extern src::severity_channel_logger<severity_level, std::string> logger2;
 #define LOG_RAW_PRINTF(fmt, args...) printf(fmt,##args);
 #define LOG_RAW_PLINE(fmt, args...) printf(fmt,##args);printf("\n");
 
+
+#define TRACE(msg) LOG_TRACE(msg);
+#define DEBUG(msg) LOG_DEBUG(msg);
+#define INFO(msg) LOG_INFO(msg) ;
+#define WARNING(msg) LOG_WARNING(msg);
+#define ERROR(msg) LOG_ERROR(msg);
+#define PERROR(msg) LOG_PERROR(msg);
+#define FATAL(msg)  LOG_FATAL(msg);
+#define RAW_COUT(msg) LOG_RAW_COUT(msg);
+#define RAW_CLINE(msg) LOG_RAW_CLINE(msg);
+#define RAW_PRINTF(fmt, args...)  printf(fmt,##args);
+#define RAW_PLINE(fmt, args...) printf(fmt,##args);printf("\n");
+
 /**
  * 初始化boost_log 只能由main函数调用一次
  * @return

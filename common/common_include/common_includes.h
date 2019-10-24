@@ -15,15 +15,7 @@
 #include "log_row.h"
 #endif
 
-int beforeRun() {
-    int iRet = 0;
-#ifdef LOG_BOOST
-    iRet = log_init();
-#else
-    iRet = 0;
-#endif
-    return iRet;
-}
+int beforeRun();
 
 #define ERROR_IN -1;
 #endif //CPP_STL_STUDYS_COMMON_INCLUDES_H

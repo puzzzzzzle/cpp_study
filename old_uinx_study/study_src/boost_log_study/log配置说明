@@ -1,0 +1,72 @@
+// Core 配置
+Core
+	// 过滤条件, 例如 "%Severity% >= debug")
+	Filter
+
+	// 禁用日志, true 或者 flase)
+	DisableLogging
+// 接收器配置
+Sinks
+	// 输出位置，有五个选项，每个选项对应一系列相应选项
+	Destination(Console/TextFile/Syslog/Debugger/SimpleEventLog)
+
+	// 控制台对应的选项
+	##Console
+	// 是否宽字节 true 或者 flase
+	Wide
+	// 自动刷新 true 或者 flase
+	AutoFlush
+	// 过滤条件, 例如 "%Severity% >= debug")
+	Filter
+	// 异步方式 true 或者 flase
+	Asynchronous
+	// 格式化 例如 "[%TimeStamp%] [%Severity%]\n%MyScopes%\n\t:: %Message%"
+	Format
+
+	// 文件对应的选项
+	##TextFile
+	// 文件名 可以直接输入文件名也可以输出文件名的格式，例如test.log和"%Y-%m-%d_%N.log"
+	FileName
+	// 单个文件大小，超过此大小自动建立新文件 单位是字节
+	RotationSize
+	// 多久后自动建立新文件 单位是秒
+	RotationInterval
+	// 什么时候自动建立新文件 例如每个0点创建新文件就是："00:00:00"
+	RotationTimePoint
+	AutoFlush
+	// 是否将记录追加到原有文件 true 或者 flase
+	Append
+	// 输出文件夹（有此选项后才能有下列选项）
+	Target
+		// 文件夹最大大小 单位是字节
+		MaxSize
+		// 文件夹最小预留空间 单位是字节
+		MinFreeSpace
+		// 扫描文件 true 或者 flase
+		ScanForFiles(ALL/Matching)
+	Filter
+	Asychronous
+	Format
+
+	##Syslog
+	LocalAddress
+	TargetAddress
+	Filter
+	Asynchronous
+	Format
+
+	##Debugger
+	Wide
+	Filter
+	Asynchronous
+	Format
+
+	##SimpleEventLog
+	Wide
+	LogName
+	LogSource
+	Registration
+	Filter
+	Asynchronous
+	Format
+[注意]Format的值不支持==、||、&&等运算符，取而代之的是=、or、and和not。

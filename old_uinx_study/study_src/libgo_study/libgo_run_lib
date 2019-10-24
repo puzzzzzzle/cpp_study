@@ -1,0 +1,1 @@
+ g++ -std=c++11 $1 -llibgo  -lpthread -ldl -o run_obj -g

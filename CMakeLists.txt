@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.14.3)
-project(cpp_study_template)
+project(cpp_study_all)
 
 
 ################################## 通用配置 ####################################
@@ -49,8 +49,9 @@ include_directories(${PROJECT_BINARY_DIR}/convent)
 include_directories(${PROJECT_SOURCE_DIR}/common/third_party_include)
 
 # 通用cpp文件
-set(common_cpps ${PROJECT_SOURCE_DIR}/common/common_include/common_funcs.cpp
-        ${PROJECT_SOURCE_DIR}/common/common_include/log_init.cpp)
+#set(common_cpps ${PROJECT_SOURCE_DIR}/common/common_include/common_funcs.cpp
+#        ${PROJECT_SOURCE_DIR}/common/common_include/log_init.cpp)
+aux_source_directory(${PROJECT_SOURCE_DIR}/common/common_include common_cpps)
 
 # 私有库文件
 link_directories(${PROJECT_SOURCE_DIR}/common/lib)
@@ -117,24 +118,22 @@ endif ()
 
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
- conan_basic_setup()
+conan_basic_setup()
 
 
 ################################## 遍历文件 begin ####################################
 
 
+set(auto_analisis_dir_list ${PROJECT_SOURCE_DIR}/templates/ ${PROJECT_SOURCE_DIR}/old_stl/ ${PROJECT_SOURCE_DIR}/libgo_study/ ${PROJECT_SOURCE_DIR}/cpp_language/)
+foreach (auto_analisis_dir ${auto_analisis_dir_list})
+    execute_process(
+            COMMAND ls ${auto_analisis_dir}
+            OUTPUT_VARIABLE dirs)
+    message("find files : \n${dirs}")
+    string(REPLACE "\n" ";" RPLACE_LIST ${dirs})
 
-set(auto_analisis_dir ${PROJECT_SOURCE_DIR}/src/)
-execute_process(
-        COMMAND ls ${auto_analisis_dir}
-        OUTPUT_VARIABLE dirs)
-
-message("find files : \n${dirs}")
-string(REPLACE "\n" ";" RPLACE_LIST ${dirs})
-
-foreach (f ${RPLACE_LIST})
-    message("process dir :${f}")
-    add_subdirectory(${auto_analisis_dir}${f})
-endforeach (f ${RPLACE_LIST})
-
-################################## 遍历文件 end ####################################
+    foreach (f ${RPLACE_LIST})
+        message("process dir :${f}")
+        add_subdirectory(${auto_analisis_dir}${f})
+    endforeach (f ${RPLACE_LIST})
+endforeach ()

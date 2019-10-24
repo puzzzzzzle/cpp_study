@@ -1,0 +1,8 @@
+cmake-build-debug
+log/*
+mybuild
+build
+CMakeLists.txt.user
+cmake-build-release
+cmake_build_debug_qt
+
