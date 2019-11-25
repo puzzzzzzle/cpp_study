@@ -124,7 +124,8 @@ conan_basic_setup()
 ################################## 遍历文件 begin ####################################
 
 
-set(auto_analisis_dir_list ${PROJECT_SOURCE_DIR}/templates/ ${PROJECT_SOURCE_DIR}/old_stl/ ${PROJECT_SOURCE_DIR}/libgo_study/ ${PROJECT_SOURCE_DIR}/cpp_language/)
+set(auto_analisis_dir_list ${PROJECT_SOURCE_DIR}/templates/ ${PROJECT_SOURCE_DIR}/old_stl/
+        ${PROJECT_SOURCE_DIR}/libgo_study/ ${PROJECT_SOURCE_DIR}/cpp_language/ ${PROJECT_SOURCE_DIR}/boost_study/)
 foreach (auto_analisis_dir ${auto_analisis_dir_list})
     execute_process(
             COMMAND ls ${auto_analisis_dir}
