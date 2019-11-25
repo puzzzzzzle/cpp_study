@@ -116,6 +116,7 @@ endif ()
 # endif ()
 ################################## conan ####################################
 
+set(CONAN_LIBS "")
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()

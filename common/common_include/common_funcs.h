@@ -9,6 +9,8 @@
 #include <cstdio>
 #include <cstring>
 #include <gtest/gtest.h>
+#include <iostream>
+#include <vector>
 
 //>其他文件中的方法
 //#include "log_init.h"
@@ -58,5 +60,39 @@ int test_read_timeout(int fd, long wait_sec);
 int test_write_timeout(int fd, long wait_sec);
 
 char randChar();
+
+
+template<class T>
+std::ostream& operator<<(std::ostream& os, const std::vector<T>& v)
+{
+    std::copy(v.begin(), v.end(), std::ostream_iterator<T>(os, ","));
+    return os;
+}
+
+template<class T>
+std::ostream& printArr(std::ostream& os,size_t len, const T value[])
+{
+    os << "values :\t[";
+    for (int i = 0; i < len; ++i)
+    {
+        os << value[i] << ", ";
+    }
+    os << "]" << std::endl;
+    return os;
+}
+
+template <class T>
+bool checkDuplicated(int len, T value[])
+{
+    std::set<T> checkSet;
+    for (int i = 0; i < len; ++i)
+    {
+        if (!checkSet.insert(value[i]).second)
+        {
+            return false;
+        }
+    }
+    return true;
+}
 
 #endif //UNIXSTUDY_COMMON_FUNCS_H
