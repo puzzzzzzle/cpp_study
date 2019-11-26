@@ -9,7 +9,6 @@ message("${build_temp}cpps find cpps : ${${build_temp}cpps}")
 # 输出库
 add_library(${build_temp}-impl SHARED ${${build_temp}cpps} ${common_cpps})
 #动态链接库依赖
-message("libs : ${libs}")
 target_link_libraries(${build_temp}-impl  pthread ${CONAN_LIBS})
 
 # 可执行文件

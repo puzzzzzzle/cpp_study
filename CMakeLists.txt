@@ -120,22 +120,32 @@ set(CONAN_LIBS "")
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
-
+message("\nconan get libs${CONAN_LIBS}\n")
 
 ################################## 遍历文件 begin ####################################
 
 
-set(auto_analisis_dir_list ${PROJECT_SOURCE_DIR}/templates/ ${PROJECT_SOURCE_DIR}/old_stl/
-        ${PROJECT_SOURCE_DIR}/libgo_study/ ${PROJECT_SOURCE_DIR}/cpp_language/ ${PROJECT_SOURCE_DIR}/boost_study/)
-foreach (auto_analisis_dir ${auto_analisis_dir_list})
-    execute_process(
-            COMMAND ls ${auto_analisis_dir}
-            OUTPUT_VARIABLE dirs)
-    message("find files : \n${dirs}")
-    string(REPLACE "\n" ";" RPLACE_LIST ${dirs})
+set(auto_analisis_dir_list
+        ${PROJECT_SOURCE_DIR}/templates/
+        ${PROJECT_SOURCE_DIR}/stl_old/
+        ${PROJECT_SOURCE_DIR}/libgo_study/
+        ${PROJECT_SOURCE_DIR}/cpp_language/
+        ${PROJECT_SOURCE_DIR}/boost_study/
+        ${PROJECT_SOURCE_DIR}/libco_study/
 
-    foreach (f ${RPLACE_LIST})
-        message("process dir :${f}")
+        )
+foreach (auto_analisis_dir ${auto_analisis_dir_list})
+    #    execute_process(
+    #            COMMAND ls ${auto_analisis_dir}
+    #            OUTPUT_VARIABLE dirs)
+    #    message("find files : \n${dirs}")
+    #    string(REPLACE "\n" ";" RPLACE_LIST ${dirs})
+
+
+    file(GLOB files RELATIVE ${auto_analisis_dir} CONFIGURE_DEPENDS ${auto_analisis_dir}/*)
+    message("\n+++++++++++++++++++++++++++++++++++++ find files ${files} +++++++++++++++++++++++++++++++++++++\n")
+    foreach (f ${files})
+#        message("process dir :${auto_analisis_dir}${f}")
         add_subdirectory(${auto_analisis_dir}${f})
     endforeach (f ${RPLACE_LIST})
 endforeach ()
