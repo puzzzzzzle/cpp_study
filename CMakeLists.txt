@@ -98,15 +98,20 @@ set(auto_analisis_dir_list
         cpp_language
         boost_study
         libco_study
-
+        aoi_study
         )
 foreach (auto_analisis_dir ${auto_analisis_dir_list})
     file(GLOB files RELATIVE ${PROJECT_SOURCE_DIR}/${auto_analisis_dir} CONFIGURE_DEPENDS ${PROJECT_SOURCE_DIR}/${auto_analisis_dir}/*)
     message("- ${auto_analisis_dir}")
     foreach (f ${files})
         set(build_temp ${auto_analisis_dir}_${f})
-        message("\t - ${build_temp}")
-        add_subdirectory(${auto_analisis_dir}/${f})
+#        message("\t ${PROJECT_SOURCE_DIR}/${auto_analisis_dir}/${f}/CMakeLists.txt")
+        if (EXISTS ${PROJECT_SOURCE_DIR}/${auto_analisis_dir}/${f}/CMakeLists.txt)
+            message("\t - ${build_temp}")
+            add_subdirectory(${auto_analisis_dir}/${f})
+        else ()
+            message("\t - !!!${build_temp} without CMakeLists.txt, ignore!")
+        endif ()
         #        message("\t\t - done")
     endforeach (f ${RPLACE_LIST})
 endforeach ()

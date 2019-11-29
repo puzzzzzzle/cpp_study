@@ -5,6 +5,7 @@
 #ifndef BOOST_STUDY_TEST_FUNC_H
 #define BOOST_STUDY_TEST_FUNC_H
 
+#include "common_includes.h"
 
 int zero();
 

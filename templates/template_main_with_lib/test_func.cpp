@@ -5,5 +5,6 @@
 #include "test_func.h"
 
 int zero(){
+    INFO("from lib")
     return 0;
 }
