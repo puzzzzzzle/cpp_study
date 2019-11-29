@@ -41,7 +41,7 @@ int log_init() {
     logging::register_simple_formatter_factory<severity_level, char>("Severity");
     logging::register_simple_filter_factory<severity_level, char>("Severity");
 
-    std::ifstream file("configure/boost_log_settings.ini");
+    std::ifstream file("data/configure/boost_log_settings.ini");
     if (!file.is_open()) {
         std::cerr << "open settings fail" << std::endl;
         return -1;

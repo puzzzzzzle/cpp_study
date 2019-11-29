@@ -1,10 +1,8 @@
 
-set(build_temp sctp_study)
 
-message("\n###############################\nstart cmake ${build_temp}")
 aux_source_directory(. ${build_temp}cpps)
 include_directories(.)
-message("${build_temp}cpps find cpps : ${${build_temp}cpps}")
+
 add_executable(${build_temp} ${${build_temp}cpps}
         #编译器不认aux到的cpp文件，不进行符号表处理，只能手动变一遍
         #如果发布，删除以下内容
@@ -19,5 +17,3 @@ add_custom_command(
 )
 
 target_link_libraries(${build_temp} log4cplus gtest pthread)
-
-message("${build_temp} cmake finish\n###############################\n")

@@ -33,15 +33,15 @@ endif ()
 message("cmake cxx build flags:${CMAKE_CXX_FLAGS}\n")
 
 #设置版本号
-set(VERSION_MAJOR 1.1)
+set(VERSION_MAJOR 1.2)
 set(VERSION_MINOR 0)
 #配置版本号的映射文件，方便代码中使用
 configure_file(
         "${PROJECT_SOURCE_DIR}/common/common_include/common_configure.h.in"
         "${PROJECT_BINARY_DIR}/convent/common_configure.h"
 )
-## 复制配置文件
-configure_file(${PROJECT_SOURCE_DIR}/common/properties/boost_log_settings.ini ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/configure/boost_log_settings.ini)
+## 复制配置
+file(COPY ${PROJECT_SOURCE_DIR}/data DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/)
 
 # 头文件
 include_directories(${PROJECT_SOURCE_DIR}/common/common_include)
@@ -49,8 +49,6 @@ include_directories(${PROJECT_BINARY_DIR}/convent)
 include_directories(${PROJECT_SOURCE_DIR}/common/third_party_include)
 
 # 通用cpp文件
-#set(common_cpps ${PROJECT_SOURCE_DIR}/common/common_include/common_funcs.cpp
-#        ${PROJECT_SOURCE_DIR}/common/common_include/log_init.cpp)
 aux_source_directory(${PROJECT_SOURCE_DIR}/common/common_include common_cpps)
 
 # 私有库文件
@@ -68,84 +66,47 @@ endif ()
 if (boost_static)
     message("boost log static")
     set(Boost_USE_STATIC_LIBS ON)
-    # add_definitions(-DBOOST_LOG_NO_THREADS)     #单线程，多线程经常出问题
 else ()
     message("boost log DYN")
 
     set(Boost_USE_STATIC_LIBS OFF)
     add_definitions(-DBOOST_ALL_DYN_LINK)
     add_definitions(-DBOOST_LOG_DYN_LINK)
-    # add_definitions(-DBOOST_LOG_NO_THREADS)     #单线程，多线程经常出问题
 endif ()
 
-################################# 动态链接库 以废弃使用Conanfile 管理 #########################################
-
-# #gtest
-# find_package(gtest REQUIRED)
-# include_directories(${GTEST_INCLUDE_DIRS})
-
-
-# find_package(Boost REQUIRED COMPONENTS thread log_setup log system filesystem)
-# include_directories(${Boost_INCLUDE_DIRS})
-
-
-# #protobuf
-# find_package(Protobuf REQUIRED)
-# if(PROTOBUF_FOUND)
-#    message(STATUS "protobuf library found")
-# else()
-#     message(FATAL_ERROR "protobuf library is needed but cant be found")
-# endif()
-# include_directories(${PROTOBUF_INCLUDE_DIRS})
-
-
-# # set libs
-# set(libs pthread ${GTEST_LIBRARIES} ${Boost_LIBRARIES})
-
-# # show libs
-# if (show_lib)
-#     if (GTEST_FOUND)
-#         message("gtest lib:    ${GTEST_LIBRARIES}")
-#         message("gtest inc:    ${GTEST_INCLUDE_DIRS}")
-#     endif ()
-#     if (Boost_FOUND)
-#         message("boost lib:    ${Boost_LIBRARIES}")
-#         message("boost inc:    ${Boost_INCLUDE_DIRS}")
-#     endif ()
-#     message("all libs:    ${libs}")
-# endif ()
-################################## conan ####################################
-
+# 加载conan
 set(CONAN_LIBS "")
-
+#execute_process(
+#        COMMAND conan remote add -f khalid https://api.bintray.com/conan/puzzzzzzle1/khalidzhang
+#        COMMAND conan install libgo/v3.1-stable@tao/test -r khalid
+#        COMMAND conan install libco/v1.0@libco/tao -r khalid
+#
+#        COMMAND conan install .. --build missing -r=conan-center
+#        OUTPUT_VARIABLE conan_info)
+#message("conan out: \n${conan_info}")
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
-message("\nconan get libs${CONAN_LIBS}\n")
+message("conan get libs\t${CONAN_LIBS}\n")
 
 ################################## 遍历文件 begin ####################################
 
 
 set(auto_analisis_dir_list
-        ${PROJECT_SOURCE_DIR}/templates/
-        ${PROJECT_SOURCE_DIR}/stl_old/
-        ${PROJECT_SOURCE_DIR}/libgo_study/
-        ${PROJECT_SOURCE_DIR}/cpp_language/
-        ${PROJECT_SOURCE_DIR}/boost_study/
-        ${PROJECT_SOURCE_DIR}/libco_study/
+        templates
+        stl_old
+        libgo_study
+        cpp_language
+        boost_study
+        libco_study
 
         )
 foreach (auto_analisis_dir ${auto_analisis_dir_list})
-    #    execute_process(
-    #            COMMAND ls ${auto_analisis_dir}
-    #            OUTPUT_VARIABLE dirs)
-    #    message("find files : \n${dirs}")
-    #    string(REPLACE "\n" ";" RPLACE_LIST ${dirs})
-
-
-    file(GLOB files RELATIVE ${auto_analisis_dir} CONFIGURE_DEPENDS ${auto_analisis_dir}/*)
-    message("\n+++++++++++++++++++++++++++++++++++++ find files ${files} +++++++++++++++++++++++++++++++++++++\n")
+    file(GLOB files RELATIVE ${PROJECT_SOURCE_DIR}/${auto_analisis_dir} CONFIGURE_DEPENDS ${PROJECT_SOURCE_DIR}/${auto_analisis_dir}/*)
+    message("- ${auto_analisis_dir}")
     foreach (f ${files})
-#        message("process dir :${auto_analisis_dir}${f}")
-        add_subdirectory(${auto_analisis_dir}${f})
+        set(build_temp ${auto_analisis_dir}_${f})
+        message("\t - ${build_temp}")
+        add_subdirectory(${auto_analisis_dir}/${f})
+        #        message("\t\t - done")
     endforeach (f ${RPLACE_LIST})
 endforeach ()
