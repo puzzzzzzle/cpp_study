@@ -22,6 +22,8 @@ public:
 public:
     Number x;
     Number y;
+    Number halfXLen;
+    Number halfYLen;
 };
 
 template<typename NumberT, typename ObjectT, bool AutoDelete>
@@ -36,7 +38,7 @@ public:
 public:
     friend std::ostream &operator<<(std::ostream &oss,const IBaseNode &node)
     {
-        oss << node.obj << ":(" << node.point.x << "," << node.point.y << ")";
+        oss << node.obj << ":{p:[" << node.point.x << "," << node.point.y << "],r:["<<node.point.halfXLen<<","<<node.point.halfYLen<<"]}";
         return oss;
     }
 };

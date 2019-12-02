@@ -8,6 +8,7 @@
 #include "AbstractAoi.h"
 #include <list>
 #include <iostream>
+#include <cmath>
 
 // 双链表（对象）
 template<typename NumberT, typename ObjectT, bool AutoDelete>
@@ -86,13 +87,13 @@ public:
 
         // 打印x轴链表
         DoubleNode *cur = _head->xNext;
-        oss << "x -> ";
+        oss << "x -> { ";
         while (cur != _tail)
         {
             oss << "{" << *cur << "} -> ";
             cur = cur->xNext;
         }
-        oss << "end\n";
+        oss << " ] end\n";
 
         // 打印y轴链表
         oss << "y -> ";
@@ -151,16 +152,17 @@ public:
         DoubleNode *cur = pnode->xNext;
         while (cur != _tail)
         {
-            if ((cur->point.x - pnode->point.x) > xSize)
+            if ((cur->point.x - cur->point.halfXLen - pnode->point.x) > xSize)
             {
                 break;
             } else
             {
-                int inteval = 0;
-                inteval = pnode->point.y - cur->point.y;
-                if (inteval >= -ySize && inteval <= ySize)
+                int yDiff = abs(pnode->point.y - cur->point.y) - cur->point.halfYLen;
+                bool IsOnSide =
+                        abs(pnode->point.y - cur->point.y) > ySize || abs(pnode->point.x - cur->point.x) > xSize;
+                if (yDiff <= ySize)
                 {
-                    result.push_back({cur, false});
+                    result.push_back({cur, IsOnSide});
                 }
             }
             cur = cur->xNext;
@@ -170,20 +172,22 @@ public:
         cur = pnode->xPrev;
         while (cur != _head)
         {
-            if ((pnode->point.x - cur->point.x) > xSize)
+            if ((pnode->point.x - cur->point.x - cur->point.halfXLen) > xSize)
             {
                 break;
             } else
             {
-                int inteval = 0;
-                inteval = pnode->point.y - cur->point.y;
-                if (inteval >= -ySize && inteval <= ySize)
+                int yDiff = abs(pnode->point.y - cur->point.y) - cur->point.halfYLen;
+                bool IsOnSide =
+                        abs(pnode->point.y - cur->point.y) > ySize || abs(pnode->point.x - cur->point.x) > xSize;
+                if (yDiff <= ySize)
                 {
-                    result.push_back({cur, false});
+                    result.push_back({cur, IsOnSide});
                 }
             }
             cur = cur->xPrev;
         }
+
         return result;
     }
 
@@ -195,20 +199,22 @@ public:
         DoubleNode *cur = _head->xNext;
         while (cur != _tail)
         {
-            if ((cur->point.x - xStart) > xSize)
+            if ((abs(cur->point.x - xStart) - cur->point.halfXLen) > xSize)
             {
                 break;
             } else
             {
-                int inteval = 0;
-                inteval = yStart - cur->point.y;
-                if (inteval >= -ySize && inteval <= ySize)
+                int yDiff = abs(cur->point.y - yStart) - cur->point.halfYLen;
+                bool IsOnSide =
+                        abs(ySize - cur->point.y) > ySize || abs(xStart - cur->point.x) > xSize;
+                if (yDiff <= ySize)
                 {
-                    result.push_back({cur, false});
+                    result.push_back({cur, IsOnSide});
                 }
             }
             cur = cur->xNext;
         }
+
         return result;
     }
 
