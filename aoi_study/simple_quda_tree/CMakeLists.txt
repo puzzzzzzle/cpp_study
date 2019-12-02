@@ -3,6 +3,7 @@ include_directories(./)
 include_directories(../adapter)
 
 # 输出库
+message(" ${${build_temp}cpps}")
 add_library(${build_temp}-impl SHARED ${${build_temp}cpps} ${common_cpps})
 #动态链接库依赖
 target_link_libraries(${build_temp}-impl  pthread ${CONAN_LIBS})

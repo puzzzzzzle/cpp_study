@@ -13,12 +13,12 @@ TEST(test_test, 1)
     EXPECT_EQ(1, 1);
 }
 // A helper function to simplify the main part.
-template<class T>
-ostream& operator<<(ostream& os, const vector<T>& v)
-{
-    copy(v.begin(), v.end(), ostream_iterator<T>(os, " "));
-    return os;
-}
+//template<class T>
+//ostream& operator<<(ostream& os, const vector<T>& v)
+//{
+//    copy(v.begin(), v.end(), ostream_iterator<T>(os, " "));
+//    return os;
+//}
 int main(int argc, char **argv)
 {
     int iRet = 0;

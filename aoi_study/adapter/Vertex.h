@@ -1,5 +1,7 @@
 #pragma once
 
+#include <boost/geometry/geometry.hpp>
+
 class vertex
 {
     public:

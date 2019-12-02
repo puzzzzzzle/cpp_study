@@ -20,6 +20,8 @@ int main(int argc, char **argv) {
         std::cerr<<"init fail with "<<iRet<<std::endl;
         return iRet;
     }
+    Hello h;
+    h.hello();
     testing::InitGoogleTest(&argc, argv);
     iRet = RUN_ALL_TESTS();
     return iRet;

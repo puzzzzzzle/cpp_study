@@ -8,6 +8,9 @@
 #include "common_includes.h"
 
 int zero();
-
+class Hello{
+public:
+    void hello();
+};
 
 #endif //BOOST_STUDY_TEST_FUNC_H

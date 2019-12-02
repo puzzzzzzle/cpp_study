@@ -41,10 +41,10 @@ class QuadTree
 		void 	insert (vertex v, T data);
 		bool 	contains (vertex v);
 		bool 	remove (vertex v);
-		void 	draw ();
-		string 	print ();
+//		void 	draw ();
+		void 	print (ostream &ss);
 		vector <pair <vertex, T> > getObjectsInRegion (vertex minXY, vertex maxXY);
-
+//		bool    clear();
 	private:
 
 		QTNode<T>* childNode (const vertex& v, QTNode<T>* node);
@@ -53,7 +53,7 @@ class QuadTree
 		void 	insert (vertex v, T data, QTNode<T>* node, unsigned depth);
 		void	reduce (stack <QTNode<T>*>& node);
 //		void 	draw (QTNode<T>* node);
-		void 	print (QTNode <T>* node, stringstream& ss);
+		void 	print (QTNode <T>* node, ostream& ss);
 		void	addAllPointsToResults (QTNode<T>* node, vector <pair <vertex, T> >& results);
 		bool	pointInRegion (const vertex& point, const vertex& minXY, const vertex& maxXY);
 		enclosure_status getEnclosureStatus (const vertex& center, const vertex& range, const vertex& minXY, const vertex& maxXY);
@@ -61,4 +61,7 @@ class QuadTree
 		QTNode<T>* root;
 		unsigned maxDepth, maxBucketSize;
 };
+
+#include "QuadTree.tpp"
+
 #endif //#ifdef QUADTREE_H

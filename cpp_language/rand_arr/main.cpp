@@ -120,19 +120,19 @@ void printArr(int len, T value[], std::ostream &os)
     os << "]" << std::endl;
 }
 
-template <class T>
-bool checkDuplicated(int len, T value[])
-{
-    std::set<T> checkSet;
-    for (int i = 0; i < len; ++i)
-    {
-        if (!checkSet.insert(value[i]).second)
-        {
-            return false;
-        }
-    }
-    return true;
-}
+//template <class T>
+//bool checkDuplicated(int len, T value[])
+//{
+//    std::set<T> checkSet;
+//    for (int i = 0; i < len; ++i)
+//    {
+//        if (!checkSet.insert(value[i]).second)
+//        {
+//            return false;
+//        }
+//    }
+//    return true;
+//}
 
 int main(int argc, char **argv)
 {

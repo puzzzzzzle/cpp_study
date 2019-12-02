@@ -115,7 +115,6 @@ TEST(producer_consumer, 4_1)
 TEST(producer_consumer, 1_4)
 {
 
-    t.detach();
     int producer = 1;
     int consumer = 4;
     int iterations = m_iterations / producer;
