@@ -109,7 +109,7 @@ void SplitString(vector<string>& strVector, const char* str)
 	}
 }
 
-void AddRandomObject(map<uint32,Object*>& objs, TowerAoi::TowerAoi<Object>* aoi)
+void AddRandomObject(map<uint32,Object*>& objs, TowerAoi::TowerAoiT<Object>* aoi)
 {
 	uint32 maxId = 0;
 	for (map<uint32,Object*>::iterator it = objs.begin(); it != objs.end(); it++) {
@@ -147,7 +147,7 @@ Object* GetRandomObject(const map<uint32,Object*>& objs)
 int main(int argc, char** argv)
 {
 	//constuct aoi instance
-	TowerAoi::TowerAoi<Object>* aoi = new TowerAoi::TowerAoi<Object>(MAP_X, MAP_Y, TOWER_X, TOWER_Y);
+	TowerAoi::TowerAoiT<Object>* aoi = new TowerAoi::TowerAoiT<Object>(MAP_X, MAP_Y, TOWER_X, TOWER_Y);
 
 	//register callback functions
 	aoi->RegisterCallBackFunc(ObjectAdded, ObjectRemoved, ObjectMoved, WatcherMoved);

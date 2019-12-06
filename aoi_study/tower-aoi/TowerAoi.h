@@ -45,23 +45,23 @@ struct Location {
 
 namespace TowerAoi
 {
-	struct Region {
+	struct RegionT {
 		Location startPos;
 		Location endPos;
-		Region(uint16 startX, uint16 startY, uint16 endX, uint16 endY): startPos(startX,startY), endPos(endX,endY) {}
-		Region(): startPos(0,0), endPos(0,0) {}
+		RegionT(uint16 startX, uint16 startY, uint16 endX, uint16 endY): startPos(startX,startY), endPos(endX,endY) {}
+		RegionT(): startPos(0,0), endPos(0,0) {}
 	};
 
 	template<class T>
-	class Tower
+	class TowerT
 	{
 	public:
 		typedef set<T*> ObjectSet;
 		typedef map<uint8, set<T*> > TypeToObjectSet;
 		typedef vector<uint8> TypeVector;
 
-		Tower(uint32 id, uint16 x, uint16 y): m_pos(x,y), m_id(id) {}
-		~Tower() {}
+		TowerT(uint32 id, uint16 x, uint16 y): m_pos(x,y), m_id(id) {}
+		~TowerT() {}
 
 		uint32 GetId() { return m_id; }
 
@@ -168,7 +168,7 @@ namespace TowerAoi
 	};
 
 	template<class T>
-	class TowerAoi
+	class TowerAoiT
 	{
 	public:
 		typedef set<T*> ObjectSet;
@@ -180,20 +180,20 @@ namespace TowerAoi
 		typedef void (*FuncObjectMoved)(T* obj, const TypeToObjectSet& oldWatchers, const TypeToObjectSet& newWatchers);
 		typedef void (*FuncWatcherMoved)(T* watcher, const ObjectSet& appearObjs, const ObjectSet& disappearObjs);
 
-		TowerAoi(uint32 width, uint32 height, uint32 towerWidth, uint32 towerHeight):
+		TowerAoiT(uint32 width, uint32 height, uint32 towerWidth, uint32 towerHeight):
 		m_width(width), m_height(height), m_towerWidth(towerWidth), m_towerHeight(towerHeight)
 		{
 			m_towerX = (uint32)ceil((float)m_width/m_towerWidth);
 			m_towerY = (uint32)ceil((float)m_height/m_towerHeight);
-			m_towers = new Tower<T>**[m_towerX];
+			m_towers = new TowerT<T>**[m_towerX];
 			for (uint32 x = 0; x < m_towerX; x++) {
-				m_towers[x] = new Tower<T>*[m_towerY];
+				m_towers[x] = new TowerT<T>*[m_towerY];
 				for (uint32 y = 0; y < m_towerY; y++) {
-					m_towers[x][y] = new Tower<T>(x*m_towerY+y, x, y);
+					m_towers[x][y] = new TowerT<T>(x*m_towerY+y, x, y);
 				}
 			}
 		}
-		~TowerAoi() {
+		~TowerAoiT() {
 			if (m_towers) {
 				for (uint32 x = 0; x < m_towerX; x++) {
 					for (uint32 y = 0; y < m_towerY; y++) {
@@ -211,7 +211,7 @@ namespace TowerAoi
 				return;
 			}
 			Location towerPos = TranslatePos(pos);
-			Region region = GetRegion(towerPos, range);
+			RegionT region = GetRegion(towerPos, range);
 			for (uint16 x = region.startPos.x; x <= region.endPos.x; x++) {
 				for (uint16 y = region.startPos.y; y <= region.endPos.y; y++) {
 					const ObjectSet& objs = m_towers[x][y]->GetObjects();
@@ -228,7 +228,7 @@ namespace TowerAoi
 				return;
 			}
 			Location towerPos = TranslatePos(pos);
-			Region region = GetRegion(towerPos, range);
+			RegionT region = GetRegion(towerPos, range);
 			for (uint16 x = region.startPos.x; x <= region.endPos.x; x++) {
 				for (uint16 y = region.startPos.y; y <= region.endPos.y; y++) {
 					m_towers[x][y]->GetObjsByTypes(typeToObjSet, types);
@@ -276,7 +276,7 @@ namespace TowerAoi
 		bool AddWatcher(T* watcher, const Location& pos, uint8 range){
 			if (!CheckPos(pos) || !CheckRange(range)) return false;
 			Location towerPos = TranslatePos(pos);
-			Region region = GetRegion(towerPos, range);
+			RegionT region = GetRegion(towerPos, range);
 			ObjectSet addedObjs;
 			ObjectSet removedObjs;
 			for (uint16 x = region.startPos.x; x <= region.endPos.x; x++) {
@@ -296,7 +296,7 @@ namespace TowerAoi
 		bool RemoveWatcher(T* watcher, const Location& pos, uint8 range) { //watcher pos/range should recorded and verified internal. markbyxds 
 			if (!CheckPos(pos) || !CheckRange(range)) return false;
 			Location towerPos = TranslatePos(pos);
-			Region region = GetRegion(towerPos, range);
+			RegionT region = GetRegion(towerPos, range);
 			ObjectSet addedObjs;
 			ObjectSet removedObjs;
 			for (uint16 x = region.startPos.x; x <= region.endPos.x; x++) {
@@ -322,11 +322,11 @@ namespace TowerAoi
 				return true;
 			}
 			//key: 0->addedTowers 1->removedTowers 2->unchangeTowers
-			map<uint8,vector<Tower<T>*> > towers;
+			map<uint8,vector<TowerT<T>*> > towers;
 			GetChangedTowers(towers, oldTower, newTower, oldRange, newRange);
 			//add watcher to towers; get addedObjs for watcher
 			ObjectSet addedObjs;
-			for (typename vector<Tower<T>*>::const_iterator it = towers[0].begin(); it != towers[0].end(); it++) {
+			for (typename vector<TowerT<T>*>::const_iterator it = towers[0].begin(); it != towers[0].end(); it++) {
 				(*it)->AddWatcher(watcher);
 				const ObjectSet& objSet = (*it)->GetObjects();
 				for (typename ObjectSet::const_iterator objIt = objSet.begin(); objIt != objSet.end(); objIt++) {
@@ -335,7 +335,7 @@ namespace TowerAoi
 			}
 			//remove watcher from towers; get removedObjs for watcher
 			ObjectSet removedObjs;
-			for (typename vector<Tower<T>*>::const_iterator it = towers[1].begin(); it != towers[1].end(); it++) {
+			for (typename vector<TowerT<T>*>::const_iterator it = towers[1].begin(); it != towers[1].end(); it++) {
 				(*it)->RemoveWatcher(watcher);
 				const ObjectSet& objSet = (*it)->GetObjects();
 				for (typename ObjectSet::const_iterator objIt = objSet.begin(); objIt != objSet.end(); objIt++) {
@@ -355,7 +355,7 @@ namespace TowerAoi
 		}
 
 		bool CheckConsistency() {
-			map<T*, set<Tower<T>*> > watcherToTower;
+			map<T*, set<TowerT<T>*> > watcherToTower;
 			for (uint32 x = 0; x < m_towerX; x++) {
 				for (uint32 y = 0; y < m_towerY; y++) {
 					ASSERT(m_towers[x][y]->CheckConsistency());
@@ -368,11 +368,11 @@ namespace TowerAoi
 					}
 				}
 			}
-			for (typename map<T*, set<Tower<T>*> >::iterator it = watcherToTower.begin(); it != watcherToTower.end(); it++) {
+			for (typename map<T*, set<TowerT<T>*> >::iterator it = watcherToTower.begin(); it != watcherToTower.end(); it++) {
 				ASSERT(it->second.size() == 49); //markbyxds 
 				Location towerPos = TranslatePos(it->first->m_pos);
-				Region region = GetRegion(towerPos, 3); // markbyxds 
-				for (typename set<Tower<T>*>::iterator towerIt = it->second.begin(); towerIt != it->second.end(); towerIt++) {
+				RegionT region = GetRegion(towerPos, 3); // markbyxds
+				for (typename set<TowerT<T>*>::iterator towerIt = it->second.begin(); towerIt != it->second.end(); towerIt++) {
 					ASSERT(IsInRect((*towerIt)->GetPos(), region.startPos, region.endPos));
 				}
 				printf("watcher %d watching tower region (%d,%d)~(%d,%d)\n", it->first->GetId(), region.startPos.x, region.startPos.y,
@@ -382,9 +382,9 @@ namespace TowerAoi
 		}
 
 	private:
-		void GetChangedTowers(map<uint8,vector<Tower<T>*> >& towers, const Location& oldPos, const Location& newPos, uint8 oldRange, uint8 newRange) {
-			Region oldRegion = GetRegion(oldPos, oldRange);
-			Region newRegion = GetRegion(newPos, newRange);
+		void GetChangedTowers(map<uint8,vector<TowerT<T>*> >& towers, const Location& oldPos, const Location& newPos, uint8 oldRange, uint8 newRange) {
+			RegionT oldRegion = GetRegion(oldPos, oldRange);
+			RegionT newRegion = GetRegion(newPos, newRange);
 			//key: 0->addedTowers 1->removedTowers 2->unchangeTowers
 			for (uint16 x = oldRegion.startPos.x; x <= oldRegion.endPos.x; x++) {
 				for (uint16 y = oldRegion.startPos.y; y <= oldRegion.endPos.y; y++) {
@@ -428,8 +428,8 @@ namespace TowerAoi
 			return Location(floor((float)pos.x/m_towerWidth),floor((float)pos.y/m_towerHeight));
 		}
 
-		Region GetRegion(const Location& pos, uint8 range) {
-			Region region;
+		RegionT GetRegion(const Location& pos, uint8 range) {
+			RegionT region;
 			if (pos.x - range < 0) {
 				region.startPos.x = 0;
 				region.endPos.x = 2*range;
@@ -464,7 +464,7 @@ namespace TowerAoi
 		uint32 m_towerHeight;
 		uint32 m_towerX;
 		uint32 m_towerY;
-		Tower<T>*** m_towers;
+		TowerT<T>*** m_towers;
 		static const uint8 RANGE_LIMIT = 5;
 
 		FuncObjectAdded m_funcObjAdded;

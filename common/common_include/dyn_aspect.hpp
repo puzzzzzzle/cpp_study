@@ -81,14 +81,14 @@ namespace aop
         Ret m_ret;   // Core codes return value
     };
 
-    template<typename T> using identity_t = T;
+//    template<typename T> using identity_t = T;
 
     // AOP function, for export
     template<typename Ret, typename... AP, typename... Args, typename Func>
     Ret AOP(Func &&f, Args &&... args)
     {
         Aspect<Ret, Func, Args...> asp(std::forward<Func>(f));
-        asp.Invoke(std::forward<Args>(args)..., identity_t<AP>()...);
+        asp.Invoke(std::forward<Args>(args)..., AP()...);
         return asp.GetReturn();
     }
 

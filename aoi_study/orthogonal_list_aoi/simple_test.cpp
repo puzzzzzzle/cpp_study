@@ -5,7 +5,7 @@
 #include "AbstractAoi.h"
 #include "common_includes.h"
 #include "OrthogonalListAoi.hpp"
-#include "TowerAoi.h"
+#include "tower_aoi.h"
 
 typedef OrthogonalListAoi<int, int, false> AOI;
 typedef AOI::Node Node;
@@ -27,7 +27,7 @@ void printV(std::ostream &oss,std::vector<std::pair<Node *, bool>> &find){
 TEST(OrthogonalListAoi, 1)
 {
 
-    const int max = 100;
+//    const int max = 100;
     AOI aoi;
     for (int i = 0; i < 100; ++i)
     {
