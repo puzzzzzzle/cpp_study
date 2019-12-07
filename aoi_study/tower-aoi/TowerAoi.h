@@ -43,7 +43,7 @@ struct Location {
 };
 //------------------------------------------------------------
 
-namespace TowerAoi
+namespace TowerAoiImpl
 {
 	struct RegionT {
 		Location startPos;

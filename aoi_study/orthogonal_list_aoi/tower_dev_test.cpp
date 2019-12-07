@@ -66,9 +66,10 @@
 //    };
 
 
-typedef TowerAoi::TowerT<int, int> Tower;
+typedef TowerAoiImpl::TowerT<int, int> Tower;
 typedef Tower::Point Point;
 typedef Tower::Object Object;
+typedef Tower::Watcher Watcher;
 
 #define AOPCALL(call) (AOP<bool,TimeElapsedAspect,LoggingAspect>([&]()->bool{ return (call);}))
 Tower *ptower{};
@@ -95,6 +96,7 @@ struct LoggingAspect
         std::ostringstream oss;
         oss<<"Before:\t";
         ptower->ToString(oss);
+        oss <<"\t";
         INFO(oss.str())
     }
 
@@ -103,6 +105,7 @@ struct LoggingAspect
         std::ostringstream oss;
         oss<<"After:\t";
         ptower->ToString(oss);
+        oss <<"\t";
         INFO(oss.str())
     }
 };
@@ -113,14 +116,19 @@ TEST(dev_tower, 1)
     Tower tower(0, Point(0, 0));
     ptower = &tower;
 
-    INFO("ret: "<<AOPCALL(tower.Add(0, Point(0, 0), type)))
-    INFO("ret: "<<AOPCALL(tower.Remove(0, type)))
+    INFO("start dev test")
+    ASSERT_TRUE(AOPCALL(tower.Add(0, Point(0, 0), type)));
+    ASSERT_TRUE(AOPCALL(tower.Remove(0, type)));
 
-    INFO("ret: "<<AOPCALL(tower.AddWatcher(1, Point(1, 1), type)))
-    INFO("ret: "<<AOPCALL(tower.RemoveWatcher(1, type)))
+    Watcher watcher;
+    watcher.obj=1;
+    watcher.viewRange=5;
+    ASSERT_TRUE(AOPCALL(tower.AddWatcher(watcher, Point(1, 1), type)));
+    ASSERT_TRUE(AOPCALL(tower.RemoveWatcher(watcher, type)));
 
-    INFO("ret: "<<AOPCALL(tower.Add(0, Point(0, 0), type)))
-    INFO("ret: "<<AOPCALL(tower.AddWatcher(1, Point(1, 1), type)))
+    ASSERT_TRUE(AOPCALL(tower.Add(0, Point(0, 0), type)));
+    ASSERT_TRUE(AOPCALL(tower.AddWatcher(watcher, Point(1, 1), type)));
 
+    INFO("")
 
 }
