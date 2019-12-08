@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.14.3)
 project(cpp_study_all)
-
+set(CMAKE_CXX_STANDRAD 17)
 
 ################################## 通用配置 ####################################
 # 环境
@@ -84,6 +84,10 @@ set(CONAN_LIBS "")
 #        COMMAND conan install .. --build missing -r=conan-center
 #        OUTPUT_VARIABLE conan_info)
 #message("conan out: \n${conan_info}")
+execute_process(
+        COMMAND conan install ..
+
+)
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 message("conan get libs\t${CONAN_LIBS}\n")
@@ -105,7 +109,7 @@ foreach (auto_analisis_dir ${auto_analisis_dir_list})
     message("- ${auto_analisis_dir}")
     foreach (f ${files})
         set(build_temp ${auto_analisis_dir}_${f})
-#        message("\t ${PROJECT_SOURCE_DIR}/${auto_analisis_dir}/${f}/CMakeLists.txt")
+        #        message("\t ${PROJECT_SOURCE_DIR}/${auto_analisis_dir}/${f}/CMakeLists.txt")
         if (EXISTS ${PROJECT_SOURCE_DIR}/${auto_analisis_dir}/${f}/CMakeLists.txt)
             message("\t - ${build_temp}")
             add_subdirectory(${auto_analisis_dir}/${f})

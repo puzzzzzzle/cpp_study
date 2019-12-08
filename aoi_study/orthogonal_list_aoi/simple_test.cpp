@@ -5,7 +5,7 @@
 #include "AbstractAoi.h"
 #include "common_includes.h"
 #include "OrthogonalListAoi.hpp"
-#include "tower_aoi.h"
+#include "../tower_aoi/tower_aoi.h"
 
 typedef OrthogonalListAoi<int, int, false> AOI;
 typedef AOI::Node Node;

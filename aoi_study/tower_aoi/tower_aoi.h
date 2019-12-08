@@ -6,7 +6,7 @@
  * @e-mail khalidzhang@tencent.com
  * @description: 灯塔法AOI
  *               请自行保证object全局唯一，这里要处理的话得加一个全局的set保存所有object，由于频繁调用，开销会比较大，就不处理了！！！
- *              //todo 边界大小检查
+ *
  ********************************************************************/
 
 #ifndef CPP_STUDY_ALL_TOWER_AOI_H
@@ -49,6 +49,28 @@ namespace TowerAoiImpl {
         PointT(const PointT &Point) : x(Point.x), y(Point.y) {}
 
         PointT(const PointT &&Point) : x(Point.x), y(Point.y) {}
+
+        PointT &operator=(const PointT &p) {
+            x = p.x;
+            y = p.y;
+            return *this;
+        }
+
+        PointT &operator=(const PointT &&p) {
+            x = p.x;
+            y = p.y;
+            return *this;
+        }
+
+        friend bool operator==(const PointT &lhs, const PointT &rhs) {
+            return lhs.x == rhs.x && lhs.y == rhs.y;
+        }
+
+        friend bool operator<(const PointT &lhs, const PointT &rhs) {
+            if (lhs.x < rhs.x) { return true; }
+            if (lhs.x > rhs.x) { return false; }
+            return lhs.y < rhs.y;
+        }
     };
 
     /**
@@ -79,6 +101,27 @@ namespace TowerAoiImpl {
     struct WatcherT {
         PayloadT obj;
         int viewRange{};
+
+        WatcherT() = default;
+
+        WatcherT(const PayloadT &_obj, int _viewRange) : obj(_obj), viewRange(_viewRange) {}
+
+        WatcherT(const WatcherT &watcher) : obj(watcher.obj), viewRange(watcher.viewRange) {}
+
+        WatcherT(const WatcherT &&watcher) : obj(watcher.obj), viewRange(watcher.viewRange) {}
+
+        WatcherT &operator=(const WatcherT &watcher) {
+            obj = watcher.obj;
+            viewRange = watcher.viewRange;
+            return *this;
+        }
+
+        WatcherT &operator=(const WatcherT &&watcher) {
+            obj = watcher.obj;
+            viewRange = watcher.viewRange;
+            return *this;
+        }
+
     public:
         friend bool operator==(const WatcherT &lhs, const WatcherT &rhs) {
             return lhs.obj == rhs.obj;
@@ -158,7 +201,7 @@ namespace TowerAoiImpl {
             for (const auto &i :m_objs) {
                 os << "{type:" << i.first << ",objs:[";
                 for (const auto &j : i.second) {
-                    os << "{obj:" << j.first << "pos:(" << j.second.x << "," << j.second.y << ")},";
+                    os << "{obj:" << j.first << ",pos:(" << j.second.x << "," << j.second.y << ")},";
                 }
                 os << "]},";
             }
@@ -200,6 +243,8 @@ namespace TowerAoiImpl {
         typedef RegionT<Number> Region;
         typedef typename Tower::TowerIndex TowerIndex;
         typedef typename Tower::TowerIndexRegion TowerIndexRegion;
+        typedef std::map<Object, TowerIndex> ObjectTowerIndexMap;
+        typedef std::map<ObjectType, ObjectTowerIndexMap> TypeObjectTowerIndexMap;
 
         typedef void (*ObjCallBackT)(const Object &obj, const WatcherTypeObjectMap &firstSet,
                                      const WatcherTypeObjectMap &secondSet, bool IsDiffTower);//obj变化回调函数
@@ -207,14 +252,16 @@ namespace TowerAoiImpl {
                                          const TypeObjectMap &secondSet, bool IsDiffTower);//watcher变化回调函数
         /**
          * 回调函数数组定义
-         * OBJ_ADD firstSet 影响到的wacther, empty, false
-         * OBJ_REMOVE firstSet 影响到的wacther, empty, false
-         * OBJ_MOVED firstSet 没有离开格子，但是还是看到移动的对象, empty, false
-         * OBJ_MOVED firstSet 离开视野对象， secondSet 进入视野对象, ture
+         * OBJ_ADD  影响到的对象, empty, false
+         * OBJ_REMOVE  影响到的对象, empty, false
+         * OBJ_MOVED  没有离开格子，但是还是看到移动的对象, empty, false
+         * OBJ_MOVED  消失的对象， 出现的对象, ture
          *
-         * WATCHER_ADD
-         * WATCHER_REMOVE
-         * WATCHER_MOVE
+         * WATCHER_ADD 影响到的对象, empty, false
+         * WATCHER_REMOVE 影响到的对象, empty, false
+         * WATCHER_MOVE 没有离开格子，但是还是看到移动的对象, empty, false
+         * WATCHER_MOVE 消失的对象， 出现的对象, ture
+         * WATCHER_VIEW_CHANGE 消失的对象，出现的对象，false
          */
         class CallBackDef {
         public:
@@ -228,6 +275,7 @@ namespace TowerAoiImpl {
                 WATCHER_ADD = 0,
                 WATCHER_REMOVE,
                 WATCHER_MOVE,
+                WATCHER_VIEW_CHANGE,
                 WATCHER_MAX
             };
         };
@@ -235,6 +283,8 @@ namespace TowerAoiImpl {
     private:
         ObjCallBackT objectCallBacks[CallBackDef::OBJ_MAX]{0};
         WatcherCallBackT watcherCallBacks[CallBackDef::WATCHER_MAX]{0};
+        TypeObjectTowerIndexMap typeObjectTowerIndexMap;
+        TypeObjectTowerIndexMap typeWatcherTowerIndexMap;
 
         TowerConfig config{};
         int m_towerXLen;
@@ -259,8 +309,9 @@ namespace TowerAoiImpl {
     public:
         TowerAoiT() = delete;
 
-        TowerAoiT(const TowerConfig &_config, const ObjCallBackT _objCallBacks[CallBackDef::MAX],const WatcherCallBackT _watcherCallBacks[CallBackDef::WATCHER_MAX]) : config(_config) {
-            RegisterCallBacks(_objCallBacks,_watcherCallBacks);
+        TowerAoiT(const TowerConfig &_config, const ObjCallBackT _objCallBacks[CallBackDef::MAX],
+                  const WatcherCallBackT _watcherCallBacks[CallBackDef::WATCHER_MAX]) : config(_config) {
+            RegisterCallBacks(_objCallBacks, _watcherCallBacks);
             m_towerXLen = config.GlobalWith / (2 * config.HalfTowerWith);
             if (config.GlobalWith % (2 * config.HalfTowerWith) != 0) {
                 //地图大小不合适咋办？
@@ -270,7 +321,7 @@ namespace TowerAoiImpl {
             if (config.GlobalHeight % (2 * config.HalfTowerHeight) != 0) {
                 ++m_towerYLen;
             }
-            m_towers = new Tower**[m_towerXLen];
+            m_towers = new Tower **[m_towerXLen];
             for (int x = 0; x < m_towerXLen; ++x) {
                 m_towers[x] = new Tower *[m_towerYLen];
                 for (int y = 0; y < m_towerYLen; ++y) {
@@ -290,32 +341,28 @@ namespace TowerAoiImpl {
                                                       emptyWatcher,
                                                       false);
             }
-            return ret;
+            typeObjectTowerIndexMap[type][obj] = towerIndex;
+            return true;
         }
 
-        bool RemoveObject(const Object &obj, const Point &pos, ObjectType type) {
-            if (!CheckPos(pos)) { return false; }
-            TowerIndex towerIndex = TranslateTowerIndex(pos);
+        bool RemoveObject(const Object &obj, ObjectType type) {
+            TowerIndex towerIndex = GetObjectTowerIndex(obj, type, true);
+            if (towerIndex.x < 0) { return false; }
             auto ret = m_towers[towerIndex.x][towerIndex.y]->Remove(obj, type);
             if (ret && objectCallBacks[CallBackDef::OBJ_REMOVE]) {
                 objectCallBacks[CallBackDef::OBJ_REMOVE](obj, m_towers[towerIndex.x][towerIndex.y]->GetWatchers(),
                                                          emptyWatcher,
                                                          false);
             }
+            if (ret) { ret = typeObjectTowerIndexMap[type].erase(obj); }
             return ret;
         }
 
-        bool RemoveObject(const Object &obj, ObjectType type) {
-            //todo
 
-            return false;
-        }
-
-        bool MoveObject(const Object &obj, const Point &oldPos, const Point &newPos, ObjectType type) {
-            if (!CheckPos(oldPos)) { return false; }
+        bool MoveObject(const Object &obj, const Point &newPos, ObjectType type) {
             if (!CheckPos(newPos)) { return false; }
-
-            TowerIndex oldTowerIndex = TranslateTowerIndex(oldPos);
+            TowerIndex oldTowerIndex = GetObjectTowerIndex(obj, type, true);
+            if (oldTowerIndex.x < 0) { return false; }
             TowerIndex newTowerIndex = TranslateTowerIndex(newPos);
             if (oldTowerIndex.x == newTowerIndex.x && oldTowerIndex.y == newTowerIndex.y) {
                 m_towers[oldTowerIndex.x][oldTowerIndex.y]->GetObjs()[type][obj] = newPos;
@@ -326,7 +373,9 @@ namespace TowerAoiImpl {
                                                             false);
             } else {
                 if (!m_towers[oldTowerIndex.x][oldTowerIndex.y]->Remove(obj, type)) { return false; }
+                if (!typeObjectTowerIndexMap[type].erase(obj)) { return false; }
                 if (!m_towers[newTowerIndex.x][newTowerIndex.y]->Add(obj, newPos, type)) { return false; }
+                typeObjectTowerIndexMap[type][obj] = newTowerIndex;
                 if (objectCallBacks[CallBackDef::OBJ_MOVED]) {
                     objectCallBacks[CallBackDef::OBJ_MOVED](obj,
                                                             m_towers[oldTowerIndex.x][oldTowerIndex.y]->GetWatchers(),
@@ -337,30 +386,42 @@ namespace TowerAoiImpl {
             return true;
         }
 
-        bool AddWatcher(const Watcher &watcher, const Point &pos, ObjectType type, size_t range) {
+        bool AddWatcher(const Watcher &watcher, const Point &pos, ObjectType type) {
             if (!CheckPos(pos)) { return false; }
 
             TowerIndex towerIndex = TranslateTowerIndex(pos);
-            TowerIndexRegion region = GetTowerIndexRegion(towerIndex, range);
+            TowerIndexRegion region = GetTowerIndexRegion(towerIndex, watcher.viewRange);
+
             bool ret = false;
             for (int x = region.start.x; x <= region.end.x; ++x) {
                 for (int y = region.start.y; y <= region.end.y; ++y) {
                     ret = m_towers[x][y]->AddWatcher(watcher, pos, type);
-                    if (ret && watcherCallBacks[CallBackDef::WATCHER_ADD]) {
-                        watcherCallBacks[CallBackDef::WATCHER_ADD](watcher.obj, m_towers[x][y]->GetObjs(), emptyObjects,
-                                                                   false);
-                    } else {
+                    if (!ret) {
                         return ret;
+                    }
+                    if (watcherCallBacks[CallBackDef::WATCHER_ADD]) {
+                        watcherCallBacks[CallBackDef::WATCHER_ADD](watcher, m_towers[x][y]->GetObjs(), emptyObjects,
+                                                                   false);
                     }
                 };
             }
-            return ret;
+            typeWatcherTowerIndexMap[type][watcher.obj] = towerIndex;
+            return true;
         }
 
-        bool RemoveWatcher(const Watcher &watcher, const Point &pos, ObjectType type) {
-            if (!CheckPos(pos)) { return false; }
+        bool RemoveWatcher(const Object &watcherObj, ObjectType type) {
+            TowerIndex towerIndex = GetObjectTowerIndex(watcherObj, type, false);
+            if (towerIndex.x < 0) { return false; }
 
-            TowerIndex towerIndex = TranslateTowerIndex(pos);
+            Watcher tmp{};
+            tmp.obj = watcherObj;
+            auto &watchers = m_towers[towerIndex.x][towerIndex.y]->GetWatchers()[type];
+            auto it = watchers.find(tmp);
+            if (it == watchers.end()) {
+                return false;
+            }
+            auto &watcher = it->first;
+
             TowerIndexRegion region = GetTowerIndexRegion(towerIndex, watcher.viewRange);
             bool ret = false;
             for (int x = region.start.x; x <= region.end.x; ++x) {
@@ -370,19 +431,20 @@ namespace TowerAoiImpl {
                         return ret;
                     }
                     if (watcherCallBacks[CallBackDef::WATCHER_REMOVE]) {
-                        watcherCallBacks[CallBackDef::WATCHER_REMOVE](watcher.obj, m_towers[x][y]->GetObjs(),
+                        watcherCallBacks[CallBackDef::WATCHER_REMOVE](watcher, m_towers[x][y]->GetObjs(),
                                                                       emptyObjects,
                                                                       false);
                     }
                 };
             }
+            if (ret) { ret = typeWatcherTowerIndexMap[type].erase(watcherObj); }
             return ret;
         }
 
-        bool RemoveWatcher(const Watcher &watcher, ObjectType type) {
-            //todo
-            return false;
-        }
+//        bool RemoveWatcher(const Watcher &watcher, ObjectType type) {
+//
+//            return false;
+//        }
 
         /**
          * 移动观察者
@@ -392,18 +454,31 @@ namespace TowerAoiImpl {
          * @param type
          * @return
          */
-        bool MoveWatcher(const Watcher &watcher, const Point &oldPos, const Point &newPos, ObjectType type) {
-            if (!CheckPos(oldPos)) { return false; }
+        bool MoveWatcher(const Object &watcherObj, const Point &newPos, ObjectType type) {
+
             if (!CheckPos(newPos)) { return false; }
 
-            TowerIndex oldTowerIndex = TranslateTowerIndex(oldPos);
+            TowerIndex oldTowerIndex = GetObjectTowerIndex(watcherObj, type, false);
+            if (oldTowerIndex.x < 0) { return false; }
+
             TowerIndex newTowerIndex = TranslateTowerIndex(newPos);
+
+            Watcher tmp{};
+            tmp.obj = watcherObj;
+            auto &watchers = m_towers[oldTowerIndex.x][oldTowerIndex.y]->GetWatchers()[type];
+            auto it = watchers.find(tmp);
+            if (it == watchers.end()) {
+                return false;
+            }
+            auto &watcher = it->first;
+
+
             if (oldTowerIndex.x == newTowerIndex.x && oldTowerIndex.y == newTowerIndex.y) {
-                m_towers[oldTowerIndex.x][oldTowerIndex.y]->GetObjs()[type][watcher] = newPos;
+                m_towers[oldTowerIndex.x][oldTowerIndex.y]->GetWatchers()[type][watcher] = newPos;
                 if (watcherCallBacks[CallBackDef::WATCHER_MOVE])
                     watcherCallBacks[CallBackDef::WATCHER_MOVE](watcher,
                                                                 m_towers[oldTowerIndex.x][oldTowerIndex.y]->GetObjs(),
-                                                                emptyWatcher,
+                                                                emptyObjects,
                                                                 false);
             } else {
 
@@ -421,7 +496,7 @@ namespace TowerAoiImpl {
                             return ret;
                         }
                         if (watcherCallBacks[CallBackDef::WATCHER_MOVE]) {
-                            watcherCallBacks[CallBackDef::WATCHER_MOVE](watcher.obj, m_towers[x][y]->GetObjs(),
+                            watcherCallBacks[CallBackDef::WATCHER_MOVE](watcher, m_towers[x][y]->GetObjs(),
                                                                         emptyObjects,
                                                                         true);
                         }
@@ -430,30 +505,93 @@ namespace TowerAoiImpl {
                 // 加入到新的灯塔中
                 for (int x = newRegion.start.x; x <= newRegion.end.x; ++x) {
                     for (int y = newRegion.start.y; y <= newRegion.end.y; ++y) {
-                        ret = m_towers[x][y]->RemoveWatcher(watcher, type);
+                        ret = m_towers[x][y]->AddWatcher(watcher, newPos, type);
                         if (!ret) {
                             return ret;
                         }
                         if (watcherCallBacks[CallBackDef::WATCHER_MOVE]) {
-                            watcherCallBacks[CallBackDef::WATCHER_MOVE](emptyObjects,
-                                                                        watcher.obj, m_towers[x][y]->GetObjs(),
+                            watcherCallBacks[CallBackDef::WATCHER_MOVE](watcher, emptyObjects,
+                                                                        m_towers[x][y]->GetObjs(),
                                                                         true);
                         }
                     };
                 }
             }
+            typeWatcherTowerIndexMap[type][watcherObj] = newTowerIndex;
             return true;
         }
 
-        bool ResetWatcherViewRange(const Watcher &watcher, const Point &pos, ObjectType type, int newViewRange) {
-            //todo
-            return false;
+        bool SetWatcherViewRange(const Object &watcherObj, ObjectType type, int newViewRange) {
+            TowerIndex towerIndex = GetObjectTowerIndex(watcherObj, type, false);
+            if (towerIndex.x < 0) { return false; }
+
+            Watcher tmp{};
+            tmp.obj = watcherObj;
+            auto &watchers = m_towers[towerIndex.x][towerIndex.y]->GetWatchers()[type];
+            auto it = watchers.find(tmp);
+            if (it == watchers.end()) {
+                return false;
+            }
+            auto &watcher = it->first;
+
+
+            if (watcher.viewRange == newViewRange) {
+                return true;
+            }
+
+            TowerIndexRegion bigger;
+            TowerIndexRegion smaller;
+
+            bool ret = false;
+
+            //计算视野变化后，发生改变的灯塔区域，只通知该区域的
+            // 小的总是在范围内，所以通知范围为 (smaller,bigger]
+            bool isBigger = newViewRange > watcher.viewRange;
+            if (isBigger) {
+                bigger = GetTowerIndexRegion(towerIndex, watcher.viewRange);
+                smaller = GetTowerIndexRegion(towerIndex, newViewRange);
+            } else {
+                smaller = GetTowerIndexRegion(towerIndex, watcher.viewRange);
+                bigger = GetTowerIndexRegion(towerIndex, newViewRange);
+            }
+
+
+            for (int bx = bigger.start.x; bx <= bigger.end.x; ++bx) {
+                for (int by = bigger.start.y; by <= bigger.end.y; ++by) {
+                    //过滤smaller 范围内的
+                    if (bx >= smaller.start.x && by >= smaller.start.y && bx <= smaller.end.x && by <= smaller.end.y) {
+                        continue;
+                    }
+                    if (isBigger) {
+                        //视野扩大
+                        ret = m_towers[bx][by]->AddWatcher(watcher, m_towers[towerIndex.x][towerIndex.y]->GetWatchers()[type][watcher], type);
+                        if (!ret) {
+                            return ret;
+                        }
+                        if (watcherCallBacks[CallBackDef::WATCHER_VIEW_CHANGE]) {
+                            watcherCallBacks[CallBackDef::WATCHER_VIEW_CHANGE](watcher, emptyObjects,
+                                                                               m_towers[bx][by]->GetObjs(), false);
+                        }
+                    } else {
+                        //视野减小
+                        ret = m_towers[bx][by]->RemoveWatcher(watcher, type);
+                        if (!ret) {
+                            return ret;
+                        }
+                        if (watcherCallBacks[CallBackDef::WATCHER_VIEW_CHANGE]) {
+                            watcherCallBacks[CallBackDef::WATCHER_VIEW_CHANGE](watcher, m_towers[bx][by]->GetObjs(),
+                                                                               emptyObjects, false);
+                        }
+                    }
+                }
+            }
+            return true;
         }
 
-        bool ResetWatcherViewRange(const Watcher &watcher, ObjectType type, int newViewRange) {
-            //todo
-            return false;
-        }
+//        bool ResetWatcherViewRange(const Watcher &watcher, ObjectType type, int newViewRange) {
+//
+//            return false;
+//        }
 
     private:
         TowerIndexRegion GetTowerIndexRegion(const TowerIndex &towerIndex, int range) {
@@ -479,37 +617,17 @@ namespace TowerAoiImpl {
             return !(pos.x < 0 || pos.y < 0 || pos.x >= config.GlobalWith || pos.y >= config.GlobalHeight);
         }
 
-//        Region GetRegion(const TowerIndex &pos, Number range) {
-//            Region region;
-//            if (pos.x - range < 0) {
-//                region.start.x = 0;
-//                region.end.x = 2 * range;
-//            } else if (pos.x + range >= config.GlobalWith) {
-//                region.end.x = config.GlobalWith;
-//                region.start.x = config.GlobalWith - 2 * range;
-//            } else {
-//                region.start.x = pos.x - range;
-//                region.end.x = pos.x + range;
-//            }
-//            if (pos.y - range < 0) {
-//                region.start.y = 0;
-//                region.end.y = 2 * range;
-//            } else if (pos.y + range >= config.GlobalHeight) {
-//                region.end.y = config.GlobalHeight;
-//                region.start.y = config.GlobalHeight - 2 * range;
-//            } else {
-//                region.start.y = pos.y - range;
-//                region.end.y = pos.y + range;
-//            }
-//            region.start.x = region.start.x >= 0 ? region.start.x : 0;
-//            region.end.x = region.end.x < config.GlobalWith ? region.end.x : config.GlobalWith;
-//            region.start.y = region.start.y >= 0 ? region.start.y : 0;
-//            region.end.y = region.end.y < config.GlobalHeight ? region.end.y : config.GlobalHeight;
-//            return region;
-//        }
-
-        TowerIndex TranslateTowerIndex(const Point &pos) const {
+        inline TowerIndex TranslateTowerIndex(const Point &pos) const {
             return TowerIndex((int) (pos.x / (config.HalfTowerWith * 2)), (int) (pos.y / (config.HalfTowerHeight * 2)));
+        }
+
+        inline TowerIndex GetObjectTowerIndex(const Object &obj, ObjectType type, bool IsObject) {
+            auto &indexMap = IsObject ? typeObjectTowerIndexMap[type] : typeWatcherTowerIndexMap[type];
+            auto it = indexMap.find(obj);
+            if (it == indexMap.end()) {
+                return TowerIndex(-1, -1);
+            }
+            return it->second;
         }
 
     public:
