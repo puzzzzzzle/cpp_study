@@ -191,7 +191,7 @@ namespace TestClient {
         }
 
         bool MoveSomeObj(int rate) {
-            for (auto it = baseObjClients.begin(); it != baseObjClients.end();it++) {
+            for (auto it = baseObjClients.begin(); it != baseObjClients.end(); it++) {
                 if (rand() % rate) {
                     baseObjClients[it->first].point = Point(rand() % pAoi->GetConfig().GlobalWith,
                                                             rand() % pAoi->GetConfig().GlobalHeight);
@@ -430,20 +430,27 @@ TEST_F(CorrectClientTest, ViewRangaChange) {
 TEST_F(CorrectClientTest, mix) {
     using namespace TestClient;
     int action;
-
+    ADDOBJ(1000)
+    ADDWATCHER(1000)
     int loopSize = 50000;
     uint32_t objGrowLimit = 10000 * 1000;
     uint32_t watcherGrowLimit = 10000 * 10;
     TimeGap timeGap;
+    int eachTimes[CallBackDef::OBJ_MAX + CallBackDef::WATCHER_MAX]{0};
     for (int i = 0; i < loopSize; ++i) {
         action = rand() % (CallBackDef::OBJ_MAX + CallBackDef::WATCHER_MAX);
         switch (action) {
             case CallBackDef::OBJ_ADD: {
                 ADDOBJ(10)
+                ++eachTimes[CallBackDef::OBJ_ADD];
+                ASSERT_TRUE(pController->CheckCorrect());
                 break;
             }
             case CallBackDef::OBJ_MOVED: {
                 MOVEOBJ(70)
+                ++eachTimes[CallBackDef::OBJ_MOVED];
+                ASSERT_TRUE(pController->CheckCorrect());
+
                 break;
             }
             case CallBackDef::OBJ_REMOVE: {
@@ -452,14 +459,21 @@ TEST_F(CorrectClientTest, mix) {
                 } else {
                     REMOVEOBJ(30)
                 }
+                ++eachTimes[CallBackDef::OBJ_REMOVE];
+                ASSERT_TRUE(pController->CheckCorrect());
+
                 break;
             }
             case CallBackDef::OBJ_MAX + CallBackDef::WATCHER_ADD: {
                 ADDWATCHER(5)
+                ++eachTimes[CallBackDef::OBJ_MAX + CallBackDef::WATCHER_ADD];
+                ASSERT_TRUE(pController->CheckCorrect());
                 break;
             }
             case CallBackDef::OBJ_MAX + CallBackDef::WATCHER_MOVE: {
                 MOVEWATCHER(70)
+                ++eachTimes[CallBackDef::OBJ_MAX + CallBackDef::WATCHER_MOVE];
+                ASSERT_TRUE(pController->CheckCorrect());
                 break;
             }
             case CallBackDef::OBJ_MAX + CallBackDef::WATCHER_REMOVE: {
@@ -468,14 +482,24 @@ TEST_F(CorrectClientTest, mix) {
                 } else {
                     REMOVEWATCHER(30)
                 }
+                ++eachTimes[CallBackDef::OBJ_MAX + CallBackDef::WATCHER_REMOVE];
+                ASSERT_TRUE(pController->CheckCorrect());
                 break;
             }
             case CallBackDef::OBJ_MAX + CallBackDef::WATCHER_VIEW_CHANGE: {
                 SETVIEWRANGE(20)
+                ++eachTimes[CallBackDef::OBJ_MAX + CallBackDef::WATCHER_VIEW_CHANGE];
+                ASSERT_TRUE(pController->CheckCorrect());
                 break;
             }
         }
         ASSERT_TRUE(pController->CheckCorrect());
     }
-//    INFO("use time :"<< timeGap.gap())
+    INFO("use time :" << timeGap.gap())
+    std::ostringstream oss;
+    printArr(oss, sizeof(eachTimes) / sizeof(eachTimes[0]), eachTimes);
+    oss << "\t";
+    sumArr(oss, sizeof(eachTimes) / sizeof(eachTimes[0]), eachTimes);
+    INFO("each times:\t" << oss.str())
+
 }

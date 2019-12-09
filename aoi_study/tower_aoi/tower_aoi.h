@@ -228,8 +228,8 @@ namespace TowerAoiImpl {
 
     /**
      * AOI实现
-     * @tparam NumberT
-     * @tparam PayloadT
+     * @tparam NumberT 坐标数值类型
+     * @tparam PayloadT 负载类型
      */
     template<typename NumberT, typename PayloadT>
     class TowerAoiT {

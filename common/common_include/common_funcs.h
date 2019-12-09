@@ -77,10 +77,21 @@ std::ostream& printArr(std::ostream& os,size_t len, const T value[])
     {
         os << value[i] << ", ";
     }
-    os << "]" << std::endl;
+    os << "]";
     return os;
 }
-
+template<class T>
+std::ostream& sumArr(std::ostream& os,size_t len, const T value[])
+{
+    os << "sum :\t[";
+    T sum{};
+    for (int i = 0; i < len; ++i)
+    {
+        sum += value[i];
+    }
+    os<<sum;
+    return os;
+}
 template <class T>
 bool checkDuplicated(int len, T value[])
 {
