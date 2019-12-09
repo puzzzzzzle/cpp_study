@@ -3,56 +3,18 @@
 //
 
 #include "common_includes.h"
-#include "dyn_aspect.hpp"
 #include "tower_aoi.h"
 #include "time_gap.hpp"
 
-TOWERIMPL(uint32_t, int)
-
-namespace TowerInfoCallBack {
-    void ObjAddCallBack(const Object &obj, const WatcherTypeObjectMap &firstSet,
-                        const WatcherTypeObjectMap &secondSet, bool IsDiffTower) {
-        INFO("ObjAddCallBack")
-    }
-
-    void ObjRemoveCallBack(const Object &obj, const WatcherTypeObjectMap &firstSet,
-                           const WatcherTypeObjectMap &secondSet, bool IsDiffTower) {
-        INFO("ObjRemoveCallBack")
-
-    }
-
-    void ObjMoveCallBack(const Object &obj, const WatcherTypeObjectMap &firstSet,
-                         const WatcherTypeObjectMap &secondSet, bool IsDiffTower) {
-        INFO("ObjMoveCallBack")
-
-    }
-
-    void WatcherAddCallBack(const Watcher &watcher, const TypeObjectMap &firstSet,
-                            const TypeObjectMap &secondSet, bool IsDiffTower) {
-        INFO("WatcherAddCallBackT")
-
-    }
-
-    void WatcherRemoveCallBack(const Watcher &watcher, const TypeObjectMap &firstSet,
-                               const TypeObjectMap &secondSet, bool IsDiffTower) {
-        INFO("WatcherRemoveCallBackT")
-
-    }
-
-    void WatcherMoveCallBack(const Watcher &watcher, const TypeObjectMap &firstSet,
-                             const TypeObjectMap &secondSet, bool IsDiffTower) {
-        INFO("WatcherMoveCallBackT")
-
-    }
-}
+TOWER_DEFINE(uint32_t, int)
 
 TEST(correct_1, toweraoi_obj) {
     //构建一座塔
     TowerConfig config;
     config.GlobalWith = 1000;
     config.GlobalHeight = 1000;
-    config.HalfTowerWith = 50;
-    config.HalfTowerHeight = 50;
+    config.TowerWith = 100;
+    config.TowerHeight = 100;
 
     ObjCallBack objCallBack[CallBackDef::OBJ_MAX]{nullptr, nullptr, nullptr};
     WatcherCallBack watcherCallBack[CallBackDef::WATCHER_MAX]{nullptr, nullptr,
@@ -103,8 +65,8 @@ TEST(correct_1, toweraoi_watcher) {
     TowerConfig config;
     config.GlobalWith = 1000;
     config.GlobalHeight = 1000;
-    config.HalfTowerWith = 50;
-    config.HalfTowerHeight = 50;
+    config.TowerWith = 100;
+    config.TowerHeight = 100;
     ObjCallBack objCallBack[CallBackDef::OBJ_MAX]{nullptr, nullptr, nullptr};
     WatcherCallBack watcherCallBack[CallBackDef::WATCHER_MAX]{nullptr, nullptr,
                                                               nullptr, nullptr};
@@ -150,9 +112,9 @@ TEST(correct_1, toweraoi_watcher) {
     // change watcher range
     for (auto &itype : watcherMap) {
         for (auto &obj :itype.second) {
-            ASSERT_TRUE(towerAoi.SetWatcherViewRange(obj.first.obj, itype.first,2));
+            ASSERT_TRUE(towerAoi.WatcherSetViewRange(obj.first.obj, itype.first, 2));
             const int *const_intp = &obj.first.viewRange;
-            int * modifer = const_cast<int *>(const_intp);
+            int *modifer = const_cast<int *>(const_intp);
             *modifer = 2;
         }
 
@@ -172,6 +134,6 @@ TEST(correct_1, toweraoi_watcher) {
             ASSERT_TRUE(towerAoi.RemoveWatcher(obj.first.obj, itype.first));
         }
     }
-    towerAoi.ToString(std::cout);
+//    towerAoi.ToString(std::cout);
 
 }

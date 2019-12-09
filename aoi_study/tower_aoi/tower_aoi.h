@@ -27,8 +27,8 @@ namespace TowerAoiImpl {
 
         Number GlobalWith{};
         Number GlobalHeight{};
-        Number HalfTowerWith{};    //每个灯塔的长的一半。可以省去大量的除法运算
-        Number HalfTowerHeight{};    //每个灯塔的宽长的一半。可以省去大量的除法运算
+        Number TowerWith{};    //每个灯塔的长
+        Number TowerHeight{};    //每个灯塔的宽
     };
 
     /**
@@ -192,7 +192,9 @@ namespace TowerAoiImpl {
             return m_watcherObjs[type].insert(std::make_pair(watcher, pos)).second;
         }
 
-        bool RemoveWatcher(const Watcher &watcher, ObjectType type) { return m_watcherObjs[type].erase(watcher) == 1; }
+        bool RemoveWatcher(const Watcher &watcher, ObjectType type) {
+            return m_watcherObjs[type].erase(watcher) == 1;
+        }
 
     public:
         bool ToString(std::ostream &os) {
@@ -246,22 +248,24 @@ namespace TowerAoiImpl {
         typedef std::map<Object, TowerIndex> ObjectTowerIndexMap;
         typedef std::map<ObjectType, ObjectTowerIndexMap> TypeObjectTowerIndexMap;
 
-        typedef void (*ObjCallBackT)(const Object &obj, const WatcherTypeObjectMap &firstSet,
-                                     const WatcherTypeObjectMap &secondSet, bool IsDiffTower);//obj变化回调函数
-        typedef void (*WatcherCallBackT)(const Watcher &watcher, const TypeObjectMap &firstSet,
-                                         const TypeObjectMap &secondSet, bool IsDiffTower);//watcher变化回调函数
+        typedef void (*ObjCallBackT)(const Object &obj, ObjectType type, const Point &pos,
+                                     const WatcherTypeObjectMap &appear,
+                                     const WatcherTypeObjectMap &disAppear, bool IsDiffTower);//obj变化回调函数
+        typedef void (*WatcherCallBackT)(const Watcher &watcher, ObjectType type, const Point &pos,
+                                         const TypeObjectMap &appear,
+                                         const TypeObjectMap &disAppear, bool IsDiffTower);//watcher变化回调函数
         /**
          * 回调函数数组定义
-         * OBJ_ADD  影响到的对象, empty, false
-         * OBJ_REMOVE  影响到的对象, empty, false
-         * OBJ_MOVED  没有离开格子，但是还是看到移动的对象, empty, false
-         * OBJ_MOVED  消失的对象， 出现的对象, ture
+         * OBJ_ADD  出现的对象, empty, false
+         * OBJ_REMOVE  empty , 消失的对象, false
+         * OBJ_MOVED  没有离开格子但是还是看到移动的对象, empty, false
+         * OBJ_MOVED   出现的对象 ，消失的对象  , true
          *
-         * WATCHER_ADD 影响到的对象, empty, false
-         * WATCHER_REMOVE 影响到的对象, empty, false
-         * WATCHER_MOVE 没有离开格子，但是还是看到移动的对象, empty, false
-         * WATCHER_MOVE 消失的对象， 出现的对象, ture
-         * WATCHER_VIEW_CHANGE 消失的对象，出现的对象，false
+         * WATCHER_ADD 出现的对象, empty, false
+         * WATCHER_REMOVE empty , 消失的对象, false
+         * WATCHER_MOVE 没有离开格子但是还是看到移动的对象, empty, false
+         * WATCHER_MOVE  出现的对象, 消失的对象， true
+         * WATCHER_VIEW_CHANGE 出现的对象， 消失的对象，false
          */
         class CallBackDef {
         public:
@@ -293,7 +297,7 @@ namespace TowerAoiImpl {
         //空,用来填充回调函数中无用的位置
         WatcherTypeObjectMap emptyWatcher;
         TypeObjectMap emptyObjects;
-    private:
+    public:
         void RegisterCallBacks(const ObjCallBackT _objCallBacks[CallBackDef::OBJ_MAX],
                                const WatcherCallBackT _watcherCallBacks[CallBackDef::WATCHER_MAX]) {
             for (int i = CallBackDef::OBJ_ADD; i < CallBackDef::OBJ_MAX; ++i) { objectCallBacks[i] = _objCallBacks[i]; }
@@ -302,23 +306,25 @@ namespace TowerAoiImpl {
 
         }
 
+        const TowerConfig &GetConfig() { return config; }
+
+    private:
         void SetConfig(const TowerConfig &_config) { config = _config; }
 
-        TowerConfig GetConfig() { return config; }
 
     public:
         TowerAoiT() = delete;
 
-        TowerAoiT(const TowerConfig &_config, const ObjCallBackT _objCallBacks[CallBackDef::MAX],
-                  const WatcherCallBackT _watcherCallBacks[CallBackDef::WATCHER_MAX]) : config(_config) {
-            RegisterCallBacks(_objCallBacks, _watcherCallBacks);
-            m_towerXLen = config.GlobalWith / (2 * config.HalfTowerWith);
-            if (config.GlobalWith % (2 * config.HalfTowerWith) != 0) {
+        TowerAoiT(const TowerAoiT &) = delete;
+
+        TowerAoiT(const TowerConfig &_config) : config(_config) {
+            m_towerXLen = config.GlobalWith / config.TowerWith;
+            if (config.GlobalWith % config.TowerWith != 0) {
                 //地图大小不合适咋办？
                 ++m_towerXLen;
             }
-            m_towerYLen = config.GlobalHeight / (2 * config.HalfTowerHeight);
-            if (config.GlobalHeight % (2 * config.HalfTowerHeight) != 0) {
+            m_towerYLen = config.GlobalHeight / config.TowerHeight;
+            if (config.GlobalHeight % config.TowerHeight != 0) {
                 ++m_towerYLen;
             }
             m_towers = new Tower **[m_towerXLen];
@@ -328,7 +334,17 @@ namespace TowerAoiImpl {
                     m_towers[x][y] = new Tower(x * m_towerXLen + y, TowerIndex(x, y));
                 }
             }
+        }
 
+        TowerAoiT(const TowerConfig &_config, const ObjCallBackT _objCallBacks[CallBackDef::MAX],
+                  const WatcherCallBackT _watcherCallBacks[CallBackDef::WATCHER_MAX]) : TowerAoiT(_config) {
+            RegisterCallBacks(_objCallBacks, _watcherCallBacks);
+        }
+
+        ~TowerAoiT() {
+            if (m_towers) {
+                delete[] m_towers;
+            }
         }
 
     public:
@@ -337,7 +353,8 @@ namespace TowerAoiImpl {
             TowerIndex towerIndex = TranslateTowerIndex(pos);
             auto ret = m_towers[towerIndex.x][towerIndex.y]->Add(obj, pos, type);
             if (ret && objectCallBacks[CallBackDef::OBJ_ADD]) {
-                objectCallBacks[CallBackDef::OBJ_ADD](obj, m_towers[towerIndex.x][towerIndex.y]->GetWatchers(),
+                objectCallBacks[CallBackDef::OBJ_ADD](obj, type, pos,
+                                                      m_towers[towerIndex.x][towerIndex.y]->GetWatchers(),
                                                       emptyWatcher,
                                                       false);
             }
@@ -348,10 +365,11 @@ namespace TowerAoiImpl {
         bool RemoveObject(const Object &obj, ObjectType type) {
             TowerIndex towerIndex = GetObjectTowerIndex(obj, type, true);
             if (towerIndex.x < 0) { return false; }
+            Point pos = m_towers[towerIndex.x][towerIndex.y]->GetObjs()[type][obj];
             auto ret = m_towers[towerIndex.x][towerIndex.y]->Remove(obj, type);
             if (ret && objectCallBacks[CallBackDef::OBJ_REMOVE]) {
-                objectCallBacks[CallBackDef::OBJ_REMOVE](obj, m_towers[towerIndex.x][towerIndex.y]->GetWatchers(),
-                                                         emptyWatcher,
+                objectCallBacks[CallBackDef::OBJ_REMOVE](obj, type, pos, emptyWatcher,
+                                                         m_towers[towerIndex.x][towerIndex.y]->GetWatchers(),
                                                          false);
             }
             if (ret) { ret = typeObjectTowerIndexMap[type].erase(obj); }
@@ -367,7 +385,7 @@ namespace TowerAoiImpl {
             if (oldTowerIndex.x == newTowerIndex.x && oldTowerIndex.y == newTowerIndex.y) {
                 m_towers[oldTowerIndex.x][oldTowerIndex.y]->GetObjs()[type][obj] = newPos;
                 if (objectCallBacks[CallBackDef::OBJ_MOVED])
-                    objectCallBacks[CallBackDef::OBJ_MOVED](obj,
+                    objectCallBacks[CallBackDef::OBJ_MOVED](obj, type, newPos,
                                                             m_towers[oldTowerIndex.x][oldTowerIndex.y]->GetWatchers(),
                                                             emptyWatcher,
                                                             false);
@@ -377,9 +395,9 @@ namespace TowerAoiImpl {
                 if (!m_towers[newTowerIndex.x][newTowerIndex.y]->Add(obj, newPos, type)) { return false; }
                 typeObjectTowerIndexMap[type][obj] = newTowerIndex;
                 if (objectCallBacks[CallBackDef::OBJ_MOVED]) {
-                    objectCallBacks[CallBackDef::OBJ_MOVED](obj,
-                                                            m_towers[oldTowerIndex.x][oldTowerIndex.y]->GetWatchers(),
+                    objectCallBacks[CallBackDef::OBJ_MOVED](obj, type, newPos,
                                                             m_towers[newTowerIndex.x][newTowerIndex.y]->GetWatchers(),
+                                                            m_towers[oldTowerIndex.x][oldTowerIndex.y]->GetWatchers(),
                                                             true);
                 }
             }
@@ -400,7 +418,8 @@ namespace TowerAoiImpl {
                         return ret;
                     }
                     if (watcherCallBacks[CallBackDef::WATCHER_ADD]) {
-                        watcherCallBacks[CallBackDef::WATCHER_ADD](watcher, m_towers[x][y]->GetObjs(), emptyObjects,
+                        watcherCallBacks[CallBackDef::WATCHER_ADD](watcher, type, pos, m_towers[x][y]->GetObjs(),
+                                                                   emptyObjects,
                                                                    false);
                     }
                 };
@@ -420,7 +439,7 @@ namespace TowerAoiImpl {
             if (it == watchers.end()) {
                 return false;
             }
-            auto &watcher = it->first;
+            const auto &watcher = it->first;
 
             TowerIndexRegion region = GetTowerIndexRegion(towerIndex, watcher.viewRange);
             bool ret = false;
@@ -431,8 +450,8 @@ namespace TowerAoiImpl {
                         return ret;
                     }
                     if (watcherCallBacks[CallBackDef::WATCHER_REMOVE]) {
-                        watcherCallBacks[CallBackDef::WATCHER_REMOVE](watcher, m_towers[x][y]->GetObjs(),
-                                                                      emptyObjects,
+                        watcherCallBacks[CallBackDef::WATCHER_REMOVE](watcher, type, it->second, emptyObjects,
+                                                                      m_towers[x][y]->GetObjs(),
                                                                       false);
                     }
                 };
@@ -441,10 +460,6 @@ namespace TowerAoiImpl {
             return ret;
         }
 
-//        bool RemoveWatcher(const Watcher &watcher, ObjectType type) {
-//
-//            return false;
-//        }
 
         /**
          * 移动观察者
@@ -456,10 +471,14 @@ namespace TowerAoiImpl {
          */
         bool MoveWatcher(const Object &watcherObj, const Point &newPos, ObjectType type) {
 
-            if (!CheckPos(newPos)) { return false; }
+            if (!CheckPos(newPos)) {
+                return false;
+            }
 
             TowerIndex oldTowerIndex = GetObjectTowerIndex(watcherObj, type, false);
-            if (oldTowerIndex.x < 0) { return false; }
+            if (oldTowerIndex.x < 0) {
+                return false;
+            }
 
             TowerIndex newTowerIndex = TranslateTowerIndex(newPos);
 
@@ -470,13 +489,13 @@ namespace TowerAoiImpl {
             if (it == watchers.end()) {
                 return false;
             }
-            auto &watcher = it->first;
+            const auto watcher = it->first; //todo 用引用时 stl把内存写坏了???
 
 
             if (oldTowerIndex.x == newTowerIndex.x && oldTowerIndex.y == newTowerIndex.y) {
                 m_towers[oldTowerIndex.x][oldTowerIndex.y]->GetWatchers()[type][watcher] = newPos;
                 if (watcherCallBacks[CallBackDef::WATCHER_MOVE])
-                    watcherCallBacks[CallBackDef::WATCHER_MOVE](watcher,
+                    watcherCallBacks[CallBackDef::WATCHER_MOVE](watcher, type, newPos,
                                                                 m_towers[oldTowerIndex.x][oldTowerIndex.y]->GetObjs(),
                                                                 emptyObjects,
                                                                 false);
@@ -485,19 +504,30 @@ namespace TowerAoiImpl {
                 TowerIndexRegion oldRegion = GetTowerIndexRegion(oldTowerIndex, watcher.viewRange);
                 TowerIndexRegion newRegion = GetTowerIndexRegion(newTowerIndex, watcher.viewRange);
 
-                //todo 区分下没有离开的
 
                 // 从旧的灯塔中删除观察者
                 bool ret = false;
                 for (int x = oldRegion.start.x; x <= oldRegion.end.x; ++x) {
                     for (int y = oldRegion.start.y; y <= oldRegion.end.y; ++y) {
+                        //过滤掉还在视野内的
+                        if (x >= newRegion.start.x && y >= newRegion.start.y && x <= newRegion.end.x &&
+                            y <= newRegion.end.y) {
+                            m_towers[oldTowerIndex.x][oldTowerIndex.y]->GetWatchers()[type][watcher] = newPos;
+                            if (watcherCallBacks[CallBackDef::WATCHER_MOVE])
+                                watcherCallBacks[CallBackDef::WATCHER_MOVE](watcher, type, newPos,
+                                                                            m_towers[oldTowerIndex.x][oldTowerIndex.y]->GetObjs(),
+                                                                            emptyObjects,
+                                                                            false);
+                            continue;
+                        }
                         ret = m_towers[x][y]->RemoveWatcher(watcher, type);
                         if (!ret) {
                             return ret;
                         }
                         if (watcherCallBacks[CallBackDef::WATCHER_MOVE]) {
-                            watcherCallBacks[CallBackDef::WATCHER_MOVE](watcher, m_towers[x][y]->GetObjs(),
+                            watcherCallBacks[CallBackDef::WATCHER_MOVE](watcher, type, newPos,
                                                                         emptyObjects,
+                                                                        m_towers[x][y]->GetObjs(),
                                                                         true);
                         }
                     };
@@ -505,13 +535,20 @@ namespace TowerAoiImpl {
                 // 加入到新的灯塔中
                 for (int x = newRegion.start.x; x <= newRegion.end.x; ++x) {
                     for (int y = newRegion.start.y; y <= newRegion.end.y; ++y) {
+                        //过滤掉还在视野内的
+                        if (x >= oldRegion.start.x && y >= oldRegion.start.y && x <= oldRegion.end.x &&
+                            y <= oldRegion.end.y) {
+                            continue;
+                        }
+
                         ret = m_towers[x][y]->AddWatcher(watcher, newPos, type);
                         if (!ret) {
                             return ret;
                         }
                         if (watcherCallBacks[CallBackDef::WATCHER_MOVE]) {
-                            watcherCallBacks[CallBackDef::WATCHER_MOVE](watcher, emptyObjects,
+                            watcherCallBacks[CallBackDef::WATCHER_MOVE](watcher, type, newPos,
                                                                         m_towers[x][y]->GetObjs(),
+                                                                        emptyObjects,
                                                                         true);
                         }
                     };
@@ -521,7 +558,7 @@ namespace TowerAoiImpl {
             return true;
         }
 
-        bool SetWatcherViewRange(const Object &watcherObj, ObjectType type, int newViewRange) {
+        bool WatcherSetViewRange(const Object &watcherObj, ObjectType type, int newViewRange) {
             TowerIndex towerIndex = GetObjectTowerIndex(watcherObj, type, false);
             if (towerIndex.x < 0) { return false; }
 
@@ -564,13 +601,19 @@ namespace TowerAoiImpl {
                     }
                     if (isBigger) {
                         //视野扩大
-                        ret = m_towers[bx][by]->AddWatcher(watcher, m_towers[towerIndex.x][towerIndex.y]->GetWatchers()[type][watcher], type);
+                        ret = m_towers[bx][by]->AddWatcher(watcher,
+                                                           m_towers[towerIndex.x][towerIndex.y]->GetWatchers()[type][watcher],
+                                                           type);
                         if (!ret) {
                             return ret;
                         }
                         if (watcherCallBacks[CallBackDef::WATCHER_VIEW_CHANGE]) {
-                            watcherCallBacks[CallBackDef::WATCHER_VIEW_CHANGE](watcher, emptyObjects,
-                                                                               m_towers[bx][by]->GetObjs(), false);
+                            watcherCallBacks[CallBackDef::WATCHER_VIEW_CHANGE](watcher,
+                                                                               type,
+                                                                               it->second,
+                                                                               m_towers[bx][by]->GetObjs(),
+                                                                               emptyObjects,
+                                                                               false);
                         }
                     } else {
                         //视野减小
@@ -579,8 +622,12 @@ namespace TowerAoiImpl {
                             return ret;
                         }
                         if (watcherCallBacks[CallBackDef::WATCHER_VIEW_CHANGE]) {
-                            watcherCallBacks[CallBackDef::WATCHER_VIEW_CHANGE](watcher, m_towers[bx][by]->GetObjs(),
-                                                                               emptyObjects, false);
+                            watcherCallBacks[CallBackDef::WATCHER_VIEW_CHANGE](watcher,
+                                                                               type,
+                                                                               it->second,
+                                                                               emptyObjects,
+                                                                               m_towers[bx][by]->GetObjs(),
+                                                                               false);
                         }
                     }
                 }
@@ -588,12 +635,12 @@ namespace TowerAoiImpl {
             return true;
         }
 
-//        bool ResetWatcherViewRange(const Watcher &watcher, ObjectType type, int newViewRange) {
-//
-//            return false;
-//        }
+        bool GetWatcherView() {
+            //todo
 
-    private:
+            return false;
+        }
+
         TowerIndexRegion GetTowerIndexRegion(const TowerIndex &towerIndex, int range) {
             if (range <= 0) {
                 range = 1;
@@ -618,9 +665,10 @@ namespace TowerAoiImpl {
         }
 
         inline TowerIndex TranslateTowerIndex(const Point &pos) const {
-            return TowerIndex((int) (pos.x / (config.HalfTowerWith * 2)), (int) (pos.y / (config.HalfTowerHeight * 2)));
+            return TowerIndex((int) (pos.x / config.TowerWith), (int) (pos.y / config.TowerHeight));
         }
 
+    private:
         inline TowerIndex GetObjectTowerIndex(const Object &obj, ObjectType type, bool IsObject) {
             auto &indexMap = IsObject ? typeObjectTowerIndexMap[type] : typeWatcherTowerIndexMap[type];
             auto it = indexMap.find(obj);
@@ -646,7 +694,7 @@ namespace TowerAoiImpl {
     };
 }
 
-#define TOWERIMPL(number, payload)\
+#define TOWER_DEFINE(number, payload)\
 typedef TowerAoiImpl::TowerAoiT<number ,payload> TowerAoi;\
 typedef TowerAoi::Number Number;\
 typedef TowerAoi::TowerConfig TowerConfig;\
@@ -664,6 +712,9 @@ typedef TowerAoi::TowerIndex TowerIndex;\
 typedef TowerAoi::TowerIndexRegion TowerIndexRegion;\
 typedef TowerAoi::ObjCallBackT ObjCallBack;\
 typedef TowerAoi::WatcherCallBackT WatcherCallBack;\
-typedef TowerAoi::CallBackDef CallBackDef;
+typedef TowerAoi::CallBackDef CallBackDef;\
+typedef TowerAoi::ObjectTowerIndexMap ObjectTowerIndexMap;\
+typedef TowerAoi::TypeObjectTowerIndexMap TypeObjectTowerIndexMap;
+
 
 #endif //CPP_STUDY_ALL_TOWER_AOI_H
