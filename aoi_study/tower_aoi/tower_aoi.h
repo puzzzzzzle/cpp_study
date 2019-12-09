@@ -183,13 +183,17 @@ namespace TowerAoiImpl {
 
     public:
         bool Add(const Object &obj, const Point &pos, ObjectType type) {
-            return m_objs[type].insert(std::make_pair(obj, pos)).second;
+            m_objs[type][obj] = pos;
+            return true;
         }
 
-        bool Remove(const Object &obj, ObjectType type) { return m_objs[type].erase(obj) == 1; }
+        bool Remove(const Object &obj, ObjectType type) {
+            return m_objs[type].erase(obj) == 1;
+        }
 
         bool AddWatcher(const Watcher &watcher, const Point &pos, ObjectType type) {
-            return m_watcherObjs[type].insert(std::make_pair(watcher, pos)).second;
+            m_watcherObjs[type][watcher] = pos;
+            return true;
         }
 
         bool RemoveWatcher(const Watcher &watcher, ObjectType type) {
@@ -633,12 +637,6 @@ namespace TowerAoiImpl {
                 }
             }
             return true;
-        }
-
-        bool GetWatcherView() {
-            //todo
-
-            return false;
         }
 
         TowerIndexRegion GetTowerIndexRegion(const TowerIndex &towerIndex, int range) {

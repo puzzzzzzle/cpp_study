@@ -20,7 +20,7 @@ TEST(correct_1, toweraoi_obj) {
     WatcherCallBack watcherCallBack[CallBackDef::WATCHER_MAX]{nullptr, nullptr,
                                                               nullptr, nullptr};
     TowerAoi towerAoi(config, objCallBack, watcherCallBack);
-    INFO("init finish\t@" << &towerAoi)
+//    INFO("init finish\t@" << &towerAoi)
     //towerAoi.ToString(std::cout);
     //done
     int size = 1000;
@@ -71,7 +71,7 @@ TEST(correct_1, toweraoi_watcher) {
     WatcherCallBack watcherCallBack[CallBackDef::WATCHER_MAX]{nullptr, nullptr,
                                                               nullptr, nullptr};
     TowerAoi towerAoi(config, objCallBack, watcherCallBack);
-    INFO("init finish\t@" << &towerAoi)
+//    INFO("init finish\t@" << &towerAoi)
     //towerAoi.ToString(std::cout);
     //done
     int size = 100000;

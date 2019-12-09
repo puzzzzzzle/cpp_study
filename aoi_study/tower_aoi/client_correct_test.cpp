@@ -10,6 +10,8 @@
 
 namespace TestClient {
     TOWER_DEFINE(uint32_t, uint32_t)
+    const int MAX_TYPE = 5;
+    const int MAX_VIEW_RANGE = 2;
 
     class ObjectClient {
     public:
@@ -145,7 +147,7 @@ namespace TestClient {
     }
 
     class ClientController {
-    private:
+    public:
         TowerAoi *pAoi;
 
         // 判断依据，本地直接保存的位置信息
@@ -156,7 +158,10 @@ namespace TestClient {
         std::map<Object, WatcherClient> watcherClients;
 
     public:
-        ClientController(TowerAoi *_aoi) : pAoi(_aoi) {
+        ClientController(TowerAoi *_aoi, bool registerCallBack = true) : pAoi(_aoi) {
+            if (!registerCallBack) {
+                return;
+            }
             pwatcherClients = &watcherClients;
             //注册回调函数
             ObjCallBack _objCallBacks[CallBackDef::OBJ_MAX];
@@ -185,11 +190,39 @@ namespace TestClient {
             return pAoi->MoveObject(obj, newPos, baseObjClients[obj].type);
         }
 
+        bool MoveSomeObj(int rate) {
+            for (auto it = baseObjClients.begin(); it != baseObjClients.end();it++) {
+                if (rand() % rate) {
+                    baseObjClients[it->first].point = Point(rand() % pAoi->GetConfig().GlobalWith,
+                                                            rand() % pAoi->GetConfig().GlobalHeight);
+                    if (!pAoi->MoveObject(it->first, baseObjClients[it->first].point, baseObjClients[it->first].type)) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
         bool RemoveObj(const Object &obj) {
             bool ret = pAoi->RemoveObject(obj, baseObjClients[obj].type);
             baseObjClients.erase(obj);
             return ret;
         }
+
+        bool RemoveSomeObj(int rate) {
+            for (auto it = baseObjClients.begin(); it != baseObjClients.end();) {
+                if (rand() % rate) {
+                    if (!pAoi->RemoveObject(it->first, baseObjClients[it->first].type)) {
+                        return false;
+                    }
+                    it = baseObjClients.erase(it);
+                } else {
+                    it++;
+                }
+            }
+            return true;
+        }
+
 
         bool AddWatcher(const Watcher &watcher, const Point &pos, ObjectType type) {
             WatcherClient client;
@@ -211,15 +244,56 @@ namespace TestClient {
             return b;
         }
 
+        bool MoveSomeWatcher(int rate) {
+            for (auto it = baseWatcherClients.begin(); it != baseWatcherClients.end(); it++) {
+                if (rand() % rate) {
+                    baseWatcherClients[it->first].point = Point(rand() % pAoi->GetConfig().GlobalWith,
+                                                                rand() % pAoi->GetConfig().GlobalHeight);
+                    if (!pAoi->MoveWatcher(it->first, baseWatcherClients[it->first].point,
+                                           baseWatcherClients[it->first].type)) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
         bool RemoveWatcher(const Object &watcherObj) {
             bool ret = pAoi->RemoveWatcher(watcherObj, baseWatcherClients[watcherObj].type);
             baseWatcherClients.erase(watcherObj);
             return ret;
         }
 
+        bool RemoveSomeWatcher(int rate) {
+            for (auto it = baseWatcherClients.begin(); it != baseWatcherClients.end();) {
+                if (rand() % rate) {
+                    if (!pAoi->RemoveWatcher(it->first, baseWatcherClients[it->first].type)) {
+                        return false;
+                    }
+                    it = baseWatcherClients.erase(it);
+                } else {
+                    it++;
+                }
+            }
+            return true;
+        }
+
         bool WatcherSetViewRange(const Object &watcherObj, int newViewRange) {
             baseWatcherClients[watcherObj].viewRange = newViewRange;
             return pAoi->WatcherSetViewRange(watcherObj, baseWatcherClients[watcherObj].type, newViewRange);
+        }
+
+        bool WatcherSetSomeViewRange(int rate) {
+            for (auto it = baseWatcherClients.begin(); it != baseWatcherClients.end(); it++) {
+                if (rand() % rate) {
+                    int newViewRange = (rand() % MAX_VIEW_RANGE);
+                    if (!pAoi->WatcherSetViewRange(it->first, baseWatcherClients[it->first].type, newViewRange)) {
+                        return false;
+                    }
+                    baseWatcherClients[it->first].viewRange = newViewRange;
+                }
+            }
+            return true;
         }
 
         bool CheckCorrect() {
@@ -247,7 +321,6 @@ namespace TestClient {
                                 ) {
                             return false;
                         }
-                        //todo 类型判断,目前没有修改类型的逻辑，暂时不需要判断
                     }
                 }
             }
@@ -283,8 +356,7 @@ protected:
     }
 
     TestClient::ClientController *pController;
-    const int MAX_TYPE = 5;
-    const int MAX_VIEW_RANGE = 2;
+
     TestClient::Object currAddObj = 0;
     TestClient::Object currAddWatcher = 0;
     TestClient::TowerAoi *pTowerAoi;
@@ -301,29 +373,16 @@ protected:
                                     Point(rand() % pTowerAoi->GetConfig().GlobalWith,\
                                           rand() % pTowerAoi->GetConfig().GlobalHeight), rand() % MAX_TYPE));\
                                 }
-#define MOVEOBJ(rate)           for (Object i = 0; i < currAddObj; ++i) {\
-                                    if (rand() % 100 >= (rate)) {\
-                                    EXPECT_TRUE(pController->MoveObj(i, Point(rand() % pTowerAoi->GetConfig().GlobalWith,\
-                                                                              rand() % pTowerAoi->GetConfig().GlobalHeight)));\
-                                    }\
-                                }
-#define MOVEWATCHER(rate)       for (Object i = 0; i < currAddWatcher; ++i) {\
-                                    if (rand() % 100 >= (rate)) {\
-                                    EXPECT_TRUE(pController->MoveWatcher(i, Point(rand() % pTowerAoi->GetConfig().GlobalWith,\
-                                                                                  rand() % pTowerAoi->GetConfig().GlobalHeight)));\
-                                    }\
-                                }
-#define REMOVEOBJ(rate)         for (Object i = 0; i < currAddObj; ++i) {\
-                                    if (rand() % 100 >= (rate)) {\
-                                        EXPECT_TRUE(pController->RemoveObj(i));\
-                                    }\
-                                }
+#define MOVEOBJ(rate)           EXPECT_TRUE(pController->MoveSomeObj(rate));
 
-#define REMOVEWATCHER(rate)     for (Object i = 0; i < currAddWatcher; ++i) {\
-                                    if (rand() % 100 >= (rate)) {\
-                                        EXPECT_TRUE(pController->RemoveWatcher(i));\
-                                    }\
-                                }
+#define MOVEWATCHER(rate)       EXPECT_TRUE(pController->MoveSomeWatcher(rate));
+
+#define REMOVEOBJ(rate)         EXPECT_TRUE(pController->RemoveSomeObj(rate));
+
+#define REMOVEWATCHER(rate)     EXPECT_TRUE(pController->RemoveSomeWatcher(rate));
+
+#define SETVIEWRANGE(rate)     EXPECT_TRUE(pController->WatcherSetSomeViewRange(rate));
+
 TEST_F(CorrectClientTest, add) {
     using namespace TestClient;
     ADDOBJ(100)
@@ -354,6 +413,69 @@ TEST_F(CorrectClientTest, remove) {
     REMOVEWATCHER(50)
     ADDWATCHER(1000)
     ADDOBJ(1000)
+    REMOVEOBJ(30)
+    REMOVEWATCHER(30)
 
     ASSERT_TRUE(pController->CheckCorrect());
+}
+
+TEST_F(CorrectClientTest, ViewRangaChange) {
+    using namespace TestClient;
+    ADDOBJ(1000)
+    ADDWATCHER(1000)
+    SETVIEWRANGE(50)
+    ASSERT_TRUE(pController->CheckCorrect());
+}
+
+TEST_F(CorrectClientTest, mix) {
+    using namespace TestClient;
+    int action;
+
+    int loopSize = 50000;
+    uint32_t objGrowLimit = 10000 * 1000;
+    uint32_t watcherGrowLimit = 10000 * 10;
+    TimeGap timeGap;
+    for (int i = 0; i < loopSize; ++i) {
+        action = rand() % (CallBackDef::OBJ_MAX + CallBackDef::WATCHER_MAX);
+        switch (action) {
+            case CallBackDef::OBJ_ADD: {
+                ADDOBJ(10)
+                break;
+            }
+            case CallBackDef::OBJ_MOVED: {
+                MOVEOBJ(70)
+                break;
+            }
+            case CallBackDef::OBJ_REMOVE: {
+                if (pController->baseObjClients.size() > objGrowLimit) {
+                    REMOVEOBJ(55)
+                } else {
+                    REMOVEOBJ(30)
+                }
+                break;
+            }
+            case CallBackDef::OBJ_MAX + CallBackDef::WATCHER_ADD: {
+                ADDWATCHER(5)
+                break;
+            }
+            case CallBackDef::OBJ_MAX + CallBackDef::WATCHER_MOVE: {
+                MOVEWATCHER(70)
+                break;
+            }
+            case CallBackDef::OBJ_MAX + CallBackDef::WATCHER_REMOVE: {
+                if (pController->baseWatcherClients.size() > watcherGrowLimit) {
+                    REMOVEWATCHER(55)
+                } else {
+                    REMOVEWATCHER(30)
+                }
+                break;
+            }
+            case CallBackDef::OBJ_MAX + CallBackDef::WATCHER_VIEW_CHANGE: {
+                SETVIEWRANGE(20)
+                break;
+            }
+        }
+        ASSERT_TRUE(pController->CheckCorrect());
+    }
+//    INFO("use time :"<< timeGap.gap())
 }
