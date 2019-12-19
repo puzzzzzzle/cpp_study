@@ -1,5 +1,6 @@
-cmake_minimum_required(VERSION 3.14.3)
-project(cpp_study_all)
+cmake_minimum_required(VERSION 3.7)
+set(project_name cpp_study_all)
+project(${project_name})
 set(CMAKE_CXX_STANDRAD 17)
 
 ################################## 通用配置 ####################################
@@ -92,17 +93,24 @@ include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 message("conan get libs\t${CONAN_LIBS}\n")
 
+################################ nasm ################################################
+set(CMAKE_NASM_LINK_EXECUTABLE "ld <LINK_FLAGS> <OBJECTS> -o <TARGET> <LINK_LIBRARIES>")
+set(CAN_USE_ASSEMBLER TRUE)
+set(CMAKE_ASM_NASM_OBJECT_FORMAT elf64)
+
+enable_language(ASM_NASM)
+
 ################################## 遍历文件 begin ####################################
 
 
 set(auto_analisis_dir_list
-        templates
         stl_old
-        libgo_study
         cpp_language
-        boost_study
+        boost_stud
+        libgo_study
         libco_study
         aoi_study
+        nasm_study
         )
 foreach (auto_analisis_dir ${auto_analisis_dir_list})
     file(GLOB files RELATIVE ${PROJECT_SOURCE_DIR}/${auto_analisis_dir} CONFIGURE_DEPENDS ${PROJECT_SOURCE_DIR}/${auto_analisis_dir}/*)

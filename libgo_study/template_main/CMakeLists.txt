@@ -1,6 +1,6 @@
 
-aux_source_directory(./ ${build_temp}cpps)
-include_directories(./)
+aux_source_directory(. ${build_temp}cpps)
+include_directories(.)
 
 
 # 可执行文件
