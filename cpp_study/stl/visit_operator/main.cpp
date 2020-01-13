@@ -77,6 +77,31 @@ TEST(array, at_operator) {
   }
 }
 
+TEST(vector, at_operator) {
+  {
+    bool isBreak = false;
+    std::vector<int> testArray(1000);
+    for (const auto &i : testArray) {
+      if (i != 0) {
+        isBreak = true;
+        break;
+      }
+    }
+    EXPECT_FALSE(isBreak);
+    testArray[2001] = 5; // 越界
+    LOG_DEBUG(testArray.size())
+    // g++ STL 没有越界检查...
+    EXPECT_FALSE(testArray.size() == 2002);
+  }
+}
+
+TEST(overflow,array){
+  int arr[10]{};
+  arr[50]=10; // TODO ??? g++ 没有越界检查???
+  std::stringstream oss;
+  printArr(oss, sizeof(arr)/ sizeof(int),arr);
+  LOG_DEBUG(oss.str())
+}
 int main(int argc, char **argv) {
   int iRet = 0;
   iRet = beforeRun();
