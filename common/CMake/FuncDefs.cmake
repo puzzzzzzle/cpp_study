@@ -24,7 +24,7 @@ function(GetSubDirs Dir Result)
 endfunction()
 
 #set(auto_analisis_dir_list
-#        stl_old
+#        stl
 #        cpp_language
 #        boost_stud
 #        libgo_study
