@@ -14,9 +14,9 @@ enable_language(ASM_NASM)
 message("cmake build type : ${CMAKE_BUILD_TYPE}")
 set(CMAKE_CXX_FLAGS "-fPIC ${CMAKE_CXX_FLAGS}")
 if ("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
-    set(CMAKE_CXX_FLAGS "-Wall -O0  -g -ggdb -Warray-bounds=2 ${CMAKE_CXX_FLAGS}")
+    set(CMAKE_CXX_FLAGS "-Wall -O0  -g -ggdb ${CMAKE_CXX_FLAGS}")
 elseif ("${CMAKE_BUILD_TYPE}}" STREQUAL "Release")
-    set(CAKE_CXX_FLAGS "-O3 -Wall -Warray-bounds=2 ${CMAKE_CXX_FLAGS}")
+    set(CAKE_CXX_FLAGS "-O3 -Wall ${CMAKE_CXX_FLAGS}")
 else ()
     message("unknow type:${CMAKE_BUILD_TYPE}")
 endif ()
@@ -31,6 +31,8 @@ configure_file(
 file(COPY common/data DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/)
 # 头文件
 include_directories(${PROJECT_SOURCE_DIR}/common/common_include)
+include_directories(${PROJECT_SOURCE_DIR}/common/platform)
+
 include_directories(${PROJECT_BINARY_DIR}/convent)
 include_directories(${PROJECT_SOURCE_DIR}/common/third_party_include)
 # 通用cpp文件

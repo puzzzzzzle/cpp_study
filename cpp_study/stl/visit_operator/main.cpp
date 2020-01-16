@@ -97,7 +97,7 @@ TEST(vector, at_operator) {
 
 TEST(overflow,array){
   int arr[10]{};
-  arr[50]=10; // TODO ??? g++ 没有越界检查???
+  arr[15]=10; // g++ 没有越界检查...
   std::stringstream oss;
   printArr(oss, sizeof(arr)/ sizeof(int),arr);
   LOG_DEBUG(oss.str())
