@@ -14,9 +14,7 @@ private:
     const int val3;
 
 public:
-    temp_handle(int &_val1, int &_val2, int _val3) : val2(_val2), val3(_val3) {
-        val1 = std::move(_val1);
-    }
+    temp_handle(int &_val1, int &_val2, int _val3) : val2(_val2), val3(_val3) { val1 = std::move(_val1); }
 };
 
 void ref_test_main() {

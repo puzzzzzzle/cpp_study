@@ -9,9 +9,7 @@
 
 using namespace std;
 
-TEST(test_test, 1) {
-    EXPECT_EQ(1, 1);
-}
+TEST(test_test, 1) { EXPECT_EQ(1, 1); }
 // A helper function to simplify the main part.
 // template<class T>
 // ostream& operator<<(ostream& os, const vector<T>& v)

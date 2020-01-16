@@ -8,57 +8,55 @@ public:
     NonCopyable()                               = default;  // Available
 };
 
-#define HAS_MEMBER(member) \
-\
-    template<typename T, typename... Args> \
-    struct has_member_##member { \
-    private: \
-        template<typename U> \
-        static auto Check(int) -> decltype(std::declval<U>().member(std::declval<Args>()...), std::true_type()); \
-\
-        template<typename U> \
-        static std::false_type Check(...); \
-\
-    public: \
-        enum { value = std::is_same<decltype(Check<T>(0)), std::true_type>::value }; \
+#define HAS_MEMBER(member)                                                                                                                                                                             \
+                                                                                                                                                                                                       \
+    template <typename T, typename... Args>                                                                                                                                                            \
+    struct has_member_##member {                                                                                                                                                                       \
+    private:                                                                                                                                                                                           \
+        template <typename U>                                                                                                                                                                          \
+        static auto Check(int) -> decltype(std::declval<U>().member(std::declval<Args>()...), std::true_type());                                                                                       \
+                                                                                                                                                                                                       \
+        template <typename U>                                                                                                                                                                          \
+        static std::false_type Check(...);                                                                                                                                                             \
+                                                                                                                                                                                                       \
+    public:                                                                                                                                                                                            \
+        enum { value = std::is_same<decltype(Check<T>(0)), std::true_type>::value };                                                                                                                   \
     }
 
 HAS_MEMBER(Before);  // Add Before aspect
 HAS_MEMBER(After);   // Add After aspect
 
-template<typename Ret, typename Func, typename... Args>
+template <typename Ret, typename Func, typename... Args>
 struct Aspect : NonCopyable {
     Aspect(Func &&f) : m_func(std::forward<Func>(f)) {}
 
-    template<typename T>
+    template <typename T>
     typename std::enable_if<has_member_Before<T, Args...>::value && has_member_After<T, Args...>::value>::type Invoke(Args &&... args, T &&aspect) {
         aspect.Before(std::forward<Args>(args)...);   // Run codes before core codes
         m_ret = m_func(std::forward<Args>(args)...);  // Run core codes
         aspect.After(std::forward<Args>(args)...);    // Run codes after core codes
     }
 
-    template<typename T>
+    template <typename T>
     typename std::enable_if<has_member_Before<T, Args...>::value && !has_member_After<T, Args...>::value>::type Invoke(Args &&... args, T &&aspect) {
         aspect.Before(std::forward<Args>(args)...);   // Run codes before core codes
         m_ret = m_func(std::forward<Args>(args)...);  // Run core codes
     }
 
-    template<typename T>
+    template <typename T>
     typename std::enable_if<!has_member_Before<T, Args...>::value && has_member_After<T, Args...>::value>::type Invoke(Args &&... args, T &&aspect) {
         m_ret = m_func(std::forward<Args>(args)...);  // Run core codes
         aspect.After(std::forward<Args>(args)...);    // Run codes after core codes
     }
 
-    template<typename Head, typename... Tail>
+    template <typename Head, typename... Tail>
     void Invoke(Args &&... args, Head &&headAspect, Tail &&... tailAspect) {
         headAspect.Before(std::forward<Args>(args)...);
         Invoke(std::forward<Args>(args)..., std::forward<Tail>(tailAspect)...);
         headAspect.After(std::forward<Args>(args)...);
     }
 
-    Ret GetReturn() {
-        return m_ret;
-    }
+    Ret GetReturn() { return m_ret; }
 
 private:
     Func m_func;  // Function that be invoked
@@ -68,7 +66,7 @@ private:
 //    template<typename T> using identity_t = T;
 
 // AOP function, for export
-template<typename Ret, typename... AP, typename... Args, typename Func>
+template <typename Ret, typename... AP, typename... Args, typename Func>
 Ret AOP(Func &&f, Args &&... args) {
     Aspect<Ret, Func, Args...> asp(std::forward<Func>(f));
     asp.Invoke(std::forward<Args>(args)..., AP()...);

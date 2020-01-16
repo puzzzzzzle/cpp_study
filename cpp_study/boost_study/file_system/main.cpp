@@ -3,9 +3,7 @@
 //
 #include "common_includes.h"
 
-TEST(test_test, 1) {
-    EXPECT_EQ(1, 1);
-}
+TEST(test_test, 1) { EXPECT_EQ(1, 1); }
 
 int main(int argc, char **argv) {
     int iRet = 0;

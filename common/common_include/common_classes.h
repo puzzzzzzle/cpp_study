@@ -12,12 +12,8 @@
     std::mutex *mlock;
 
 public:
-    LockGround(std::mutex *_lock) : mlock(_lock) {
-        mlock->lock();
-    }
+    LockGround(std::mutex *_lock) : mlock(_lock) { mlock->lock(); }
 
-    ~LockGround() {
-        mlock->unlock();
-    }
+    ~LockGround() { mlock->unlock(); }
 };
 #endif  // PERSONAL_FILE_PROTECTOR_COMMON_CLASSES_H

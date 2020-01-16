@@ -17,7 +17,7 @@ using namespace std;
 
 enum enclosure_status { NODE_NOT_IN_REGION, NODE_PARTIALLY_IN_REGION, NODE_CONTAINED_BY_REGION };
 
-template<typename T>
+template <typename T>
 class QuadTree {
 public:
     QuadTree<T>(vertex center, vertex range, unsigned bucketSize = 1, unsigned depth = 16);

@@ -7,9 +7,7 @@
 
 #include "boost_log_init.h"
 
-TEST(test_test, 1) {
-    EXPECT_EQ(1, 1);
-}
+TEST(test_test, 1) { EXPECT_EQ(1, 1); }
 void test_mem(int arr[10][20]) {
     INFO("size of  int arr from child scope  :" << sizeof(arr));
     INFO("size of  int arr[5] from child scope  :" << sizeof(arr[5]));

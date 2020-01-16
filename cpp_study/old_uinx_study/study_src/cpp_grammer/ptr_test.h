@@ -14,8 +14,6 @@ void ptr_test() {
     func1(0, const_cast<char *>("sss"));
 }
 
-void ptr_func1(int argc, char *argv) {
-    printf("ptrfunc1\n");
-}
+void ptr_func1(int argc, char *argv) { printf("ptrfunc1\n"); }
 
 #endif  // UNIXSTUDYCPP_PTR_TEST_H

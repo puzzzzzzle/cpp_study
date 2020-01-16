@@ -9,9 +9,7 @@
 
 #include "log_init.hpp"
 #include "log_macro.h"
-static void on_exit() {
-    puts("\nexit!\n\n");
-}
+static void on_exit() { puts("\nexit!\n\n"); }
 
 //#define SAY_HELLO
 static void init() {

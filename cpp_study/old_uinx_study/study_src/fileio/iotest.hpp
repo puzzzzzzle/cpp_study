@@ -31,7 +31,5 @@ void iotest() {
     printf("%s\n", smallBuff);
 }
 
-void iotest_main() {
-    iotest();
-}
+void iotest_main() { iotest(); }
 #endif  // UNIXSTUDY_IOTEST_H

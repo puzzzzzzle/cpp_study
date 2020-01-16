@@ -15,7 +15,7 @@ using namespace std;
 // extern 用于使用在其他文件中申明的具有程序作用域的变量而不用include它们
 extern int ArrSize_in;
 extern int ArrSize_out;
-template<typename T>
+template <typename T>
 void MySwap(T &a, T &b) {
     T temp = a;
     a      = b;

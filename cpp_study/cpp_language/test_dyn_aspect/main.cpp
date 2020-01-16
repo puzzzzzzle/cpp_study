@@ -27,22 +27,16 @@ struct TimeElapsedAspect {
         //        m_lastTime = m_t.elapsed();
     }
 
-    void After(...) {
-        cout << "time elapsed: " << m_t.gap() << endl;
-    }
+    void After(...) { cout << "time elapsed: " << m_t.gap() << endl; }
 
 private:
     TimeGap m_t;
 };
 
 struct LoggingAspect {
-    void Before(...) {
-        std::cout << "entering" << std::endl;
-    }
+    void Before(...) { std::cout << "entering" << std::endl; }
 
-    void After(...) {
-        std::cout << "leaving" << std::endl;
-    }
+    void After(...) { std::cout << "leaving" << std::endl; }
 };
 double Demo1(int i) {
     cout << "Demo1 run, input int value is " << i << "." << endl;
@@ -62,9 +56,7 @@ int Demo3() {
     return -1;
 }
 
-void Demo4() {
-    cout << "Demo4 run, without input." << endl;
-}
+void Demo4() { cout << "Demo4 run, without input." << endl; }
 TEST(AOP, test1) {
     cout << "AOP called : Demo1 : " << endl;
     cout << "Ret: " << (AOP<decltype(Demo1(0)), AspectDemo, TimeElapsedAspect, LoggingAspect>(Demo1, 12)) << endl;

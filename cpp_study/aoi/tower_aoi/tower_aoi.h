@@ -21,7 +21,7 @@ namespace TowerAoiImpl {
  * 灯塔配置
  * @tparam NumberT 坐标数值类型，全局保持统一
  */
-template<typename NumberT>
+template <typename NumberT>
 struct TowerConfigT {
     typedef NumberT Number;
 
@@ -35,7 +35,7 @@ struct TowerConfigT {
  * 点
  * @tparam NumberT
  */
-template<typename NumberT>
+template <typename NumberT>
 struct PointT {
     typedef NumberT Number;
 
@@ -62,9 +62,7 @@ struct PointT {
         return *this;
     }
 
-    friend bool operator==(const PointT &lhs, const PointT &rhs) {
-        return lhs.x == rhs.x && lhs.y == rhs.y;
-    }
+    friend bool operator==(const PointT &lhs, const PointT &rhs) { return lhs.x == rhs.x && lhs.y == rhs.y; }
 
     friend bool operator<(const PointT &lhs, const PointT &rhs) {
         if (lhs.x < rhs.x) {
@@ -81,7 +79,7 @@ struct PointT {
  * 区域
  * @tparam NumberT
  */
-template<typename NumberT>
+template <typename NumberT>
 struct RegionT {
     typedef NumberT Number;
     PointT<Number>  start{};
@@ -100,7 +98,7 @@ struct RegionT {
  * 观察者需要额外的信息
  * @tparam NumberT
  */
-template<typename PayloadT>
+template <typename PayloadT>
 struct WatcherT {
     PayloadT obj;
     int      viewRange{};
@@ -126,13 +124,9 @@ struct WatcherT {
     }
 
 public:
-    friend bool operator==(const WatcherT &lhs, const WatcherT &rhs) {
-        return lhs.obj == rhs.obj;
-    }
+    friend bool operator==(const WatcherT &lhs, const WatcherT &rhs) { return lhs.obj == rhs.obj; }
 
-    friend bool operator<(const WatcherT &lhs, const WatcherT &rhs) {
-        return lhs.obj < rhs.obj;
-    }
+    friend bool operator<(const WatcherT &lhs, const WatcherT &rhs) { return lhs.obj < rhs.obj; }
 };
 
 /**
@@ -140,7 +134,7 @@ public:
  * @tparam NumberT
  * @tparam PayloadT 载荷，自己定义的结构体必须重载 < 和 ==
  */
-template<typename NumberT, typename PayloadT>
+template <typename NumberT, typename PayloadT>
 class TowerT {
 public:
     typedef NumberT Number;
@@ -176,21 +170,13 @@ public:
     ~TowerT() {}
 
 public:
-    uint32_t GetId() {
-        return m_id;
-    }
+    uint32_t GetId() { return m_id; }
 
-    TypeObjectMap &GetObjs() {
-        return m_objs;
-    }
+    TypeObjectMap &GetObjs() { return m_objs; }
 
-    WatcherTypeObjectMap &GetWatchers() {
-        return m_watcherObjs;
-    }
+    WatcherTypeObjectMap &GetWatchers() { return m_watcherObjs; }
 
-    TowerIndex GetPos() {
-        return m_pos;
-    }
+    TowerIndex GetPos() { return m_pos; }
 
 public:
     bool Add(const Object &obj, const Point &pos, ObjectType type) {
@@ -198,18 +184,14 @@ public:
         return true;
     }
 
-    bool Remove(const Object &obj, ObjectType type) {
-        return m_objs[type].erase(obj) == 1;
-    }
+    bool Remove(const Object &obj, ObjectType type) { return m_objs[type].erase(obj) == 1; }
 
     bool AddWatcher(const Watcher &watcher, const Point &pos, ObjectType type) {
         m_watcherObjs[type][watcher] = pos;
         return true;
     }
 
-    bool RemoveWatcher(const Watcher &watcher, ObjectType type) {
-        return m_watcherObjs[type].erase(watcher) == 1;
-    }
+    bool RemoveWatcher(const Watcher &watcher, ObjectType type) { return m_watcherObjs[type].erase(watcher) == 1; }
 
 public:
     bool ToString(std::ostream &os) {
@@ -241,7 +223,7 @@ public:
  * @tparam NumberT 坐标数值类型
  * @tparam PayloadT 负载类型
  */
-template<typename NumberT, typename PayloadT>
+template <typename NumberT, typename PayloadT>
 class TowerAoiT {
 public:
     typedef NumberT Number;
@@ -312,14 +294,10 @@ public:
         }
     }
 
-    const TowerConfig &GetConfig() {
-        return config;
-    }
+    const TowerConfig &GetConfig() { return config; }
 
 private:
-    void SetConfig(const TowerConfig &_config) {
-        config = _config;
-    }
+    void SetConfig(const TowerConfig &_config) { config = _config; }
 
 public:
     TowerAoiT() = delete;
@@ -396,8 +374,7 @@ public:
         TowerIndex newTowerIndex = TranslateTowerIndex(newPos);
         if (oldTowerIndex.x == newTowerIndex.x && oldTowerIndex.y == newTowerIndex.y) {
             m_towers[oldTowerIndex.x][oldTowerIndex.y]->GetObjs()[type][obj] = newPos;
-            if (objectCallBacks[CallBackDef::OBJ_MOVED])
-                objectCallBacks[CallBackDef::OBJ_MOVED](obj, type, newPos, m_towers[oldTowerIndex.x][oldTowerIndex.y]->GetWatchers(), emptyWatcher, false);
+            if (objectCallBacks[CallBackDef::OBJ_MOVED]) objectCallBacks[CallBackDef::OBJ_MOVED](obj, type, newPos, m_towers[oldTowerIndex.x][oldTowerIndex.y]->GetWatchers(), emptyWatcher, false);
         } else {
             if (!m_towers[oldTowerIndex.x][oldTowerIndex.y]->Remove(obj, type)) {
                 return false;
@@ -636,13 +613,9 @@ public:
         return region;
     }
 
-    inline bool CheckPos(const Point &pos) const {
-        return !(pos.x < 0 || pos.y < 0 || pos.x >= config.GlobalWith || pos.y >= config.GlobalHeight);
-    }
+    inline bool CheckPos(const Point &pos) const { return !(pos.x < 0 || pos.y < 0 || pos.x >= config.GlobalWith || pos.y >= config.GlobalHeight); }
 
-    inline TowerIndex TranslateTowerIndex(const Point &pos) const {
-        return TowerIndex((int)(pos.x / config.TowerWith), (int)(pos.y / config.TowerHeight));
-    }
+    inline TowerIndex TranslateTowerIndex(const Point &pos) const { return TowerIndex((int)(pos.x / config.TowerWith), (int)(pos.y / config.TowerHeight)); }
 
 private:
     inline TowerIndex GetObjectTowerIndex(const Object &obj, ObjectType type, bool IsObject) {
@@ -670,26 +643,26 @@ public:
 };
 }  // namespace TowerAoiImpl
 
-#define TOWER_DEFINE(number, payload) \
-    typedef TowerAoiImpl::TowerAoiT<number, payload> TowerAoi; \
-    typedef TowerAoi::Number                         Number; \
-    typedef TowerAoi::TowerConfig                    TowerConfig; \
-    typedef TowerAoi::Tower                          Tower; \
-    typedef TowerAoi::Point                          Point; \
-    typedef TowerAoi::Object                         Object; \
-    typedef TowerAoi::ObjectType                     ObjectType; \
-    typedef TowerAoi::PositionMap                    PositionMap; \
-    typedef TowerAoi::TypeObjectMap                  TypeObjectMap; \
-    typedef TowerAoi::Watcher                        Watcher; \
-    typedef TowerAoi::WatcherPositionMap             WatcherPositionMap; \
-    typedef TowerAoi::WatcherTypeObjectMap           WatcherTypeObjectMap; \
-    typedef TowerAoi::Region                         Region; \
-    typedef TowerAoi::TowerIndex                     TowerIndex; \
-    typedef TowerAoi::TowerIndexRegion               TowerIndexRegion; \
-    typedef TowerAoi::ObjCallBackT                   ObjCallBack; \
-    typedef TowerAoi::WatcherCallBackT               WatcherCallBack; \
-    typedef TowerAoi::CallBackDef                    CallBackDef; \
-    typedef TowerAoi::ObjectTowerIndexMap            ObjectTowerIndexMap; \
+#define TOWER_DEFINE(number, payload)                                                                                                                                                                  \
+    typedef TowerAoiImpl::TowerAoiT<number, payload> TowerAoi;                                                                                                                                         \
+    typedef TowerAoi::Number                         Number;                                                                                                                                           \
+    typedef TowerAoi::TowerConfig                    TowerConfig;                                                                                                                                      \
+    typedef TowerAoi::Tower                          Tower;                                                                                                                                            \
+    typedef TowerAoi::Point                          Point;                                                                                                                                            \
+    typedef TowerAoi::Object                         Object;                                                                                                                                           \
+    typedef TowerAoi::ObjectType                     ObjectType;                                                                                                                                       \
+    typedef TowerAoi::PositionMap                    PositionMap;                                                                                                                                      \
+    typedef TowerAoi::TypeObjectMap                  TypeObjectMap;                                                                                                                                    \
+    typedef TowerAoi::Watcher                        Watcher;                                                                                                                                          \
+    typedef TowerAoi::WatcherPositionMap             WatcherPositionMap;                                                                                                                               \
+    typedef TowerAoi::WatcherTypeObjectMap           WatcherTypeObjectMap;                                                                                                                             \
+    typedef TowerAoi::Region                         Region;                                                                                                                                           \
+    typedef TowerAoi::TowerIndex                     TowerIndex;                                                                                                                                       \
+    typedef TowerAoi::TowerIndexRegion               TowerIndexRegion;                                                                                                                                 \
+    typedef TowerAoi::ObjCallBackT                   ObjCallBack;                                                                                                                                      \
+    typedef TowerAoi::WatcherCallBackT               WatcherCallBack;                                                                                                                                  \
+    typedef TowerAoi::CallBackDef                    CallBackDef;                                                                                                                                      \
+    typedef TowerAoi::ObjectTowerIndexMap            ObjectTowerIndexMap;                                                                                                                              \
     typedef TowerAoi::TypeObjectTowerIndexMap        TypeObjectTowerIndexMap;
 
 #endif  // CPP_STUDY_ALL_TOWER_AOI_H

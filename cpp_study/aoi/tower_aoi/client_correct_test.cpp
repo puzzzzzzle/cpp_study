@@ -341,14 +341,14 @@ protected:
     TestClient::TowerAoi *pTowerAoi;
 };
 
-#define ADDOBJ(num) \
-    for (Object i = 0; i < (num); ++i) { \
-        EXPECT_TRUE(pController->AddObj(currAddObj++, Point(rand() % pTowerAoi->GetConfig().GlobalWith, rand() % pTowerAoi->GetConfig().GlobalHeight), rand() % MAX_TYPE)); \
+#define ADDOBJ(num)                                                                                                                                                                                    \
+    for (Object i = 0; i < (num); ++i) {                                                                                                                                                               \
+        EXPECT_TRUE(pController->AddObj(currAddObj++, Point(rand() % pTowerAoi->GetConfig().GlobalWith, rand() % pTowerAoi->GetConfig().GlobalHeight), rand() % MAX_TYPE));                            \
     }
-#define ADDWATCHER(num) \
-    for (Object i = 0; i < (num); ++i) { \
-        EXPECT_TRUE(pController->AddWatcher( \
-            Watcher(currAddWatcher++, (rand() % MAX_VIEW_RANGE) + 1), Point(rand() % pTowerAoi->GetConfig().GlobalWith, rand() % pTowerAoi->GetConfig().GlobalHeight), rand() % MAX_TYPE)); \
+#define ADDWATCHER(num)                                                                                                                                                                                \
+    for (Object i = 0; i < (num); ++i) {                                                                                                                                                               \
+        EXPECT_TRUE(pController->AddWatcher(                                                                                                                                                           \
+            Watcher(currAddWatcher++, (rand() % MAX_VIEW_RANGE) + 1), Point(rand() % pTowerAoi->GetConfig().GlobalWith, rand() % pTowerAoi->GetConfig().GlobalHeight), rand() % MAX_TYPE));            \
     }
 #define MOVEOBJ(rate) EXPECT_TRUE(pController->MoveSomeObj(rate));
 

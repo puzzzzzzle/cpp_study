@@ -103,8 +103,6 @@ static int test_01() {
     return 0;
 }
 
-void test_redis_conn() {
-    test_01();
-}
+void test_redis_conn() { test_01(); }
 
 #endif  // UNIXSTUDYCPP_REDIS_CONN_HPP

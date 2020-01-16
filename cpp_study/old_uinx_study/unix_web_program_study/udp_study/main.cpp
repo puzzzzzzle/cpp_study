@@ -10,9 +10,7 @@
 #include "udp_cli.h"
 #include "udp_svr.h"
 
-TEST(test_test, 1) {
-    EXPECT_EQ(1, 1);
-}
+TEST(test_test, 1) { EXPECT_EQ(1, 1); }
 
 TEST(send_test, hello) {
     const char *hello      = "hello";

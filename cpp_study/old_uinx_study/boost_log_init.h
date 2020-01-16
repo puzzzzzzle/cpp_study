@@ -28,8 +28,8 @@ extern src::severity_channel_logger<severity_level, std::string> logger2;
 #define WARNING(msg) BOOST_LOG_SEV(logger1, warning) << msg << "]   [" << __FILE__ << ":" << __LINE__ << "    " << __PRETTY_FUNCTION__;
 #define ERROR(msg) BOOST_LOG_SEV(logger1, error) << msg << "]   [" << __FILE__ << ":" << __LINE__ << "    " << __PRETTY_FUNCTION__;
 //只是一个参考，调用errno检查错误
-#define PERROR(msg) \
-    BOOST_LOG_SEV(logger1, error) << msg << "]   [" \
+#define PERROR(msg)                                                                                                                                                                                    \
+    BOOST_LOG_SEV(logger1, error) << msg << "]   ["                                                                                                                                                    \
                                   << " reason maybe  :  " << strerror(errno) << "   " << __FILE__ << ":" << __LINE__ << "    " << __PRETTY_FUNCTION__;
 #define FATAL(msg) BOOST_LOG_SEV(logger1, fatal) << msg << "]   [" << __FILE__ << ":" << __LINE__ << "    " << __PRETTY_FUNCTION__;
 

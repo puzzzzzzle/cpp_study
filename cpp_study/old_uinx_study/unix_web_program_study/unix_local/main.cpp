@@ -8,9 +8,7 @@
 
 #include "boost_log_init.h"
 
-TEST(test_test, 1) {
-    EXPECT_EQ(1, 1);
-}
+TEST(test_test, 1) { EXPECT_EQ(1, 1); }
 
 int test_unix_local(const char *str, char buff_recv[], size_t buff_len) {
     int    fds[2];

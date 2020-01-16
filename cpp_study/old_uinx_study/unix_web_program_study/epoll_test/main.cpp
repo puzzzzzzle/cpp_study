@@ -12,9 +12,7 @@
 #define HOST "127.0.0.1"
 #define PORT 9015
 
-TEST(test_test, 1) {
-    EXPECT_EQ(1, 1);
-}
+TEST(test_test, 1) { EXPECT_EQ(1, 1); }
 
 int main(int argc, char **argv) {
     int result = 0;

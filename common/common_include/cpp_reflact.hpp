@@ -30,13 +30,9 @@ public:
             return iter->second();
     }
 
-    bool registClass(string name, PTRCreateObject method) {
-        return m_ClassMap.insert(pair<string, PTRCreateObject>(name, method)).second;
-    }
+    bool registClass(string name, PTRCreateObject method) { return m_ClassMap.insert(pair<string, PTRCreateObject>(name, method)).second; }
 
-    void *operator[](string className) {
-        return getClassByName(className);
-    }
+    void *operator[](string className) { return getClassByName(className); }
 
     static CppObjectFactory &getInstance() {
         static CppObjectFactory sLo_factory;
@@ -46,48 +42,36 @@ public:
 
 class RegisterAction {
 public:
-    static bool RegisterFun(string className, PTRCreateObject ptrCreateFn) {
-        return CppObjectFactory::getInstance().registClass(className, ptrCreateFn);
-    }
+    static bool RegisterFun(string className, PTRCreateObject ptrCreateFn) { return CppObjectFactory::getInstance().registClass(className, ptrCreateFn); }
 };
 
-#define Setter(varType, varName) \
-public: \
-    inline void set_##varName##_ptr(const void *value) { \
-        varName = *(varType *)value; \
-    } \
-\
-public: \
-    inline void set_##varName(const varType &value) { \
-        varName = value; \
-    }
+#define Setter(varType, varName)                                                                                                                                                                       \
+public:                                                                                                                                                                                                \
+    inline void set_##varName##_ptr(const void *value) { varName = *(varType *)value; }                                                                                                                \
+                                                                                                                                                                                                       \
+public:                                                                                                                                                                                                \
+    inline void set_##varName(const varType &value) { varName = value; }
 
-#define Getter(varType, varName) \
-public: \
-    inline void *get_##varName##_ptr(void) const { \
-        return (void *)&varName; \
-    } \
-\
-public: \
-    inline varType get_##varName() { \
-        return varName; \
-    }
+#define Getter(varType, varName)                                                                                                                                                                       \
+public:                                                                                                                                                                                                \
+    inline void *get_##varName##_ptr(void) const { return (void *)&varName; }                                                                                                                          \
+                                                                                                                                                                                                       \
+public:                                                                                                                                                                                                \
+    inline varType get_##varName() { return varName; }
 
-#define var(varType, varName) \
-private: \
-    varType varName; \
+#define var(varType, varName)                                                                                                                                                                          \
+private:                                                                                                                                                                                               \
+    varType varName;                                                                                                                                                                                   \
     Getter(varType, varName) Setter(varType, varName)
 
-#define varc(varType, varName, constructor) \
-private: \
-    varType varName constructor; \
+#define varc(varType, varName, constructor)                                                                                                                                                            \
+private:                                                                                                                                                                                               \
+    varType varName constructor;                                                                                                                                                                       \
     Getter(varType, varName) Setter(varType, varName)
 
-#define REGISTER(className) \
-    static className *objectCreator##className() { \
-        return new className; \
-    } \
-    bool objectCreator##className##Stat = RegisterAction::RegisterFun(#className, (PTRCreateObject)objectCreator##className)
+#define REGISTER(className)                                                                                                                                                                            \
+    static className *objectCreator##className() { return new className; }                                                                                                                             \
+    bool              objectCreator##className##Stat = RegisterAction::RegisterFun(#className, (PTRCreateObject)objectCreator##className)
 #define REFLACT(className) (className *)CppObjectFactory::getInstance()[#className]
 
 #endif  // CPPREFLACT_CPPOBJECT_HPP

@@ -6,9 +6,7 @@
 
 #include "common_includes.h"
 
-TEST(test_test, 1) {
-    EXPECT_EQ(1, 1);
-}
+TEST(test_test, 1) { EXPECT_EQ(1, 1); }
 TEST(map, at_operator) {
     std::map<int, int> testMap{};
     // begin cbegin 是同一个值,只是房屋权限不同

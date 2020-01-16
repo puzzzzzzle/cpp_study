@@ -12,9 +12,7 @@ private:
     int mi_val;
 
 public:
-    init_test() {
-        TRACE("called default constructor");
-    }
+    init_test() { TRACE("called default constructor"); }
     // val 的方式，会拷贝一次数据
     //    init_test(int _val) {
     //        TRACE("int _val init!");

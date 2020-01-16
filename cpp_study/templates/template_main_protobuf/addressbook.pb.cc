@@ -222,13 +222,9 @@ Person_PhoneNumber::~Person_PhoneNumber() {
     SharedDtor();
 }
 
-void Person_PhoneNumber::SharedDtor() {
-    number_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
+void Person_PhoneNumber::SharedDtor() { number_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited()); }
 
-void Person_PhoneNumber::SetCachedSize(int size) const {
-    _cached_size_.Set(size);
-}
+void                      Person_PhoneNumber::SetCachedSize(int size) const { _cached_size_.Set(size); }
 const Person_PhoneNumber& Person_PhoneNumber::default_instance() {
     ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_Person_PhoneNumber_addressbook_2eproto.base);
     return *internal_default_instance();
@@ -247,9 +243,8 @@ void Person_PhoneNumber::Clear() {
 
 #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 const char* Person_PhoneNumber::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) \
-    if (PROTOBUF_PREDICT_FALSE(!(x))) \
-    goto failure
+#define CHK_(x)                                                                                                                                                                                        \
+    if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
     while (!ctx->Done(&ptr)) {
         ::PROTOBUF_NAMESPACE_ID::uint32 tag;
         ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
@@ -293,16 +288,14 @@ failure:
 }
 #else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 bool Person_PhoneNumber::MergePartialFromCodedStream(::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) \
-    if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) \
-    goto failure
+#define DO_(EXPRESSION)                                                                                                                                                                                \
+    if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     // @@protoc_insertion_point(parse_start:tutorial.Person.PhoneNumber)
     for (;;) {
         ::std::pair<::PROTOBUF_NAMESPACE_ID::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
         tag                                                  = p.first;
-        if (!p.second)
-            goto handle_unusual;
+        if (!p.second) goto handle_unusual;
         switch (::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::GetTagFieldNumber(tag)) {
             // string number = 1;
             case 1: {
@@ -451,23 +444,19 @@ void Person_PhoneNumber::MergeFrom(const Person_PhoneNumber& from) {
 
 void Person_PhoneNumber::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
     // @@protoc_insertion_point(generalized_copy_from_start:tutorial.Person.PhoneNumber)
-    if (&from == this)
-        return;
+    if (&from == this) return;
     Clear();
     MergeFrom(from);
 }
 
 void Person_PhoneNumber::CopyFrom(const Person_PhoneNumber& from) {
     // @@protoc_insertion_point(class_specific_copy_from_start:tutorial.Person.PhoneNumber)
-    if (&from == this)
-        return;
+    if (&from == this) return;
     Clear();
     MergeFrom(from);
 }
 
-bool Person_PhoneNumber::IsInitialized() const {
-    return true;
-}
+bool Person_PhoneNumber::IsInitialized() const { return true; }
 
 void Person_PhoneNumber::InternalSwap(Person_PhoneNumber* other) {
     using std::swap;
@@ -476,9 +465,7 @@ void Person_PhoneNumber::InternalSwap(Person_PhoneNumber* other) {
     swap(type_, other->type_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata Person_PhoneNumber::GetMetadata() const {
-    return GetMetadataStatic();
-}
+::PROTOBUF_NAMESPACE_ID::Metadata Person_PhoneNumber::GetMetadata() const { return GetMetadataStatic(); }
 
 // ===================================================================
 
@@ -490,10 +477,8 @@ public:
     static const PROTOBUF_NAMESPACE_ID::Timestamp& last_updated(const Person* msg);
 };
 
-const PROTOBUF_NAMESPACE_ID::Timestamp& Person::_Internal::last_updated(const Person* msg) {
-    return *msg->last_updated_;
-}
-void Person::clear_last_updated() {
+const PROTOBUF_NAMESPACE_ID::Timestamp& Person::_Internal::last_updated(const Person* msg) { return *msg->last_updated_; }
+void                                    Person::clear_last_updated() {
     if (GetArenaNoVirtual() == nullptr && last_updated_ != nullptr) {
         delete last_updated_;
     }
@@ -537,13 +522,10 @@ Person::~Person() {
 void Person::SharedDtor() {
     name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
     email_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-    if (this != internal_default_instance())
-        delete last_updated_;
+    if (this != internal_default_instance()) delete last_updated_;
 }
 
-void Person::SetCachedSize(int size) const {
-    _cached_size_.Set(size);
-}
+void          Person::SetCachedSize(int size) const { _cached_size_.Set(size); }
 const Person& Person::default_instance() {
     ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_Person_addressbook_2eproto.base);
     return *internal_default_instance();
@@ -568,9 +550,8 @@ void Person::Clear() {
 
 #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 const char* Person::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) \
-    if (PROTOBUF_PREDICT_FALSE(!(x))) \
-    goto failure
+#define CHK_(x)                                                                                                                                                                                        \
+    if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
     while (!ctx->Done(&ptr)) {
         ::PROTOBUF_NAMESPACE_ID::uint32 tag;
         ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
@@ -608,8 +589,7 @@ const char* Person::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::int
                         ptr += 1;
                         ptr = ctx->ParseMessage(add_phones(), ptr);
                         CHK_(ptr);
-                        if (!ctx->DataAvailable(ptr))
-                            break;
+                        if (!ctx->DataAvailable(ptr)) break;
                     } while (::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<::PROTOBUF_NAMESPACE_ID::uint8>(ptr) == 34);
                 } else
                     goto handle_unusual;
@@ -643,16 +623,14 @@ failure:
 }
 #else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 bool Person::MergePartialFromCodedStream(::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) \
-    if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) \
-    goto failure
+#define DO_(EXPRESSION)                                                                                                                                                                                \
+    if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     // @@protoc_insertion_point(parse_start:tutorial.Person)
     for (;;) {
         ::std::pair<::PROTOBUF_NAMESPACE_ID::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
         tag                                                  = p.first;
-        if (!p.second)
-            goto handle_unusual;
+        if (!p.second) goto handle_unusual;
         switch (::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::GetTagFieldNumber(tag)) {
             // string name = 1;
             case 1: {
@@ -891,23 +869,19 @@ void Person::MergeFrom(const Person& from) {
 
 void Person::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
     // @@protoc_insertion_point(generalized_copy_from_start:tutorial.Person)
-    if (&from == this)
-        return;
+    if (&from == this) return;
     Clear();
     MergeFrom(from);
 }
 
 void Person::CopyFrom(const Person& from) {
     // @@protoc_insertion_point(class_specific_copy_from_start:tutorial.Person)
-    if (&from == this)
-        return;
+    if (&from == this) return;
     Clear();
     MergeFrom(from);
 }
 
-bool Person::IsInitialized() const {
-    return true;
-}
+bool Person::IsInitialized() const { return true; }
 
 void Person::InternalSwap(Person* other) {
     using std::swap;
@@ -919,9 +893,7 @@ void Person::InternalSwap(Person* other) {
     swap(id_, other->id_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata Person::GetMetadata() const {
-    return GetMetadataStatic();
-}
+::PROTOBUF_NAMESPACE_ID::Metadata Person::GetMetadata() const { return GetMetadataStatic(); }
 
 // ===================================================================
 
@@ -939,9 +911,7 @@ AddressBook::AddressBook(const AddressBook& from) : ::PROTOBUF_NAMESPACE_ID::Mes
     // @@protoc_insertion_point(copy_constructor:tutorial.AddressBook)
 }
 
-void AddressBook::SharedCtor() {
-    ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_AddressBook_addressbook_2eproto.base);
-}
+void AddressBook::SharedCtor() { ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_AddressBook_addressbook_2eproto.base); }
 
 AddressBook::~AddressBook() {
     // @@protoc_insertion_point(destructor:tutorial.AddressBook)
@@ -950,9 +920,7 @@ AddressBook::~AddressBook() {
 
 void AddressBook::SharedDtor() {}
 
-void AddressBook::SetCachedSize(int size) const {
-    _cached_size_.Set(size);
-}
+void               AddressBook::SetCachedSize(int size) const { _cached_size_.Set(size); }
 const AddressBook& AddressBook::default_instance() {
     ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_AddressBook_addressbook_2eproto.base);
     return *internal_default_instance();
@@ -970,9 +938,8 @@ void AddressBook::Clear() {
 
 #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 const char* AddressBook::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) \
-    if (PROTOBUF_PREDICT_FALSE(!(x))) \
-    goto failure
+#define CHK_(x)                                                                                                                                                                                        \
+    if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
     while (!ctx->Done(&ptr)) {
         ::PROTOBUF_NAMESPACE_ID::uint32 tag;
         ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
@@ -986,8 +953,7 @@ const char* AddressBook::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
                         ptr += 1;
                         ptr = ctx->ParseMessage(add_people(), ptr);
                         CHK_(ptr);
-                        if (!ctx->DataAvailable(ptr))
-                            break;
+                        if (!ctx->DataAvailable(ptr)) break;
                     } while (::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<::PROTOBUF_NAMESPACE_ID::uint8>(ptr) == 10);
                 } else
                     goto handle_unusual;
@@ -1013,16 +979,14 @@ failure:
 }
 #else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 bool AddressBook::MergePartialFromCodedStream(::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) \
-    if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) \
-    goto failure
+#define DO_(EXPRESSION)                                                                                                                                                                                \
+    if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     // @@protoc_insertion_point(parse_start:tutorial.AddressBook)
     for (;;) {
         ::std::pair<::PROTOBUF_NAMESPACE_ID::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
         tag                                                  = p.first;
-        if (!p.second)
-            goto handle_unusual;
+        if (!p.second) goto handle_unusual;
         switch (::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::GetTagFieldNumber(tag)) {
             // repeated .tutorial.Person people = 1;
             case 1: {
@@ -1137,23 +1101,19 @@ void AddressBook::MergeFrom(const AddressBook& from) {
 
 void AddressBook::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
     // @@protoc_insertion_point(generalized_copy_from_start:tutorial.AddressBook)
-    if (&from == this)
-        return;
+    if (&from == this) return;
     Clear();
     MergeFrom(from);
 }
 
 void AddressBook::CopyFrom(const AddressBook& from) {
     // @@protoc_insertion_point(class_specific_copy_from_start:tutorial.AddressBook)
-    if (&from == this)
-        return;
+    if (&from == this) return;
     Clear();
     MergeFrom(from);
 }
 
-bool AddressBook::IsInitialized() const {
-    return true;
-}
+bool AddressBook::IsInitialized() const { return true; }
 
 void AddressBook::InternalSwap(AddressBook* other) {
     using std::swap;
@@ -1161,22 +1121,20 @@ void AddressBook::InternalSwap(AddressBook* other) {
     CastToBase(&people_)->InternalSwap(CastToBase(&other->people_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata AddressBook::GetMetadata() const {
-    return GetMetadataStatic();
-}
+::PROTOBUF_NAMESPACE_ID::Metadata AddressBook::GetMetadata() const { return GetMetadataStatic(); }
 
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace tutorial
 PROTOBUF_NAMESPACE_OPEN
-template<>
+template <>
 PROTOBUF_NOINLINE ::tutorial::Person_PhoneNumber* Arena::CreateMaybeMessage<::tutorial::Person_PhoneNumber>(Arena* arena) {
     return Arena::CreateInternal<::tutorial::Person_PhoneNumber>(arena);
 }
-template<>
+template <>
 PROTOBUF_NOINLINE ::tutorial::Person* Arena::CreateMaybeMessage<::tutorial::Person>(Arena* arena) {
     return Arena::CreateInternal<::tutorial::Person>(arena);
 }
-template<>
+template <>
 PROTOBUF_NOINLINE ::tutorial::AddressBook* Arena::CreateMaybeMessage<::tutorial::AddressBook>(Arena* arena) {
     return Arena::CreateInternal<::tutorial::AddressBook>(arena);
 }

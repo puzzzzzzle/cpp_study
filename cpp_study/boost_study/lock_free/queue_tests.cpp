@@ -23,12 +23,10 @@ void producer_worker(std::atomic_int *m_producer_count, boost::lockfree::queue<i
 void consumer_worker(std::atomic_int *m_consumer_count, boost::lockfree::queue<int> *m_queue, const std::atomic_bool *done) {
     int value;
     while (!(*done)) {
-        while (m_queue->pop(value))
-            ++(*m_consumer_count);
+        while (m_queue->pop(value)) ++(*m_consumer_count);
     }
 
-    while (m_queue->pop(value))
-        ++(*m_consumer_count);
+    while (m_queue->pop(value)) ++(*m_consumer_count);
 }
 
 void test_impl(const int iterations, int producer, int consumer) {
@@ -43,11 +41,9 @@ void test_impl(const int iterations, int producer, int consumer) {
 
     boost::thread_group producer_threads, consumer_threads;
 
-    for (int i = 0; i != producer; ++i)
-        producer_threads.create_thread(producer_thread_worker);
+    for (int i = 0; i != producer; ++i) producer_threads.create_thread(producer_thread_worker);
 
-    for (int i = 0; i != consumer; ++i)
-        consumer_threads.create_thread(consumer_thread_worker);
+    for (int i = 0; i != consumer; ++i) consumer_threads.create_thread(consumer_thread_worker);
 
     producer_threads.join_all();
     done = true;

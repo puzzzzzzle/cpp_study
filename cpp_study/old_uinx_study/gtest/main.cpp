@@ -10,18 +10,14 @@
 #include "log_macro.h"
 #include "simple_test.h"
 
-TEST(testCase, test0) {
-    EXPECT_EQ(add(2, 3), 5);
-}
+TEST(testCase, test0) { EXPECT_EQ(add(2, 3), 5); }
 
 TEST(testCase, wrong) {
     //    malloc(100);
     EXPECT_EQ(add(2, 3), 6);
 }
 
-TEST(testSTR, test0) {
-    EXPECT_STREQ("hhh", "hhh");
-}
+TEST(testSTR, test0) { EXPECT_STREQ("hhh", "hhh"); }
 
 int call_test(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);

@@ -61,13 +61,13 @@ int test_write_timeout(int fd, long wait_sec);
 
 char randChar();
 
-template<class T>
+template <class T>
 std::ostream& operator<<(std::ostream& os, const std::vector<T>& v) {
     std::copy(v.begin(), v.end(), std::ostream_iterator<T>(os, ","));
     return os;
 }
 
-template<class T>
+template <class T>
 std::ostream& printArr(std::ostream& os, size_t len, const T value[]) {
     os << "values :\t[";
     for (int i = 0; i < len; ++i) {
@@ -76,7 +76,7 @@ std::ostream& printArr(std::ostream& os, size_t len, const T value[]) {
     os << "]";
     return os;
 }
-template<class T>
+template <class T>
 std::ostream& sumArr(std::ostream& os, size_t len, const T value[]) {
     os << "sum :\t[";
     T sum{};
@@ -86,7 +86,7 @@ std::ostream& sumArr(std::ostream& os, size_t len, const T value[]) {
     os << sum;
     return os;
 }
-template<class T>
+template <class T>
 bool checkDuplicated(int len, T value[]) {
     std::set<T> checkSet;
     for (int i = 0; i < len; ++i) {

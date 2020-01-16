@@ -74,6 +74,4 @@ int test_write_timeout(int fd, long wait_sec) {
 
 static char readadbleChar[256] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
-char randChar() {
-    return readadbleChar[rand() % (strlen(readadbleChar))];
-}
+char randChar() { return readadbleChar[rand() % (strlen(readadbleChar))]; }

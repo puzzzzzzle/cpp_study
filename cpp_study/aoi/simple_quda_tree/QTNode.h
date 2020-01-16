@@ -5,7 +5,7 @@
 #include "Vertex.h"
 using namespace std;
 
-template<class T>
+template <class T>
 class QTNode {
 public:
     QTNode<T>(vertex newCenter, vertex newRange) {

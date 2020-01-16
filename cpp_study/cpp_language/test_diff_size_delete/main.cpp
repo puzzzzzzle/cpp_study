@@ -3,7 +3,7 @@
 //
 #include "common_includes.h"
 
-template<typename T>
+template <typename T>
 void deleteArr(T *p) {
     delete[] p;
 }
@@ -12,53 +12,35 @@ void deleteArr(T *p) {
 //#pragma pack(1)
 class Base {
 public:
-    Base() {
-        INFO("base init\t" << a << "\tptr\t" << (uint64_t)this)
-    }
+    Base() { INFO("base init\t" << a << "\tptr\t" << (uint64_t)this) }
 
-    ~Base() {
-        INFO("base delete\t" << a << "\tptr\t" << (uint64_t)this)
-    }
+    ~Base() { INFO("base delete\t" << a << "\tptr\t" << (uint64_t)this) }
 
     int a{1};
 
-    int getA() {
-        return a;
-    }
+    int getA() { return a; }
 
-    virtual int vGetA() {
-        return a;
-    }
+    virtual int vGetA() { return a; }
 };
 
 class Child : public Base {
 public:
-    Child() {
-        INFO("child init\t" << a << "\tptr\t" << (uint64_t)this)
-    }
+    Child() { INFO("child init\t" << a << "\tptr\t" << (uint64_t)this) }
 
-    ~Child() {
-        INFO("child delete\t" << a << "\tptr\t" << (uint64_t)this)
-    }
+    ~Child() { INFO("child delete\t" << a << "\tptr\t" << (uint64_t)this) }
 
     int new_a{2};
 
     int buff[10];
 
     //    char buff[4000];
-    virtual int vGetA() override {
-        return new_a;
-    }
+    virtual int vGetA() override { return new_a; }
 };
 //#pragma pack(pop)//恢复对齐状态
 
-TEST(base, stack) {
-    Base base[10];
-}
+TEST(base, stack) { Base base[10]; }
 
-TEST(child, stack) {
-    Child base[10];
-}
+TEST(child, stack) { Child base[10]; }
 
 TEST(base, inline_delete) {
     Base *bases = new Base[10];

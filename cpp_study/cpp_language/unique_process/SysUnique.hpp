@@ -22,9 +22,7 @@ private:
 public:
     SysUnique() = delete;
 
-    SysUnique(std::string _id) {
-        strID = _id;
-    }
+    SysUnique(std::string _id) { strID = _id; }
     ~SysUnique() {
         if (iSocketFd > 0) {
             close(iSocketFd);
@@ -57,13 +55,9 @@ public:
         return true;
     }
 
-    std::string GetID() {
-        return strID;
-    }
+    std::string GetID() { return strID; }
 
-    int GetPid(std::string _id) {
-        return -1;
-    }
+    int GetPid(std::string _id) { return -1; }
 
     bool IsRun() {
         InitSocketPath(stSockaddrUn);

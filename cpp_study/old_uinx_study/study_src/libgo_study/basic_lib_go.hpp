@@ -12,9 +12,7 @@
 
 #include "../log4cplus_init/log_macro.h"
 
-void say_hello() {
-    INFO("hello libgo!");
-}
+void say_hello() { INFO("hello libgo!"); }
 
 void long_time_func() {
     INFO("long time func start!");
@@ -28,9 +26,7 @@ int basic_lib_go_test() {
     //调用go后并不会启动协程，这点和够语言不一样，而是等待启动命令
     go say_hello;
     go long_time_func;
-    go[]() {
-        INFO("hello from lambda");
-    };
+    go[]() { INFO("hello from lambda"); };
 
     //使用默认启动器启动：
     //实际上就是启动协程调度器，并负责运行，在那个线程中调用start，就有那个线程负责运行
@@ -49,9 +45,7 @@ void no_wait_test() {
     go long_time_func;  //调用go后并不会启动协程，这点和够语言不一样，而是等待启动命令
     go say_hello;
     //    go long_time_func;
-    go[]() {
-        INFO("hello from lambda");
-    };
+    go[]() { INFO("hello from lambda"); };
     std::thread t([]() { co_sched.Start(); });
     t.detach();
     co_sleep(5000);

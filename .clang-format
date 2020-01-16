@@ -12,7 +12,7 @@ AlignConsecutiveAssignments: true
 AlignConsecutiveDeclarations: true
 
 # 自动对齐控制
-AlignEscapedNewlines: DontAlign
+AlignEscapedNewlines: Right
 # 水平对齐二元或三元操作的操作数
 AlignOperands: true
 # （多行）函数参数不对齐左括号
@@ -29,24 +29,6 @@ BinPackArguments: true
 BinPackParameters: true
 # 初始化列表要么同一行要么一个一行
 ConstructorInitializerAllOnOneLineOrOnePerLine: true
-# 初始化:后换行
-BreakConstructorInitializers: AfterColon
-
-# 不允许短代码块放在同一行 if 1 { return; }
-AllowShortBlocksOnASingleLine: false
-# 不允许短的case标签放在同一行
-AllowShortCaseLabelsOnASingleLine: false
-# 空函数合并到单行
-AllowShortFunctionsOnASingleLine: Empty
-# 不允许短的if语句保持在同一行
-AllowShortIfStatementsOnASingleLine: false
-# 不允许短的循环保持在同一行
-AllowShortLoopsOnASingleLine: false
-
-# 在需要的情况下才在返回类型处换行（声明与定义）
-AlwaysBreakAfterDefinitionReturnType: None
-AlwaysBreakAfterReturnType: None
-
 # 总是在template声明后换行
 AlwaysBreakTemplateDeclarations: true
 
@@ -56,34 +38,13 @@ FixNamespaceComments: true
 # 对注释重排
 ReflowComments: true
 
-# template关键字后不加空格
-SpaceAfterTemplateKeyword: false
-
-# 赋值符号前加空格
-SpaceBeforeAssignmentOperators: true
-
 # 控制符合与括号间加空格
 SpaceBeforeParens: ControlStatements
 
 # 对#include重排序
 SortIncludes: true
-
-# 空的()间不加空格
-SpaceInEmptyParentheses: false
-
 # 代码后面的//间加2个空格
 SpacesBeforeTrailingComments: 2
-
-# <>间不加空格
-SpacesInAngles: false
-
-# c空格转型不加空格
-SpacesInCStyleCastParentheses: false
-
-# 括号间不加空格
-SpacesInParentheses: false
-# []间不加空格
-SpacesInSquareBrackets: false
 # 行宽
 ColumnLimit: 200
 #在续行(\
@@ -102,13 +63,11 @@ NamespaceIndentation: None
 CompactNamespaces: false
 # switch里的case缩进一级
 IndentCaseLabels: true
-
 # 总是在花括号前换行
 #BreakBeforeBraces: Allman
 # 可选择在非赋值操作符处换行
 BreakBeforeBinaryOperators: None
-
-# 确保`*`和`&`靠近类型而不是变量名。（WebKit风格已设置）
+# 确保`*`和`&`靠近类型而不是变量名。
 PointerAlignment: Left
 ---
 Language:    Proto

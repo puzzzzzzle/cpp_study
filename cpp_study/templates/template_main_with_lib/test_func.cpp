@@ -9,6 +9,4 @@ int zero() {
     return 0;
 }
 
-void Hello::hello() {
-    INFO("hello")
-}
+void Hello::hello() { INFO("hello") }

@@ -8,9 +8,7 @@
 #include "common_includes.h"
 #include "std_chrono_study.h"
 
-TEST(test_test, 1) {
-    EXPECT_EQ(1, 1);
-}
+TEST(test_test, 1) { EXPECT_EQ(1, 1); }
 
 // std::shared_ptr<char> make_space_1(size_t size) {
 //    auto s = std::make_shared<char>(new char[size],
@@ -21,7 +19,7 @@ TEST(test_test, 1) {
 //    return s;
 //}
 
-template<typename T>
+template <typename T>
 std::shared_ptr<T> make_shared_array(size_t size) {
     // default_delete是STL中的默认删除器
     return std::shared_ptr<T>(new T[size], std::default_delete<T[]>());

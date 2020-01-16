@@ -12,18 +12,14 @@
 #include "co_routine_inner.h"
 #include "common_includes.h"
 
-int loop(void *) {
-    return 0;
-}
+int          loop(void *) { return 0; }
 static void *routine_func(void *) {
     stCoEpoll_t *ev = co_get_epoll_ct();  // ct = current thread
     co_eventloop(ev, loop, 0);
     return 0;
 }
 
-TEST(test_test, 1) {
-    EXPECT_EQ(1, 1);
-}
+TEST(test_test, 1) { EXPECT_EQ(1, 1); }
 
 int main(int argc, char **argv) {
     int iRet = 0;

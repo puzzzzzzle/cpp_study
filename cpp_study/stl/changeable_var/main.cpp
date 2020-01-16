@@ -8,9 +8,7 @@
 
 #include "log_init.h"
 
-TEST(test_test, 1) {
-    EXPECT_EQ(1, 1);
-}
+TEST(test_test, 1) { EXPECT_EQ(1, 1); }
 /**
  * 测试可变参数
  * @param argc 可变参数数量

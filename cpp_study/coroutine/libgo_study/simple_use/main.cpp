@@ -18,9 +18,7 @@ auto labmda = [](int a) { std::cout << "lambda:" << a << std::endl; };
 
 class ClassA {
 public:
-    ClassA() {
-        std::cout << "constructor for ClassA" << std::endl;
-    }
+    ClassA() { std::cout << "constructor for ClassA" << std::endl; }
     void member_func(int a) {  //类成员函数
         std::cout << "call ClassA::member_func:" << a << std::endl;
     }
@@ -32,23 +30,15 @@ public:
 
 class Functor {  //仿函数
 public:
-    void operator()(int a) {
-        std::cout << "call Functor()" << a << std::endl;
-    }
+    void operator()(int a) { std::cout << "call Functor()" << a << std::endl; }
 };
 
 //无参函数
-void foo() {
-    std::cout << "function pointer\n" << std::endl;
-}
+void foo() { std::cout << "function pointer\n" << std::endl; }
 
 struct StructA {
-    void fA() {
-        std::cout << "std::bind\n" << std::endl;
-    }
-    void fB() {
-        std::cout << "std::function\n" << std::endl;
-    }
+    void fA() { std::cout << "std::bind\n" << std::endl; }
+    void fB() { std::cout << "std::function\n" << std::endl; }
 };
 
 int lib_go_main() {
@@ -58,9 +48,7 @@ int lib_go_main() {
     //     std::cout << "++++large stack 10M\n"<< std::endl;
     // };
     // 匿名lambda
-    go[] {
-        std::cout << "+++++++++++++start co tasks+++++++++++++++++\n" << std::endl;
-    };
+    go[] { std::cout << "+++++++++++++start co tasks+++++++++++++++++\n" << std::endl; };
     // 无参函数
     go foo;
 
@@ -129,9 +117,7 @@ int lib_go_main() {
     // co_sleep(100);
     return 0;
 }
-TEST(test_test, 1) {
-    EXPECT_EQ(lib_go_main(), 0);
-}
+TEST(test_test, 1) { EXPECT_EQ(lib_go_main(), 0); }
 
 int main(int argc, char **argv) {
     int iRet = 0;

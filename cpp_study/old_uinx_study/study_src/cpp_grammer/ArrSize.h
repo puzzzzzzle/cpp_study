@@ -9,7 +9,7 @@
 static int ArrSize_in  = 10;
 int        ArrSize_out = 10;
 
-template<typename T>
+template <typename T>
 int ArrSize(const T a[]) {
     return sizeof(a) / sizeof(a[0]);
 }
@@ -25,7 +25,7 @@ int ArrSize(const T a[]) {
 //    }
 //    return result;
 //}
-template<typename T>
+template <typename T>
 T add2d(int rows, int cols, T *arr) {
     T result = 0;
     for (int i = 0; i < rows; i++) {

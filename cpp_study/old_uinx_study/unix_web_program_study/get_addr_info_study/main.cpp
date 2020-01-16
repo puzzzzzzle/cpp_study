@@ -11,9 +11,7 @@
 #include "boost_log_init.h"
 #include "read_page.h"
 
-TEST(test_test, 1) {
-    EXPECT_EQ(1, 1);
-}
+TEST(test_test, 1) { EXPECT_EQ(1, 1); }
 
 int main(int argc, char **argv) {
     int result, back;

@@ -10,9 +10,7 @@ namespace tutorial {
 REGISTER(Person);
 }
 
-TEST(test_test, 1) {
-    EXPECT_EQ(1, 1);
-}
+TEST(test_test, 1) { EXPECT_EQ(1, 1); }
 
 TEST(protobuf, 1) {
     tutorial::Person test;

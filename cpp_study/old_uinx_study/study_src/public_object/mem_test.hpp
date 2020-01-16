@@ -21,9 +21,7 @@ private:
 public:
     char_people() = default;
 
-    char_people(const char *const _name) {
-        strncpy(this->name, _name, NAME_LENGTH);
-    }
+    char_people(const char *const _name) { strncpy(this->name, _name, NAME_LENGTH); }
 };
 
 class str_people {
@@ -33,9 +31,7 @@ private:
 public:
     str_people() = default;
 
-    str_people(const string &_name) {
-        this->name = _name;
-    }
+    str_people(const string &_name) { this->name = _name; }
 };
 
 int mem_test_main() {

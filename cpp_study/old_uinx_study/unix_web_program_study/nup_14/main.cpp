@@ -14,9 +14,7 @@
 #include "test_alarm.h"
 #include "timeout_socket_operator.h"
 
-TEST(test_test, 1) {
-    EXPECT_EQ(1, 1);
-}
+TEST(test_test, 1) { EXPECT_EQ(1, 1); }
 
 int test_timeout() {
     int clifd = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);

@@ -5,7 +5,7 @@
 
 #include "common_includes.h"
 
-template<typename T>
+template <typename T>
 T sumAll(int count, ...) {
     va_list ap;
     va_start(ap, count);
@@ -33,7 +33,7 @@ TEST(multi_args, c_caller) {
 //}
 
 void mvPrint() {}
-template<typename T, typename... Args>
+template <typename T, typename... Args>
 void mvPrint(const T &first, const Args &... args) {
     std::cout << first << std::endl;
     mvPrint(args...);

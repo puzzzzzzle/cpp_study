@@ -15,7 +15,7 @@
 #ifndef CPP_STUDY_ALL_ABSTRACT_AOI_H
 #define CPP_STUDY_ALL_ABSTRACT_AOI_H
 
-template<typename NumberT>
+template <typename NumberT>
 class IPoint {
 public:
     typedef NumberT Number;
@@ -27,7 +27,7 @@ public:
     Number halfYLen;
 };
 
-template<typename NumberT, typename ObjectT, bool AutoDelete>
+template <typename NumberT, typename ObjectT, bool AutoDelete>
 class IBaseNode {
 public:
     typedef NumberT Number;
@@ -44,7 +44,7 @@ public:
     }
 };
 
-template<typename NumberT, typename ObjectT, typename Node, bool AutoDelete>
+template <typename NumberT, typename ObjectT, typename Node, bool AutoDelete>
 class IAoi {
 public:
     typedef NumberT                                 Number;

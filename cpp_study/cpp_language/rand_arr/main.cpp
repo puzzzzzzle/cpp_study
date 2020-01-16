@@ -101,7 +101,7 @@ void RandUinqueArrBySet(int iMiniNum, int iMaxNum, int iArrlen, int aiOutArr[]) 
     }
 }
 
-template<class T>
+template <class T>
 void printArr(int len, T value[], std::ostream &os) {
     os << "values :\t[";
     for (int i = 0; i < len; ++i) {

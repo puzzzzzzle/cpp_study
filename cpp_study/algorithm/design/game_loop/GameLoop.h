@@ -20,9 +20,7 @@ public:
     GameApi(unsigned long _nanoSecPeerUpdate) : nanoSecPeerUpdate(_nanoSecPeerUpdate) {}
 
 public:
-    virtual void Stop() {
-        isRun = false;
-    }
+    virtual void Stop() { isRun = false; }
     virtual void DoInput()  = 0;
     virtual void DoUpdate() = 0;
     virtual void DoRender() = 0;

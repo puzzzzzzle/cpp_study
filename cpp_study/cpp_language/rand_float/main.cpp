@@ -3,9 +3,7 @@
 //
 #include "common_includes.h"
 
-TEST(test_test, 1) {
-    EXPECT_EQ(1, 1);
-}
+TEST(test_test, 1) { EXPECT_EQ(1, 1); }
 static unsigned int GetRand(unsigned int iMax) {
     static bool m_bInited = false;
     if (iMax == 0) {

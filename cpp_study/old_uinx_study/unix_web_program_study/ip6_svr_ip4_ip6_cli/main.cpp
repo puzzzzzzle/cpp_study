@@ -17,9 +17,7 @@ static const char *hostv4 = "127.0.0.1";
 static const short port = 8965;
 static char        port_s[30];
 
-TEST(test_test, 1) {
-    EXPECT_EQ(1, 1);
-}
+TEST(test_test, 1) { EXPECT_EQ(1, 1); }
 
 TEST(send_testv6_select, hello) {
     const char *hello      = "hello";

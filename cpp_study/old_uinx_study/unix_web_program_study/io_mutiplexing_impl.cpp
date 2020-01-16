@@ -40,8 +40,7 @@ static int create_and_bind(const char *port) {
 
     for (rp = result; rp != NULL; rp = rp->ai_next) {
         sfd = socket(rp->ai_family, rp->ai_socktype, rp->ai_protocol);
-        if (sfd == -1)
-            continue;
+        if (sfd == -1) continue;
 
         s = bind(sfd, rp->ai_addr, rp->ai_addrlen);
         if (s == 0) {
@@ -95,12 +94,10 @@ int epoll_test_main(const char *port) {
     struct epoll_event *events;
 
     sfd = create_and_bind(port);
-    if (sfd == -1)
-        abort();
+    if (sfd == -1) abort();
 
     s = make_socket_non_blocking(sfd);
-    if (s)
-        abort();
+    if (s) abort();
 
     s = listen(sfd, SOMAXCONN);
     if (s == -1) {
@@ -175,8 +172,7 @@ int epoll_test_main(const char *port) {
                     /* Make the incoming socket non-blocking and add it to the
                        list of fds to monitor. */
                     s = make_socket_non_blocking(infd);
-                    if (s == -1)
-                        abort();
+                    if (s == -1) abort();
 
                     event.data.fd = infd;
                     event.events  = EPOLLIN | EPOLLET;

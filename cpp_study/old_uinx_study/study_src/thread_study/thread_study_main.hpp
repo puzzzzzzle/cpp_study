@@ -26,9 +26,7 @@ void thread_test_1() {
 }
 
 /// test data transform
-void work_func(const string &str) {
-    cout << str << endl;
-}
+void work_func(const string &str) { cout << str << endl; }
 
 void thread_test_wrong_data() {
     char buff[100];

@@ -7,7 +7,5 @@
 
 #include "file_io.h"
 
-void file_io_main() {
-    test_seek("file.hole");
-}
+void file_io_main() { test_seek("file.hole"); }
 #endif  // UNIXSTUDY_FILEIO_MAIN_H

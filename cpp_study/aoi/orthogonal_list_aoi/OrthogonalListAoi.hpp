@@ -12,7 +12,7 @@
 #include "AbstractAoi.h"
 
 // 双链表（对象）
-template<typename NumberT, typename ObjectT, bool AutoDelete>
+template <typename NumberT, typename ObjectT, bool AutoDelete>
 class IDoubleNode : public IBaseNode<NumberT, ObjectT, AutoDelete> {
 public:
     typedef NumberT         Number;
@@ -32,17 +32,15 @@ public:
     IDoubleNode *yNext;
 };
 
-template<typename NumberT, typename ObjectT>
+template <typename NumberT, typename ObjectT>
 class IDoubleNodePoint : public IDoubleNode<NumberT, ObjectT, true> {
-    ~IDoubleNodePoint() {
-        delete IBaseNode<NumberT, ObjectT, true>::obj;
-    }
+    ~IDoubleNodePoint() { delete IBaseNode<NumberT, ObjectT, true>::obj; }
 };
 
-template<typename NumberT, typename ObjectT>
+template <typename NumberT, typename ObjectT>
 class IDoubleNodeNoPoint : public IDoubleNode<NumberT, ObjectT, false> {};
 
-template<typename NumberT, typename ObjectT, bool AutoDelete>
+template <typename NumberT, typename ObjectT, bool AutoDelete>
 class OrthogonalListAoi : public IAoi<NumberT, ObjectT, IDoubleNode<NumberT, ObjectT, AutoDelete>, AutoDelete> {
 public:
     typedef NumberT                                   Number;

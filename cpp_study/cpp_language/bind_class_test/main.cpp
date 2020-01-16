@@ -12,9 +12,7 @@ public:
         i = _i;
         j = _j;
     }
-    void ToString(std::ostream &os) {
-        os << "i:" << i << ",j:" << j;
-    }
+    void ToString(std::ostream &os) { os << "i:" << i << ",j:" << j; }
 };
 
 TEST(test_test, 1) {

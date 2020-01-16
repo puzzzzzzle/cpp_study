@@ -9,17 +9,11 @@
 
 #include "common_includes.h"
 
-void foo() {
-    printf("function pointer\n");
-}
+void foo() { printf("function pointer\n"); }
 
 struct A {
-    void fA() {
-        printf("std::bind\n");
-    }
-    void fB() {
-        printf("std::function\n");
-    }
+    void fA() { printf("std::bind\n"); }
+    void fB() { printf("std::function\n"); }
 };
 
 int lib_go_main() {
@@ -31,9 +25,7 @@ int lib_go_main() {
     //   注意不要忘记句尾的分号";".
     go foo;
 
-    go[] {
-        printf("lambda\n");
-    };
+    go[] { printf("lambda\n"); };
 
     go std::bind(&A::fA, A());
 
@@ -42,9 +34,7 @@ int lib_go_main() {
 
     // 也可以使用go_stack创建指定栈大小的协程
     //   创建拥有10MB大栈的协程
-    go co_stack(10 * 1024 * 1024)[] {
-        printf("large stack\n");
-    };
+    go co_stack(10 * 1024 * 1024)[] { printf("large stack\n"); };
 
     // 协程创建以后不会立即执行，而是暂存至可执行列表中，等待调度器调度。
     // co_sched是默认的协程调度器，用户也可以使用自创建的协程调度器。
@@ -79,16 +69,12 @@ int lib_go_main() {
     t2.detach();
 
     // 在新创建的调度器上创建一个协程
-    go co_scheduler(sched)[] {
-        printf("run in my scheduler.\n");
-    };
+    go co_scheduler(sched)[] { printf("run in my scheduler.\n"); };
 
     co_sleep(100);
     return 0;
 }
-TEST(test_test, 1) {
-    EXPECT_EQ(1, 1);
-}
+TEST(test_test, 1) { EXPECT_EQ(1, 1); }
 
 int main(int argc, char** argv) {
     int iRet = 0;
