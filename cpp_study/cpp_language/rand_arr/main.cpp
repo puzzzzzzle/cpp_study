@@ -166,26 +166,30 @@ int main(int argc, char **argv) {
             }
             gettimeofday(&endTime, NULL);
             assert(checkDuplicated(targetLen[j], outArr));
-            std::cout << (endTime.tv_sec - startTime.tv_sec) * 1000000 + (endTime.tv_usec - startTime.tv_usec) << split << std::flush;
+            std::cout << (endTime.tv_sec - startTime.tv_sec) * 1000000 + (endTime.tv_usec - startTime.tv_usec) << split
+                      << std::flush;
 
             gettimeofday(&startTime, NULL);
             RandUinqueArrByArrWarrper(start, start + gap[i], targetLen[j], outArr);
             gettimeofday(&endTime, NULL);
             assert(checkDuplicated(targetLen[j], outArr));
-            std::cout << (endTime.tv_sec - startTime.tv_sec) * 1000000 + (endTime.tv_usec - startTime.tv_usec) << split << std::flush;
+            std::cout << (endTime.tv_sec - startTime.tv_sec) * 1000000 + (endTime.tv_usec - startTime.tv_usec) << split
+                      << std::flush;
 
             gettimeofday(&startTime, NULL);
             RandUinqueArr(start, start + gap[i], targetLen[j], outArr);
             gettimeofday(&endTime, NULL);
 
             assert(checkDuplicated(targetLen[j], outArr));
-            std::cout << (endTime.tv_sec - startTime.tv_sec) * 1000000 + (endTime.tv_usec - startTime.tv_usec) << split << std::flush;
+            std::cout << (endTime.tv_sec - startTime.tv_sec) * 1000000 + (endTime.tv_usec - startTime.tv_usec) << split
+                      << std::flush;
 
             gettimeofday(&startTime, NULL);
             RandUinqueArrBySet(start, start + gap[i], targetLen[j], outArr);
             gettimeofday(&endTime, NULL);
             assert(checkDuplicated(targetLen[j], outArr));
-            std::cout << (endTime.tv_sec - startTime.tv_sec) * 1000000 + (endTime.tv_usec - startTime.tv_usec) << std::flush;
+            std::cout << (endTime.tv_sec - startTime.tv_sec) * 1000000 + (endTime.tv_usec - startTime.tv_usec)
+                      << std::flush;
 
             std::cout << std::endl;
             delete[] outArr;

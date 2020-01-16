@@ -25,7 +25,8 @@ int main(int argc, char **argv) {
         exit(0);
     }
     svr_address.sin_port = htons(PORT);
-    printf("svr will start at : %s:%d\n", inet_ntop(AF_INET, &svr_address.sin_addr.s_addr, svr_buff, sizeof(svr_buff)), ntohs(svr_address.sin_port));
+    printf("svr will start at : %s:%d\n", inet_ntop(AF_INET, &svr_address.sin_addr.s_addr, svr_buff, sizeof(svr_buff)),
+           ntohs(svr_address.sin_port));
 
     //创建套接字
     int client_fd;

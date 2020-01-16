@@ -73,7 +73,7 @@ int thread_test() {
             const char *hello      = "hello";
             const char *echo_hello = "echo:hello";
             char        receive_buff[MAX_LINE_LEN];
-            ssize_t     receive_len   = do_requestv6(hello, strlen(hello), receive_buff, sizeof(receive_buff), hostv6, port);
+            ssize_t receive_len = do_requestv6(hello, strlen(hello), receive_buff, sizeof(receive_buff), hostv6, port);
             receive_buff[receive_len] = '\0';
             if (strcmp(echo_hello, receive_buff)) {
                 TRACE("###compare eq")

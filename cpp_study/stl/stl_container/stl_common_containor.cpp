@@ -59,8 +59,9 @@ TEST(iterator_test, deque) {
 
     std::deque<int> muti{};
     std::transform(copyed.cbegin(), copyed.cend(), i_ints.cbegin(), std::back_inserter(muti),
-        std::bind(std::multiplies<int>(), std::placeholders::_1, std::placeholders::_2)  //都行
-                                                                                         //                   std::multiplies<int>()
+                   std::bind(std::multiplies<int>(), std::placeholders::_1,
+                             std::placeholders::_2)  //都行
+                                                     //                   std::multiplies<int>()
     );
     output.str("");
     std::copy(muti.cbegin(), muti.cend(), std::ostream_iterator<int>(output, "\t"));

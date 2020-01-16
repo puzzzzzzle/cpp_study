@@ -145,11 +145,10 @@ int log_init() {
 //                            << "> " << expr::message
 //                    /*
 //                            keywords::format = expr::format("%1% [%2%] [%3%] <%4%> %5%")
-//                                % expr::format_date_time< boost::posix_time::ptime >("TimeStamp", "%Y-%m-%d, %H:%M:%S.%f")
-//                                % expr::format_date_time< attrs::timer::value_type >("Uptime", "%O:%M:%S")
-//                                % expr::format_named_scope("Scope", keywords::format = "%n (%f:%l)")
-//                                % expr::attr< severity_level >("Severity")
-//                                % expr::message
+//                                % expr::format_date_time< boost::posix_time::ptime >("TimeStamp", "%Y-%m-%d,
+//                                %H:%M:%S.%f") % expr::format_date_time< attrs::timer::value_type >("Uptime",
+//                                "%O:%M:%S") % expr::format_named_scope("Scope", keywords::format = "%n (%f:%l)") %
+//                                expr::attr< severity_level >("Severity") % expr::message
 //                    */
 //            );
 //    logging::add_common_attributes();
@@ -160,8 +159,8 @@ int log_init() {
 //    slg.add_attribute("Uptime", attrs::timer());
 //
 //
-//    BOOST_LOG_SEV(slg, trace) <<__FILE__ <<":"<<__LINE__<<":"<<__PRETTY_FUNCTION__<< "A normal severity message, will not pass to the file";
-//    BOOST_LOG_SEV(slg, info) << "A warning severity message, will pass to the file";
+//    BOOST_LOG_SEV(slg, trace) <<__FILE__ <<":"<<__LINE__<<":"<<__PRETTY_FUNCTION__<< "A normal severity message, will
+//    not pass to the file"; BOOST_LOG_SEV(slg, info) << "A warning severity message, will pass to the file";
 //    BOOST_LOG_SEV(slg, fatal) << "An f severit!!!!!!!y message, will pass to the file";
 //
 //

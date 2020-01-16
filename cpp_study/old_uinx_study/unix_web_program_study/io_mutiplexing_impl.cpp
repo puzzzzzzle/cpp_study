@@ -159,7 +159,7 @@ int epoll_test_main(const char *port) {
 
                     //将地址转化为主机名或者服务名
                     s = getnameinfo(&in_addr, in_len, hbuf, sizeof hbuf, sbuf, sizeof sbuf,
-                        NI_NUMERICHOST | NI_NUMERICSERV);  // flag参数:以数字名返回
+                                    NI_NUMERICHOST | NI_NUMERICSERV);  // flag参数:以数字名返回
                     //主机地址和服务地址
 
                     if (s == 0) {

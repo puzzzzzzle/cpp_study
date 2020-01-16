@@ -5,7 +5,7 @@
  * @author khalidzhang
  * @e-mail khalidzhang@tencent.com
  * @description: 灯塔法AOI
- *               请自行保证object全局唯一，这里要处理的话得加一个全局的set保存所有object，由于频繁调用，开销会比较大，就不处理了！！！
+ * 请自行保证object全局唯一，这里要处理的话得加一个全局的set保存所有object，由于频繁调用，开销会比较大，就不处理了！！！
  *
  ********************************************************************/
 
@@ -209,7 +209,8 @@ public:
         for (const auto &i : m_watcherObjs) {
             os << "{type:" << i.first << ", watchers:[";
             for (const auto &j : i.second) {
-                os << "{ obj:" << j.first.obj << ", viewRange:" << j.first.viewRange << ", pos:(" << j.second.x << "," << j.second.y << ")},";
+                os << "{ obj:" << j.first.obj << ", viewRange:" << j.first.viewRange << ", pos:(" << j.second.x << ","
+                   << j.second.y << ")},";
             }
             os << "]}";
         }
@@ -244,8 +245,12 @@ public:
     typedef std::map<Object, TowerIndex>              ObjectTowerIndexMap;
     typedef std::map<ObjectType, ObjectTowerIndexMap> TypeObjectTowerIndexMap;
 
-    typedef void (*ObjCallBackT)(const Object &obj, ObjectType type, const Point &pos, const WatcherTypeObjectMap &appear, const WatcherTypeObjectMap &disAppear, bool IsDiffTower);  // obj变化回调函数
-    typedef void (*WatcherCallBackT)(const Watcher &watcher, ObjectType type, const Point &pos, const TypeObjectMap &appear, const TypeObjectMap &disAppear, bool IsDiffTower);  // watcher变化回调函数
+    typedef void (*ObjCallBackT)(const Object &obj, ObjectType type, const Point &pos,
+                                 const WatcherTypeObjectMap &appear, const WatcherTypeObjectMap &disAppear,
+                                 bool IsDiffTower);  // obj变化回调函数
+    typedef void (*WatcherCallBackT)(const Watcher &watcher, ObjectType type, const Point &pos,
+                                     const TypeObjectMap &appear, const TypeObjectMap &disAppear,
+                                     bool IsDiffTower);  // watcher变化回调函数
     /**
      * 回调函数数组定义
      * OBJ_ADD  出现的对象, empty, false
@@ -285,7 +290,8 @@ private:
     TypeObjectMap        emptyObjects;
 
 public:
-    void RegisterCallBacks(const ObjCallBackT _objCallBacks[CallBackDef::OBJ_MAX], const WatcherCallBackT _watcherCallBacks[CallBackDef::WATCHER_MAX]) {
+    void RegisterCallBacks(const ObjCallBackT     _objCallBacks[CallBackDef::OBJ_MAX],
+                           const WatcherCallBackT _watcherCallBacks[CallBackDef::WATCHER_MAX]) {
         for (int i = CallBackDef::OBJ_ADD; i < CallBackDef::OBJ_MAX; ++i) {
             objectCallBacks[i] = _objCallBacks[i];
         }
@@ -323,7 +329,9 @@ public:
         }
     }
 
-    TowerAoiT(const TowerConfig &_config, const ObjCallBackT _objCallBacks[CallBackDef::MAX], const WatcherCallBackT _watcherCallBacks[CallBackDef::WATCHER_MAX]) : TowerAoiT(_config) {
+    TowerAoiT(const TowerConfig &_config, const ObjCallBackT _objCallBacks[CallBackDef::MAX],
+              const WatcherCallBackT _watcherCallBacks[CallBackDef::WATCHER_MAX])
+        : TowerAoiT(_config) {
         RegisterCallBacks(_objCallBacks, _watcherCallBacks);
     }
 
@@ -341,7 +349,8 @@ public:
         TowerIndex towerIndex = TranslateTowerIndex(pos);
         auto       ret        = m_towers[towerIndex.x][towerIndex.y]->Add(obj, pos, type);
         if (ret && objectCallBacks[CallBackDef::OBJ_ADD]) {
-            objectCallBacks[CallBackDef::OBJ_ADD](obj, type, pos, m_towers[towerIndex.x][towerIndex.y]->GetWatchers(), emptyWatcher, false);
+            objectCallBacks[CallBackDef::OBJ_ADD](obj, type, pos, m_towers[towerIndex.x][towerIndex.y]->GetWatchers(),
+                                                  emptyWatcher, false);
         }
         typeObjectTowerIndexMap[type][obj] = towerIndex;
         return true;
@@ -355,7 +364,8 @@ public:
         Point pos = m_towers[towerIndex.x][towerIndex.y]->GetObjs()[type][obj];
         auto  ret = m_towers[towerIndex.x][towerIndex.y]->Remove(obj, type);
         if (ret && objectCallBacks[CallBackDef::OBJ_REMOVE]) {
-            objectCallBacks[CallBackDef::OBJ_REMOVE](obj, type, pos, emptyWatcher, m_towers[towerIndex.x][towerIndex.y]->GetWatchers(), false);
+            objectCallBacks[CallBackDef::OBJ_REMOVE](obj, type, pos, emptyWatcher,
+                                                     m_towers[towerIndex.x][towerIndex.y]->GetWatchers(), false);
         }
         if (ret) {
             ret = typeObjectTowerIndexMap[type].erase(obj);
@@ -374,7 +384,9 @@ public:
         TowerIndex newTowerIndex = TranslateTowerIndex(newPos);
         if (oldTowerIndex.x == newTowerIndex.x && oldTowerIndex.y == newTowerIndex.y) {
             m_towers[oldTowerIndex.x][oldTowerIndex.y]->GetObjs()[type][obj] = newPos;
-            if (objectCallBacks[CallBackDef::OBJ_MOVED]) objectCallBacks[CallBackDef::OBJ_MOVED](obj, type, newPos, m_towers[oldTowerIndex.x][oldTowerIndex.y]->GetWatchers(), emptyWatcher, false);
+            if (objectCallBacks[CallBackDef::OBJ_MOVED])
+                objectCallBacks[CallBackDef::OBJ_MOVED](
+                    obj, type, newPos, m_towers[oldTowerIndex.x][oldTowerIndex.y]->GetWatchers(), emptyWatcher, false);
         } else {
             if (!m_towers[oldTowerIndex.x][oldTowerIndex.y]->Remove(obj, type)) {
                 return false;
@@ -387,7 +399,9 @@ public:
             }
             typeObjectTowerIndexMap[type][obj] = newTowerIndex;
             if (objectCallBacks[CallBackDef::OBJ_MOVED]) {
-                objectCallBacks[CallBackDef::OBJ_MOVED](obj, type, newPos, m_towers[newTowerIndex.x][newTowerIndex.y]->GetWatchers(), m_towers[oldTowerIndex.x][oldTowerIndex.y]->GetWatchers(), true);
+                objectCallBacks[CallBackDef::OBJ_MOVED](
+                    obj, type, newPos, m_towers[newTowerIndex.x][newTowerIndex.y]->GetWatchers(),
+                    m_towers[oldTowerIndex.x][oldTowerIndex.y]->GetWatchers(), true);
             }
         }
         return true;
@@ -409,7 +423,8 @@ public:
                     return ret;
                 }
                 if (watcherCallBacks[CallBackDef::WATCHER_ADD]) {
-                    watcherCallBacks[CallBackDef::WATCHER_ADD](watcher, type, pos, m_towers[x][y]->GetObjs(), emptyObjects, false);
+                    watcherCallBacks[CallBackDef::WATCHER_ADD](watcher, type, pos, m_towers[x][y]->GetObjs(),
+                                                               emptyObjects, false);
                 }
             };
         }
@@ -441,7 +456,8 @@ public:
                     return ret;
                 }
                 if (watcherCallBacks[CallBackDef::WATCHER_REMOVE]) {
-                    watcherCallBacks[CallBackDef::WATCHER_REMOVE](watcher, type, it->second, emptyObjects, m_towers[x][y]->GetObjs(), false);
+                    watcherCallBacks[CallBackDef::WATCHER_REMOVE](watcher, type, it->second, emptyObjects,
+                                                                  m_towers[x][y]->GetObjs(), false);
                 }
             };
         }
@@ -483,7 +499,8 @@ public:
         if (oldTowerIndex.x == newTowerIndex.x && oldTowerIndex.y == newTowerIndex.y) {
             m_towers[oldTowerIndex.x][oldTowerIndex.y]->GetWatchers()[type][watcher] = newPos;
             if (watcherCallBacks[CallBackDef::WATCHER_MOVE])
-                watcherCallBacks[CallBackDef::WATCHER_MOVE](watcher, type, newPos, m_towers[oldTowerIndex.x][oldTowerIndex.y]->GetObjs(), emptyObjects, false);
+                watcherCallBacks[CallBackDef::WATCHER_MOVE](
+                    watcher, type, newPos, m_towers[oldTowerIndex.x][oldTowerIndex.y]->GetObjs(), emptyObjects, false);
         } else {
             TowerIndexRegion oldRegion = GetTowerIndexRegion(oldTowerIndex, watcher.viewRange);
             TowerIndexRegion newRegion = GetTowerIndexRegion(newTowerIndex, watcher.viewRange);
@@ -493,10 +510,13 @@ public:
             for (int x = oldRegion.start.x; x <= oldRegion.end.x; ++x) {
                 for (int y = oldRegion.start.y; y <= oldRegion.end.y; ++y) {
                     //过滤掉还在视野内的
-                    if (x >= newRegion.start.x && y >= newRegion.start.y && x <= newRegion.end.x && y <= newRegion.end.y) {
+                    if (x >= newRegion.start.x && y >= newRegion.start.y && x <= newRegion.end.x &&
+                        y <= newRegion.end.y) {
                         m_towers[oldTowerIndex.x][oldTowerIndex.y]->GetWatchers()[type][watcher] = newPos;
                         if (watcherCallBacks[CallBackDef::WATCHER_MOVE])
-                            watcherCallBacks[CallBackDef::WATCHER_MOVE](watcher, type, newPos, m_towers[oldTowerIndex.x][oldTowerIndex.y]->GetObjs(), emptyObjects, false);
+                            watcherCallBacks[CallBackDef::WATCHER_MOVE](
+                                watcher, type, newPos, m_towers[oldTowerIndex.x][oldTowerIndex.y]->GetObjs(),
+                                emptyObjects, false);
                         continue;
                     }
                     ret = m_towers[x][y]->RemoveWatcher(watcher, type);
@@ -504,7 +524,8 @@ public:
                         return ret;
                     }
                     if (watcherCallBacks[CallBackDef::WATCHER_MOVE]) {
-                        watcherCallBacks[CallBackDef::WATCHER_MOVE](watcher, type, newPos, emptyObjects, m_towers[x][y]->GetObjs(), true);
+                        watcherCallBacks[CallBackDef::WATCHER_MOVE](watcher, type, newPos, emptyObjects,
+                                                                    m_towers[x][y]->GetObjs(), true);
                     }
                 };
             }
@@ -512,7 +533,8 @@ public:
             for (int x = newRegion.start.x; x <= newRegion.end.x; ++x) {
                 for (int y = newRegion.start.y; y <= newRegion.end.y; ++y) {
                     //过滤掉还在视野内的
-                    if (x >= oldRegion.start.x && y >= oldRegion.start.y && x <= oldRegion.end.x && y <= oldRegion.end.y) {
+                    if (x >= oldRegion.start.x && y >= oldRegion.start.y && x <= oldRegion.end.x &&
+                        y <= oldRegion.end.y) {
                         continue;
                     }
 
@@ -521,7 +543,8 @@ public:
                         return ret;
                     }
                     if (watcherCallBacks[CallBackDef::WATCHER_MOVE]) {
-                        watcherCallBacks[CallBackDef::WATCHER_MOVE](watcher, type, newPos, m_towers[x][y]->GetObjs(), emptyObjects, true);
+                        watcherCallBacks[CallBackDef::WATCHER_MOVE](watcher, type, newPos, m_towers[x][y]->GetObjs(),
+                                                                    emptyObjects, true);
                     }
                 };
             }
@@ -573,12 +596,14 @@ public:
                 }
                 if (isBigger) {
                     //视野扩大
-                    ret = m_towers[bx][by]->AddWatcher(watcher, m_towers[towerIndex.x][towerIndex.y]->GetWatchers()[type][watcher], type);
+                    ret = m_towers[bx][by]->AddWatcher(
+                        watcher, m_towers[towerIndex.x][towerIndex.y]->GetWatchers()[type][watcher], type);
                     if (!ret) {
                         return ret;
                     }
                     if (watcherCallBacks[CallBackDef::WATCHER_VIEW_CHANGE]) {
-                        watcherCallBacks[CallBackDef::WATCHER_VIEW_CHANGE](watcher, type, it->second, m_towers[bx][by]->GetObjs(), emptyObjects, false);
+                        watcherCallBacks[CallBackDef::WATCHER_VIEW_CHANGE](
+                            watcher, type, it->second, m_towers[bx][by]->GetObjs(), emptyObjects, false);
                     }
                 } else {
                     //视野减小
@@ -587,7 +612,8 @@ public:
                         return ret;
                     }
                     if (watcherCallBacks[CallBackDef::WATCHER_VIEW_CHANGE]) {
-                        watcherCallBacks[CallBackDef::WATCHER_VIEW_CHANGE](watcher, type, it->second, emptyObjects, m_towers[bx][by]->GetObjs(), false);
+                        watcherCallBacks[CallBackDef::WATCHER_VIEW_CHANGE](watcher, type, it->second, emptyObjects,
+                                                                           m_towers[bx][by]->GetObjs(), false);
                     }
                 }
             }
@@ -613,9 +639,13 @@ public:
         return region;
     }
 
-    inline bool CheckPos(const Point &pos) const { return !(pos.x < 0 || pos.y < 0 || pos.x >= config.GlobalWith || pos.y >= config.GlobalHeight); }
+    inline bool CheckPos(const Point &pos) const {
+        return !(pos.x < 0 || pos.y < 0 || pos.x >= config.GlobalWith || pos.y >= config.GlobalHeight);
+    }
 
-    inline TowerIndex TranslateTowerIndex(const Point &pos) const { return TowerIndex((int)(pos.x / config.TowerWith), (int)(pos.y / config.TowerHeight)); }
+    inline TowerIndex TranslateTowerIndex(const Point &pos) const {
+        return TowerIndex((int)(pos.x / config.TowerWith), (int)(pos.y / config.TowerHeight));
+    }
 
 private:
     inline TowerIndex GetObjectTowerIndex(const Object &obj, ObjectType type, bool IsObject) {
@@ -643,26 +673,26 @@ public:
 };
 }  // namespace TowerAoiImpl
 
-#define TOWER_DEFINE(number, payload)                                                                                                                                                                  \
-    typedef TowerAoiImpl::TowerAoiT<number, payload> TowerAoi;                                                                                                                                         \
-    typedef TowerAoi::Number                         Number;                                                                                                                                           \
-    typedef TowerAoi::TowerConfig                    TowerConfig;                                                                                                                                      \
-    typedef TowerAoi::Tower                          Tower;                                                                                                                                            \
-    typedef TowerAoi::Point                          Point;                                                                                                                                            \
-    typedef TowerAoi::Object                         Object;                                                                                                                                           \
-    typedef TowerAoi::ObjectType                     ObjectType;                                                                                                                                       \
-    typedef TowerAoi::PositionMap                    PositionMap;                                                                                                                                      \
-    typedef TowerAoi::TypeObjectMap                  TypeObjectMap;                                                                                                                                    \
-    typedef TowerAoi::Watcher                        Watcher;                                                                                                                                          \
-    typedef TowerAoi::WatcherPositionMap             WatcherPositionMap;                                                                                                                               \
-    typedef TowerAoi::WatcherTypeObjectMap           WatcherTypeObjectMap;                                                                                                                             \
-    typedef TowerAoi::Region                         Region;                                                                                                                                           \
-    typedef TowerAoi::TowerIndex                     TowerIndex;                                                                                                                                       \
-    typedef TowerAoi::TowerIndexRegion               TowerIndexRegion;                                                                                                                                 \
-    typedef TowerAoi::ObjCallBackT                   ObjCallBack;                                                                                                                                      \
-    typedef TowerAoi::WatcherCallBackT               WatcherCallBack;                                                                                                                                  \
-    typedef TowerAoi::CallBackDef                    CallBackDef;                                                                                                                                      \
-    typedef TowerAoi::ObjectTowerIndexMap            ObjectTowerIndexMap;                                                                                                                              \
+#define TOWER_DEFINE(number, payload)                                                                                  \
+    typedef TowerAoiImpl::TowerAoiT<number, payload> TowerAoi;                                                         \
+    typedef TowerAoi::Number                         Number;                                                           \
+    typedef TowerAoi::TowerConfig                    TowerConfig;                                                      \
+    typedef TowerAoi::Tower                          Tower;                                                            \
+    typedef TowerAoi::Point                          Point;                                                            \
+    typedef TowerAoi::Object                         Object;                                                           \
+    typedef TowerAoi::ObjectType                     ObjectType;                                                       \
+    typedef TowerAoi::PositionMap                    PositionMap;                                                      \
+    typedef TowerAoi::TypeObjectMap                  TypeObjectMap;                                                    \
+    typedef TowerAoi::Watcher                        Watcher;                                                          \
+    typedef TowerAoi::WatcherPositionMap             WatcherPositionMap;                                               \
+    typedef TowerAoi::WatcherTypeObjectMap           WatcherTypeObjectMap;                                             \
+    typedef TowerAoi::Region                         Region;                                                           \
+    typedef TowerAoi::TowerIndex                     TowerIndex;                                                       \
+    typedef TowerAoi::TowerIndexRegion               TowerIndexRegion;                                                 \
+    typedef TowerAoi::ObjCallBackT                   ObjCallBack;                                                      \
+    typedef TowerAoi::WatcherCallBackT               WatcherCallBack;                                                  \
+    typedef TowerAoi::CallBackDef                    CallBackDef;                                                      \
+    typedef TowerAoi::ObjectTowerIndexMap            ObjectTowerIndexMap;                                              \
     typedef TowerAoi::TypeObjectTowerIndexMap        TypeObjectTowerIndexMap;
 
 #endif  // CPP_STUDY_ALL_TOWER_AOI_H

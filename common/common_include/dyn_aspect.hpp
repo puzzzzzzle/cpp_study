@@ -8,19 +8,19 @@ public:
     NonCopyable()                               = default;  // Available
 };
 
-#define HAS_MEMBER(member)                                                                                                                                                                             \
-                                                                                                                                                                                                       \
-    template <typename T, typename... Args>                                                                                                                                                            \
-    struct has_member_##member {                                                                                                                                                                       \
-    private:                                                                                                                                                                                           \
-        template <typename U>                                                                                                                                                                          \
-        static auto Check(int) -> decltype(std::declval<U>().member(std::declval<Args>()...), std::true_type());                                                                                       \
-                                                                                                                                                                                                       \
-        template <typename U>                                                                                                                                                                          \
-        static std::false_type Check(...);                                                                                                                                                             \
-                                                                                                                                                                                                       \
-    public:                                                                                                                                                                                            \
-        enum { value = std::is_same<decltype(Check<T>(0)), std::true_type>::value };                                                                                                                   \
+#define HAS_MEMBER(member)                                                                                             \
+                                                                                                                       \
+    template <typename T, typename... Args>                                                                            \
+    struct has_member_##member {                                                                                       \
+    private:                                                                                                           \
+        template <typename U>                                                                                          \
+        static auto Check(int) -> decltype(std::declval<U>().member(std::declval<Args>()...), std::true_type());       \
+                                                                                                                       \
+        template <typename U>                                                                                          \
+        static std::false_type Check(...);                                                                             \
+                                                                                                                       \
+    public:                                                                                                            \
+        enum { value = std::is_same<decltype(Check<T>(0)), std::true_type>::value };                                   \
     }
 
 HAS_MEMBER(Before);  // Add Before aspect
@@ -31,20 +31,23 @@ struct Aspect : NonCopyable {
     Aspect(Func &&f) : m_func(std::forward<Func>(f)) {}
 
     template <typename T>
-    typename std::enable_if<has_member_Before<T, Args...>::value && has_member_After<T, Args...>::value>::type Invoke(Args &&... args, T &&aspect) {
+    typename std::enable_if<has_member_Before<T, Args...>::value && has_member_After<T, Args...>::value>::type Invoke(
+        Args &&... args, T &&aspect) {
         aspect.Before(std::forward<Args>(args)...);   // Run codes before core codes
         m_ret = m_func(std::forward<Args>(args)...);  // Run core codes
         aspect.After(std::forward<Args>(args)...);    // Run codes after core codes
     }
 
     template <typename T>
-    typename std::enable_if<has_member_Before<T, Args...>::value && !has_member_After<T, Args...>::value>::type Invoke(Args &&... args, T &&aspect) {
+    typename std::enable_if<has_member_Before<T, Args...>::value && !has_member_After<T, Args...>::value>::type Invoke(
+        Args &&... args, T &&aspect) {
         aspect.Before(std::forward<Args>(args)...);   // Run codes before core codes
         m_ret = m_func(std::forward<Args>(args)...);  // Run core codes
     }
 
     template <typename T>
-    typename std::enable_if<!has_member_Before<T, Args...>::value && has_member_After<T, Args...>::value>::type Invoke(Args &&... args, T &&aspect) {
+    typename std::enable_if<!has_member_Before<T, Args...>::value && has_member_After<T, Args...>::value>::type Invoke(
+        Args &&... args, T &&aspect) {
         m_ret = m_func(std::forward<Args>(args)...);  // Run core codes
         aspect.After(std::forward<Args>(args)...);    // Run codes after core codes
     }

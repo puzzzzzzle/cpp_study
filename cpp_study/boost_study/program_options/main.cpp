@@ -28,8 +28,10 @@ int main(int argc, char **argv) {
     namespace po = boost::program_options;
     try {
         po::options_description desc("Allowed options");
-        desc.add_options()("help,h", "produce help message")("int,i", po::value<int>()->default_value(1), "int value")("double,d", po::value<double>()->default_value(2.2), "double value")(
-            "float,f", po::value<float>()->default_value(3.3), "float value")("string,s", po::value<string>()->default_value("str"), "string value")
+        desc.add_options()("help,h", "produce help message")("int,i", po::value<int>()->default_value(1), "int value")(
+            "double,d", po::value<double>()->default_value(2.2), "double value")(
+            "float,f", po::value<float>()->default_value(3.3), "float value")(
+            "string,s", po::value<string>()->default_value("str"), "string value")
             // -v str1 -v str2 -v str3 ...
             ("vector,v", po::value<vector<string>>()->composing(), "vector value");
 

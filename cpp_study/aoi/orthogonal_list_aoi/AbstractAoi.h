@@ -39,7 +39,8 @@ public:
 
 public:
     friend std::ostream &operator<<(std::ostream &oss, const IBaseNode &node) {
-        oss << node.obj << ":{p:[" << node.point.x << "," << node.point.y << "],r:[" << node.point.halfXLen << "," << node.point.halfYLen << "]}";
+        oss << node.obj << ":{p:[" << node.point.x << "," << node.point.y << "],r:[" << node.point.halfXLen << ","
+            << node.point.halfYLen << "]}";
         return oss;
     }
 };
@@ -60,8 +61,9 @@ public:
     virtual bool Leave(Node *pnode, bool autoDelete = true) = 0;
 
     // todo change to iterator
-    virtual std::vector<std::pair<Node *, bool>> QueryInsideRegion(Node *pnode, NumberT xSize, NumberT ySize)                   = 0;
-    virtual std::vector<std::pair<Node *, bool>> QueryInsidespace(NumberT xStart, NumberT yStart, NumberT xSize, NumberT ySize) = 0;
+    virtual std::vector<std::pair<Node *, bool>> QueryInsideRegion(Node *pnode, NumberT xSize, NumberT ySize) = 0;
+    virtual std::vector<std::pair<Node *, bool>> QueryInsidespace(NumberT xStart, NumberT yStart, NumberT xSize,
+                                                                  NumberT ySize)                              = 0;
 
     //    virtual int GetSize() const;
     //    virtual bool IsEmpty() const;

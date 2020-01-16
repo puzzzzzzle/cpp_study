@@ -32,8 +32,8 @@
 //#define INFO_CON(msg) LOG4CPLUS_INFO(console, msg);
 //#define WARN_CON(msg) LOG4CPLUS_WARN(console, msg);
 //#define ERROR_CON(msg) LOG4CPLUS_ERROR(console, msg);
-//#define PERROR_CON(msg) LOG4CPLUS_ERROR(console, msg);LOG4CPLUS_ERROR(console, "err reason maybe : \t"<<strerror(errno));
-//#define FATAL_CON(msg) LOG4CPLUS_FATAL(console, msg);
+//#define PERROR_CON(msg) LOG4CPLUS_ERROR(console, msg);LOG4CPLUS_ERROR(console, "err reason maybe :
+//\t"<<strerror(errno)); #define FATAL_CON(msg) LOG4CPLUS_FATAL(console, msg);
 
 //////< console log init
 #define TRACE(msg) std::cout << "log4cplus::TRACE\t" << msg << std::endl;

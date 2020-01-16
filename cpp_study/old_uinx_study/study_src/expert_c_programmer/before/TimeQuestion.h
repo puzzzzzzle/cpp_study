@@ -40,7 +40,8 @@ void timeQuestion() {
         tmblock = localtime(&down);
     }
 
-    printf("max val is %ld,\t max year is %d\tM is %d,day is %dt\n", max, tmblock->tm_year, tmblock->tm_mon, tmblock->tm_mday);
+    printf("max val is %ld,\t max year is %d\tM is %d,day is %dt\n", max, tmblock->tm_year, tmblock->tm_mon,
+           tmblock->tm_mday);
 }
 
 #endif  // UNIXSTUDYCPP_TIMEQUESTION_H

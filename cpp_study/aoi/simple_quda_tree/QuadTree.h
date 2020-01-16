@@ -38,7 +38,8 @@ private:
     void             print(QTNode<T>* node, ostream& ss);
     void             addAllPointsToResults(QTNode<T>* node, vector<pair<vertex, T>>& results);
     bool             pointInRegion(const vertex& point, const vertex& minXY, const vertex& maxXY);
-    enclosure_status getEnclosureStatus(const vertex& center, const vertex& range, const vertex& minXY, const vertex& maxXY);
+    enclosure_status getEnclosureStatus(const vertex& center, const vertex& range, const vertex& minXY,
+                                        const vertex& maxXY);
 
     QTNode<T>* root;
     unsigned   maxDepth, maxBucketSize;

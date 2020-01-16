@@ -135,8 +135,9 @@ public:
             if ((cur->point.x - cur->point.halfXLen - pnode->point.x) > xSize) {
                 break;
             } else {
-                int  yDiff    = abs(pnode->point.y - cur->point.y) - cur->point.halfYLen;
-                bool IsOnSide = abs(pnode->point.y - cur->point.y) > ySize || abs(pnode->point.x - cur->point.x) > xSize;
+                int  yDiff = abs(pnode->point.y - cur->point.y) - cur->point.halfYLen;
+                bool IsOnSide =
+                    abs(pnode->point.y - cur->point.y) > ySize || abs(pnode->point.x - cur->point.x) > xSize;
                 if (yDiff <= ySize) {
                     result.push_back({cur, IsOnSide});
                 }
@@ -150,8 +151,9 @@ public:
             if ((pnode->point.x - cur->point.x - cur->point.halfXLen) > xSize) {
                 break;
             } else {
-                int  yDiff    = abs(pnode->point.y - cur->point.y) - cur->point.halfYLen;
-                bool IsOnSide = abs(pnode->point.y - cur->point.y) > ySize || abs(pnode->point.x - cur->point.x) > xSize;
+                int  yDiff = abs(pnode->point.y - cur->point.y) - cur->point.halfYLen;
+                bool IsOnSide =
+                    abs(pnode->point.y - cur->point.y) > ySize || abs(pnode->point.x - cur->point.x) > xSize;
                 if (yDiff <= ySize) {
                     result.push_back({cur, IsOnSide});
                 }
@@ -162,7 +164,8 @@ public:
         return result;
     }
 
-    virtual std::vector<std::pair<Node *, bool>> QueryInsidespace(NumberT xStart, NumberT yStart, NumberT xSize, NumberT ySize) override {
+    virtual std::vector<std::pair<Node *, bool>> QueryInsidespace(NumberT xStart, NumberT yStart, NumberT xSize,
+                                                                  NumberT ySize) override {
         std::vector<std::pair<Node *, bool>> result;
         // 往后找
         DoubleNode *cur = _head->xNext;

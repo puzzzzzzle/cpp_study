@@ -20,7 +20,8 @@ void producer_worker(std::atomic_int *m_producer_count, boost::lockfree::queue<i
     }
 }
 
-void consumer_worker(std::atomic_int *m_consumer_count, boost::lockfree::queue<int> *m_queue, const std::atomic_bool *done) {
+void consumer_worker(std::atomic_int *m_consumer_count, boost::lockfree::queue<int> *m_queue,
+                     const std::atomic_bool *done) {
     int value;
     while (!(*done)) {
         while (m_queue->pop(value)) ++(*m_consumer_count);
@@ -36,8 +37,9 @@ void test_impl(const int iterations, int producer, int consumer) {
     boost::lockfree::queue<int> m_queue(128);
 
     auto producer_thread_worker = [&] { return producer_worker(&m_producer_count, &m_queue, iterations); };  // lambda
-    auto consumer_thread_worker = [&] { return consumer_worker(&m_consumer_count, &m_queue, &done); };       // equal as bind
-    //    auto consumer_thread_worker = std::bind(consumer_worker, &m_consumer_count, &m_queue,&done);              // equal as bind
+    auto consumer_thread_worker = [&] { return consumer_worker(&m_consumer_count, &m_queue, &done); };  // equal as bind
+    //    auto consumer_thread_worker = std::bind(consumer_worker, &m_consumer_count, &m_queue,&done);              //
+    //    equal as bind
 
     boost::thread_group producer_threads, consumer_threads;
 

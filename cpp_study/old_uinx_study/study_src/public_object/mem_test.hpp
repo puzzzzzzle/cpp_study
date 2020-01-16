@@ -40,7 +40,8 @@ int mem_test_main() {
     cout << "str:\t" << sizeof(str_people) << endl;
     char_people cp("tao");
     str_people  sp(
-        "taosssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss"
+        "taosssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss"
+        "ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss"
         "ss"
         "sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss");
     cout << "char:\t" << sizeof(cp) << endl;

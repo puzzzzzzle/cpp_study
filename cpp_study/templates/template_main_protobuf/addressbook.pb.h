@@ -45,12 +45,13 @@ PROTOBUF_NAMESPACE_CLOSE
 
 // Internal implementation detail -- do not use these members.
 struct TableStruct_addressbook_2eproto {
-    static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTableField          entries[] PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-    static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[] PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-    static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable               schema[3] PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-    static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata            field_metadata[];
-    static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable       serialization_table[];
-    static const ::PROTOBUF_NAMESPACE_ID::uint32                             offsets[];
+    static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTableField entries[] PROTOBUF_SECTION_VARIABLE(protodesc_cold);
+    static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[] PROTOBUF_SECTION_VARIABLE(
+        protodesc_cold);
+    static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable    schema[3] PROTOBUF_SECTION_VARIABLE(protodesc_cold);
+    static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
+    static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
+    static const ::PROTOBUF_NAMESPACE_ID::uint32                       offsets[];
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_addressbook_2eproto;
 namespace tutorial {
@@ -75,11 +76,13 @@ PROTOBUF_NAMESPACE_CLOSE
 namespace tutorial {
 
 enum Person_PhoneType : int {
-    Person_PhoneType_MOBILE                                        = 0,
-    Person_PhoneType_HOME                                          = 1,
-    Person_PhoneType_WORK                                          = 2,
-    Person_PhoneType_Person_PhoneType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
-    Person_PhoneType_Person_PhoneType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
+    Person_PhoneType_MOBILE = 0,
+    Person_PhoneType_HOME   = 1,
+    Person_PhoneType_WORK   = 2,
+    Person_PhoneType_Person_PhoneType_INT_MIN_SENTINEL_DO_NOT_USE_ =
+        std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
+    Person_PhoneType_Person_PhoneType_INT_MAX_SENTINEL_DO_NOT_USE_ =
+        std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
 bool                       Person_PhoneType_IsValid(int value);
 constexpr Person_PhoneType Person_PhoneType_PhoneType_MIN       = Person_PhoneType_MOBILE;
@@ -89,15 +92,18 @@ constexpr int              Person_PhoneType_PhoneType_ARRAYSIZE = Person_PhoneTy
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* Person_PhoneType_descriptor();
 template <typename T>
 inline const std::string& Person_PhoneType_Name(T enum_t_value) {
-    static_assert(::std::is_same<T, Person_PhoneType>::value || ::std::is_integral<T>::value, "Incorrect type passed to function Person_PhoneType_Name.");
+    static_assert(::std::is_same<T, Person_PhoneType>::value || ::std::is_integral<T>::value,
+                  "Incorrect type passed to function Person_PhoneType_Name.");
     return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(Person_PhoneType_descriptor(), enum_t_value);
 }
 inline bool Person_PhoneType_Parse(const std::string& name, Person_PhoneType* value) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<Person_PhoneType>(Person_PhoneType_descriptor(), name, value);
+    return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<Person_PhoneType>(Person_PhoneType_descriptor(), name,
+                                                                               value);
 }
 // ===================================================================
 
-class Person_PhoneNumber : public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:tutorial.Person.PhoneNumber) */ {
+class Person_PhoneNumber : public ::PROTOBUF_NAMESPACE_ID::
+                               Message /* @@protoc_insertion_point(class_definition:tutorial.Person.PhoneNumber) */ {
 public:
     Person_PhoneNumber();
     virtual ~Person_PhoneNumber();
@@ -124,8 +130,10 @@ public:
     static const Person_PhoneNumber&                  default_instance();
 
     static void                             InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-    static inline const Person_PhoneNumber* internal_default_instance() { return reinterpret_cast<const Person_PhoneNumber*>(&_Person_PhoneNumber_default_instance_); }
-    static constexpr int                    kIndexInFileMessages = 0;
+    static inline const Person_PhoneNumber* internal_default_instance() {
+        return reinterpret_cast<const Person_PhoneNumber*>(&_Person_PhoneNumber_default_instance_);
+    }
+    static constexpr int kIndexInFileMessages = 0;
 
     friend void swap(Person_PhoneNumber& a, Person_PhoneNumber& b) { a.Swap(&b); }
     inline void Swap(Person_PhoneNumber* other) {
@@ -137,7 +145,9 @@ public:
 
     inline Person_PhoneNumber* New() const final { return CreateMaybeMessage<Person_PhoneNumber>(nullptr); }
 
-    Person_PhoneNumber*                   New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final { return CreateMaybeMessage<Person_PhoneNumber>(arena); }
+    Person_PhoneNumber* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+        return CreateMaybeMessage<Person_PhoneNumber>(arena);
+    }
     void                                  CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
     void                                  MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
     void                                  CopyFrom(const Person_PhoneNumber& from);
@@ -151,9 +161,10 @@ public:
 #else
     bool MergePartialFromCodedStream(::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) final;
 #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-    void                            SerializeWithCachedSizes(::PROTOBUF_NAMESPACE_ID::io::CodedOutputStream* output) const final;
-    ::PROTOBUF_NAMESPACE_ID::uint8* InternalSerializeWithCachedSizesToArray(::PROTOBUF_NAMESPACE_ID::uint8* target) const final;
-    int                             GetCachedSize() const final { return _cached_size_.Get(); }
+    void SerializeWithCachedSizes(::PROTOBUF_NAMESPACE_ID::io::CodedOutputStream* output) const final;
+    ::PROTOBUF_NAMESPACE_ID::uint8* InternalSerializeWithCachedSizesToArray(
+        ::PROTOBUF_NAMESPACE_ID::uint8* target) const final;
+    int GetCachedSize() const final { return _cached_size_.Get(); }
 
 private:
     inline void SharedCtor();
@@ -213,7 +224,8 @@ private:
 };
 // -------------------------------------------------------------------
 
-class Person : public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:tutorial.Person) */ {
+class Person
+    : public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:tutorial.Person) */ {
 public:
     Person();
     virtual ~Person();
@@ -240,8 +252,10 @@ public:
     static const Person&                              default_instance();
 
     static void                 InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-    static inline const Person* internal_default_instance() { return reinterpret_cast<const Person*>(&_Person_default_instance_); }
-    static constexpr int        kIndexInFileMessages = 1;
+    static inline const Person* internal_default_instance() {
+        return reinterpret_cast<const Person*>(&_Person_default_instance_);
+    }
+    static constexpr int kIndexInFileMessages = 1;
 
     friend void swap(Person& a, Person& b) { a.Swap(&b); }
     inline void Swap(Person* other) {
@@ -253,11 +267,11 @@ public:
 
     inline Person* New() const final { return CreateMaybeMessage<Person>(nullptr); }
 
-    Person*                               New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final { return CreateMaybeMessage<Person>(arena); }
-    void                                  CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-    void                                  MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-    void                                  CopyFrom(const Person& from);
-    void                                  MergeFrom(const Person& from);
+    Person* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final { return CreateMaybeMessage<Person>(arena); }
+    void    CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+    void    MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+    void    CopyFrom(const Person& from);
+    void    MergeFrom(const Person& from);
     PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
     bool                                  IsInitialized() const final;
 
@@ -267,9 +281,10 @@ public:
 #else
     bool MergePartialFromCodedStream(::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) final;
 #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-    void                            SerializeWithCachedSizes(::PROTOBUF_NAMESPACE_ID::io::CodedOutputStream* output) const final;
-    ::PROTOBUF_NAMESPACE_ID::uint8* InternalSerializeWithCachedSizesToArray(::PROTOBUF_NAMESPACE_ID::uint8* target) const final;
-    int                             GetCachedSize() const final { return _cached_size_.Get(); }
+    void SerializeWithCachedSizes(::PROTOBUF_NAMESPACE_ID::io::CodedOutputStream* output) const final;
+    ::PROTOBUF_NAMESPACE_ID::uint8* InternalSerializeWithCachedSizesToArray(
+        ::PROTOBUF_NAMESPACE_ID::uint8* target) const final;
+    int GetCachedSize() const final { return _cached_size_.Get(); }
 
 private:
     inline void SharedCtor();
@@ -297,21 +312,26 @@ public:
 
     typedef Person_PhoneNumber PhoneNumber;
 
-    typedef Person_PhoneType                                     PhoneType;
-    static constexpr PhoneType                                   MOBILE = Person_PhoneType_MOBILE;
-    static constexpr PhoneType                                   HOME   = Person_PhoneType_HOME;
-    static constexpr PhoneType                                   WORK   = Person_PhoneType_WORK;
-    static inline bool                                           PhoneType_IsValid(int value) { return Person_PhoneType_IsValid(value); }
-    static constexpr PhoneType                                   PhoneType_MIN       = Person_PhoneType_PhoneType_MIN;
-    static constexpr PhoneType                                   PhoneType_MAX       = Person_PhoneType_PhoneType_MAX;
-    static constexpr int                                         PhoneType_ARRAYSIZE = Person_PhoneType_PhoneType_ARRAYSIZE;
-    static inline const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* PhoneType_descriptor() { return Person_PhoneType_descriptor(); }
+    typedef Person_PhoneType   PhoneType;
+    static constexpr PhoneType MOBILE = Person_PhoneType_MOBILE;
+    static constexpr PhoneType HOME   = Person_PhoneType_HOME;
+    static constexpr PhoneType WORK   = Person_PhoneType_WORK;
+    static inline bool         PhoneType_IsValid(int value) { return Person_PhoneType_IsValid(value); }
+    static constexpr PhoneType PhoneType_MIN       = Person_PhoneType_PhoneType_MIN;
+    static constexpr PhoneType PhoneType_MAX       = Person_PhoneType_PhoneType_MAX;
+    static constexpr int       PhoneType_ARRAYSIZE = Person_PhoneType_PhoneType_ARRAYSIZE;
+    static inline const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* PhoneType_descriptor() {
+        return Person_PhoneType_descriptor();
+    }
     template <typename T>
     static inline const std::string& PhoneType_Name(T enum_t_value) {
-        static_assert(::std::is_same<T, PhoneType>::value || ::std::is_integral<T>::value, "Incorrect type passed to function PhoneType_Name.");
+        static_assert(::std::is_same<T, PhoneType>::value || ::std::is_integral<T>::value,
+                      "Incorrect type passed to function PhoneType_Name.");
         return Person_PhoneType_Name(enum_t_value);
     }
-    static inline bool PhoneType_Parse(const std::string& name, PhoneType* value) { return Person_PhoneType_Parse(name, value); }
+    static inline bool PhoneType_Parse(const std::string& name, PhoneType* value) {
+        return Person_PhoneType_Parse(name, value);
+    }
 
     // accessors -------------------------------------------------------
 
@@ -381,7 +401,8 @@ private:
 };
 // -------------------------------------------------------------------
 
-class AddressBook : public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:tutorial.AddressBook) */ {
+class AddressBook
+    : public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:tutorial.AddressBook) */ {
 public:
     AddressBook();
     virtual ~AddressBook();
@@ -408,8 +429,10 @@ public:
     static const AddressBook&                         default_instance();
 
     static void                      InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-    static inline const AddressBook* internal_default_instance() { return reinterpret_cast<const AddressBook*>(&_AddressBook_default_instance_); }
-    static constexpr int             kIndexInFileMessages = 2;
+    static inline const AddressBook* internal_default_instance() {
+        return reinterpret_cast<const AddressBook*>(&_AddressBook_default_instance_);
+    }
+    static constexpr int kIndexInFileMessages = 2;
 
     friend void swap(AddressBook& a, AddressBook& b) { a.Swap(&b); }
     inline void Swap(AddressBook* other) {
@@ -421,7 +444,9 @@ public:
 
     inline AddressBook* New() const final { return CreateMaybeMessage<AddressBook>(nullptr); }
 
-    AddressBook*                          New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final { return CreateMaybeMessage<AddressBook>(arena); }
+    AddressBook* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+        return CreateMaybeMessage<AddressBook>(arena);
+    }
     void                                  CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
     void                                  MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
     void                                  CopyFrom(const AddressBook& from);
@@ -435,9 +460,10 @@ public:
 #else
     bool MergePartialFromCodedStream(::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) final;
 #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-    void                            SerializeWithCachedSizes(::PROTOBUF_NAMESPACE_ID::io::CodedOutputStream* output) const final;
-    ::PROTOBUF_NAMESPACE_ID::uint8* InternalSerializeWithCachedSizesToArray(::PROTOBUF_NAMESPACE_ID::uint8* target) const final;
-    int                             GetCachedSize() const final { return _cached_size_.Get(); }
+    void SerializeWithCachedSizes(::PROTOBUF_NAMESPACE_ID::io::CodedOutputStream* output) const final;
+    ::PROTOBUF_NAMESPACE_ID::uint8* InternalSerializeWithCachedSizesToArray(
+        ::PROTOBUF_NAMESPACE_ID::uint8* target) const final;
+    int GetCachedSize() const final { return _cached_size_.Get(); }
 
 private:
     inline void SharedCtor();
@@ -497,7 +523,9 @@ private:
 // Person_PhoneNumber
 
 // string number = 1;
-inline void               Person_PhoneNumber::clear_number() { number_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited()); }
+inline void Person_PhoneNumber::clear_number() {
+    number_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
 inline const std::string& Person_PhoneNumber::number() const {
     // @@protoc_insertion_point(field_get:tutorial.Person.PhoneNumber.number)
     return number_.GetNoArena();
@@ -517,7 +545,8 @@ inline void Person_PhoneNumber::set_number(const char* value) {
     // @@protoc_insertion_point(field_set_char:tutorial.Person.PhoneNumber.number)
 }
 inline void Person_PhoneNumber::set_number(const char* value, size_t size) {
-    number_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(reinterpret_cast<const char*>(value), size));
+    number_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+                       ::std::string(reinterpret_cast<const char*>(value), size));
     // @@protoc_insertion_point(field_set_pointer:tutorial.Person.PhoneNumber.number)
 }
 inline std::string* Person_PhoneNumber::mutable_number() {
@@ -553,7 +582,9 @@ inline void Person_PhoneNumber::set_type(::tutorial::Person_PhoneType value) {
 // Person
 
 // string name = 1;
-inline void               Person::clear_name() { name_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited()); }
+inline void Person::clear_name() {
+    name_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
 inline const std::string& Person::name() const {
     // @@protoc_insertion_point(field_get:tutorial.Person.name)
     return name_.GetNoArena();
@@ -573,7 +604,8 @@ inline void Person::set_name(const char* value) {
     // @@protoc_insertion_point(field_set_char:tutorial.Person.name)
 }
 inline void Person::set_name(const char* value, size_t size) {
-    name_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(reinterpret_cast<const char*>(value), size));
+    name_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+                     ::std::string(reinterpret_cast<const char*>(value), size));
     // @@protoc_insertion_point(field_set_pointer:tutorial.Person.name)
 }
 inline std::string* Person::mutable_name() {
@@ -605,7 +637,9 @@ inline void Person::set_id(::PROTOBUF_NAMESPACE_ID::int32 value) {
 }
 
 // string email = 3;
-inline void               Person::clear_email() { email_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited()); }
+inline void Person::clear_email() {
+    email_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
 inline const std::string& Person::email() const {
     // @@protoc_insertion_point(field_get:tutorial.Person.email)
     return email_.GetNoArena();
@@ -625,7 +659,8 @@ inline void Person::set_email(const char* value) {
     // @@protoc_insertion_point(field_set_char:tutorial.Person.email)
 }
 inline void Person::set_email(const char* value, size_t size) {
-    email_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(reinterpret_cast<const char*>(value), size));
+    email_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+                      ::std::string(reinterpret_cast<const char*>(value), size));
     // @@protoc_insertion_point(field_set_pointer:tutorial.Person.email)
 }
 inline std::string* Person::mutable_email() {
@@ -670,11 +705,13 @@ inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<::tutorial::Person_PhoneN
 }
 
 // .google.protobuf.Timestamp last_updated = 5;
-inline bool                                    Person::has_last_updated() const { return this != internal_default_instance() && last_updated_ != nullptr; }
+inline bool Person::has_last_updated() const { return this != internal_default_instance() && last_updated_ != nullptr; }
 inline const PROTOBUF_NAMESPACE_ID::Timestamp& Person::last_updated() const {
     const PROTOBUF_NAMESPACE_ID::Timestamp* p = last_updated_;
     // @@protoc_insertion_point(field_get:tutorial.Person.last_updated)
-    return p != nullptr ? *p : *reinterpret_cast<const PROTOBUF_NAMESPACE_ID::Timestamp*>(&PROTOBUF_NAMESPACE_ID::_Timestamp_default_instance_);
+    return p != nullptr ? *p
+                        : *reinterpret_cast<const PROTOBUF_NAMESPACE_ID::Timestamp*>(
+                              &PROTOBUF_NAMESPACE_ID::_Timestamp_default_instance_);
 }
 inline PROTOBUF_NAMESPACE_ID::Timestamp* Person::release_last_updated() {
     // @@protoc_insertion_point(field_release:tutorial.Person.last_updated)
@@ -697,9 +734,11 @@ inline void Person::set_allocated_last_updated(PROTOBUF_NAMESPACE_ID::Timestamp*
         delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(last_updated_);
     }
     if (last_updated) {
-        ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(last_updated)->GetArena();
+        ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+            reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(last_updated)->GetArena();
         if (message_arena != submessage_arena) {
-            last_updated = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(message_arena, last_updated, submessage_arena);
+            last_updated =
+                ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(message_arena, last_updated, submessage_arena);
         }
 
     } else {

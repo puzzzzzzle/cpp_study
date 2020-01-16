@@ -110,7 +110,8 @@ void m_accept(bool *run_stat, int server_fd) {
             continue;
         }
         // start process
-        printf("conn from : %s:%d\n", inet_ntop(AF_INET, &client_addr.sin_addr, buff, sizeof(buff)), ntohs(client_addr.sin_port));
+        printf("conn from : %s:%d\n", inet_ntop(AF_INET, &client_addr.sin_addr, buff, sizeof(buff)),
+               ntohs(client_addr.sin_port));
         if ((child_pid = fork()) == 0) {
             close(server_fd);
             process_one(client_fd);

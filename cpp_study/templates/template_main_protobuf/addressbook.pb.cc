@@ -15,9 +15,12 @@
 #include <algorithm>
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
-extern PROTOBUF_INTERNAL_EXPORT_google_2fprotobuf_2ftimestamp_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Timestamp_google_2fprotobuf_2ftimestamp_2eproto;
-extern PROTOBUF_INTERNAL_EXPORT_addressbook_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<2>                   scc_info_Person_addressbook_2eproto;
-extern PROTOBUF_INTERNAL_EXPORT_addressbook_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0>                   scc_info_Person_PhoneNumber_addressbook_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_google_2fprotobuf_2ftimestamp_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0>
+    scc_info_Timestamp_google_2fprotobuf_2ftimestamp_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_addressbook_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<2>
+    scc_info_Person_addressbook_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_addressbook_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0>
+    scc_info_Person_PhoneNumber_addressbook_2eproto;
 namespace tutorial {
 class Person_PhoneNumberDefaultTypeInternal {
 public:
@@ -44,9 +47,11 @@ static void InitDefaultsscc_info_AddressBook_addressbook_2eproto() {
 }
 
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_AddressBook_addressbook_2eproto = {
-    {ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, InitDefaultsscc_info_AddressBook_addressbook_2eproto}, {
-                                                                                                                                                    &scc_info_Person_addressbook_2eproto.base,
-                                                                                                                                                }};
+    {ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1,
+     InitDefaultsscc_info_AddressBook_addressbook_2eproto},
+    {
+        &scc_info_Person_addressbook_2eproto.base,
+    }};
 
 static void InitDefaultsscc_info_Person_addressbook_2eproto() {
     GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -60,7 +65,8 @@ static void InitDefaultsscc_info_Person_addressbook_2eproto() {
 }
 
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<2> scc_info_Person_addressbook_2eproto = {
-    {ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 2, InitDefaultsscc_info_Person_addressbook_2eproto},
+    {ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 2,
+     InitDefaultsscc_info_Person_addressbook_2eproto},
     {
         &scc_info_Person_PhoneNumber_addressbook_2eproto.base,
         &scc_info_Timestamp_google_2fprotobuf_2ftimestamp_2eproto.base,
@@ -78,13 +84,17 @@ static void InitDefaultsscc_info_Person_PhoneNumber_addressbook_2eproto() {
 }
 
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Person_PhoneNumber_addressbook_2eproto = {
-    {ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsscc_info_Person_PhoneNumber_addressbook_2eproto}, {}};
+    {ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0,
+     InitDefaultsscc_info_Person_PhoneNumber_addressbook_2eproto},
+    {}};
 
 static ::PROTOBUF_NAMESPACE_ID::Metadata                            file_level_metadata_addressbook_2eproto[3];
 static const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor*               file_level_enum_descriptors_addressbook_2eproto[1];
-static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_addressbook_2eproto = nullptr;
+static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_addressbook_2eproto =
+    nullptr;
 
-const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_addressbook_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_addressbook_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(
+    protodesc_cold) = {
     ~0u,  // no _has_bits_
     PROTOBUF_FIELD_OFFSET(::tutorial::Person_PhoneNumber, _internal_metadata_),
     ~0u,  // no _extensions_
@@ -164,7 +174,8 @@ const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_addres
 };
 
 // Force running AddDescriptors() at dynamic initialization time.
-static bool dynamic_init_dummy_addressbook_2eproto = (::PROTOBUF_NAMESPACE_ID::internal::AddDescriptors(&descriptor_table_addressbook_2eproto), true);
+static bool dynamic_init_dummy_addressbook_2eproto =
+    (::PROTOBUF_NAMESPACE_ID::internal::AddDescriptors(&descriptor_table_addressbook_2eproto), true);
 namespace tutorial {
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* Person_PhoneType_descriptor() {
     ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_addressbook_2eproto);
@@ -201,7 +212,8 @@ Person_PhoneNumber::Person_PhoneNumber() : ::PROTOBUF_NAMESPACE_ID::Message(), _
     SharedCtor();
     // @@protoc_insertion_point(constructor:tutorial.Person.PhoneNumber)
 }
-Person_PhoneNumber::Person_PhoneNumber(const Person_PhoneNumber& from) : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+Person_PhoneNumber::Person_PhoneNumber(const Person_PhoneNumber& from)
+    : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
     _internal_metadata_.MergeFrom(from._internal_metadata_);
     number_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
     if (!from.number().empty()) {
@@ -222,7 +234,9 @@ Person_PhoneNumber::~Person_PhoneNumber() {
     SharedDtor();
 }
 
-void Person_PhoneNumber::SharedDtor() { number_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited()); }
+void Person_PhoneNumber::SharedDtor() {
+    number_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
 
 void                      Person_PhoneNumber::SetCachedSize(int size) const { _cached_size_.Set(size); }
 const Person_PhoneNumber& Person_PhoneNumber::default_instance() {
@@ -243,7 +257,7 @@ void Person_PhoneNumber::Clear() {
 
 #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 const char* Person_PhoneNumber::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x)                                                                                                                                                                                        \
+#define CHK_(x)                                                                                                        \
     if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
     while (!ctx->Done(&ptr)) {
         ::PROTOBUF_NAMESPACE_ID::uint32 tag;
@@ -253,7 +267,8 @@ const char* Person_PhoneNumber::_InternalParse(const char* ptr, ::PROTOBUF_NAMES
             // string number = 1;
             case 1:
                 if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
-                    ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8(mutable_number(), ptr, ctx, "tutorial.Person.PhoneNumber.number");
+                    ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8(
+                        mutable_number(), ptr, ctx, "tutorial.Person.PhoneNumber.number");
                     CHK_(ptr);
                 } else
                     goto handle_unusual;
@@ -288,7 +303,7 @@ failure:
 }
 #else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 bool Person_PhoneNumber::MergePartialFromCodedStream(::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) {
-#define DO_(EXPRESSION)                                                                                                                                                                                \
+#define DO_(EXPRESSION)                                                                                                \
     if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     // @@protoc_insertion_point(parse_start:tutorial.Person.PhoneNumber)
@@ -302,7 +317,9 @@ bool Person_PhoneNumber::MergePartialFromCodedStream(::PROTOBUF_NAMESPACE_ID::io
                 if (static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (10 & 0xFF)) {
                     DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadString(input, this->mutable_number()));
                     DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-                        this->number().data(), static_cast<int>(this->number().length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE, "tutorial.Person.PhoneNumber.number"));
+                        this->number().data(), static_cast<int>(this->number().length()),
+                        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE,
+                        "tutorial.Person.PhoneNumber.number"));
                 } else {
                     goto handle_unusual;
                 }
@@ -313,7 +330,8 @@ bool Person_PhoneNumber::MergePartialFromCodedStream(::PROTOBUF_NAMESPACE_ID::io
             case 2: {
                 if (static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (16 & 0xFF)) {
                     int value = 0;
-                    DO_((::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadPrimitive<int, ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_ENUM>(input, &value)));
+                    DO_((::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadPrimitive<
+                         int, ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_ENUM>(input, &value)));
                     set_type(static_cast<::tutorial::Person_PhoneType>(value));
                 } else {
                     goto handle_unusual;
@@ -326,7 +344,8 @@ bool Person_PhoneNumber::MergePartialFromCodedStream(::PROTOBUF_NAMESPACE_ID::io
                 if (tag == 0) {
                     goto success;
                 }
-                DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SkipField(input, tag, _internal_metadata_.mutable_unknown_fields()));
+                DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SkipField(
+                    input, tag, _internal_metadata_.mutable_unknown_fields()));
                 break;
             }
         }
@@ -349,7 +368,8 @@ void Person_PhoneNumber::SerializeWithCachedSizes(::PROTOBUF_NAMESPACE_ID::io::C
     // string number = 1;
     if (this->number().size() > 0) {
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-            this->number().data(), static_cast<int>(this->number().length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE, "tutorial.Person.PhoneNumber.number");
+            this->number().data(), static_cast<int>(this->number().length()),
+            ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE, "tutorial.Person.PhoneNumber.number");
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringMaybeAliased(1, this->number(), output);
     }
 
@@ -359,12 +379,14 @@ void Person_PhoneNumber::SerializeWithCachedSizes(::PROTOBUF_NAMESPACE_ID::io::C
     }
 
     if (_internal_metadata_.have_unknown_fields()) {
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SerializeUnknownFields(_internal_metadata_.unknown_fields(), output);
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SerializeUnknownFields(_internal_metadata_.unknown_fields(),
+                                                                              output);
     }
     // @@protoc_insertion_point(serialize_end:tutorial.Person.PhoneNumber)
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* Person_PhoneNumber::InternalSerializeWithCachedSizesToArray(::PROTOBUF_NAMESPACE_ID::uint8* target) const {
+::PROTOBUF_NAMESPACE_ID::uint8* Person_PhoneNumber::InternalSerializeWithCachedSizesToArray(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target) const {
     // @@protoc_insertion_point(serialize_to_array_start:tutorial.Person.PhoneNumber)
     ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
     (void)cached_has_bits;
@@ -372,7 +394,8 @@ void Person_PhoneNumber::SerializeWithCachedSizes(::PROTOBUF_NAMESPACE_ID::io::C
     // string number = 1;
     if (this->number().size() > 0) {
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-            this->number().data(), static_cast<int>(this->number().length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE, "tutorial.Person.PhoneNumber.number");
+            this->number().data(), static_cast<int>(this->number().length()),
+            ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE, "tutorial.Person.PhoneNumber.number");
         target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringToArray(1, this->number(), target);
     }
 
@@ -382,7 +405,8 @@ void Person_PhoneNumber::SerializeWithCachedSizes(::PROTOBUF_NAMESPACE_ID::io::C
     }
 
     if (_internal_metadata_.have_unknown_fields()) {
-        target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SerializeUnknownFieldsToArray(_internal_metadata_.unknown_fields(), target);
+        target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields(), target);
     }
     // @@protoc_insertion_point(serialize_to_array_end:tutorial.Person.PhoneNumber)
     return target;
@@ -393,7 +417,8 @@ size_t Person_PhoneNumber::ByteSizeLong() const {
     size_t total_size = 0;
 
     if (_internal_metadata_.have_unknown_fields()) {
-        total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::ComputeUnknownFieldsSize(_internal_metadata_.unknown_fields());
+        total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::ComputeUnknownFieldsSize(
+            _internal_metadata_.unknown_fields());
     }
     ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
     // Prevent compiler warnings about cached_has_bits being unused
@@ -461,7 +486,8 @@ bool Person_PhoneNumber::IsInitialized() const { return true; }
 void Person_PhoneNumber::InternalSwap(Person_PhoneNumber* other) {
     using std::swap;
     _internal_metadata_.Swap(&other->_internal_metadata_);
-    number_.Swap(&other->number_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+    number_.Swap(&other->number_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+                 GetArenaNoVirtual());
     swap(type_, other->type_);
 }
 
@@ -470,15 +496,18 @@ void Person_PhoneNumber::InternalSwap(Person_PhoneNumber* other) {
 // ===================================================================
 
 void Person::InitAsDefaultInstance() {
-    ::tutorial::_Person_default_instance_._instance.get_mutable()->last_updated_ = const_cast<PROTOBUF_NAMESPACE_ID::Timestamp*>(PROTOBUF_NAMESPACE_ID::Timestamp::internal_default_instance());
+    ::tutorial::_Person_default_instance_._instance.get_mutable()->last_updated_ =
+        const_cast<PROTOBUF_NAMESPACE_ID::Timestamp*>(PROTOBUF_NAMESPACE_ID::Timestamp::internal_default_instance());
 }
 class Person::_Internal {
 public:
     static const PROTOBUF_NAMESPACE_ID::Timestamp& last_updated(const Person* msg);
 };
 
-const PROTOBUF_NAMESPACE_ID::Timestamp& Person::_Internal::last_updated(const Person* msg) { return *msg->last_updated_; }
-void                                    Person::clear_last_updated() {
+const PROTOBUF_NAMESPACE_ID::Timestamp& Person::_Internal::last_updated(const Person* msg) {
+    return *msg->last_updated_;
+}
+void Person::clear_last_updated() {
     if (GetArenaNoVirtual() == nullptr && last_updated_ != nullptr) {
         delete last_updated_;
     }
@@ -488,7 +517,8 @@ Person::Person() : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullp
     SharedCtor();
     // @@protoc_insertion_point(constructor:tutorial.Person)
 }
-Person::Person(const Person& from) : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr), phones_(from.phones_) {
+Person::Person(const Person& from)
+    : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr), phones_(from.phones_) {
     _internal_metadata_.MergeFrom(from._internal_metadata_);
     name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
     if (!from.name().empty()) {
@@ -511,7 +541,9 @@ void Person::SharedCtor() {
     ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_Person_addressbook_2eproto.base);
     name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
     email_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-    ::memset(&last_updated_, 0, static_cast<size_t>(reinterpret_cast<char*>(&id_) - reinterpret_cast<char*>(&last_updated_)) + sizeof(id_));
+    ::memset(
+        &last_updated_, 0,
+        static_cast<size_t>(reinterpret_cast<char*>(&id_) - reinterpret_cast<char*>(&last_updated_)) + sizeof(id_));
 }
 
 Person::~Person() {
@@ -550,7 +582,7 @@ void Person::Clear() {
 
 #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 const char* Person::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x)                                                                                                                                                                                        \
+#define CHK_(x)                                                                                                        \
     if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
     while (!ctx->Done(&ptr)) {
         ::PROTOBUF_NAMESPACE_ID::uint32 tag;
@@ -560,7 +592,8 @@ const char* Person::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::int
             // string name = 1;
             case 1:
                 if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
-                    ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8(mutable_name(), ptr, ctx, "tutorial.Person.name");
+                    ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8(mutable_name(), ptr, ctx,
+                                                                                          "tutorial.Person.name");
                     CHK_(ptr);
                 } else
                     goto handle_unusual;
@@ -576,7 +609,8 @@ const char* Person::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::int
             // string email = 3;
             case 3:
                 if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
-                    ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8(mutable_email(), ptr, ctx, "tutorial.Person.email");
+                    ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8(mutable_email(), ptr, ctx,
+                                                                                          "tutorial.Person.email");
                     CHK_(ptr);
                 } else
                     goto handle_unusual;
@@ -590,7 +624,8 @@ const char* Person::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::int
                         ptr = ctx->ParseMessage(add_phones(), ptr);
                         CHK_(ptr);
                         if (!ctx->DataAvailable(ptr)) break;
-                    } while (::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<::PROTOBUF_NAMESPACE_ID::uint8>(ptr) == 34);
+                    } while (::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<::PROTOBUF_NAMESPACE_ID::uint8>(ptr) ==
+                             34);
                 } else
                     goto handle_unusual;
                 continue;
@@ -623,7 +658,7 @@ failure:
 }
 #else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 bool Person::MergePartialFromCodedStream(::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) {
-#define DO_(EXPRESSION)                                                                                                                                                                                \
+#define DO_(EXPRESSION)                                                                                                \
     if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     // @@protoc_insertion_point(parse_start:tutorial.Person)
@@ -637,7 +672,8 @@ bool Person::MergePartialFromCodedStream(::PROTOBUF_NAMESPACE_ID::io::CodedInput
                 if (static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (10 & 0xFF)) {
                     DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadString(input, this->mutable_name()));
                     DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-                        this->name().data(), static_cast<int>(this->name().length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE, "tutorial.Person.name"));
+                        this->name().data(), static_cast<int>(this->name().length()),
+                        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE, "tutorial.Person.name"));
                 } else {
                     goto handle_unusual;
                 }
@@ -647,7 +683,9 @@ bool Person::MergePartialFromCodedStream(::PROTOBUF_NAMESPACE_ID::io::CodedInput
             // int32 id = 2;
             case 2: {
                 if (static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (16 & 0xFF)) {
-                    DO_((::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadPrimitive<::PROTOBUF_NAMESPACE_ID::int32, ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32>(input, &id_)));
+                    DO_((::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadPrimitive<
+                         ::PROTOBUF_NAMESPACE_ID::int32, ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32>(
+                        input, &id_)));
                 } else {
                     goto handle_unusual;
                 }
@@ -659,7 +697,8 @@ bool Person::MergePartialFromCodedStream(::PROTOBUF_NAMESPACE_ID::io::CodedInput
                 if (static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (26 & 0xFF)) {
                     DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadString(input, this->mutable_email()));
                     DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-                        this->email().data(), static_cast<int>(this->email().length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE, "tutorial.Person.email"));
+                        this->email().data(), static_cast<int>(this->email().length()),
+                        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE, "tutorial.Person.email"));
                 } else {
                     goto handle_unusual;
                 }
@@ -691,7 +730,8 @@ bool Person::MergePartialFromCodedStream(::PROTOBUF_NAMESPACE_ID::io::CodedInput
                 if (tag == 0) {
                     goto success;
                 }
-                DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SkipField(input, tag, _internal_metadata_.mutable_unknown_fields()));
+                DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SkipField(
+                    input, tag, _internal_metadata_.mutable_unknown_fields()));
                 break;
             }
         }
@@ -714,7 +754,8 @@ void Person::SerializeWithCachedSizes(::PROTOBUF_NAMESPACE_ID::io::CodedOutputSt
     // string name = 1;
     if (this->name().size() > 0) {
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-            this->name().data(), static_cast<int>(this->name().length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE, "tutorial.Person.name");
+            this->name().data(), static_cast<int>(this->name().length()),
+            ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE, "tutorial.Person.name");
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringMaybeAliased(1, this->name(), output);
     }
 
@@ -726,27 +767,32 @@ void Person::SerializeWithCachedSizes(::PROTOBUF_NAMESPACE_ID::io::CodedOutputSt
     // string email = 3;
     if (this->email().size() > 0) {
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-            this->email().data(), static_cast<int>(this->email().length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE, "tutorial.Person.email");
+            this->email().data(), static_cast<int>(this->email().length()),
+            ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE, "tutorial.Person.email");
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringMaybeAliased(3, this->email(), output);
     }
 
     // repeated .tutorial.Person.PhoneNumber phones = 4;
     for (unsigned int i = 0, n = static_cast<unsigned int>(this->phones_size()); i < n; i++) {
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteMessageMaybeToArray(4, this->phones(static_cast<int>(i)), output);
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteMessageMaybeToArray(
+            4, this->phones(static_cast<int>(i)), output);
     }
 
     // .google.protobuf.Timestamp last_updated = 5;
     if (this->has_last_updated()) {
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteMessageMaybeToArray(5, _Internal::last_updated(this), output);
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteMessageMaybeToArray(5, _Internal::last_updated(this),
+                                                                                    output);
     }
 
     if (_internal_metadata_.have_unknown_fields()) {
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SerializeUnknownFields(_internal_metadata_.unknown_fields(), output);
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SerializeUnknownFields(_internal_metadata_.unknown_fields(),
+                                                                              output);
     }
     // @@protoc_insertion_point(serialize_end:tutorial.Person)
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* Person::InternalSerializeWithCachedSizesToArray(::PROTOBUF_NAMESPACE_ID::uint8* target) const {
+::PROTOBUF_NAMESPACE_ID::uint8* Person::InternalSerializeWithCachedSizesToArray(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target) const {
     // @@protoc_insertion_point(serialize_to_array_start:tutorial.Person)
     ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
     (void)cached_has_bits;
@@ -754,7 +800,8 @@ void Person::SerializeWithCachedSizes(::PROTOBUF_NAMESPACE_ID::io::CodedOutputSt
     // string name = 1;
     if (this->name().size() > 0) {
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-            this->name().data(), static_cast<int>(this->name().length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE, "tutorial.Person.name");
+            this->name().data(), static_cast<int>(this->name().length()),
+            ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE, "tutorial.Person.name");
         target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringToArray(1, this->name(), target);
     }
 
@@ -766,22 +813,26 @@ void Person::SerializeWithCachedSizes(::PROTOBUF_NAMESPACE_ID::io::CodedOutputSt
     // string email = 3;
     if (this->email().size() > 0) {
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-            this->email().data(), static_cast<int>(this->email().length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE, "tutorial.Person.email");
+            this->email().data(), static_cast<int>(this->email().length()),
+            ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE, "tutorial.Person.email");
         target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringToArray(3, this->email(), target);
     }
 
     // repeated .tutorial.Person.PhoneNumber phones = 4;
     for (unsigned int i = 0, n = static_cast<unsigned int>(this->phones_size()); i < n; i++) {
-        target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::InternalWriteMessageToArray(4, this->phones(static_cast<int>(i)), target);
+        target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::InternalWriteMessageToArray(
+            4, this->phones(static_cast<int>(i)), target);
     }
 
     // .google.protobuf.Timestamp last_updated = 5;
     if (this->has_last_updated()) {
-        target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::InternalWriteMessageToArray(5, _Internal::last_updated(this), target);
+        target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::InternalWriteMessageToArray(
+            5, _Internal::last_updated(this), target);
     }
 
     if (_internal_metadata_.have_unknown_fields()) {
-        target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SerializeUnknownFieldsToArray(_internal_metadata_.unknown_fields(), target);
+        target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields(), target);
     }
     // @@protoc_insertion_point(serialize_to_array_end:tutorial.Person)
     return target;
@@ -792,7 +843,8 @@ size_t Person::ByteSizeLong() const {
     size_t total_size = 0;
 
     if (_internal_metadata_.have_unknown_fields()) {
-        total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::ComputeUnknownFieldsSize(_internal_metadata_.unknown_fields());
+        total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::ComputeUnknownFieldsSize(
+            _internal_metadata_.unknown_fields());
     }
     ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
     // Prevent compiler warnings about cached_has_bits being unused
@@ -803,7 +855,8 @@ size_t Person::ByteSizeLong() const {
         unsigned int count = static_cast<unsigned int>(this->phones_size());
         total_size += 1UL * count;
         for (unsigned int i = 0; i < count; i++) {
-            total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(this->phones(static_cast<int>(i)));
+            total_size +=
+                ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(this->phones(static_cast<int>(i)));
         }
     }
 
@@ -906,12 +959,15 @@ AddressBook::AddressBook() : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metad
     SharedCtor();
     // @@protoc_insertion_point(constructor:tutorial.AddressBook)
 }
-AddressBook::AddressBook(const AddressBook& from) : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr), people_(from.people_) {
+AddressBook::AddressBook(const AddressBook& from)
+    : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr), people_(from.people_) {
     _internal_metadata_.MergeFrom(from._internal_metadata_);
     // @@protoc_insertion_point(copy_constructor:tutorial.AddressBook)
 }
 
-void AddressBook::SharedCtor() { ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_AddressBook_addressbook_2eproto.base); }
+void AddressBook::SharedCtor() {
+    ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_AddressBook_addressbook_2eproto.base);
+}
 
 AddressBook::~AddressBook() {
     // @@protoc_insertion_point(destructor:tutorial.AddressBook)
@@ -938,7 +994,7 @@ void AddressBook::Clear() {
 
 #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 const char* AddressBook::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x)                                                                                                                                                                                        \
+#define CHK_(x)                                                                                                        \
     if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
     while (!ctx->Done(&ptr)) {
         ::PROTOBUF_NAMESPACE_ID::uint32 tag;
@@ -954,7 +1010,8 @@ const char* AddressBook::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
                         ptr = ctx->ParseMessage(add_people(), ptr);
                         CHK_(ptr);
                         if (!ctx->DataAvailable(ptr)) break;
-                    } while (::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<::PROTOBUF_NAMESPACE_ID::uint8>(ptr) == 10);
+                    } while (::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<::PROTOBUF_NAMESPACE_ID::uint8>(ptr) ==
+                             10);
                 } else
                     goto handle_unusual;
                 continue;
@@ -979,7 +1036,7 @@ failure:
 }
 #else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 bool AddressBook::MergePartialFromCodedStream(::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) {
-#define DO_(EXPRESSION)                                                                                                                                                                                \
+#define DO_(EXPRESSION)                                                                                                \
     if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     // @@protoc_insertion_point(parse_start:tutorial.AddressBook)
@@ -1003,7 +1060,8 @@ bool AddressBook::MergePartialFromCodedStream(::PROTOBUF_NAMESPACE_ID::io::Coded
                 if (tag == 0) {
                     goto success;
                 }
-                DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SkipField(input, tag, _internal_metadata_.mutable_unknown_fields()));
+                DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SkipField(
+                    input, tag, _internal_metadata_.mutable_unknown_fields()));
                 break;
             }
         }
@@ -1025,27 +1083,32 @@ void AddressBook::SerializeWithCachedSizes(::PROTOBUF_NAMESPACE_ID::io::CodedOut
 
     // repeated .tutorial.Person people = 1;
     for (unsigned int i = 0, n = static_cast<unsigned int>(this->people_size()); i < n; i++) {
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteMessageMaybeToArray(1, this->people(static_cast<int>(i)), output);
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteMessageMaybeToArray(
+            1, this->people(static_cast<int>(i)), output);
     }
 
     if (_internal_metadata_.have_unknown_fields()) {
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SerializeUnknownFields(_internal_metadata_.unknown_fields(), output);
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SerializeUnknownFields(_internal_metadata_.unknown_fields(),
+                                                                              output);
     }
     // @@protoc_insertion_point(serialize_end:tutorial.AddressBook)
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* AddressBook::InternalSerializeWithCachedSizesToArray(::PROTOBUF_NAMESPACE_ID::uint8* target) const {
+::PROTOBUF_NAMESPACE_ID::uint8* AddressBook::InternalSerializeWithCachedSizesToArray(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target) const {
     // @@protoc_insertion_point(serialize_to_array_start:tutorial.AddressBook)
     ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
     (void)cached_has_bits;
 
     // repeated .tutorial.Person people = 1;
     for (unsigned int i = 0, n = static_cast<unsigned int>(this->people_size()); i < n; i++) {
-        target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::InternalWriteMessageToArray(1, this->people(static_cast<int>(i)), target);
+        target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::InternalWriteMessageToArray(
+            1, this->people(static_cast<int>(i)), target);
     }
 
     if (_internal_metadata_.have_unknown_fields()) {
-        target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SerializeUnknownFieldsToArray(_internal_metadata_.unknown_fields(), target);
+        target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields(), target);
     }
     // @@protoc_insertion_point(serialize_to_array_end:tutorial.AddressBook)
     return target;
@@ -1056,7 +1119,8 @@ size_t AddressBook::ByteSizeLong() const {
     size_t total_size = 0;
 
     if (_internal_metadata_.have_unknown_fields()) {
-        total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::ComputeUnknownFieldsSize(_internal_metadata_.unknown_fields());
+        total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::ComputeUnknownFieldsSize(
+            _internal_metadata_.unknown_fields());
     }
     ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
     // Prevent compiler warnings about cached_has_bits being unused
@@ -1067,7 +1131,8 @@ size_t AddressBook::ByteSizeLong() const {
         unsigned int count = static_cast<unsigned int>(this->people_size());
         total_size += 1UL * count;
         for (unsigned int i = 0; i < count; i++) {
-            total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(this->people(static_cast<int>(i)));
+            total_size +=
+                ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(this->people(static_cast<int>(i)));
         }
     }
 
@@ -1127,7 +1192,8 @@ void AddressBook::InternalSwap(AddressBook* other) {
 }  // namespace tutorial
 PROTOBUF_NAMESPACE_OPEN
 template <>
-PROTOBUF_NOINLINE ::tutorial::Person_PhoneNumber* Arena::CreateMaybeMessage<::tutorial::Person_PhoneNumber>(Arena* arena) {
+PROTOBUF_NOINLINE ::tutorial::Person_PhoneNumber* Arena::CreateMaybeMessage<::tutorial::Person_PhoneNumber>(
+    Arena* arena) {
     return Arena::CreateInternal<::tutorial::Person_PhoneNumber>(arena);
 }
 template <>

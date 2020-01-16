@@ -16,7 +16,7 @@ AlignEscapedNewlines: Right
 # 水平对齐二元或三元操作的操作数
 AlignOperands: true
 # （多行）函数参数不对齐左括号
-AlignAfterOpenBracket: DontAlign
+AlignAfterOpenBracket: Align
 
 # 尾部的注释对齐
 AlignTrailingComments: true
@@ -46,7 +46,7 @@ SortIncludes: true
 # 代码后面的//间加2个空格
 SpacesBeforeTrailingComments: 2
 # 行宽
-ColumnLimit: 200
+ColumnLimit: 120
 #在续行(\
 #     下一行)时的缩进长度
 ContinuationIndentWidth: 4
@@ -80,5 +80,5 @@ AlignConsecutiveDeclarations: true
 # 尾部的注释对齐
 AlignTrailingComments: true
 # 行宽
-ColumnLimit: 200
+ColumnLimit: 120
 ...

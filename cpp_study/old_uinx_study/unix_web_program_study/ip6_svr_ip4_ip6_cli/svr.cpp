@@ -112,7 +112,9 @@ int select_svr(int svr_fd) {
                         break;
                     }
                 }
-                snprintf(svr_buff, sizeof(svr_buff), "%s:%d", inet_ntop(AF_INET6, &client_addr.sin6_addr.__in6_u, svr_buff1, sizeof(svr_buff1)), ntohs(client_addr.sin6_port));
+                snprintf(svr_buff, sizeof(svr_buff), "%s:%d",
+                         inet_ntop(AF_INET6, &client_addr.sin6_addr.__in6_u, svr_buff1, sizeof(svr_buff1)),
+                         ntohs(client_addr.sin6_port));
 
                 if (i >= FD_SETSIZE) {
                     ERROR("too many conns, throw this :" << svr_buff)
@@ -214,7 +216,9 @@ int poll_svr(int svr_fd) {
                         break;
                     }
                 }
-                snprintf(svr_buff, sizeof(svr_buff), "%s:%d", inet_ntop(AF_INET6, &client_addr.sin6_addr.__in6_u, svr_buff1, sizeof(svr_buff1)), ntohs(client_addr.sin6_port));
+                snprintf(svr_buff, sizeof(svr_buff), "%s:%d",
+                         inet_ntop(AF_INET6, &client_addr.sin6_addr.__in6_u, svr_buff1, sizeof(svr_buff1)),
+                         ntohs(client_addr.sin6_port));
 
                 if (i >= FD_SETSIZE) {
                     ERROR("too many conns, throw this :" << svr_buff)

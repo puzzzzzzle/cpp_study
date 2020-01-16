@@ -64,7 +64,8 @@ int test_xxxmsg_func(const char *host, const char *port) {
 
     while (iterator != nullptr) {
         if (connect(client_fd, iterator->ai_addr, iterator->ai_addrlen)) {
-            ERROR("conn to " << inet_ntop(AF_INET, &((sockaddr_in *)&iterator)->sin_addr.s_addr, buff, sizeof(buff)) << " err")
+            ERROR("conn to " << inet_ntop(AF_INET, &((sockaddr_in *)&iterator)->sin_addr.s_addr, buff, sizeof(buff))
+                             << " err")
             continue;
         }
         break;
@@ -100,7 +101,8 @@ int test_xxxmsg_func(const char *host, const char *port) {
     msg.msg_control    = nullptr;
     msg.msg_controllen = 0;
 
-    msg.msg_flags = 0;  //用于返回flags，一般别在这里设置flags，recvmsg会把sendmmsg 中的flags拷贝到这里，在调用，而sendmsg直接忽略
+    msg.msg_flags =
+        0;  //用于返回flags，一般别在这里设置flags，recvmsg会把sendmmsg 中的flags拷贝到这里，在调用，而sendmsg直接忽略
 
     if ((len = sendmsg(client_fd, &msg, 0)) != (ssize_t)strlen(read_buff)) {
         ERROR("not send enough msg! " << len)

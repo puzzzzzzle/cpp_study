@@ -94,8 +94,14 @@ void SleepNano(long nanoSeconds) {
         }
     } while (iRet);
 }
-void            SleepSec(long sec) { SleepNano(sec * SEC_NANO); }
-inline long     SubTimeMicro(timespec &end, timespec &start) { return (end.tv_sec - start.tv_sec) * SEC_MICRO + (end.tv_nsec - start.tv_nsec) / MICRO_NANO; }
-inline long     SubTimeNano(timespec &end, timespec &start) { return (end.tv_sec - start.tv_sec) * SEC_NANO + (end.tv_nsec - start.tv_nsec); }
-inline timespec SubTime(timespec &end, timespec &start) { return timespec{end.tv_sec - start.tv_sec, end.tv_nsec - start.tv_nsec}; };
+void        SleepSec(long sec) { SleepNano(sec * SEC_NANO); }
+inline long SubTimeMicro(timespec &end, timespec &start) {
+    return (end.tv_sec - start.tv_sec) * SEC_MICRO + (end.tv_nsec - start.tv_nsec) / MICRO_NANO;
+}
+inline long SubTimeNano(timespec &end, timespec &start) {
+    return (end.tv_sec - start.tv_sec) * SEC_NANO + (end.tv_nsec - start.tv_nsec);
+}
+inline timespec SubTime(timespec &end, timespec &start) {
+    return timespec{end.tv_sec - start.tv_sec, end.tv_nsec - start.tv_nsec};
+};
 #endif  // CPP_STUDY_ALL_TIME_GAP_HPP

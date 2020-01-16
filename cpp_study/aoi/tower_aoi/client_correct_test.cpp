@@ -31,7 +31,8 @@ public:
 
 static std::map<Object, WatcherClient> *pwatcherClients;
 
-void ObjAddCallBack(const Object &obj, ObjectType type, const Point &pos, const WatcherTypeObjectMap &appear, const WatcherTypeObjectMap &disAppear, bool IsDiffTower) {
+void ObjAddCallBack(const Object &obj, ObjectType type, const Point &pos, const WatcherTypeObjectMap &appear,
+                    const WatcherTypeObjectMap &disAppear, bool IsDiffTower) {
     if (appear.empty()) {
         return;
     }
@@ -42,7 +43,8 @@ void ObjAddCallBack(const Object &obj, ObjectType type, const Point &pos, const 
     }
 }
 
-void ObjRemoveCallBack(const Object &obj, ObjectType type, const Point &pos, const WatcherTypeObjectMap &appear, const WatcherTypeObjectMap &disAppear, bool IsDiffTower) {
+void ObjRemoveCallBack(const Object &obj, ObjectType type, const Point &pos, const WatcherTypeObjectMap &appear,
+                       const WatcherTypeObjectMap &disAppear, bool IsDiffTower) {
     if (disAppear.empty()) {
         return;
     }
@@ -53,7 +55,8 @@ void ObjRemoveCallBack(const Object &obj, ObjectType type, const Point &pos, con
     }
 }
 
-void ObjMoveCallBack(const Object &obj, ObjectType type, const Point &pos, const WatcherTypeObjectMap &appear, const WatcherTypeObjectMap &disAppear, bool IsDiffTower) {
+void ObjMoveCallBack(const Object &obj, ObjectType type, const Point &pos, const WatcherTypeObjectMap &appear,
+                     const WatcherTypeObjectMap &disAppear, bool IsDiffTower) {
     if (IsDiffTower) {
         for (auto &watcherTypeMap : disAppear) {
             for (auto &watcherPos : watcherTypeMap.second) {
@@ -76,7 +79,8 @@ void ObjMoveCallBack(const Object &obj, ObjectType type, const Point &pos, const
     }
 }
 
-void WatcherAddCallBack(const Watcher &watcher, ObjectType type, const Point &pos, const TypeObjectMap &appear, const TypeObjectMap &disAppear, bool IsDiffTower) {
+void WatcherAddCallBack(const Watcher &watcher, ObjectType type, const Point &pos, const TypeObjectMap &appear,
+                        const TypeObjectMap &disAppear, bool IsDiffTower) {
     if (appear.empty()) {
         return;
     }
@@ -87,7 +91,8 @@ void WatcherAddCallBack(const Watcher &watcher, ObjectType type, const Point &po
     }
 }
 
-void WatcherRemoveCallBack(const Watcher &watcher, ObjectType type, const Point &pos, const TypeObjectMap &appear, const TypeObjectMap &disAppear, bool IsDiffTower) {
+void WatcherRemoveCallBack(const Watcher &watcher, ObjectType type, const Point &pos, const TypeObjectMap &appear,
+                           const TypeObjectMap &disAppear, bool IsDiffTower) {
     if (disAppear.empty()) {
         return;
     }
@@ -98,7 +103,8 @@ void WatcherRemoveCallBack(const Watcher &watcher, ObjectType type, const Point 
     }
 }
 
-void WatcherMoveCallBack(const Watcher &watcher, ObjectType type, const Point &pos, const TypeObjectMap &appear, const TypeObjectMap &disAppear, bool IsDiffTower) {
+void WatcherMoveCallBack(const Watcher &watcher, ObjectType type, const Point &pos, const TypeObjectMap &appear,
+                         const TypeObjectMap &disAppear, bool IsDiffTower) {
     // 先删除，后添加，必须是这个顺序，因为全量推了。。。后面得改下
     if (IsDiffTower) {
         for (auto &objTypeMap : disAppear) {
@@ -121,7 +127,8 @@ void WatcherMoveCallBack(const Watcher &watcher, ObjectType type, const Point &p
     }
 }
 
-void WatcherSetRangeCallBack(const Watcher &watcher, ObjectType type, const Point &pos, const TypeObjectMap &appear, const TypeObjectMap &disAppear, bool IsDiffTower) {
+void WatcherSetRangeCallBack(const Watcher &watcher, ObjectType type, const Point &pos, const TypeObjectMap &appear,
+                             const TypeObjectMap &disAppear, bool IsDiffTower) {
     for (auto &objTypeMap : disAppear) {
         for (auto &objPos : objTypeMap.second) {
             (*pwatcherClients)[watcher.obj].viewObjects.erase(objPos.first);
@@ -182,7 +189,8 @@ public:
     bool MoveSomeObj(int rate) {
         for (auto it = baseObjClients.begin(); it != baseObjClients.end(); it++) {
             if (rand() % rate) {
-                baseObjClients[it->first].point = Point(rand() % pAoi->GetConfig().GlobalWith, rand() % pAoi->GetConfig().GlobalHeight);
+                baseObjClients[it->first].point =
+                    Point(rand() % pAoi->GetConfig().GlobalWith, rand() % pAoi->GetConfig().GlobalHeight);
                 if (!pAoi->MoveObject(it->first, baseObjClients[it->first].point, baseObjClients[it->first].type)) {
                     return false;
                 }
@@ -223,7 +231,7 @@ public:
 
     bool MoveWatcher(const Object &watcherObj, const Point &newPos) {
         baseWatcherClients[watcherObj].point = newPos;
-        auto b                               = pAoi->MoveWatcher(watcherObj, newPos, baseWatcherClients[watcherObj].type);
+        auto b = pAoi->MoveWatcher(watcherObj, newPos, baseWatcherClients[watcherObj].type);
         if (!b) {
             INFO("err" << watcherObj)
         }
@@ -233,8 +241,10 @@ public:
     bool MoveSomeWatcher(int rate) {
         for (auto it = baseWatcherClients.begin(); it != baseWatcherClients.end(); it++) {
             if (rand() % rate) {
-                baseWatcherClients[it->first].point = Point(rand() % pAoi->GetConfig().GlobalWith, rand() % pAoi->GetConfig().GlobalHeight);
-                if (!pAoi->MoveWatcher(it->first, baseWatcherClients[it->first].point, baseWatcherClients[it->first].type)) {
+                baseWatcherClients[it->first].point =
+                    Point(rand() % pAoi->GetConfig().GlobalWith, rand() % pAoi->GetConfig().GlobalHeight);
+                if (!pAoi->MoveWatcher(it->first, baseWatcherClients[it->first].point,
+                                       baseWatcherClients[it->first].type)) {
                     return false;
                 }
             }
@@ -286,7 +296,7 @@ public:
             WatcherClient &         watcherClient = watcher.second;
             std::map<Object, Point> correctViewObjects;
             TowerIndex              watcherTowerIndex = pAoi->TranslateTowerIndex(watcherClient.point);
-            TowerIndexRegion        watcherViewRegion = pAoi->GetTowerIndexRegion(watcherTowerIndex, watcherClient.viewRange);
+            TowerIndexRegion watcherViewRegion = pAoi->GetTowerIndexRegion(watcherTowerIndex, watcherClient.viewRange);
 
             // step2 根据本地信息计算出watcher应该看到的样子
             for (auto &object : baseObjClients) {
@@ -309,8 +319,8 @@ public:
 
 public:
     inline static bool IsInViewRegion(const TowerIndexRegion &watcherViewRegion, const TowerIndex &objectTowerIndex) {
-        return objectTowerIndex.x >= watcherViewRegion.start.x && objectTowerIndex.y >= watcherViewRegion.start.y && objectTowerIndex.x <= watcherViewRegion.end.x &&
-               objectTowerIndex.y <= watcherViewRegion.end.y;
+        return objectTowerIndex.x >= watcherViewRegion.start.x && objectTowerIndex.y >= watcherViewRegion.start.y &&
+               objectTowerIndex.x <= watcherViewRegion.end.x && objectTowerIndex.y <= watcherViewRegion.end.y;
     }
 };
 }  // namespace TestClient
@@ -341,14 +351,19 @@ protected:
     TestClient::TowerAoi *pTowerAoi;
 };
 
-#define ADDOBJ(num)                                                                                                                                                                                    \
-    for (Object i = 0; i < (num); ++i) {                                                                                                                                                               \
-        EXPECT_TRUE(pController->AddObj(currAddObj++, Point(rand() % pTowerAoi->GetConfig().GlobalWith, rand() % pTowerAoi->GetConfig().GlobalHeight), rand() % MAX_TYPE));                            \
+#define ADDOBJ(num)                                                                                                    \
+    for (Object i = 0; i < (num); ++i) {                                                                               \
+        EXPECT_TRUE(pController->AddObj(                                                                               \
+            currAddObj++,                                                                                              \
+            Point(rand() % pTowerAoi->GetConfig().GlobalWith, rand() % pTowerAoi->GetConfig().GlobalHeight),           \
+            rand() % MAX_TYPE));                                                                                       \
     }
-#define ADDWATCHER(num)                                                                                                                                                                                \
-    for (Object i = 0; i < (num); ++i) {                                                                                                                                                               \
-        EXPECT_TRUE(pController->AddWatcher(                                                                                                                                                           \
-            Watcher(currAddWatcher++, (rand() % MAX_VIEW_RANGE) + 1), Point(rand() % pTowerAoi->GetConfig().GlobalWith, rand() % pTowerAoi->GetConfig().GlobalHeight), rand() % MAX_TYPE));            \
+#define ADDWATCHER(num)                                                                                                \
+    for (Object i = 0; i < (num); ++i) {                                                                               \
+        EXPECT_TRUE(pController->AddWatcher(                                                                           \
+            Watcher(currAddWatcher++, (rand() % MAX_VIEW_RANGE) + 1),                                                  \
+            Point(rand() % pTowerAoi->GetConfig().GlobalWith, rand() % pTowerAoi->GetConfig().GlobalHeight),           \
+            rand() % MAX_TYPE));                                                                                       \
     }
 #define MOVEOBJ(rate) EXPECT_TRUE(pController->MoveSomeObj(rate));
 

@@ -15,7 +15,8 @@
 #include <cstdlib>
 #include <cstring>
 
-void progress_one_request(int fd, const char *__restrict read_buff, size_t read_len, char *write_buff, size_t write_buff_len) {
+void progress_one_request(int fd, const char *__restrict read_buff, size_t read_len, char *write_buff,
+                          size_t write_buff_len) {
     int append_len = 5;
     strncpy(write_buff, "echo:", write_buff_len);
     int write_buff_len_rest = write_buff_len - append_len;
@@ -40,7 +41,8 @@ int main(int argc, char **argv) {
         exit(-1);
     }
     svr_address.sin_port = htons(PORT);
-    printf("svr will start at : %s:%d\n", inet_ntop(AF_INET, &svr_address.sin_addr.s_addr, svr_buff, sizeof(svr_buff)), ntohs(svr_address.sin_port));
+    printf("svr will start at : %s:%d\n", inet_ntop(AF_INET, &svr_address.sin_addr.s_addr, svr_buff, sizeof(svr_buff)),
+           ntohs(svr_address.sin_port));
 
     // to bind and listen
     if ((svr_fd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) <= 0) {

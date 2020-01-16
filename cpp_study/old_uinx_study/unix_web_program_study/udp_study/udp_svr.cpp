@@ -60,7 +60,8 @@ int start_svr() {
     while (is_run) {
         client_addr_len = sizeof(client_addr);
         read_len        = recvfrom(svr_fd, read_buff, sizeof(read_buff), 0, (sockaddr *)&client_addr, &client_addr_len);
-        INFO("receive from " << inet_ntop(AF_INET, &client_addr.sin_addr.s_addr, svr_buff, sizeof(svr_buff)) << ":" << ntohs(client_addr.sin_port))
+        INFO("receive from " << inet_ntop(AF_INET, &client_addr.sin_addr.s_addr, svr_buff, sizeof(svr_buff)) << ":"
+                             << ntohs(client_addr.sin_port))
         if (read_len <= 0) {
             ERROR("read err!")
             continue;
@@ -71,7 +72,8 @@ int start_svr() {
     return 0;
 }
 
-void do_response(int fd, sockaddr_in *client_addr, socklen_t len, char *read_buff, ssize_t read_len, char *write_buff, ssize_t write_len) {
+void do_response(int fd, sockaddr_in *client_addr, socklen_t len, char *read_buff, ssize_t read_len, char *write_buff,
+                 ssize_t write_len) {
     strncpy(write_buff, echo, strlen(echo));
     strncpy(write_buff + strlen(echo), read_buff, write_len - strlen(echo));
     sendto(fd, write_buff, strlen(write_buff), 0, (sockaddr *)client_addr, len);

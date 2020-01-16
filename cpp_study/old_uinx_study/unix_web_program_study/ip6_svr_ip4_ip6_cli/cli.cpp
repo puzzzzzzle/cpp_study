@@ -10,7 +10,8 @@
 #include <netinet/in.h>
 #include <string.h>
 
-ssize_t do_request(const char *msg, ssize_t len, char *receive_buff, size_t buff_len, const char *addr, const char *port) {
+ssize_t do_request(const char *msg, ssize_t len, char *receive_buff, size_t buff_len, const char *addr,
+                   const char *port) {
     int      client_fd, get_addr_res;
     ssize_t  send_len;
     addrinfo hints, *res;
