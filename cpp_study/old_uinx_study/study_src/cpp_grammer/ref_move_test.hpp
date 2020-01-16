@@ -9,8 +9,8 @@
 
 class temp_handle {
 private:
-    int val1;
-    int &val2;
+    int       val1;
+    int &     val2;
     const int val3;
 
 public:
@@ -20,12 +20,10 @@ public:
 };
 
 void ref_test_main() {
-    int a1 = 1, a2 = 2, a3 = 3;
+    int          a1 = 1, a2 = 2, a3 = 3;
     temp_handle *t = new temp_handle(a1, a2, a3);
     TRACE("end");
     delete (t);
 }
 
-
-
-#endif //UNIXSTUDYCPP_REF_MOVE_TEST_HPP
+#endif  // UNIXSTUDYCPP_REF_MOVE_TEST_HPP

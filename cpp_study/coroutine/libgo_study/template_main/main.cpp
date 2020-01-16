@@ -1,49 +1,53 @@
 //
 // Created by tao on 19-1-17.
 //
-#include "common_includes.h"
-#include <iostream>
 #include <libgo.h>
 #include <stdio.h>
+
+#include <iostream>
 #include <thread>
 
-void foo()
-{
+#include "common_includes.h"
+
+void foo() {
     printf("function pointer\n");
 }
 
 struct A {
-    void fA() { printf("std::bind\n"); }
-    void fB() { printf("std::function\n"); }
+    void fA() {
+        printf("std::bind\n");
+    }
+    void fB() {
+        printf("std::function\n");
+    }
 };
 
-int lib_go_main()
-{
+int lib_go_main() {
     //----------------------------------
     // 使用关键字go创建协程, go后面可以使用:
     //     1.void(*)()函数指针, 比如:foo.
-    //     2.也可以使用无参数的lambda, std::bind对象, function对象, 
+    //     2.也可以使用无参数的lambda, std::bind对象, function对象,
     //     3.以及一切可以无参调用的仿函数对象
     //   注意不要忘记句尾的分号";".
     go foo;
 
-    go []{
+    go[] {
         printf("lambda\n");
     };
 
     go std::bind(&A::fA, A());
 
     std::function<void()> fn(std::bind(&A::fB, A()));
-    go fn;
+    go                    fn;
 
     // 也可以使用go_stack创建指定栈大小的协程
     //   创建拥有10MB大栈的协程
-    go co_stack(10 * 1024 * 1024) []{
+    go co_stack(10 * 1024 * 1024)[] {
         printf("large stack\n");
     };
 
     // 协程创建以后不会立即执行，而是暂存至可执行列表中，等待调度器调度。
-    // co_sched是默认的协程调度器，用户也可以使用自创建的协程调度器。 
+    // co_sched是默认的协程调度器，用户也可以使用自创建的协程调度器。
     // 当仅使用一个线程进行协程调度时, 协程地执行会严格地遵循其创建顺序.
 
     // 仅使用主线程调度协程.
@@ -58,7 +62,7 @@ int lib_go_main()
     // co_sched.Start(0, 1024);
 
     // 如果不想让调度器卡住主线程, 可以使用以下方式:
-    std::thread t([]{ co_sched.Start(); });
+    std::thread t([] { co_sched.Start(); });
     t.detach();
     co_sleep(100);
     //----------------------------------
@@ -71,11 +75,11 @@ int lib_go_main()
     co::Scheduler* sched = co::Scheduler::Create();
 
     // 启动4个线程执行新创建的调度器
-    std::thread t2([sched]{ sched->Start(4); });
+    std::thread t2([sched] { sched->Start(4); });
     t2.detach();
 
     // 在新创建的调度器上创建一个协程
-    go co_scheduler(sched) []{
+    go co_scheduler(sched)[] {
         printf("run in my scheduler.\n");
     };
 
@@ -86,14 +90,14 @@ TEST(test_test, 1) {
     EXPECT_EQ(1, 1);
 }
 
-int main(int argc, char **argv) {
+int main(int argc, char** argv) {
     int iRet = 0;
-    iRet = beforeRun();
-    if(iRet){
-        std::cerr<<"init fail with "<<iRet<<std::endl;
+    iRet     = beforeRun();
+    if (iRet) {
+        std::cerr << "init fail with " << iRet << std::endl;
     }
     lib_go_main();
-    testing::InitGoogleTest(&argc,argv);
+    testing::InitGoogleTest(&argc, argv);
     iRet = RUN_ALL_TESTS();
     return iRet;
 }

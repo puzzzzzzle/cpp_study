@@ -6,8 +6,8 @@
 #define UNIXSTUDYCPP_ARRSIZE_H
 
 #include <stdio.h>
-static int ArrSize_in=10;
-int ArrSize_out=10;
+static int ArrSize_in  = 10;
+int        ArrSize_out = 10;
 
 template<typename T>
 int ArrSize(const T a[]) {
@@ -15,8 +15,8 @@ int ArrSize(const T a[]) {
 }
 
 //边长数组 编译器不支持？？？
-//template<typename T>
-//T add2d(int rows, int cols, T arr[rows][cols]) {
+// template<typename T>
+// T add2d(int rows, int cols, T arr[rows][cols]) {
 //    T result = 0;
 //    for (int i = 0; i < rows; i++) {
 //        for (int j = 0; j < cols; j++) {
@@ -44,9 +44,8 @@ void testArrSize() {
 
     //变长数组
 
-
     //符合字面量
-//    (int[]) {10, 20};
+    //    (int[]) {10, 20};
     //
     int rows = 3, cols = 6;
     int b[3][6];
@@ -56,11 +55,10 @@ void testArrSize() {
         }
     }
     printf("b size:%zu\n", sizeof(b));
-    int *ptr = (int *) &b[0];
+    int *ptr = (int *)&b[0];
     printf("ptr size:%zu\n", sizeof(ptr));
 
     printf("add result:%d\n", add2d(rows, cols, ptr));
 }
 
-
-#endif //UNIXSTUDYCPP_ARRSIZE_H
+#endif  // UNIXSTUDYCPP_ARRSIZE_H

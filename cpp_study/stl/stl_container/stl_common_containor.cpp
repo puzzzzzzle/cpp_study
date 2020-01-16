@@ -3,21 +3,21 @@
 //
 
 #include "stl_common_containor.h"
-#include <vector>
-#include <list>
-#include <deque>
+
 #include <algorithm>
+#include <deque>
+#include <list>
+#include <vector>
 
 TEST(iterator_test, deque) {
-    std::deque<int> i_ints{};
+    std::deque<int>    i_ints{};
     std::ostringstream output{};
     for (int i = 0; i < 10; i++) {
         i_ints.push_front(i);
         i_ints.push_back(i);
     }
 
-    std::copy(i_ints.cbegin(), i_ints.cend(),
-              std::ostream_iterator<int>(output, "\t"));
+    std::copy(i_ints.cbegin(), i_ints.cend(), std::ostream_iterator<int>(output, "\t"));
 
     INFO("get :" << output.str())
     output.str("");
@@ -36,41 +36,33 @@ TEST(iterator_test, deque) {
 
     std::sort(i_ints.begin(), i_ints.end());
     output.str("");
-    std::copy(i_ints.cbegin(), i_ints.cend(),
-              std::ostream_iterator<int>(output, "\t"));
+    std::copy(i_ints.cbegin(), i_ints.cend(), std::ostream_iterator<int>(output, "\t"));
     INFO("after sorted:\t" << output.str())
 
     auto pos3 = std::find(i_ints.begin(), i_ints.end(), 3);
     std::reverse(pos3, i_ints.end());
     output.str("");
-    std::copy(i_ints.cbegin(), i_ints.cend(),
-              std::ostream_iterator<int>(output, "\t"));
+    std::copy(i_ints.cbegin(), i_ints.cend(), std::ostream_iterator<int>(output, "\t"));
     INFO("after reverse:\t" << output.str())
 
     std::deque<int> copyed{};
-    auto pos8 = std::find(i_ints.cbegin(), i_ints.cend(), 8);
-    std::copy(pos8, i_ints.cend(),
-              std::back_inserter(copyed));
+    auto            pos8 = std::find(i_ints.cbegin(), i_ints.cend(), 8);
+    std::copy(pos8, i_ints.cend(), std::back_inserter(copyed));
     std::sort(copyed.begin(), copyed.end(), [](const int &l, const int &r) { return l < r; });
     output.str("");
-    std::copy(copyed.cbegin(), copyed.cend(),
-              std::ostream_iterator<int>(output, "\t"));
+    std::copy(copyed.cbegin(), copyed.cend(), std::ostream_iterator<int>(output, "\t"));
     INFO("copyed after reverse:\t" << output.str())
     std::sort(copyed.begin(), copyed.end(), std::greater<int>());
     output.str("");
-    std::copy(copyed.cbegin(), copyed.cend(),
-              std::ostream_iterator<int>(output, "\t"));
+    std::copy(copyed.cbegin(), copyed.cend(), std::ostream_iterator<int>(output, "\t"));
     INFO("copyed after reverse:\t" << output.str())
 
     std::deque<int> muti{};
-    std::transform(copyed.cbegin(), copyed.cend(),
-                   i_ints.cbegin(),
-                   std::back_inserter(muti),
-            std::bind(std::multiplies<int>(),std::placeholders::_1,std::placeholders::_2)   //都行
-//                   std::multiplies<int>()
+    std::transform(copyed.cbegin(), copyed.cend(), i_ints.cbegin(), std::back_inserter(muti),
+        std::bind(std::multiplies<int>(), std::placeholders::_1, std::placeholders::_2)  //都行
+                                                                                         //                   std::multiplies<int>()
     );
     output.str("");
-    std::copy(muti.cbegin(), muti.cend(),
-              std::ostream_iterator<int>(output, "\t"));
+    std::copy(muti.cbegin(), muti.cend(), std::ostream_iterator<int>(output, "\t"));
     INFO("muti :\t" << output.str())
 }

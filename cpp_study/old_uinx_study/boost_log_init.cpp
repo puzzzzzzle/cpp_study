@@ -1,38 +1,37 @@
 #include <boost/date_time/posix_time/posix_time_types.hpp>
-#include <boost/log/trivial.hpp>
+#include <boost/log/attributes.hpp>
+#include <boost/log/common.hpp>
 #include <boost/log/expressions.hpp>
-#include <boost/log/sources/severity_logger.hpp>
-#include <boost/log/sources/record_ostream.hpp>
-#include <boost/log/utility/setup/file.hpp>
-#include <boost/log/utility/setup/common_attributes.hpp>
-#include <boost/log/support/date_time.hpp>
+#include <boost/log/sinks.hpp>
+#include <boost/log/sinks/text_file_backend.hpp>
 #include <boost/log/sources/channel_feature.hpp>
 #include <boost/log/sources/channel_logger.hpp>
-#include <string>
-#include <boost/smart_ptr/shared_ptr.hpp>
-#include <boost/log/common.hpp>
-#include <boost/log/attributes.hpp>
-#include <boost/log/sinks.hpp>
 #include <boost/log/sources/logger.hpp>
-#include <boost/log/sinks/text_file_backend.hpp>
+#include <boost/log/sources/record_ostream.hpp>
 #include <boost/log/sources/severity_channel_logger.hpp>
-#include <boost/log/utility/setup/settings.hpp>
-#include <boost/log/utility/setup/from_stream.hpp>
+#include <boost/log/sources/severity_logger.hpp>
+#include <boost/log/support/date_time.hpp>
+#include <boost/log/trivial.hpp>
+#include <boost/log/utility/setup/common_attributes.hpp>
 #include <boost/log/utility/setup/console.hpp>
+#include <boost/log/utility/setup/file.hpp>
+#include <boost/log/utility/setup/from_stream.hpp>
+#include <boost/log/utility/setup/settings.hpp>
+#include <boost/smart_ptr/shared_ptr.hpp>
 #include <fstream>
+#include <string>
 
-namespace logging = boost::log;
-namespace src = boost::log::sources;
-namespace expr = boost::log::expressions;
+namespace logging  = boost::log;
+namespace src      = boost::log::sources;
+namespace expr     = boost::log::expressions;
 namespace keywords = boost::log::keywords;
-namespace attrs = boost::log::attributes;
-namespace sinks = boost::log::sinks;
-
+namespace attrs    = boost::log::attributes;
+namespace sinks    = boost::log::sinks;
 
 using namespace std;
 using namespace logging::trivial;
-src::severity_channel_logger<severity_level,std::string> logger1(keywords::channel = "MySink1");
-src::severity_channel_logger<severity_level,std::string> logger2(keywords::channel = "MySink2");
+src::severity_channel_logger<severity_level, std::string> logger1(keywords::channel = "MySink1");
+src::severity_channel_logger<severity_level, std::string> logger2(keywords::channel = "MySink2");
 
 int log_init() {
     logging::add_common_attributes();
@@ -42,8 +41,8 @@ int log_init() {
     logging::register_simple_filter_factory<severity_level, char>("Severity");
 
     std::ifstream file("boost_log_settings.ini");
-    if(!file.is_open()){
-        std::cerr<<"open settings fail"<<std::endl;
+    if (!file.is_open()) {
+        std::cerr << "open settings fail" << std::endl;
         return -1;
     }
     logging::init_from_stream(file);
@@ -73,19 +72,19 @@ int log_init() {
 //#include <boost/log/support/date_time.hpp>
 //
 //
-//namespace logging = boost::log;
-//namespace sinks = boost::log::sinks;
-//namespace attrs = boost::log::attributes;
-//namespace src = boost::log::sources;
-//namespace expr = boost::log::expressions;
-//namespace keywords = boost::log::keywords;
+// namespace logging = boost::log;
+// namespace sinks = boost::log::sinks;
+// namespace attrs = boost::log::attributes;
+// namespace src = boost::log::sources;
+// namespace expr = boost::log::expressions;
+// namespace keywords = boost::log::keywords;
 //
 //
-//using boost::shared_ptr;
+// using boost::shared_ptr;
 //
 //
 //// Here we define our application severity levels.
-//enum severity_level {
+// enum severity_level {
 //    trace,
 //    debug,
 //    info,
@@ -96,8 +95,8 @@ int log_init() {
 //
 //
 //// The formatting logic for the severity level
-//template<typename CharT, typename TraitsT>
-//inline std::basic_ostream<CharT, TraitsT> &operator<<(
+// template<typename CharT, typename TraitsT>
+// inline std::basic_ostream<CharT, TraitsT> &operator<<(
 //        std::basic_ostream<CharT, TraitsT> &strm, severity_level lvl) {
 //    static const char *const str[] =
 //            {
@@ -116,7 +115,7 @@ int log_init() {
 //}
 //
 //
-//int log_init() {
+// int log_init() {
 //    // This is a simple tutorial/example of Boost.Log usage
 //
 //

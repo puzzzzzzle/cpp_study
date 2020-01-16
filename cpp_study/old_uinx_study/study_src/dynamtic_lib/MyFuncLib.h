@@ -9,5 +9,4 @@ void SayHello();
 
 int add(const int *, const int *);
 
-
-#endif //UNIXSTUDYCPP_MYFUNCLIB_H
+#endif  // UNIXSTUDYCPP_MYFUNCLIB_H

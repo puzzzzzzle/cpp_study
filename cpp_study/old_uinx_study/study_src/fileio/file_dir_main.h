@@ -5,10 +5,11 @@
 #ifndef UNIXSTUDY_FILE_DIR_MAIN_H
 #define UNIXSTUDY_FILE_DIR_MAIN_H
 
-#include <stdlib.h>
 #include <stdbool.h>
-#include "stat_study.h"
+#include <stdlib.h>
 #include <string.h>
+
+#include "stat_study.h"
 
 int file_dir_main() {
     stat_std();
@@ -18,11 +19,11 @@ int file_dir_main() {
         printf("input file name:");
         scanf("%s", buff);
         printf("\n");
-        if (strcmp(buff, "0")==0) {
+        if (strcmp(buff, "0") == 0) {
             break;
         }
         access_std(buff);
     }
 }
 
-#endif //UNIXSTUDY_FILE_DIR_MAIN_H
+#endif  // UNIXSTUDY_FILE_DIR_MAIN_H

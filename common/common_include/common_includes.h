@@ -6,7 +6,9 @@
 #define CPP_STL_STUDYS_COMMON_INCLUDES_H
 
 #include <gtest/gtest.h>
+
 #include <thread>
+
 #include "common_funcs.h"
 
 #ifdef LOG_BOOST
@@ -18,4 +20,4 @@
 int beforeRun();
 
 #define ERROR_IN -1;
-#endif //CPP_STL_STUDYS_COMMON_INCLUDES_H
+#endif  // CPP_STL_STUDYS_COMMON_INCLUDES_H

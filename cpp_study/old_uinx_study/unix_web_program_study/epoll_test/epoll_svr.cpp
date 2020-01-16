@@ -2,20 +2,22 @@
 // Created by 23591 on 2019/1/24.
 //
 
-#include <arpa/inet.h>
-#include <cstdlib>
-#include <sys/epoll.h>
-#include <fcntl.h>
-#include "boost_log_init.h"
 #include "epoll_svr.h"
 
+#include <arpa/inet.h>
+#include <fcntl.h>
+#include <sys/epoll.h>
+
+#include <cstdlib>
+
+#include "boost_log_init.h"
 
 #define EVENT_BUFF_SIZE 256
 bool is_run = true;
 
 const char *echo = "echo:";
 
-int setnonblocking(int sock)//将套接字设置为非阻塞
+int setnonblocking(int sock)  //将套接字设置为非阻塞
 {
     int opts;
     opts = fcntl(sock, F_GETFL);
@@ -32,16 +34,16 @@ int setnonblocking(int sock)//将套接字设置为非阻塞
 }
 
 int start_epoll_svr(const char *host, int port) {
-    int svr_fd;
+    int         svr_fd;
     sockaddr_in svr_addr{};
 
-    //socket
+    // socket
     if ((svr_fd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) < 0) {
         FATAL("err when get socket")
         exit(-2);
     }
 
-    //init
+    // init
     svr_addr.sin_family = AF_INET;
     if (inet_pton(AF_INET, host, &svr_addr.sin_addr.s_addr) != 1) {
         FATAL("err when inet_pton")
@@ -49,13 +51,13 @@ int start_epoll_svr(const char *host, int port) {
     }
     svr_addr.sin_port = htons(port);
 
-    //bind
-    if (bind(svr_fd, (sockaddr *) &svr_addr, sizeof(svr_addr))) {
+    // bind
+    if (bind(svr_fd, (sockaddr *)&svr_addr, sizeof(svr_addr))) {
         FATAL("err when bind")
         exit(-2);
     }
 
-    //listen
+    // listen
     if (listen(svr_fd, MAX_TCP_QUEUE)) {
         FATAL("err when listen")
         exit(-2);
@@ -67,13 +69,13 @@ int start_epoll_svr(const char *host, int port) {
 }
 
 int do_epoll_svr_lt(int svr_fd) {
-    size_t read_len, wait_number;
-    int epoll_fd;
+    size_t      read_len, wait_number;
+    int         epoll_fd;
     epoll_event svr_event{}, buff_event[EVENT_BUFF_SIZE]{};
 
     epoll_fd = epoll_create(1024);
 
-    svr_event.events = EPOLLIN;
+    svr_event.events  = EPOLLIN;
     svr_event.data.fd = svr_fd;
 
     epoll_ctl(epoll_fd, EPOLL_CTL_ADD, svr_fd, &svr_event);
@@ -83,13 +85,11 @@ int do_epoll_svr_lt(int svr_fd) {
     }
 }
 
-ssize_t do_requestv4(const char *msg, ssize_t len,
-                     char *receive_buff, size_t buff_len,
-                     const char *addr, int port) {
-    //init addr
-    int client_fd;
+ssize_t do_requestv4(const char *msg, ssize_t len, char *receive_buff, size_t buff_len, const char *addr, int port) {
+    // init addr
+    int         client_fd;
     sockaddr_in svr_addr{};
-    ssize_t send_len;
+    ssize_t     send_len;
 
     if ((client_fd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) <= 0) {
         FATAL("svr socket get err fd : " << client_fd)
@@ -103,7 +103,7 @@ ssize_t do_requestv4(const char *msg, ssize_t len,
     }
     svr_addr.sin_port = htons(port);
 
-    if (connect(client_fd, (sockaddr *) &svr_addr, sizeof(svr_addr))) {
+    if (connect(client_fd, (sockaddr *)&svr_addr, sizeof(svr_addr))) {
         FATAL("connect err! : " << strerror(errno))
         exit(-2);
     }
@@ -115,8 +115,7 @@ ssize_t do_requestv4(const char *msg, ssize_t len,
     return recv(client_fd, receive_buff, buff_len, 0);
 }
 
-size_t do_response(char *read_buff, ssize_t read_len,
-                   char *write_buff, ssize_t write_len) {
+size_t do_response(char *read_buff, ssize_t read_len, char *write_buff, ssize_t write_len) {
     strncpy(write_buff, echo, strlen(echo));
     strncpy(write_buff + strlen(echo), read_buff, write_len - strlen(echo));
     return strlen(echo) + read_len;

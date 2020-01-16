@@ -3,30 +3,26 @@
 //
 #include "common_includes.h"
 
-namespace StructTest
-{
-    struct MyType
-    {
-        int index = 1;
-        int index2 : 8;     // 占用8个bit(1 char)，无法使用sizeof操作符
-        int index3{3};
-    };
+namespace StructTest {
+struct MyType {
+    int index = 1;
+    int index2 : 8;  // 占用8个bit(1 char)，无法使用sizeof操作符
+    int index3{3};
+};
 
-    class MyClass
-    {
-    public:
-        int index = 1;
-        int index2 : 8;// 占用8个bit，无法使用sizeof操作符
-        int index3{3};
-    };
-}
-TEST(test_type, struct)
-{
+class MyClass {
+public:
+    int index = 1;
+    int index2 : 8;  // 占用8个bit，无法使用sizeof操作符
+    int index3{3};
+};
+}  // namespace StructTest
+TEST(test_type, struct) {
     StructTest::MyType type;
-    INFO("default "<<type.index2)
+    INFO("default " << type.index2)
 
     EXPECT_EQ(type.index, 1);
-//    EXPECT_EQ( type.index2, 0);
+    //    EXPECT_EQ( type.index2, 0);
     EXPECT_EQ(type.index3, 3);
 
     type.index2 = 127;
@@ -51,13 +47,12 @@ TEST(test_type, struct)
     EXPECT_EQ(type.index, 1);
     EXPECT_EQ(type.index3, 3);
 }
-TEST(test_type, class)
-{
+TEST(test_type, class) {
     StructTest::MyClass type;
-    INFO("default "<<type.index2)
+    INFO("default " << type.index2)
 
     EXPECT_EQ(type.index, 1);
-//    EXPECT_EQ( type.index2, 0);
+    //    EXPECT_EQ( type.index2, 0);
     EXPECT_EQ(type.index3, 3);
 
     type.index2 = 127;
@@ -81,19 +76,15 @@ TEST(test_type, class)
 
     EXPECT_EQ(type.index, 1);
     EXPECT_EQ(type.index3, 3);
-
 }
-TEST(test_test, 1)
-{
+TEST(test_test, 1) {
     EXPECT_EQ(1, 1);
 }
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
     int iRet = 0;
-    iRet = beforeRun();
-    if (iRet)
-    {
+    iRet     = beforeRun();
+    if (iRet) {
         std::cerr << "init fail with " << iRet << std::endl;
     }
     testing::InitGoogleTest(&argc, argv);

@@ -6,18 +6,17 @@
 #define UNIXSTUDY_FILE_IO_HP
 
 #include <fcntl.h>
-#include <stdio.h>
 #include <memory.h>
+#include <stdio.h>
 #include <unistd.h>
 
-#define G 1024*1024*1024
+#define G 1024 * 1024 * 1024
 
 void test_seek(const char *file) {
-
     const char *hello = "hello";
-    int fd;
-    off_t res;
-    char buff[100];
+    int         fd;
+    off_t       res;
+    char        buff[100];
 
     int seek = 1 * G;
     if ((fd = open(file, O_RDWR | O_CREAT | O_TRUNC)) < 0) {
@@ -25,9 +24,8 @@ void test_seek(const char *file) {
         return;
     }
 
-
     if ((res = write(fd, hello, strlen(hello))) != strlen(hello)) {
-        fprintf(stderr, "err in write except %d , return %ld\n", (int) strlen(hello), res);
+        fprintf(stderr, "err in write except %d , return %ld\n", (int)strlen(hello), res);
         return;
     }
 
@@ -49,4 +47,4 @@ void test_seek(const char *file) {
     close(fd);
 }
 
-#endif //UNIXSTUDY_FILE_IO_HP
+#endif  // UNIXSTUDY_FILE_IO_HP

@@ -1,9 +1,10 @@
 //
 // Created by tao on 19-1-17.
 //
-#include "common_includes.h"
-#include <stdio.h>
 #include <inttypes.h>
+#include <stdio.h>
+
+#include "common_includes.h"
 
 extern "C" int64_t maxofthree(int64_t, int64_t, int64_t);
 
@@ -19,7 +20,7 @@ TEST(test_test, 1) {
 
 int main(int argc, char **argv) {
     int iRet = 0;
-    iRet = beforeRun();
+    iRet     = beforeRun();
     if (iRet) {
         std::cerr << "init fail with " << iRet << std::endl;
     }

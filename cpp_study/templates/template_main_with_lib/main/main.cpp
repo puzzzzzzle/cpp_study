@@ -14,10 +14,10 @@ TEST(test_test, 0) {
 
 int main(int argc, char **argv) {
     int iRet = 0;
-    iRet = beforeRun();
+    iRet     = beforeRun();
     INFO("logger inited")
-    if(iRet){
-        std::cerr<<"init fail with "<<iRet<<std::endl;
+    if (iRet) {
+        std::cerr << "init fail with " << iRet << std::endl;
         return iRet;
     }
     Hello h;

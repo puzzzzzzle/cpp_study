@@ -7,5 +7,4 @@
 
 int read_page(const char *host, const char *port);
 
-
-#endif //UNIXSTUDY_READ_BAIDU_H
+#endif  // UNIXSTUDY_READ_BAIDU_H

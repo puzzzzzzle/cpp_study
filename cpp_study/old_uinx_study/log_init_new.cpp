@@ -9,16 +9,16 @@
 //#include <log4cplus/configurator.h>
 //#include <log4cplus/loggingmacros.h>
 //
-//log4cplus::Logger file, console;
+// log4cplus::Logger file, console;
 
 /**
  * 初始化logger，在此之前不要使用logger,要使用log4cplus则必须在main中引用，并调用init
  * @return
  */
 int log_init() {
-//    log4cplus::PropertyConfigurator::doConfigure(LOG4CPLUS_TEXT("./log4cplus_root.properties"));
-//    console = log4cplus::Logger::getRoot();
-//    file = log4cplus::Logger::getInstance("file");
+    //    log4cplus::PropertyConfigurator::doConfigure(LOG4CPLUS_TEXT("./log4cplus_root.properties"));
+    //    console = log4cplus::Logger::getRoot();
+    //    file = log4cplus::Logger::getInstance("file");
 
     return 0;
 }

@@ -5,11 +5,10 @@
 #ifndef UNIXSTUDY_COMMON_FUNCS_H
 #define UNIXSTUDY_COMMON_FUNCS_H
 
-
+#include <gtest/gtest.h>
 
 #include <cstdio>
 #include <cstring>
-#include <gtest/gtest.h>
 
 //>其他文件中的方法
 #include "log_init_new.h"
@@ -59,5 +58,4 @@ int test_read_timeout(int fd, long wait_sec);
  */
 int test_write_timeout(int fd, long wait_sec);
 
-
-#endif //UNIXSTUDY_COMMON_FUNCS_H
+#endif  // UNIXSTUDY_COMMON_FUNCS_H

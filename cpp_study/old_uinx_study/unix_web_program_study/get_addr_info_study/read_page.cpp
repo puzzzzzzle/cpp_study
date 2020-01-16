@@ -2,18 +2,19 @@
 // Created by tao on 19-2-22.
 //
 
-#include "boost_log_init.h"
-#include <netdb.h>
 #include "read_page.h"
 
-int read_page(const char *host, const char *port) {
+#include <netdb.h>
 
-    addrinfo hints{}, *res, *iterator;
-    char buff[1000];
-    int client_fd;
-    ssize_t read_len;
+#include "boost_log_init.h"
+
+int read_page(const char *host, const char *port) {
+    addrinfo    hints{}, *res, *iterator;
+    char        buff[1000];
+    int         client_fd;
+    ssize_t     read_len;
     const char *head = "GET / HTTP/1.1\nHost: www.baidu.com\nConnection: close\n\n";
-    hints.ai_family = AF_INET;
+    hints.ai_family  = AF_INET;
     if (getaddrinfo(host, port, &hints, &res) || res == nullptr) {
         PERROR("err when get addr info")
         return -1;

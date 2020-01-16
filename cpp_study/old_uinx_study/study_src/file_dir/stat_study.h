@@ -6,16 +6,16 @@
 #define UNIXSTUDY_STAT_STUDY_H
 
 #include <dirent.h>
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <sys/stat.h>
 #include <unistd.h>
 
 void stat_std() {
-    const char *dir_name = "./";
-    DIR *p = NULL;
+    const char *   dir_name = "./";
+    DIR *          p        = NULL;
     struct dirent *buff;
-    struct stat sbuff;
+    struct stat    sbuff;
     if ((p = opendir(dir_name)) == NULL) {
         perror("ERROR: ");
         return;
@@ -27,10 +27,9 @@ void stat_std() {
             perror("lstat error :");
         }
         printf("uid:%d\tblock:%ld", sbuff.st_uid, sbuff.st_blksize);
-        if(S_ISDIR(sbuff.st_mode)){
+        if (S_ISDIR(sbuff.st_mode)) {
             printf("\td\n");
-        } else
-        {
+        } else {
             printf("\n");
         }
     }
@@ -40,19 +39,19 @@ void stat_std() {
 
 void access_std(const char *path) {
     printf("%s:\t", path);
-    if (access(path, F_OK)>=0) {
+    if (access(path, F_OK) >= 0) {
         printf("F_OK\t");
     }
-    if (access(path, R_OK)>=0) {
+    if (access(path, R_OK) >= 0) {
         printf("R_OK\t");
     }
-    if (access(path, W_OK)>=0) {
+    if (access(path, W_OK) >= 0) {
         printf("W_OK\t");
     }
-    if (access(path, X_OK)>=0) {
+    if (access(path, X_OK) >= 0) {
         printf("X_OK\t");
     }
     printf("\n");
 }
 
-#endif //UNIXSTUDY_STAT_STUDY_H
+#endif  // UNIXSTUDY_STAT_STUDY_H

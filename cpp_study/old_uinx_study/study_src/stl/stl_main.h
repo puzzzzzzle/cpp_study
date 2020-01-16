@@ -11,4 +11,3 @@ void stl_main() {
     tao_stl::test_arr();
     test_sort();
 }
-

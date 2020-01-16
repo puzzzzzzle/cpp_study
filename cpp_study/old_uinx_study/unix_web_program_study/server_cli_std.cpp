@@ -2,26 +2,27 @@
 // Created by tao on 18-12-30.
 //
 
-#include <netinet/in.h>
-#include <cstring>
 #include <arpa/inet.h>
-#include <cstdio>
+#include <netinet/in.h>
 #include <string.h>
 #include <unistd.h>
-#include "server_confg.h"
 
+#include <cstdio>
+#include <cstring>
+
+#include "server_confg.h"
 
 int main(int argc, char **argv) {
     //设置地址
     sockaddr_in svr_addr;
     memset(&svr_addr, 0, sizeof(svr_addr));
     svr_addr.sin_family = AF_INET;
-//    if (inet_pton(AF_INET, SVR_ADDS, &svr_addr)) {
-//        perror("change SVR_ADDRESS err ");
-//        return -1;
-//    }
+    //    if (inet_pton(AF_INET, SVR_ADDS, &svr_addr)) {
+    //        perror("change SVR_ADDRESS err ");
+    //        return -1;
+    //    }
     svr_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
-    svr_addr.sin_port = htons(SVR_PORT);
+    svr_addr.sin_port        = htons(SVR_PORT);
 
     //创建套接字
     int client_fd;
@@ -30,7 +31,7 @@ int main(int argc, char **argv) {
         return -1;
     }
     //连接
-    if (connect(client_fd, (sockaddr *) &svr_addr, sizeof(svr_addr))) {
+    if (connect(client_fd, (sockaddr *)&svr_addr, sizeof(svr_addr))) {
         perror("conn err:");
         close(client_fd);
         return -1;
@@ -45,7 +46,7 @@ int main(int argc, char **argv) {
     while (true) {
         //    read_size=readn(STDIN_FILENO,send_buff, sizeof(send_buff))
         scanf("%s", send_buff);
-        if(strcmp(send_buff, "bye") == 0){
+        if (strcmp(send_buff, "bye") == 0) {
             break;
         }
 

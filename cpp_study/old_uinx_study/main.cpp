@@ -26,27 +26,27 @@
 
 int main(int argc, char *argv[]) {
     init();
-//
-//    templatetest();
-//    iotest_main();
-//    file_io_main();
-////    file_dir_main();
-//    perrTest();
-//    timeQuestion();
-//    ptr_test();
-//    stl_main();
-//    socket_main();
-//
-//    test_redis_conn();
-//
-//    io_cpp_test();
-//    thread_study_main();
-//    ref_test_main();
-//    test_init_fun();
-//    thresd_task_main ();
-//    mem_test_main();
-//    lib_go_main(argc, argv);
-//
-//    boost_lib_test_main();
+    //
+    //    templatetest();
+    //    iotest_main();
+    //    file_io_main();
+    ////    file_dir_main();
+    //    perrTest();
+    //    timeQuestion();
+    //    ptr_test();
+    //    stl_main();
+    //    socket_main();
+    //
+    //    test_redis_conn();
+    //
+    //    io_cpp_test();
+    //    thread_study_main();
+    //    ref_test_main();
+    //    test_init_fun();
+    //    thresd_task_main ();
+    //    mem_test_main();
+    //    lib_go_main(argc, argv);
+    //
+    //    boost_lib_test_main();
     return 0;
 }

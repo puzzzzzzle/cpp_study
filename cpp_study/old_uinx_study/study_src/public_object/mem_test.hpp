@@ -5,18 +5,19 @@
 #ifndef UNIXSTUDYCPP_MEM_TEST_HPP
 #define UNIXSTUDYCPP_MEM_TEST_HPP
 
-#include <string>
-#include <iostream>
 #include <cstring>
+#include <iostream>
+#include <string>
 
 using namespace std;
 
 #define NAME_LENGTH 100
 
-class null_class{};
+class null_class {};
 class char_people {
 private:
     char name[NAME_LENGTH];
+
 public:
     char_people() = default;
 
@@ -28,6 +29,7 @@ public:
 class str_people {
 private:
     string name;
+
 public:
     str_people() = default;
 
@@ -41,11 +43,14 @@ int mem_test_main() {
     cout << "char:\t" << sizeof(char_people) << endl;
     cout << "str:\t" << sizeof(str_people) << endl;
     char_people cp("tao");
-    str_people sp("taossssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss");
+    str_people  sp(
+        "taosssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss"
+        "ss"
+        "sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss");
     cout << "char:\t" << sizeof(cp) << endl;
     cout << "str:\t" << sizeof(sp) << endl;
     cout << "string:\t" << sizeof(string) << endl;
     return 0;
 }
 
-#endif //UNIXSTUDYCPP_MEM_TEST_HPP
+#endif  // UNIXSTUDYCPP_MEM_TEST_HPP

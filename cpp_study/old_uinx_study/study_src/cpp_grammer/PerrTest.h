@@ -8,13 +8,13 @@
 #include <cstdio>
 #include <cstdlib>
 
-void perrTest(){
+void perrTest() {
     FILE *p;
-    if((p=fopen("/notExits","r+"))== nullptr){
+    if ((p = fopen("/notExits", "r+")) == nullptr) {
         perror("ERROR:\t");
-        //perror 不会结束函数，手动退出为好
+        // perror 不会结束函数，手动退出为好
         exit(EXIT_FAILURE);
     }
     printf("open OK!");
 }
-#endif //UNIXSTUDYCPP_PERRTEST_H
+#endif  // UNIXSTUDYCPP_PERRTEST_H

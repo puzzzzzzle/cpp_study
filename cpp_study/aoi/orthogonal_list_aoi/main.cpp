@@ -1,15 +1,16 @@
 //
 // Created by tao on 19-1-17.
 //
-#include "common_includes.h"
 #include <random>
+
+#include "common_includes.h"
 
 int main(int argc, char **argv) {
     int iRet = 0;
-    iRet = beforeRun();
+    iRet     = beforeRun();
     INFO("logger inited")
-    if(iRet){
-        std::cerr<<"init fail with "<<iRet<<std::endl;
+    if (iRet) {
+        std::cerr << "init fail with " << iRet << std::endl;
         return iRet;
     }
     testing::InitGoogleTest(&argc, argv);

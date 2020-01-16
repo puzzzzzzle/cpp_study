@@ -1,10 +1,12 @@
 //
 // Created by tao on 19-1-17.
 //
-#include "log_init.h"
 #include <gtest/gtest.h>
-#include <thread>
 #include <stdarg.h>
+
+#include <thread>
+
+#include "log_init.h"
 
 TEST(test_test, 1) {
     EXPECT_EQ(1, 1);
@@ -16,8 +18,7 @@ TEST(test_test, 1) {
  * @return 接收到的可变参数数量
  */
 int test_changeable_var(int argc, ...) {
-
-    int count{};
+    int         count{};
     const char *line{};
 
     va_list args{};
@@ -33,17 +34,17 @@ int test_changeable_var(int argc, ...) {
     va_end(args);
     return count;
 }
-TEST(changeable_args,0) {
+TEST(changeable_args, 0) {
     int count = test_changeable_var(0);
-    EXPECT_EQ(count,0);
+    EXPECT_EQ(count, 0);
 }
-TEST(changeable_args,1) {
+TEST(changeable_args, 1) {
     int count = test_changeable_var(1, "hello");
-    EXPECT_EQ(count,1);
+    EXPECT_EQ(count, 1);
 }
-TEST(changeable_args,3) {
-    int count = test_changeable_var(3, "hello","i'm tao!","bye bye!");
-    EXPECT_EQ(count,3);
+TEST(changeable_args, 3) {
+    int count = test_changeable_var(3, "hello", "i'm tao!", "bye bye!");
+    EXPECT_EQ(count, 3);
 }
 int main(int argc, char **argv) {
     int result = 0;

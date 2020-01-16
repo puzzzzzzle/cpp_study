@@ -7,14 +7,9 @@
 
 #include <atomic>
 
-
-int atomic_flag_test(){
+int atomic_flag_test() {
     std::atomic_flag a_flag = ATOMIC_FLAG_INIT;
-
 }
 
-
-int atomic_test_main(){
-
-}
-#endif //UNIXSTUDYCPP_ATOMIC_TEST_HPP
+int atomic_test_main() {}
+#endif  // UNIXSTUDYCPP_ATOMIC_TEST_HPP

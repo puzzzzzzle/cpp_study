@@ -3,8 +3,7 @@
 //
 #include "common_includes.h"
 
-int beforeRun()
-{
+int beforeRun() {
     srand(time(NULL));
     int iRet = 0;
 #ifdef LOG_BOOST

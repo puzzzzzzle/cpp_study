@@ -4,19 +4,20 @@
 
 #ifndef PERSONAL_FILE_PROTECTOR_COMMON_CLASSES_H
 #define PERSONAL_FILE_PROTECTOR_COMMON_CLASSES_H
-#include <mutex>
 #include <stdlib.h>
 
-class LockGround {
+#include <mutex>
+
+    class LockGround {
     std::mutex *mlock;
+
 public:
     LockGround(std::mutex *_lock) : mlock(_lock) {
         mlock->lock();
-
     }
 
     ~LockGround() {
         mlock->unlock();
     }
 };
-#endif //PERSONAL_FILE_PROTECTOR_COMMON_CLASSES_H
+#endif  // PERSONAL_FILE_PROTECTOR_COMMON_CLASSES_H

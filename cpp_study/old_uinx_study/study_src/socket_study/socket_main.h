@@ -7,8 +7,8 @@
 
 #include <thread>
 
-#include "socket_server.hpp"
 #include "socket_client.hpp"
+#include "socket_server.hpp"
 
 using namespace std;
 
@@ -16,7 +16,7 @@ void socket_main() {
     std::thread t(socket_server_start);
     sleep(1);
     socket_client();
-//    t.join();
+    //    t.join();
 }
 
-#endif //UNIXSTUDYCPP_SOCKET_MAIN_H
+#endif  // UNIXSTUDYCPP_SOCKET_MAIN_H

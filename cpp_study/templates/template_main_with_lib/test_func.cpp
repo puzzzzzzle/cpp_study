@@ -4,12 +4,11 @@
 
 #include "test_func.h"
 
-int zero(){
+int zero() {
     INFO("from lib")
     return 0;
 }
 
-void Hello::hello()
-{
+void Hello::hello() {
     INFO("hello")
 }

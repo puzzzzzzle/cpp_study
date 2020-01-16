@@ -3,6 +3,7 @@
 //
 
 #include "test_cmake.h"
+
 #include <iostream>
 
 void test_cmake::sayHello() {
@@ -11,5 +12,4 @@ void test_cmake::sayHello() {
 
 void say_hello_from_func() {
     std::cout << "hello from cpp func" << std::endl;
-
 }

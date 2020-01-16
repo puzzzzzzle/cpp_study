@@ -8,19 +8,18 @@
 #include <iostream>
 using namespace std;
 //
-//Logger file, console;
+// Logger file, console;
 
 /**
  * 初始化logger，在此之前不要使用logger,要使用log4cplus则必须在main中引用，并调用init
  * @return
  */
 int log_init() {
-//    PropertyConfigurator::doConfigure(LOG4CPLUS_TEXT("./log4cplus_root.properties"));
-//    console = Logger::getRoot();
-//    file = log4cplus::Logger::getInstance("file");
+    //    PropertyConfigurator::doConfigure(LOG4CPLUS_TEXT("./log4cplus_root.properties"));
+    //    console = Logger::getRoot();
+    //    file = log4cplus::Logger::getInstance("file");
 
     return 0;
 }
-
 
 #endif

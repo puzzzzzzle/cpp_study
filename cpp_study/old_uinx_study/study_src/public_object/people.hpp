@@ -12,18 +12,16 @@ class People {
 public:
     People() = default;
 
-    People(const std::string &name,
-           const int &age,
-           const double &score) {
-        this->name = name;
-        this->age = age;
+    People(const std::string &name, const int &age, const double &score) {
+        this->name  = name;
+        this->age   = age;
         this->score = score;
     }
 
 public:
     std::string name;
-    int age;
-    double score;
+    int         age;
+    double      score;
 
 public:
     //右值引用如何返回？？ 还有问题，不能使用！！！
@@ -37,9 +35,9 @@ public:
         return result;
     }
 
-//    int &&get_temp(){
-//        return 0;
-//    }
+    //    int &&get_temp(){
+    //        return 0;
+    //    }
 };
 
-#endif //UNIXSTUDYCPP_PEOPLE_HPP
+#endif  // UNIXSTUDYCPP_PEOPLE_HPP

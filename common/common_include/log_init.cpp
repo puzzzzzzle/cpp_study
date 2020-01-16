@@ -1,33 +1,32 @@
 #include <boost/date_time/posix_time/posix_time_types.hpp>
-#include <boost/log/trivial.hpp>
+#include <boost/log/attributes.hpp>
+#include <boost/log/common.hpp>
 #include <boost/log/expressions.hpp>
-#include <boost/log/sources/severity_logger.hpp>
-#include <boost/log/sources/record_ostream.hpp>
-#include <boost/log/utility/setup/file.hpp>
-#include <boost/log/utility/setup/common_attributes.hpp>
-#include <boost/log/support/date_time.hpp>
+#include <boost/log/sinks.hpp>
+#include <boost/log/sinks/text_file_backend.hpp>
 #include <boost/log/sources/channel_feature.hpp>
 #include <boost/log/sources/channel_logger.hpp>
-#include <string>
-#include <boost/smart_ptr/shared_ptr.hpp>
-#include <boost/log/common.hpp>
-#include <boost/log/attributes.hpp>
-#include <boost/log/sinks.hpp>
 #include <boost/log/sources/logger.hpp>
-#include <boost/log/sinks/text_file_backend.hpp>
+#include <boost/log/sources/record_ostream.hpp>
 #include <boost/log/sources/severity_channel_logger.hpp>
-#include <boost/log/utility/setup/settings.hpp>
-#include <boost/log/utility/setup/from_stream.hpp>
+#include <boost/log/sources/severity_logger.hpp>
+#include <boost/log/support/date_time.hpp>
+#include <boost/log/trivial.hpp>
+#include <boost/log/utility/setup/common_attributes.hpp>
 #include <boost/log/utility/setup/console.hpp>
+#include <boost/log/utility/setup/file.hpp>
+#include <boost/log/utility/setup/from_stream.hpp>
+#include <boost/log/utility/setup/settings.hpp>
+#include <boost/smart_ptr/shared_ptr.hpp>
 #include <fstream>
+#include <string>
 
-namespace logging = boost::log;
-namespace src = boost::log::sources;
-namespace expr = boost::log::expressions;
+namespace logging  = boost::log;
+namespace src      = boost::log::sources;
+namespace expr     = boost::log::expressions;
 namespace keywords = boost::log::keywords;
-namespace attrs = boost::log::attributes;
-namespace sinks = boost::log::sinks;
-
+namespace attrs    = boost::log::attributes;
+namespace sinks    = boost::log::sinks;
 
 using namespace std;
 using namespace logging::trivial;

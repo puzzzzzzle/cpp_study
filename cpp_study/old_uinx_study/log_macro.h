@@ -16,7 +16,7 @@
 //#include <string.h>
 //#include <errno.h>
 //
-//extern log4cplus::Logger file, console;
+// extern log4cplus::Logger file, console;
 
 //同时输出到控制台和文件
 //#define TRACE(msg) LOG4CPLUS_TRACE(file, msg);
@@ -35,15 +35,13 @@
 //#define PERROR_CON(msg) LOG4CPLUS_ERROR(console, msg);LOG4CPLUS_ERROR(console, "err reason maybe : \t"<<strerror(errno));
 //#define FATAL_CON(msg) LOG4CPLUS_FATAL(console, msg);
 
-
 //////< console log init
-#define TRACE(msg) std::cout<<"log4cplus::TRACE\t"<<msg<<std::endl;
-#define DEBUG(msg) std::cout<<"log4cplus::DEBUG\t"<<msg<<std::endl;
-#define INFO(msg) std::cout<<"log4cplus::INFO\t"<<msg<<std::endl;
-#define WARN(msg) std::cout<<"log4cplus::WARN\t"<<msg<<std::endl;
-#define ERROR(msg) std::cerr<<"log4cplus::ERROR\t"<<msg<<std::endl;
+#define TRACE(msg) std::cout << "log4cplus::TRACE\t" << msg << std::endl;
+#define DEBUG(msg) std::cout << "log4cplus::DEBUG\t" << msg << std::endl;
+#define INFO(msg) std::cout << "log4cplus::INFO\t" << msg << std::endl;
+#define WARN(msg) std::cout << "log4cplus::WARN\t" << msg << std::endl;
+#define ERROR(msg) std::cerr << "log4cplus::ERROR\t" << msg << std::endl;
 //#define PERROR(msg) printf("%s\n",msg);
-#define FATAL(msg) std::cerr<<"log4cplus::FATAL\t"<<msg<<std::endl;
+#define FATAL(msg) std::cerr << "log4cplus::FATAL\t" << msg << std::endl;
 
-
-#endif //UNIXSTUDYCPP_LOG_MIC_H
+#endif  // UNIXSTUDYCPP_LOG_MIC_H

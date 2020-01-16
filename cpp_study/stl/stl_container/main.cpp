@@ -4,7 +4,6 @@
 #include "common_includes.h"
 #include "stl_common_containor.h"
 
-
 int run_gtest(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
@@ -13,5 +12,5 @@ int run_gtest(int argc, char **argv) {
 int main(int argc, char **argv) {
     log_init();
 
-    return run_gtest(argc,argv);
+    return run_gtest(argc, argv);
 }

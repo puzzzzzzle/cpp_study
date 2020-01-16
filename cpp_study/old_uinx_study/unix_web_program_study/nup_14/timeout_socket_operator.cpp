@@ -21,7 +21,7 @@
 // * @param wait_sec 等待时间
 // * @return 正确返回0，出错返回-1
 // */
-//int test_read_timeout(int fd, long wait_sec) {
+// int test_read_timeout(int fd, long wait_sec) {
 //    int ready_number;
 //    fd_set r_set{};
 //    timeval wait_time{};
@@ -50,7 +50,7 @@
 // * @param wait_sec 等待时间
 // * @return 正确返回0，出错返回-1
 // */
-//int test_write_timeout(int fd, long wait_sec) {
+// int test_write_timeout(int fd, long wait_sec) {
 //    int ready_number;
 //    fd_set w_set{};
 //    struct timeval wait_time{};

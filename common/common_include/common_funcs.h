@@ -5,10 +5,10 @@
 #ifndef UNIXSTUDY_COMMON_FUNCS_H
 #define UNIXSTUDY_COMMON_FUNCS_H
 
+#include <gtest/gtest.h>
 
 #include <cstdio>
 #include <cstring>
-#include <gtest/gtest.h>
 #include <iostream>
 #include <vector>
 
@@ -24,7 +24,7 @@
  * @param src_len 源最大长度
  * @return 实际拷贝的长度
  */
-size_t memncpy(void *__restrict dest, size_t dest_len, const void *__restrict src, size_t src_len);
+size_t memncpy(void* __restrict dest, size_t dest_len, const void* __restrict src, size_t src_len);
 
 /**
  * memncpy,不返回任何信息
@@ -61,49 +61,40 @@ int test_write_timeout(int fd, long wait_sec);
 
 char randChar();
 
-
 template<class T>
-std::ostream& operator<<(std::ostream& os, const std::vector<T>& v)
-{
+std::ostream& operator<<(std::ostream& os, const std::vector<T>& v) {
     std::copy(v.begin(), v.end(), std::ostream_iterator<T>(os, ","));
     return os;
 }
 
 template<class T>
-std::ostream& printArr(std::ostream& os,size_t len, const T value[])
-{
+std::ostream& printArr(std::ostream& os, size_t len, const T value[]) {
     os << "values :\t[";
-    for (int i = 0; i < len; ++i)
-    {
+    for (int i = 0; i < len; ++i) {
         os << value[i] << ", ";
     }
     os << "]";
     return os;
 }
 template<class T>
-std::ostream& sumArr(std::ostream& os,size_t len, const T value[])
-{
+std::ostream& sumArr(std::ostream& os, size_t len, const T value[]) {
     os << "sum :\t[";
     T sum{};
-    for (int i = 0; i < len; ++i)
-    {
+    for (int i = 0; i < len; ++i) {
         sum += value[i];
     }
-    os<<sum;
+    os << sum;
     return os;
 }
-template <class T>
-bool checkDuplicated(int len, T value[])
-{
+template<class T>
+bool checkDuplicated(int len, T value[]) {
     std::set<T> checkSet;
-    for (int i = 0; i < len; ++i)
-    {
-        if (!checkSet.insert(value[i]).second)
-        {
+    for (int i = 0; i < len; ++i) {
+        if (!checkSet.insert(value[i]).second) {
             return false;
         }
     }
     return true;
 }
 
-#endif //UNIXSTUDY_COMMON_FUNCS_H
+#endif  // UNIXSTUDY_COMMON_FUNCS_H

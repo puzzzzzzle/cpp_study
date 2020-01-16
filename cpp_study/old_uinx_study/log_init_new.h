@@ -7,4 +7,4 @@
 
 int log_init();
 
-#endif //UNIXSTUDY_LOG4CPLUS_INIT_NEW_H
+#endif  // UNIXSTUDY_LOG4CPLUS_INIT_NEW_H

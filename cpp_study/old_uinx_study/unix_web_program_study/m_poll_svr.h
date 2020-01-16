@@ -9,5 +9,5 @@
 #define SVR_BUFF 1024
 #define SVR_DEQUE 256
 const char *SVR_ADDRESS = "127.0.0.1";
-const int PORT = 8951;
-#endif //UNIXSTUDY_POLL_SVR_ANOTHER_H
+const int   PORT        = 8951;
+#endif  // UNIXSTUDY_POLL_SVR_ANOTHER_H

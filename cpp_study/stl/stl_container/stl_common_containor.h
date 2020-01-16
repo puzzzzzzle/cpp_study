@@ -7,4 +7,4 @@
 
 #include "common_includes.h"
 
-#endif //CPP_STL_STUDYS_STL_COMMON_CONTAINOR_H
+#endif  // CPP_STL_STUDYS_STL_COMMON_CONTAINOR_H

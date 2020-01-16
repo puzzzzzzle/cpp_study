@@ -9,8 +9,8 @@
 #include "test_cmake.h"
 
 int lib_go_main(int argc, char **argv) {
-//    basic_lib_go_test();
-//    no_wait_test();
+    //    basic_lib_go_test();
+    //    no_wait_test();
     channel_test_me();
     test_cmake t;
     t.sayHello();
@@ -18,4 +18,4 @@ int lib_go_main(int argc, char **argv) {
     return 0;
 }
 
-#endif //UNIXSTUDYCPP_LIB_GO_MAIN_HPP
+#endif  // UNIXSTUDYCPP_LIB_GO_MAIN_HPP

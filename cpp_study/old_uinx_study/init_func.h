@@ -3,8 +3,10 @@
 #include <cstdio>
 //#include <stdio.h>
 #include <stdlib.h>
-#include <iostream>
 #include <unistd.h>
+
+#include <iostream>
+
 #include "log_init.hpp"
 #include "log_macro.h"
 static void on_exit() {
@@ -27,11 +29,9 @@ static void init() {
     getcwd(buff, 100);
     printf("run work dir : %s\n", buff);
 
-
     log_init();
     INFO("logger start work now");
     printf("******init finish******\n\n");
-
 }
 
-#endif // INIT_FUNC_H
+#endif  // INIT_FUNC_H

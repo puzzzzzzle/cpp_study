@@ -1,10 +1,11 @@
 //
 // Created by tao on 19-1-17.
 //
-#include "boost_log_init.h"
 #include <gtest/gtest.h>
+
 #include <thread>
 
+#include "boost_log_init.h"
 
 TEST(test_test, 1) {
     EXPECT_EQ(1, 1);

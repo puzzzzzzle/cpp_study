@@ -1,12 +1,12 @@
 //
 // Created by tao on 19-1-17.
 //
-#include "log_init.hpp"
-#include "log_macro.h"
 #include <gtest/gtest.h>
+
 #include <thread>
 
-
+#include "log_init.hpp"
+#include "log_macro.h"
 
 TEST(test_test, 1) {
     EXPECT_EQ(1, 1);
