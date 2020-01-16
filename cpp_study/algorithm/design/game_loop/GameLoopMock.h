@@ -33,7 +33,7 @@ private:
 
 public:
     GameMockApi(long _logicNanoTime, long _renderNanoTime,
-                long _nanoSecPeerUpdate)
+                long _nanoSecPeerUpdate = 16666666)
             : GameApi(_nanoSecPeerUpdate), logicNanoTime(_logicNanoTime),
               renderNanoTime(_renderNanoTime) {
         clock_gettime(CLOCK_MONOTONIC, &lastStatusTime);
