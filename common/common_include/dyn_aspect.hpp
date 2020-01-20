@@ -23,7 +23,7 @@ public:
         enum { value = std::is_same<decltype(Check<T>(0)), std::true_type>::value };                                   \
     }
 
-HAS_MEMBER(Before);  // Add Before aspect
+HAS_MEMBER(Before);  // Add BeforeUpdate aspect
 HAS_MEMBER(After);   // Add After aspect
 
 template <typename Ret, typename Func, typename... Args>
@@ -90,16 +90,16 @@ using aop::AOP;
 /* --- AOP user manual ---
   If you need to add aspects to a function and then call this function,
   you can call the function as follows:
-    [func_return_value] AOP<[func_return_type], [aspect_struct...]>([func], [func_params...]);
+    [func_return_value] AOP<[func_return_type], [aspect_struct...]>([fixedUpdateTimeOutCallBackFunc], [func_params...]);
   [func_return_value] : the original function return value
   [func_return_type]  : the original function return type, must not be "void" type
   [aspect_struct...]  : aspects list that will be added to original function
-  [func]              : the original function pointer
+  [fixedUpdateTimeOutCallBackFunc]              : the original function pointer
   [func_params...]    : the original function params list
   Aspect struct needs to be coded as follows:
   struct [aspect_struct_name]
   {
-      void Before(...)
+      void BeforeUpdate(...)
       {
           // TODO
       }

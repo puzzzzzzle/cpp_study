@@ -11,7 +11,7 @@ using namespace std;
 struct AspectDemo {
     void Before(...) {
         iCounter++;
-        cout << "Aspect : Before, counter is " << iCounter << endl;
+        cout << "Aspect : BeforeUpdate, counter is " << iCounter << endl;
     }
 
     void After(...) {

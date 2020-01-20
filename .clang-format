@@ -8,8 +8,8 @@ Standard: Cpp11
 AccessModifierOffset: -4
 
 # 对齐连续的赋值
-AlignConsecutiveAssignments: true
-AlignConsecutiveDeclarations: true
+AlignConsecutiveAssignments: false
+AlignConsecutiveDeclarations: false
 
 # 自动对齐控制
 AlignEscapedNewlines: Right
