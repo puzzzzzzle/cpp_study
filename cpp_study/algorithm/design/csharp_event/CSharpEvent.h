@@ -12,7 +12,7 @@
 namespace CSharpEvent {
 
 using DelegrateWeakSave = std::weak_ptr<std::function<void()>>;
-using Delegrate = std::shared_ptr<std::function<void()>>;
+using DelegrateDefine   = std::shared_ptr<std::function<void()>>;
 
 struct HandleBindHash {
     std::size_t operator()(DelegrateWeakSave const& ptr) const {
@@ -22,7 +22,7 @@ struct HandleBindHash {
             return 0;
         }
     }
-    std::size_t operator()(Delegrate const& ptr) const { return reinterpret_cast<size_t>(&(*ptr)); }
+    std::size_t operator()(DelegrateDefine const& ptr) const { return reinterpret_cast<size_t>(&(*ptr)); }
 };
 struct HandleBindEqual {
     bool operator()(const DelegrateWeakSave& lhs, const DelegrateWeakSave& rhs) const {
@@ -41,7 +41,7 @@ public:
      * @param handle
      * @return
      */
-    virtual bool Register(const DelegrateWeakSave handle) = 0;
+    virtual bool   Register(const DelegrateWeakSave handle)   = 0;
     virtual Event* operator+=(const DelegrateWeakSave handle) = 0;
 
     /**
@@ -49,7 +49,7 @@ public:
      * @param handle
      * @return
      */
-    virtual bool Dismiss(const DelegrateWeakSave handle) = 0;
+    virtual bool   Dismiss(const DelegrateWeakSave handle)    = 0;
     virtual Event* operator-=(const DelegrateWeakSave handle) = 0;
 
     /**
@@ -91,30 +91,30 @@ public:
         return handleBindSet.emplace(std::move(handle)).second;
     }
 
-    virtual Event* operator+=(const DelegrateWeakSave handle)override {
+    virtual Event* operator+=(const DelegrateWeakSave handle) override {
         Register(handle);
         return this;
     }
-    virtual bool Dismiss(const DelegrateWeakSave handle) override{
+    virtual bool Dismiss(const DelegrateWeakSave handle) override {
         std::lock_guard<std::mutex> lockGuard(lock);
         return handleBindSet.erase(std::move(handle)) == 0;
     }
 
-    virtual Event* operator-=(const DelegrateWeakSave handle) override{
+    virtual Event* operator-=(const DelegrateWeakSave handle) override {
         Dismiss(handle);
         return this;
     }
 
-    virtual bool RegisterOnce(const DelegrateWeakSave handle) override{
+    virtual bool RegisterOnce(const DelegrateWeakSave handle) override {
         std::lock_guard<std::mutex> lockGuard(lockOnce);
         return handleOnceBindSet.emplace(std::move(handle)).second;
     }
 
-    virtual bool DismissOnce(const DelegrateWeakSave handle) override{
+    virtual bool DismissOnce(const DelegrateWeakSave handle) override {
         std::lock_guard<std::mutex> lockGuard(lockOnce);
         return handleOnceBindSet.erase(std::move(handle)) == 0;
     }
-    virtual bool FireEvent() override{
+    virtual bool FireEvent() override {
         bool isNullHandleInList{false};
         {
             std::lock_guard<std::mutex> lockGuard(lock);
@@ -123,7 +123,7 @@ public:
                     (*spt)();
                     ++it;
                 } else {
-                    it = handleBindSet.erase(it);
+                    it                 = handleBindSet.erase(it);
                     isNullHandleInList = true;
                 }
             }
@@ -156,21 +156,21 @@ private:
     std::mutex lockOnce{};
 
 public:
-    virtual bool Register(const DelegrateWeakSave handle) override{
+    virtual bool Register(const DelegrateWeakSave handle) override {
         std::lock_guard<std::mutex> lockGuard(lock);
         handleBindVec.emplace_back(std::move(handle));
         return true;
     }
-    virtual Event* operator+=(const DelegrateWeakSave handle) override{
+    virtual Event* operator+=(const DelegrateWeakSave handle) override {
         Register(handle);
         return this;
     }
-    virtual bool Dismiss(const DelegrateWeakSave handle) override{
+    virtual bool Dismiss(const DelegrateWeakSave handle) override {
         std::lock_guard<std::mutex> lockGuard(lock);
-        bool isDelete{false};
+        bool                        isDelete{false};
         for (auto it = handleBindVec.begin(); it != handleBindVec.end();) {
             if (HandleBindHash()(*it) == HandleBindHash()(handle)) {
-                it = handleBindVec.erase(it);
+                it       = handleBindVec.erase(it);
                 isDelete = true;
             } else {
                 ++it;
@@ -178,22 +178,22 @@ public:
         }
         return isDelete;
     }
-    virtual Event* operator-=(const DelegrateWeakSave handle) override{
+    virtual Event* operator-=(const DelegrateWeakSave handle) override {
         Dismiss(handle);
         return this;
     }
-    virtual bool RegisterOnce(const DelegrateWeakSave handle) override{
+    virtual bool RegisterOnce(const DelegrateWeakSave handle) override {
         std::lock_guard<std::mutex> lockGuard(lockOnce);
         handleOnceBindVec.emplace_back(std::move(handle));
         return true;
     }
 
-    virtual bool DismissOnce(const DelegrateWeakSave handle)override {
+    virtual bool DismissOnce(const DelegrateWeakSave handle) override {
         std::lock_guard<std::mutex> lockGuard(lockOnce);
-        bool isDelete{false};
+        bool                        isDelete{false};
         for (auto it = handleOnceBindVec.begin(); it != handleOnceBindVec.end();) {
             if (HandleBindHash()(*it) == HandleBindHash()(handle)) {
-                it = handleOnceBindVec.erase(it);
+                it       = handleOnceBindVec.erase(it);
                 isDelete = true;
             } else {
                 ++it;
@@ -201,7 +201,7 @@ public:
         }
         return isDelete;
     }
-    virtual bool FireEvent() override{
+    virtual bool FireEvent() override {
         bool isNullHandleInList{false};
         {
             std::lock_guard<std::mutex> lockGuard(lock);
@@ -210,7 +210,7 @@ public:
                     (*spt)();
                     ++it;
                 } else {
-                    it = handleBindVec.erase(it);
+                    it                 = handleBindVec.erase(it);
                     isNullHandleInList = true;
                 }
             }
@@ -230,7 +230,7 @@ public:
     }
 };
 
-#define Delegate(func) Delegrate(new DelegrateWeakSave::element_type(func))
+#define Delegate(func) DelegrateDefine(new DelegrateWeakSave::element_type(func))
 #define MakeDelegate(paraName, func) auto paraName = Delegate(func)
 
 }  // namespace CSharpEvent

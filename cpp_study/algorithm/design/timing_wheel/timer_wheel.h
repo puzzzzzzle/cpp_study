@@ -421,4 +421,4 @@ Tick TimerWheel::ticks_to_next_event(Tick max, int level) {
 
     return max;
 }
-}
+}  // namespace TimerWheel

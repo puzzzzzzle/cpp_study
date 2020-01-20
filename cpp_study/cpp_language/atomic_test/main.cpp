@@ -1,9 +1,9 @@
 //
 // Created by tao on 19-1-17.
 //
-#include "common_includes.h"
-
 #include <atomic>
+
+#include "common_includes.h"
 
 std::atomic_bool IsFirst{};
 TEST(test_test, 1) { EXPECT_EQ(1, 1); }

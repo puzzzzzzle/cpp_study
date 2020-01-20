@@ -8,7 +8,7 @@
 
 #include <mutex>
 
-    class LockGround {
+class LockGround {
     std::mutex* mlock;
 
 public:

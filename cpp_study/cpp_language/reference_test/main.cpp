@@ -13,7 +13,7 @@ public:
     void IntParaFunc(int &func) { LOG_DEBUG("int &func " << func) }
     //    void IntParaFunc(int &&func) { LOG_DEBUG("int &&func " << func) }
 };
-}  // namespace copy_ref
+}  // namespace copy_lRef
 
 namespace copy_rRef {
 class Funcs {
@@ -31,7 +31,7 @@ public:
     void IntParaFunc(int &func) { LOG_DEBUG("int &func " << func) }
     void IntParaFunc(int &&func) { LOG_DEBUG("int &&func " << func) }
 };
-}  // namespace ref_rRef
+}  // namespace lRef_rRef
 
 /**
  * 传递立即数,实际上是右值引用,没有改函数时退化为拷贝,且只能为拷贝,所以不冲突
@@ -83,7 +83,7 @@ TEST(ref_rRef, lRef_rRef) {
 
 int main(int argc, char **argv) {
     int iRet = 0;
-    iRet = beforeRun();
+    iRet     = beforeRun();
     if (iRet) {
         std::cerr << "init fail with " << iRet << std::endl;
     }
