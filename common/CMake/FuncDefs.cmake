@@ -49,7 +49,7 @@ endfunction()
 #endforeach ()
 
 function(AddAllSubDir)
-    GetSubDirs(${CMAKE_SOURCE_DIR}/cpp_study SubDir)
+    GetSubDirs(${CMAKE_SOURCE_DIR}/src SubDir)
     foreach (dir ${SubDir})
         #    message("sub : ${dir}")
         string(REPLACE "${CMAKE_SOURCE_DIR}/cpp_study/" "" build_temp ${dir})
