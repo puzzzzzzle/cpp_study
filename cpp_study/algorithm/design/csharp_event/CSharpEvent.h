@@ -230,7 +230,7 @@ public:
     }
 };
 
-#define Delegate(func) DelegrateDefine(new DelegrateWeakSave::element_type(func))
+#define Delegate(func) DelegrateDefine(new DelegrateDefine::element_type(func))
 #define MakeDelegate(paraName, func) auto paraName = Delegate(func)
 
 }  // namespace CSharpEvent
