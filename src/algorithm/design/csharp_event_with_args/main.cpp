@@ -17,6 +17,7 @@ TEST(UnOrderedEventImpl, void) {
     ASSERT_FALSE(event.FireEvent());
     ASSERT_EQ(i, 1);
 }
+
 TEST(UnOrderedEventImpl, int) {
     UnOrderedEventImpl<int> event{};
     int                     i = 0;
@@ -31,19 +32,29 @@ TEST(UnOrderedEventImpl, int) {
     ASSERT_FALSE(event.FireEvent(5));
     ASSERT_EQ(i, 1);
 }
+
+void moreArgsFunc(int iArg, double dArg, std::string sArg, int *i) {
+    LOG_DEBUG("iArg\t" << iArg << "\tdArg\t" << dArg << "\tsArg\t" << sArg)
+    ++(*i);
+}
 TEST(UnOrderedEventImpl, multi) {
     UnOrderedEventImpl<int, double, std::string> event{};
     int                                          i = 0;
-    // lambda
-    auto func = DelegateUnOrdered(
+    // 除了事件发布时的三个参数 外,没有其他参数
+    auto func1 = DelegateUnOrdered(
         [&i](int iArg, double dArg, std::string sArg) {
             LOG_DEBUG("iArg\t" << iArg << "\tdArg\t" << dArg << "\tsArg\t" << sArg)
             ++i;
         },
         int, double, std::string);
-    event += func;
+    event += func1;
+    // 函数本身 除了事件发布时的三个参数外,还有一个参数
+    auto func2 = DelegateUnOrdered(
+        std::bind(&moreArgsFunc, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, &i),
+        int, double,std::string);
+    event += func2;
     ASSERT_FALSE(event.FireEvent(5, 6.5, "aha"));
-    ASSERT_EQ(i, 1);
+    ASSERT_EQ(i, 2);
 }
 
 TEST(MultiOrderedEventImpl, void) {

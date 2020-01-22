@@ -12,7 +12,7 @@ TEST(game_loop, 5_5) {
     auto        obFunc = [&api](int maxTime) -> void {
         LOG_INFO("ob start");
         for (int i = 0; i <= maxTime; ++i) {
-            SleepSec(1);
+            TimeTools::SleepSec(1);
             auto status = api.statusHandle.GetStatus();
             EXPECT_LE(abs(status.fixedUpdateSpeed - 60), 1);
             LOG_INFO(status);
@@ -32,7 +32,7 @@ TEST(game_loop, 0_0) {
     auto        obFunc = [&api](int maxTime) -> void {
         LOG_INFO("ob start");
         for (int i = 0; i <= maxTime; ++i) {
-            SleepSec(1);
+            TimeTools::SleepSec(1);
             auto status = api.statusHandle.GetStatus();
             EXPECT_LE(abs(status.fixedUpdateSpeed - 60), 1);
             LOG_INFO(status);
@@ -53,7 +53,7 @@ TEST(game_loop, 20_1) {
     auto obFunc = [&api](int maxTime) -> void {
         LOG_INFO("ob start");
         for (int i = 0; i <= maxTime; ++i) {
-            SleepSec(1);
+            TimeTools::SleepSec(1);
             auto status = api.statusHandle.GetStatus();
             EXPECT_GE(abs(status.fixedUpdateSpeed - 60), 1);
             LOG_INFO(status);
@@ -74,7 +74,7 @@ TEST(fixed_update, fixed_update_120) {
     auto obFunc = [&api](int maxTime) -> void {
         LOG_INFO("ob start");
         for (int i = 0; i <= maxTime; ++i) {
-            SleepSec(1);
+            TimeTools::SleepSec(1);
             auto status = api.statusHandle.GetStatus();
             EXPECT_LE(abs(status.fixedUpdateSpeed - 120), 1);
             LOG_INFO(status);
@@ -94,7 +94,7 @@ TEST(fixed_update, fixed_update_0) {
     auto obFunc = [&api](int maxTime) -> void {
         LOG_INFO("ob start");
         for (int i = 0; i <= maxTime; ++i) {
-            SleepSec(1);
+            TimeTools::SleepSec(1);
             auto status = api.statusHandle.GetStatus();
             EXPECT_LE(abs(status.fixedUpdateSpeed - 0), 1);
             LOG_INFO(status);
@@ -116,7 +116,7 @@ TEST(fixed_update, fixed_update_120_limit_30) {
     auto obFunc = [&api](int maxTime) -> void {
         LOG_INFO("ob start");
         for (int i = 0; i <= maxTime; ++i) {
-            SleepSec(1);
+            TimeTools::SleepSec(1);
             auto status = api.statusHandle.GetStatus();
             EXPECT_LE(abs(status.fixedUpdateSpeed - 120), 1);
             LOG_INFO(status);

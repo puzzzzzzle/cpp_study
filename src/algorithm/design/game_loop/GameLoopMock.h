@@ -19,13 +19,13 @@ public:
     virtual void BeforeUpdate() override {}
     virtual void FixedUpdate() override {
         if (logicNanoTime > 0) {
-            SleepNano(logicNanoTime);
+            TimeTools::SleepNano(logicNanoTime);
         }
         ++statusHandle.fixedUpdateTimes;
     }
     virtual void LimitedUpdate() override {
         if (renderNanoTime > 0) {
-            SleepNano(renderNanoTime);
+            TimeTools::SleepNano(renderNanoTime);
         }
         ++statusHandle.limitUpdateTimes;
     }

@@ -34,7 +34,7 @@ public:
         timespec nowTime{};
         Status   status{};
         clock_gettime(CLOCK_MONOTONIC, &nowTime);
-        auto gap                 = SubTime(nowTime, lastStatusTime);
+        auto gap                 = TimeTools::SubTime(nowTime, lastStatusTime);
         long sec                 = gap.tv_sec + gap.tv_nsec / SEC_NANO;
         status.fixedUpdateSpeed  = fixedUpdateTimes / sec;
         status.limitUpdateSpeed  = limitUpdateTimes / sec;
@@ -137,7 +137,7 @@ public:
         // 开始循环
         while (isRun) {
             clock_gettime(CLOCK_MONOTONIC, &currLoopStart);
-            lag += SubTimeNano(currLoopStart, previousLoopStart);
+            lag += TimeTools::SubTimeNano(currLoopStart, previousLoopStart);
 
             // 调用前
             BeforeUpdate();
@@ -150,7 +150,7 @@ public:
                 // 超时回调
                 auto scopeGuard = MakeScopeGuard([&fixedCheckTimeStart, &fixedCheckTimeEnd, this]() {
                     clock_gettime(CLOCK_MONOTONIC, &fixedCheckTimeEnd);
-                    long timeOutTime = SubTimeNano(fixedCheckTimeEnd, fixedCheckTimeStart);
+                    long timeOutTime = TimeTools::SubTimeNano(fixedCheckTimeEnd, fixedCheckTimeStart);
                     if (timeOutTime > nanoSecPeerFixedUpdate) {
                         if (fixedUpdateTimeOutCallBackFunc != nullptr) {
                             fixedUpdateTimeOutCallBackFunc(timeOutTime);
@@ -164,15 +164,15 @@ public:
 
             // LimitedUpdate 主逻辑已经追赶上了可以进行一些旁路逻辑
             clock_gettime(CLOCK_MONOTONIC, &currentLimitedStart);
-            if (SubTimeNano(currentLimitedStart, previousLimitedStart) >= nanoSecPeerLimitUpdate &&
-                SubTimeNano(currentLimitedStart, currLoopStart) < nanoSecPeerFixedUpdate) {
+            if (TimeTools::SubTimeNano(currentLimitedStart, previousLimitedStart) >= nanoSecPeerLimitUpdate &&
+                TimeTools::SubTimeNano(currentLimitedStart, currLoopStart) < nanoSecPeerFixedUpdate) {
                 LimitedUpdate();
                 previousLimitedStart = currentLimitedStart;
             }
 
             // 剩余时间调用
             clock_gettime(CLOCK_MONOTONIC, &currentRemainStart);
-            RemainTimeUpdate(nanoSecPeerFixedUpdate - SubTimeNano(currentRemainStart, currLoopStart));
+            RemainTimeUpdate(nanoSecPeerFixedUpdate - TimeTools::SubTimeNano(currentRemainStart, currLoopStart));
             previousLoopStart = currLoopStart;
         }
         return 0;
