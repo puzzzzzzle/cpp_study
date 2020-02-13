@@ -17,6 +17,7 @@ TEST(protobuf, 1) {
     test.set_name("ahahahah");
     test.set_id(222);
     test.set_email("sefsgasdgfds");
+    LOG_DEBUG("sizeof Person"<<sizeof(test));
     // test.add_phones(tutorial::Person_PhoneNumber phone())
     string buff;
     google::protobuf::util::MessageToJsonString(test, &buff);

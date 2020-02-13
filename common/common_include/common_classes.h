@@ -8,20 +8,20 @@
 
 #include <mutex>
 
-class LockGround {
+class LockGuard {
     std::mutex* mlock;
 
 public:
-    LockGround(std::mutex* _lock) : mlock(_lock) { mlock->lock(); }
+    LockGuard(std::mutex* _lock) : mlock(_lock) { mlock->lock(); }
 
-    ~LockGround() { mlock->unlock(); }
+    ~LockGuard() { mlock->unlock(); }
 };
 
 template <class Function>
 class ScopeGuard {
 private:
     Function m_func;
-    bool     m_dismiss{};
+    bool     m_dismiss{false};
 
 public:
     explicit ScopeGuard(Function func) : m_func(func), m_dismiss(false) {}
