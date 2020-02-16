@@ -36,9 +36,6 @@ namespace TimerWheel {
 
         std::string ToString() {
             std::ostringstream oss{};
-//            oss << "hour{" << hour << "},minute{" << minute << "},second{" << second << "},peerSecond{" << peerSecond
-//                << "}";
-//            oss << "millisecond{" << millisecond << "}";
             return oss.str();
         }
 
@@ -46,7 +43,6 @@ namespace TimerWheel {
 
     template<uint64_t FRAME_PEER_SECOND = 60, uint64_t MAX_DAY_NUM = 365>
     class TimerWheel {
-        const uint64_t TOTAL_MILLISECONDS = MAX_DAY_NUM * 24 * 60 * 60 * 1000;
         const uint64_t FRAME_PEER_ROUND = MAX_DAY_NUM * 24 * 60 * 60 * FRAME_PEER_SECOND;
         const uint64_t FRAME_PEER_DAY = 24 * 60 * 60 * FRAME_PEER_SECOND;
         const uint64_t FRAME_PEER_HOUR = 60 * 60 * FRAME_PEER_SECOND;
@@ -61,12 +57,11 @@ namespace TimerWheel {
         std::array<SlotContainer, 60> secondSlot{};
         std::array<SlotContainer, FRAME_PEER_SECOND> frameSlot{};
 
-        TimerPoint nextFrameTimerPoint{}, oneFrame{}; // 下一个要执行的帧
+        TimerPoint nextFrameTimerPoint{}, oneFrame{}; // 每次推进多少帧
 
         std::mutex lock{};
     public:
         TimerWheel() {
-//            nextFrameTimerPoint.frame = 1;  // 初始化后应该执行下一帧的数据，让第一次调用前的注册到第一帧上，第0帧用来初始化
             oneFrame.frame = 1;   // 每次前进1帧
         }
 
@@ -136,14 +131,14 @@ namespace TimerWheel {
         }
 
     public:
-        std::pair<int, std::weak_ptr<TimerTask>>
-        DAfterMillSeconds(uint64_t millisecond, const CallBack &callBack, bool repeatable = false) {
-            if (millisecond >= TOTAL_MILLISECONDS) {
-                return {-1, {}};
-            }
-            return DoAfterFrame(millisecond / 1000 * FRAME_PEER_SECOND + (millisecond % 1000) / MILLISECONDS_PEER_FRAME,
-                                callBack, repeatable);
-        }
+//        std::pair<int, std::weak_ptr<TimerTask>>
+//        DoAfterMillSeconds(uint64_t millisecond, const CallBack &callBack, bool repeatable = false) {
+//            if (millisecond >= TOTAL_MILLISECONDS) {
+//                return {-1, {}};
+//            }
+//            return DoAfterFrame(millisecond / 1000 * FRAME_PEER_SECOND + (millisecond % 1000) / MILLISECONDS_PEER_FRAME,
+//                                callBack, repeatable);
+//        }
 
         std::pair<int, std::weak_ptr<TimerTask>>
         DoAfterFrame(uint64_t frame, const CallBack &callBack, bool repeatable = false) {
@@ -195,12 +190,14 @@ namespace TimerWheel {
             }
 
             // 发生进位时分解当前point
+            // TODO : 重构下，太丑了
             if (nextFrameTimerPoint.frame == 0) {
                 if (nextFrameTimerPoint.second == 0) {
                     if (nextFrameTimerPoint.minute == 0) {
                         if (nextFrameTimerPoint.hour == 0) {
                             if (nextFrameTimerPoint.day == 0) {
-                                // 一个round过去了，所有时间复位
+                                // 一个round过去了，所有时间复位了
+                                // 这里不写也行，但是为了统一还是写一下
                                 // 分解第0day
                                 RESOLVE(day, hour)
                             }

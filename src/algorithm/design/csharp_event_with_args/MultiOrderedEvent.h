@@ -157,3 +157,4 @@ public:
 };
 #define DelegateOrdered(func,para...)                                                                                     \
     MultiOrderedEventImpl<para>::DelegrateDefine(new MultiOrderedEventImpl<para>::DelegrateDefine::element_type(func))
+

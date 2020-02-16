@@ -9,7 +9,7 @@ TEST(game_loop, 5_5) {
     TimeGap gap;
     LOG_DEBUG("start game loop")
     GameMockApi api(5 * MICRO_MILLI, 5 * MICRO_MILLI);
-    auto        obFunc = [&api](int maxTime) -> void {
+    auto obFunc = [&api](int maxTime) -> void {
         LOG_INFO("ob start");
         for (int i = 0; i <= maxTime; ++i) {
             TimeTools::SleepSec(1);
@@ -29,7 +29,7 @@ TEST(game_loop, 0_0) {
     TimeGap gap;
     LOG_DEBUG("start game loop")
     GameMockApi api(0 * MICRO_MILLI, 0 * MICRO_MILLI);
-    auto        obFunc = [&api](int maxTime) -> void {
+    auto obFunc = [&api](int maxTime) -> void {
         LOG_INFO("ob start");
         for (int i = 0; i <= maxTime; ++i) {
             TimeTools::SleepSec(1);
@@ -49,7 +49,12 @@ TEST(game_loop, 20_1) {
     TimeGap gap;
     LOG_DEBUG("start game loop")
     GameMockApi api(20 * MICRO_MILLI, 1 * MICRO_MILLI);
-    api.SetFixedUpdateTimeOutCallBackFunc([](long time) { LOG_WARNING("fixed update time out happened : " << time) });
+    auto timeOutCallBack = DELEGRATE_FIXED_TIMEOUT(
+            [](long time) {
+                LOG_WARNING("fixed update time out happened : " << time)
+            }
+    );
+    api.GetFixedTimeOutEventPrt()->Register(timeOutCallBack);
     auto obFunc = [&api](int maxTime) -> void {
         LOG_INFO("ob start");
         for (int i = 0; i <= maxTime; ++i) {
@@ -86,6 +91,7 @@ TEST(fixed_update, fixed_update_120) {
     api.GameLoop();
     LOG_DEBUG("end game loop time : " << gap.gap())
 }
+
 TEST(fixed_update, fixed_update_0) {
     TimeGap gap;
     LOG_DEBUG("start game loop")

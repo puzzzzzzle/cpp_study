@@ -4,6 +4,7 @@
 
 #pragma once
 #include "GameLoop.h"
+#include "GameLoopStatusHandle.h"
 
 class GameMockApi : public GameLoopApi {
 private:

@@ -138,5 +138,6 @@ public:
         return isNullHandleInList;
     }
 };
-#define DelegateUnOrdered( func,para...)                                                                                   \
+#define DelegateUnOrdered( func,para...)\
     UnOrderedEventImpl<para>::DelegrateDefine(new UnOrderedEventImpl<para>::DelegrateDefine::element_type(func))
+
