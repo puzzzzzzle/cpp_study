@@ -12,30 +12,36 @@ TEST(tick_frame, short_time) {
 
     struct TestResourceHandle {
         int varAddOnce{0};
+        int varAddOnceOneDayDelay{0};
+
         int varAddEveryFrame{0};
         int varAddEverySecond{0};
         int varAddEveryMinute{0};
         int varAddEveryHour{0};
     };
     TestResourceHandle handle{};
-    timerWheel.DoAfterFrame(100, [&handle](TimerWheel::TimerPoint &timerPoint) {
-//        LOG_DEBUG(delayTimerPoint.ToString())
+    timerWheel.DoAfterFrame(100, [&handle](TimerWheel::TimerPoint &execTimerPoint) {
+//        LOG_DEBUG(execTimerPoint.ToString())
         handle.varAddOnce++;
     });
-    timerWheel.DoAfterFrame(1, [&handle](TimerWheel::TimerPoint &timerPoint) {
-//        LOG_DEBUG(delayTimerPoint.ToString())
+    timerWheel.DoAfterFrame(36 *60 * 60 * 60, [&handle](TimerWheel::TimerPoint &execTimerPoint) {
+        LOG_DEBUG(execTimerPoint.ToString())
+        handle.varAddOnceOneDayDelay++;
+    });
+    timerWheel.DoAfterFrame(1, [&handle](TimerWheel::TimerPoint &execTimerPoint) {
+//        LOG_DEBUG(execTimerPoint.ToString())
         handle.varAddEveryFrame++;
     }, true);
-    timerWheel.DoAfterFrame(60, [&handle](TimerWheel::TimerPoint &timerPoint) {
-//        LOG_DEBUG(delayTimerPoint.ToString())
+    timerWheel.DoAfterFrame(60, [&handle](TimerWheel::TimerPoint &execTimerPoint) {
+//        LOG_DEBUG(execTimerPoint.ToString())
         handle.varAddEverySecond++;
     }, true);
-    timerWheel.DoAfterFrame(60 * 60, [&handle](TimerWheel::TimerPoint &timerPoint) {
-//        LOG_DEBUG(delayTimerPoint.ToString())
+    timerWheel.DoAfterFrame(60 * 60, [&handle](TimerWheel::TimerPoint &execTimerPoint) {
+//        LOG_DEBUG(execTimerPoint.ToString())
         handle.varAddEveryMinute++;
     }, true);
-    timerWheel.DoAfterFrame(60 * 60 * 60, [&handle](TimerWheel::TimerPoint &timerPoint) {
-//        LOG_DEBUG(timerPoint.ToString())
+    timerWheel.DoAfterFrame(60 * 60 * 60, [&handle](TimerWheel::TimerPoint &execTimerPoint) {
+//        LOG_DEBUG(execTimerPoint.ToString())
         handle.varAddEveryHour++;
     }, true);
     TimeGap gap{};
@@ -44,6 +50,8 @@ TEST(tick_frame, short_time) {
     }
     LOG_DEBUG("total tick used time(microsecond) :"<< gap.gap())
     ASSERT_EQ(handle.varAddOnce, 1);
+    ASSERT_EQ(handle.varAddOnceOneDayDelay, 1);
+
     ASSERT_EQ(handle.varAddEveryHour, 3*ONE_DAY_FRAME / 60 / 60 / 60);
     ASSERT_EQ(handle.varAddEveryMinute, 3*ONE_DAY_FRAME / 60 / 60);
     ASSERT_EQ(handle.varAddEverySecond, 3*ONE_DAY_FRAME / 60);

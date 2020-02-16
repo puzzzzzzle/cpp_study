@@ -142,7 +142,7 @@ namespace TimerWheel {
 
         std::pair<int, std::weak_ptr<TimerTask>>
         DoAfterFrame(uint64_t frame, const CallBack &callBack, bool repeatable = false) {
-            if (frame >= FRAME_PEER_DAY) {
+            if (frame >= FRAME_PEER_ROUND) {
                 return {-1, {}};
             }
             auto task = std::make_shared<TimerTask>();
