@@ -7,41 +7,20 @@
 #include <mutex>
 
 namespace TimerWheel {
-    using CallBack = std::function<void()>;
-
     struct TimerPoint {
-        uint32_t hour{}, minute{}, second{}, frame{};
+        uint64_t day{}, hour{}, minute{}, second{}, frame{};
 
         std::string ToString() {
             std::ostringstream oss{};
-            oss << "hour{" << hour << "}, minute{" << minute << "}, second{" << second << "}, frame{" << frame << "};";
+            oss << "day{" << day << "}," << "hour{" << hour << "}, minute{" << minute << "}, second{" << second
+                << "}, frame{" << frame << "};";
             return oss.str();
         }
     };
 
-    TimerPoint SubTimer(const TimerPoint &lhs, const TimerPoint &rhs, uint32_t FRAME_PEER_SECOND) {
-        TimerPoint timerPoint{};
-        timerPoint.frame = lhs.frame + rhs.frame;
-        timerPoint.second = lhs.second + rhs.second;
-        timerPoint.minute = lhs.minute + rhs.minute;
-        timerPoint.hour = lhs.hour + rhs.hour;
-        if (timerPoint.frame >= FRAME_PEER_SECOND) {
-            timerPoint.second += timerPoint.frame / FRAME_PEER_SECOND;
-            timerPoint.frame = timerPoint.frame % FRAME_PEER_SECOND;
-        }
-        if (timerPoint.second >= 60) {
-            timerPoint.minute += timerPoint.second / 60;
-            timerPoint.second = timerPoint.second % 60;
-        }
-        if (timerPoint.minute >= 60) {
-            timerPoint.hour += timerPoint.minute / 60;
-            timerPoint.minute = timerPoint.minute % 60;
-        }
-        if (timerPoint.hour >= 24) {
-            timerPoint.hour = timerPoint.hour % 24;
-        }
-        return timerPoint;
-    }
+    using CallBack = std::function<void(TimerPoint &)>;
+
+
 
     struct TimerTask {
         TimerPoint timerPoint{};
@@ -64,9 +43,10 @@ namespace TimerWheel {
 
     };
 
-    template<uint32_t FRAME_PEER_SECOND = 60>
+    template<uint64_t FRAME_PEER_SECOND = 60, uint64_t MAX_DAY_NUM = 365>
     class TimerWheel {
-        const uint64_t TOTAL_MILLISECONDS = 24 * 60 * 60 * 1000;
+        const uint64_t TOTAL_MILLISECONDS = MAX_DAY_NUM * 24 * 60 * 60 * 1000;
+        const uint64_t FRAME_PEER_ROUND = MAX_DAY_NUM * 24 * 60 * 60 * FRAME_PEER_SECOND;
         const uint64_t FRAME_PEER_DAY = 24 * 60 * 60 * FRAME_PEER_SECOND;
         const uint64_t FRAME_PEER_HOUR = 60 * 60 * FRAME_PEER_SECOND;
         const uint64_t FRAME_PEER_MINUTE = 60 * FRAME_PEER_SECOND;
@@ -74,6 +54,7 @@ namespace TimerWheel {
 
         using SlotContainer = std::vector<std::shared_ptr<TimerTask>>;
 
+        std::array<SlotContainer, MAX_DAY_NUM> daySlot{};
         std::array<SlotContainer, 24> hourSlot{};
         std::array<SlotContainer, 60> minuteSlot{};
         std::array<SlotContainer, 60> secondSlot{};
@@ -84,18 +65,40 @@ namespace TimerWheel {
         std::mutex lock{};
     public:
         TimerWheel() {
-            nextFrameTimerPoint.frame = 1;  // 初始化后应该执行下一帧的数据，让第一次调用前的注册到第一帧上，第0帧用来初始化
+//            nextFrameTimerPoint.frame = 1;  // 初始化后应该执行下一帧的数据，让第一次调用前的注册到第一帧上，第0帧用来初始化
             oneFrame.frame = 1;   // 每次前进1帧
         }
 
-    public:
-        std::pair<int, std::weak_ptr<TimerTask>>
-        DAfterMillSeconds(uint64_t millisecond, const CallBack &callBack, bool repeatable = false) {
-            if (millisecond >= TOTAL_MILLISECONDS) {
-                return {-1, {}};
+    private:
+        TimerPoint
+        AddTimePoint(const TimerPoint &lhs, const TimerPoint &rhs) {
+            TimerPoint timerPoint{};
+            timerPoint.frame = lhs.frame + rhs.frame;
+            timerPoint.second = lhs.second + rhs.second;
+            timerPoint.minute = lhs.minute + rhs.minute;
+            timerPoint.hour = lhs.hour + rhs.hour;
+            timerPoint.day = lhs.day + rhs.day;
+
+            if (timerPoint.frame >= FRAME_PEER_SECOND) {
+                timerPoint.second += timerPoint.frame / FRAME_PEER_SECOND;
+                timerPoint.frame = timerPoint.frame % FRAME_PEER_SECOND;
             }
-            return DoAfterFrame(millisecond / 1000 * FRAME_PEER_SECOND + (millisecond % 1000) / MILLISECONDS_PEER_FRAME,
-                                callBack, repeatable);
+            if (timerPoint.second >= 60) {
+                timerPoint.minute += timerPoint.second / 60;
+                timerPoint.second = timerPoint.second % 60;
+            }
+            if (timerPoint.minute >= 60) {
+                timerPoint.hour += timerPoint.minute / 60;
+                timerPoint.minute = timerPoint.minute % 60;
+            }
+            if (timerPoint.hour >= 24) {
+                timerPoint.day += timerPoint.hour / 24;
+                timerPoint.hour = timerPoint.hour % 24;
+            }
+            if (timerPoint.day >= MAX_DAY_NUM) {
+                timerPoint.day = timerPoint.day / MAX_DAY_NUM;
+            }
+            return timerPoint;
         }
 
         std::pair<int, std::weak_ptr<TimerTask>>
@@ -103,7 +106,11 @@ namespace TimerWheel {
             // 插入task
             do {
                 // 插入
-                TimerPoint targetTimer = SubTimer(nextFrameTimerPoint, task->timerPoint, FRAME_PEER_SECOND);
+                TimerPoint targetTimer = AddTimePoint(nextFrameTimerPoint, task->timerPoint);
+                if (targetTimer.day != nextFrameTimerPoint.day) {
+                    daySlot[targetTimer.day].push_back(task);
+                    break;
+                }
                 if (targetTimer.hour != nextFrameTimerPoint.hour) {
                     hourSlot[targetTimer.hour].push_back(task);
                     break;
@@ -126,6 +133,16 @@ namespace TimerWheel {
             return {0, std::weak_ptr<TimerTask>(task)};
         }
 
+    public:
+        std::pair<int, std::weak_ptr<TimerTask>>
+        DAfterMillSeconds(uint64_t millisecond, const CallBack &callBack, bool repeatable = false) {
+            if (millisecond >= TOTAL_MILLISECONDS) {
+                return {-1, {}};
+            }
+            return DoAfterFrame(millisecond / 1000 * FRAME_PEER_SECOND + (millisecond % 1000) / MILLISECONDS_PEER_FRAME,
+                                callBack, repeatable);
+        }
+
         std::pair<int, std::weak_ptr<TimerTask>>
         DoAfterFrame(uint64_t frame, const CallBack &callBack, bool repeatable = false) {
             if (frame >= FRAME_PEER_DAY) {
@@ -135,38 +152,63 @@ namespace TimerWheel {
             // 分解时间到帧,并构建task
             {
                 auto &point = task->timerPoint;
-                point.hour = frame / FRAME_PEER_HOUR;
-                point.minute = frame % FRAME_PEER_HOUR / FRAME_PEER_MINUTE;
-                point.second = frame % FRAME_PEER_HOUR % FRAME_PEER_MINUTE / FRAME_PEER_SECOND;
-                point.frame = frame % FRAME_PEER_HOUR % FRAME_PEER_MINUTE % FRAME_PEER_SECOND;
+                point.day = frame / FRAME_PEER_ROUND;
+                auto frameForDay = frame % FRAME_PEER_ROUND;
+                point.hour = frameForDay / FRAME_PEER_HOUR;
+                point.minute = frameForDay % FRAME_PEER_HOUR / FRAME_PEER_MINUTE;
+                point.second = frameForDay % FRAME_PEER_HOUR % FRAME_PEER_MINUTE / FRAME_PEER_SECOND;
+                point.frame = frameForDay % FRAME_PEER_HOUR % FRAME_PEER_MINUTE % FRAME_PEER_SECOND;
                 task->func = callBack;
                 task->repeatable = repeatable;
             }
+            // 锁
             std::lock_guard<std::mutex> lockGuard(lock);
             return DoAfterFrame(task);
         }
 
         void Tick() {
-            LOG_DEBUG(nextFrameTimerPoint.ToString())
-            for (auto task : frameSlot[nextFrameTimerPoint.frame]) {
+            // 锁
+            std::lock_guard<std::mutex> lockGuard(lock);
+
+            for (const auto &task : frameSlot[nextFrameTimerPoint.frame]) {
                 if (task->canceled) {
                     continue;
                 }
-                task->func();
+                // TODO : 使用线程池去执行，不要卡主流程
+                task->func(nextFrameTimerPoint);
                 if (task->repeatable) {
                     DoAfterFrame(task);
                 }
             }
             frameSlot[nextFrameTimerPoint.frame].clear();
-            nextFrameTimerPoint = SubTimer(nextFrameTimerPoint, oneFrame, FRAME_PEER_SECOND);
+            nextFrameTimerPoint = AddTimePoint(nextFrameTimerPoint, oneFrame);
+
+#define RESOLVE(from, to)\
+            {\
+                auto &from##Tasks = from##Slot[nextFrameTimerPoint.from];\
+                for(const std::shared_ptr<TimerTask> & task : from##Tasks){\
+                    to##Slot[task->timerPoint.to].push_back(task);\
+                }\
+                from##Tasks.clear();\
+            }
+
+            // 发生进位时分解当前point
             if (nextFrameTimerPoint.frame == 0) {
                 if (nextFrameTimerPoint.second == 0) {
                     if (nextFrameTimerPoint.minute == 0) {
                         if (nextFrameTimerPoint.hour == 0) {
-
+                            if (nextFrameTimerPoint.day == 0) {
+                                // 一个round过去了，所有时间复位
+                                // 分解第0day
+                                RESOLVE(day, hour)
+                            }
+                            RESOLVE(day, hour)
                         }
+                        RESOLVE(hour, minute)
                     }
+                    RESOLVE(minute, second)
                 }
+                RESOLVE(second, frame)
             }
         }
     };
