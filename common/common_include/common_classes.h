@@ -8,14 +8,14 @@
 
 #include <mutex>
 
-class LockGuard {
-    std::mutex* mlock;
-
-public:
-    LockGuard(std::mutex* _lock) : mlock(_lock) { mlock->lock(); }
-
-    ~LockGuard() { mlock->unlock(); }
-};
+//class LockGuard {
+//    std::mutex* mlock;
+//
+//public:
+//    LockGuard(std::mutex* _lock) : mlock(_lock) { mlock->lock(); }
+//
+//    ~LockGuard() { mlock->unlock(); }
+//};
 
 template <class Function>
 class ScopeGuard {

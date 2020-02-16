@@ -21,9 +21,10 @@ namespace TimerWheel {
     using CallBack = std::function<void(TimerPoint &)>;
 
 
-
     struct TimerTask {
-        TimerPoint timerPoint{};
+        TimerPoint delayTimerPoint{};
+        TimerPoint nextExecTimerPoint{};
+
         CallBack func{};
         bool repeatable{false};
         bool canceled{false};
@@ -106,7 +107,8 @@ namespace TimerWheel {
             // 插入task
             do {
                 // 插入
-                TimerPoint targetTimer = AddTimePoint(nextFrameTimerPoint, task->timerPoint);
+                TimerPoint &targetTimer = task->nextExecTimerPoint;
+                targetTimer = AddTimePoint(nextFrameTimerPoint, task->delayTimerPoint);
                 if (targetTimer.day != nextFrameTimerPoint.day) {
                     daySlot[targetTimer.day].push_back(task);
                     break;
@@ -151,7 +153,7 @@ namespace TimerWheel {
             auto task = std::make_shared<TimerTask>();
             // 分解时间到帧,并构建task
             {
-                auto &point = task->timerPoint;
+                auto &point = task->delayTimerPoint;
                 point.day = frame / FRAME_PEER_ROUND;
                 auto frameForDay = frame % FRAME_PEER_ROUND;
                 point.hour = frameForDay / FRAME_PEER_HOUR;
@@ -187,7 +189,7 @@ namespace TimerWheel {
             {\
                 auto &from##Tasks = from##Slot[nextFrameTimerPoint.from];\
                 for(const std::shared_ptr<TimerTask> & task : from##Tasks){\
-                    to##Slot[task->timerPoint.to].push_back(task);\
+                    to##Slot[task->nextExecTimerPoint.to].push_back(task);\
                 }\
                 from##Tasks.clear();\
             }

@@ -6,7 +6,10 @@
 #define CPP_STUDY_ALL_TIME_GAP_HPP
 
 #include <sys/time.h>
-
+#include <cstdlib>
+#include <ctime>
+#include <iostream>
+#include <cstring>
 #define MICRO_NANO (1000)
 #define SEC_MICRO (MICRO_NANO * 1000)
 #define SEC_NANO (SEC_MICRO * 1000)
