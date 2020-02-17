@@ -10,37 +10,45 @@
 template<class T>
 class RingBufferArrayImpl : public RingBufferInterface<T> {
 private:
-    int capacity{};     //  为了方便起见冗余一份容量大小，反正也不会变
+    int capacity{};
     std::unique_ptr<T[]> buffer{};
-    volatile int head, tail;
+    volatile int front, back;
 public:
-    RingBufferArrayImpl(int _capacity) : capacity(_capacity), head(0), tail(0) {
-        buffer = std::unique_ptr<T[]>(new T[_capacity]);
+    RingBufferArrayImpl(int _capacity) : capacity(_capacity+1), front(0), back(0) {
+        buffer = std::unique_ptr<T[]>(new T[capacity]);
     }
 
 public:
-    virtual int push(const T &) = 0;
-
-    virtual void pop() = 0;
-
-    virtual T front() {
-        T tmp = m_data[m_front];
-        m_front = (m_front + 1)%m_size;
+    virtual int Push(const T &item) {
+        if(Full()){
+            return -1;
+        }
+        buffer[back] = item;
+        back = (back + 1) % capacity;
+        return 0;
     }
 
-    virtual T back() = 0;
-
-    virtual bool empty() {
-        return tail == head;
+    virtual void Pop() {
+        front = (front + 1) % capacity;
     }
 
-    virtual bool full(){
-        return head==(tail+1)%capacity;
+    virtual T Front() {
+        return buffer[front];
     }
 
-    virtual size_t size() = 0;
+    virtual bool Empty() {
+        return front == back;
+    }
 
-    virtual size_t capacity() {
-        return capacity;
+    virtual bool Full() {
+        return front == (back + 1) % capacity;
+    }
+
+    virtual size_t Size() {
+        return ((back +capacity)-front)%capacity;
+    }
+
+    virtual size_t Capacity() {
+        return capacity -1;
     }
 };

@@ -13,12 +13,12 @@ class RingBufferBoostWarper : public RingBufferInterface<T> {
 private:
     boost::circular_buffer<T> circularBuffer;
 public:
-    RingBufferBoostWarper(int capacity) : circularBuffer(capacity) {
+    RingBufferBoostWarper(int Capacity) : circularBuffer(Capacity) {
 
     }
 
 public:
-    virtual int push(const T & item) {
+    virtual int Push(const T & item) {
         if(circularBuffer.full()){
             return -1;
         }
@@ -26,31 +26,27 @@ public:
         return 0;
     }
 
-    virtual void pop() {
+    virtual void Pop() {
         circularBuffer.pop_front();
     }
 
-    virtual T front() {
+    virtual T Front() {
         return circularBuffer.front();
     }
 
-    virtual T back() {
-        return circularBuffer.back();
-    }
-
-    virtual bool empty() {
+    virtual bool Empty() {
         return circularBuffer.empty();
     }
 
-    virtual bool full() {
+    virtual bool Full() {
         return circularBuffer.full();
     }
 
-    virtual size_t size() {
+    virtual size_t Size() {
         return circularBuffer.size();
     }
 
-    virtual size_t capacity() {
+    virtual size_t Capacity() {
         return circularBuffer.capacity();
     }
 };
