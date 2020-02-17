@@ -16,6 +16,9 @@
 # 获取目录的子目录
 function(GetSubDirs Dir Result)
     EXECUTE_PROCESS(
+            COMMAND chmod +x ${CMAKE_SOURCE_DIR}/common/CMake/get_all_dirs.sh
+    )
+    EXECUTE_PROCESS(
             COMMAND ${CMAKE_SOURCE_DIR}/common/CMake/get_all_dirs.sh ${Dir}
             OUTPUT_VARIABLE DIRS
     )

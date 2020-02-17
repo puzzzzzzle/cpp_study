@@ -26,6 +26,7 @@ TEST(tick_frame, short_time) {
     });
     timerWheel.DoAfterFrame(36 *60 * 60 * 60, [&handle](TimerWheel::TimerPoint &execTimerPoint) {
         LOG_DEBUG(execTimerPoint.ToString())
+//        ASSERT_TRUE()
         handle.varAddOnceOneDayDelay++;
     });
     timerWheel.DoAfterFrame(1, [&handle](TimerWheel::TimerPoint &execTimerPoint) {
