@@ -31,10 +31,6 @@ public:
         ++statusHandle.limitUpdateTimes;
     }
     virtual void RemainTimeUpdate(long remainNanoTime) override {
-        //        LOG_DEBUG("remain time is "<< remainNanoTime)
-        //        if (remainNanoTime > 0) {
-        //            SleepNano(remainNanoTime);
-        //        }
         ++statusHandle.remainUpdateTimes;
     }
 
