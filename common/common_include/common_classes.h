@@ -7,6 +7,7 @@
 #include <stdlib.h>
 
 #include <mutex>
+#include "thread"
 
 //class LockGuard {
 //    std::mutex* mlock;
@@ -40,4 +41,25 @@ template <class Fun>
 ScopeGuard<Fun> MakeScopeGuard(Fun f) {
     return ScopeGuard<Fun>(std::move(f));
 }
+
+class AutoJoinThreadGuard
+{
+private:
+    std::thread t;
+
+public:
+    AutoJoinThreadGuard(std::function<void()> func) : t(func) {}
+    AutoJoinThreadGuard(AutoJoinThreadGuard &) = delete;
+    AutoJoinThreadGuard(AutoJoinThreadGuard && guard):t(std::move(guard.t)){
+
+    }
+    ~AutoJoinThreadGuard()
+    {
+        if (t.joinable())
+        {
+            t.join();
+        }
+    }
+};
+
 #endif  // PERSONAL_FILE_PROTECTOR_COMMON_CLASSES_H

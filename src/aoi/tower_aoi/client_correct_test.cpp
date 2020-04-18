@@ -427,6 +427,7 @@ TEST_F(CorrectClientTest, mix) {
     int      loopSize         = 50000;
     uint32_t objGrowLimit     = 10000 * 1000;
     uint32_t watcherGrowLimit = 10000 * 10;
+    uint64_t total_op_times   = 0;
     TimeGap  timeGap;
     int      eachTimes[CallBackDef::OBJ_MAX + CallBackDef::WATCHER_MAX]{0};
     for (int i = 0; i < loopSize; ++i) {
@@ -435,12 +436,14 @@ TEST_F(CorrectClientTest, mix) {
             case CallBackDef::OBJ_ADD: {
                 ADDOBJ(10)
                 ++eachTimes[CallBackDef::OBJ_ADD];
+                total_op_times += 10;
                 ASSERT_TRUE(pController->CheckCorrect());
                 break;
             }
             case CallBackDef::OBJ_MOVED: {
                 MOVEOBJ(70)
                 ++eachTimes[CallBackDef::OBJ_MOVED];
+                total_op_times += pController->baseObjClients.size() * 0.7;
                 ASSERT_TRUE(pController->CheckCorrect());
 
                 break;
@@ -448,7 +451,10 @@ TEST_F(CorrectClientTest, mix) {
             case CallBackDef::OBJ_REMOVE: {
                 if (pController->baseObjClients.size() > objGrowLimit) {
                     REMOVEOBJ(55)
+                    total_op_times += pController->baseObjClients.size() * 0.55;
                 } else {
+                    total_op_times += pController->baseObjClients.size() * 0.3;
+
                     REMOVEOBJ(30)
                 }
                 ++eachTimes[CallBackDef::OBJ_REMOVE];
@@ -458,12 +464,15 @@ TEST_F(CorrectClientTest, mix) {
             }
             case CallBackDef::OBJ_MAX + CallBackDef::WATCHER_ADD: {
                 ADDWATCHER(5)
+                total_op_times += 5;
+
                 ++eachTimes[CallBackDef::OBJ_MAX + CallBackDef::WATCHER_ADD];
                 ASSERT_TRUE(pController->CheckCorrect());
                 break;
             }
             case CallBackDef::OBJ_MAX + CallBackDef::WATCHER_MOVE: {
                 MOVEWATCHER(70)
+                total_op_times += pController->baseObjClients.size() * 0.7;
                 ++eachTimes[CallBackDef::OBJ_MAX + CallBackDef::WATCHER_MOVE];
                 ASSERT_TRUE(pController->CheckCorrect());
                 break;
@@ -471,8 +480,11 @@ TEST_F(CorrectClientTest, mix) {
             case CallBackDef::OBJ_MAX + CallBackDef::WATCHER_REMOVE: {
                 if (pController->baseWatcherClients.size() > watcherGrowLimit) {
                     REMOVEWATCHER(55)
+                    total_op_times += pController->baseObjClients.size() * 0.55;
+
                 } else {
                     REMOVEWATCHER(30)
+                    total_op_times += pController->baseObjClients.size() * 0.3;
                 }
                 ++eachTimes[CallBackDef::OBJ_MAX + CallBackDef::WATCHER_REMOVE];
                 ASSERT_TRUE(pController->CheckCorrect());
@@ -480,6 +492,7 @@ TEST_F(CorrectClientTest, mix) {
             }
             case CallBackDef::OBJ_MAX + CallBackDef::WATCHER_VIEW_CHANGE: {
                 SETVIEWRANGE(20)
+                total_op_times += 20;
                 ++eachTimes[CallBackDef::OBJ_MAX + CallBackDef::WATCHER_VIEW_CHANGE];
                 ASSERT_TRUE(pController->CheckCorrect());
                 break;
@@ -493,4 +506,5 @@ TEST_F(CorrectClientTest, mix) {
     oss << "\t";
     sumArr(oss, sizeof(eachTimes) / sizeof(eachTimes[0]), eachTimes);
     INFO("each times:\t" << oss.str())
+    INFO("total op times :\t" << total_op_times)
 }
