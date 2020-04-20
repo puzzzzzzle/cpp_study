@@ -14,13 +14,7 @@
 #include <chrono>
 #include <ctime>
 
-const uint64_t getNowMs() {
-    struct timeval tv;
 
-    gettimeofday(&tv, NULL);
-
-    return tv.tv_sec * 1000 + tv.tv_usec / 1000;
-}
 class SnowFlakeChange {
 private:
     int64_t m_epoch{};
@@ -28,7 +22,13 @@ private:
     int64_t curr{};
     int     m_id{};
     int     m_sequence{};
+    uint64_t getNowMs() {
+        struct timeval tv{};
 
+        gettimeofday(&tv, NULL);
+
+        return tv.tv_sec * 1000 + tv.tv_usec / 1000;
+    }
 public:
     std::string DumpInfo() {
         std::stringstream oss{};
