@@ -19,3 +19,8 @@
     ```
 - conan安装： pip3 install conan
     - 最好是python3,python2版本的有bug
+- 拷贝conan 头文件
+    - cd到~/.conan/data下
+```
+find . -name package -type d|xargs -i{} find {} -name include -type d|xargs -i{} cp -vr {} include_bak/
+```

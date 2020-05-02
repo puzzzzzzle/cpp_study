@@ -24,18 +24,18 @@ extern src::severity_channel_logger<severity_level, std::string> logger1;
 extern src::severity_channel_logger<severity_level, std::string> logger2;
 
 #define LOG_TRACE(msg)                                                                                                 \
-    BOOST_LOG_SEV(logger1, trace) << msg << "]   [" << __FILE__ << ":" << __LINE__ << "    " << __PRETTY_FUNCTION__;
+    BOOST_LOG_SEV(logger1,  severity_level::trace) << msg << "]   [" << __FILE__ << ":" << __LINE__ << "    " << __PRETTY_FUNCTION__;
 #define LOG_DEBUG(msg)                                                                                                 \
-    BOOST_LOG_SEV(logger1, debug) << msg << "]   [" << __FILE__ << ":" << __LINE__ << "    " << __PRETTY_FUNCTION__;
+    BOOST_LOG_SEV(logger1,  severity_level::debug) << msg << "]   [" << __FILE__ << ":" << __LINE__ << "    " << __PRETTY_FUNCTION__;
 #define LOG_INFO(msg)                                                                                                  \
-    BOOST_LOG_SEV(logger1, info) << msg << "]   [" << __FILE__ << ":" << __LINE__ << "    " << __PRETTY_FUNCTION__;
+    BOOST_LOG_SEV(logger1,  severity_level::info) << msg << "]   [" << __FILE__ << ":" << __LINE__ << "    " << __PRETTY_FUNCTION__;
 #define LOG_WARNING(msg)                                                                                               \
-    BOOST_LOG_SEV(logger1, warning) << msg << "]   [" << __FILE__ << ":" << __LINE__ << "    " << __PRETTY_FUNCTION__;
+    BOOST_LOG_SEV(logger1,  severity_level::warning) << msg << "]   [" << __FILE__ << ":" << __LINE__ << "    " << __PRETTY_FUNCTION__;
 #define LOG_ERROR(msg)                                                                                                 \
-    BOOST_LOG_SEV(logger1, error) << msg << "]   [" << __FILE__ << ":" << __LINE__ << "    " << __PRETTY_FUNCTION__;
+    BOOST_LOG_SEV(logger1, severity_level::error) << msg << "]   [" << __FILE__ << ":" << __LINE__ << "    " << __PRETTY_FUNCTION__;
 //只是一个参考，调用errno检查错误
 #define LOG_PERROR(msg)                                                                                                \
-    BOOST_LOG_SEV(logger1, error) << msg << "]   ["                                                                    \
+    BOOST_LOG_SEV(logger1,  severity_level::error) << msg << "]   ["                                                                    \
                                   << " reason maybe  :  " << strerror(errno) << "   " << __FILE__ << ":" << __LINE__   \
                                   << "    " << __PRETTY_FUNCTION__;
 #define LOG_FATAL(msg)                                                                                                 \

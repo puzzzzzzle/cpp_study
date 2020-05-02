@@ -1,8 +1,0 @@
-//
-// Created by khalidzhang on 2019/11/29.
-//
-
-#ifndef CPP_STUDY_ALL_SIMPLEADATPER_HPP
-#define CPP_STUDY_ALL_SIMPLEADATPER_HPP
-
-#endif  // CPP_STUDY_ALL_SIMPLEADATPER_HPP
