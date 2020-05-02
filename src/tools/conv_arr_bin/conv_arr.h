@@ -170,6 +170,7 @@ public:
             return -1;
         }
         int diff = bin.m_width / outBin->m_width;
+        outBin->m_sideLen = diff;
         if (outBin->m_data == nullptr) {
             outBin->Init();
         }
