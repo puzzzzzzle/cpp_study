@@ -19,5 +19,15 @@
 
 int beforeRun();
 
+#define CALL_IF_RETURN(caller)                                                                                            \
+    {                                                                                                                  \
+        int iRet = caller;                                                                                             \
+        if (iRet) {                                                                                                    \
+            LOG_ERROR("call  fail " << #caller << "\tret\t" << iRet);                                                  \
+            return iRet;                                                                                               \
+        }                                                                                                              \
+    }
+
+
 #define ERROR_IN -1;
 #endif  // CPP_STL_STUDYS_COMMON_INCLUDES_H

@@ -114,7 +114,62 @@ TEST(opencv_1, basic) {
     Mat M(5, 2, CV_8UC3, Scalar(0, 0, 255));
     cout << "M = " << endl << " " << M << endl << endl;
 }
-
+//TEST(grid, test) {
+//    LOG_DEBUG("#BBFFFF\t" << ConvArr::GetRGBA(0xBBFFFF))
+//    Mat mat(3000, 4000, CV_8UC3, ConvArr::GetRGBA(0xBBFFFF));
+//    ConvArr::AddGrid(mat, 100, ConvArr::GetRGBA(0x696969));
+//    ConfigBin bin{};
+//    fakeBin(&bin, 400, 300);
+//    bin.m_sideLen = 10;
+//    //    ASSERT_EQ(StaticGeographyConventHandle::LoadBin(PIC_BASE + "/in.data", &bin), 0);
+//    std::map<int, Scalar> colors{};
+//    colors[1] = ConvArr::GetRGBA(0xFF4500);
+//    ConvArr::PrintBin(mat, bin, bin.m_sideLen, colors);
+//    ASSERT_TRUE(imwrite(PIC_BASE + "/test.jpg", mat));
+//}
+//
+//TEST(conv_test, conv) {
+//    Mat mat(3000, 4000, CV_8UC3, ConvArr::GetRGBA(0xBBFFFF));
+//    ConvArr::AddGrid(mat, 100, ConvArr::GetRGBA(0x696969));
+//    ConfigBin bin{};
+//    //    fakeBin(&bin, 400, 300);
+//    //    bin.m_sideLen=10;
+//    bin.m_width   = 204;
+//    bin.m_height  = 204;
+//    bin.m_sideLen = 10;
+//
+//    ASSERT_EQ(StaticGeographyConventHandle::LoadStaticConfig(PIC_BASE + "/in.data", &bin), 0);
+//    std::map<int, Scalar> colors{};
+//    colors[1] = ConvArr::GetRGBA(0xFF4500);
+//
+//    ConvArr::PrintBin(mat, bin, bin.m_sideLen, colors);
+//    ConvArr::DrawBorder(mat, Point(0, 0), Point(2048, 2048), ConvArr::GetRGBA(0x4876FF), 3);
+//
+//    ConvArr::FlipMat(&mat);
+//
+//    ASSERT_TRUE(imwrite(PIC_BASE + "/conv.jpg", mat));
+//}
+//
+//TEST(conv_test, in) {
+//    Mat mat(3000, 4000, CV_8UC3, ConvArr::GetRGBA(0xBBFFFF));
+//    ConvArr::AddGrid(mat, 100, ConvArr::GetRGBA(0x696969));
+//    ConfigBin bin{};
+//    //    fakeBin(&bin, 400, 300);
+//    //    bin.m_sideLen=10;
+//    bin.m_width   = 2048;
+//    bin.m_height  = 2048;
+//    bin.m_sideLen = 1;
+//
+//    ASSERT_EQ(StaticGeographyConventHandle::LoadStaticConfig(PIC_BASE + "/in.data", &bin), 0);
+//    std::map<int, Scalar> colors{};
+//    colors[1] = ConvArr::GetRGBA(0xFF4500);
+//    ConvArr::PrintBin(mat, bin, bin.m_sideLen, colors);
+//    ConvArr::DrawBorder(mat, Point(0, 0), Point(2048, 2048), ConvArr::GetRGBA(0x4876FF), 3);
+//
+//    ConvArr::FlipMat(&mat);
+//
+//    ASSERT_TRUE(imwrite(PIC_BASE + "/in.jpg", mat));
+//}
 int main(int argc, char **argv) {
     int iRet = 0;
     iRet     = beforeRun();

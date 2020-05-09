@@ -10,126 +10,49 @@ namespace opt = boost::program_options;
 
 static const std::string PIC_BASE = "./data/pictures/";
 
-#define CALL_IF_RET(caller)                                                                                            \
-    {                                                                                                                  \
-        int iRet = caller;                                                                                             \
-        if (iRet) {                                                                                                    \
-            LOG_ERROR("call  fail " << #caller << "\tret\t" << iRet);                                                  \
-        }                                                                                                              \
-    }
-
-TEST(test_test, 1) { EXPECT_EQ(1, 1); }
-
-void AddBorder(ConfigBin *bin, int size) {
-    for (int x = 0; x < bin->m_width; ++x) {
-        for (int y = 0; y < bin->m_height; ++y) {
-            if (x <= size || y <= size) {
-                bin->m_data[x][y] = 2;
-            }
-            if (x >= bin->m_width - size || y >= bin->m_height - size) {
-                bin->m_data[x][y] = 2;
-            }
-        }
-    }
-}
-void fakeBin(ConfigBin *bin, int width, int height) {
-    bin->m_width   = width;
-    bin->m_height  = height;
-    bin->m_sideLen = 1;
-    bin->Init();
-    for (int x = 0; x < width; ++x) {
-        for (int y = 0; y < height; ++y) {
-            if (x <= 10 || y <= 10) {
-                bin->m_data[x][y] = 1;
-            }
-            if (x >= bin->m_width - 10 || y >= bin->m_height - 10) {
-                bin->m_data[x][y] = 1;
-            }
-            if (x == y) {
-                bin->m_data[x][y] = 1;
-            }
-        }
-    }
-}
-TEST(grid, test) {
-    LOG_DEBUG("#BBFFFF\t" << ConvArr::GetRGBA(0xBBFFFF))
-    Mat mat(3000, 4000, CV_8UC3, ConvArr::GetRGBA(0xBBFFFF));
-    ConvArr::AddGrid(mat, 100, ConvArr::GetRGBA(0x696969));
-    ConfigBin bin{};
-    fakeBin(&bin, 400, 300);
-    bin.m_sideLen = 10;
-    //    ASSERT_EQ(StaticGeographyConventHandle::LoadBin(PIC_BASE + "/in.data", &bin), 0);
-    std::map<int, Scalar> colors{};
-    colors[1] = ConvArr::GetRGBA(0xFF4500);
-    ConvArr::PrintBin(mat, bin, bin.m_sideLen, colors);
-    ASSERT_TRUE(imwrite(PIC_BASE + "/test.jpg", mat));
-}
-
-TEST(conv_test, conv) {
-    Mat mat(3000, 4000, CV_8UC3, ConvArr::GetRGBA(0xBBFFFF));
-    ConvArr::AddGrid(mat, 100, ConvArr::GetRGBA(0x696969));
-    ConfigBin bin{};
-    //    fakeBin(&bin, 400, 300);
-    //    bin.m_sideLen=10;
-    bin.m_width   = 204;
-    bin.m_height  = 204;
-    bin.m_sideLen = 10;
-
-    ASSERT_EQ(StaticGeographyConventHandle::LoadStaticConfig(PIC_BASE + "/in.data", &bin), 0);
-    std::map<int, Scalar> colors{};
-    colors[1] = ConvArr::GetRGBA(0xFF4500);
-
-    ConvArr::PrintBin(mat, bin, bin.m_sideLen, colors);
-    ConvArr::DrawBorder(mat, Point(0, 0), Point(2048, 2048), ConvArr::GetRGBA(0x4876FF), 3);
-
-    ConvArr::FlipMat(&mat);
-
-    ASSERT_TRUE(imwrite(PIC_BASE + "/conv.jpg", mat));
-}
-
-TEST(conv_test, in) {
-    Mat mat(3000, 4000, CV_8UC3, ConvArr::GetRGBA(0xBBFFFF));
-    ConvArr::AddGrid(mat, 100, ConvArr::GetRGBA(0x696969));
-    ConfigBin bin{};
-    //    fakeBin(&bin, 400, 300);
-    //    bin.m_sideLen=10;
-    bin.m_width   = 2048;
-    bin.m_height  = 2048;
-    bin.m_sideLen = 1;
-
-    ASSERT_EQ(StaticGeographyConventHandle::LoadStaticConfig(PIC_BASE + "/in.data", &bin), 0);
-    std::map<int, Scalar> colors{};
-    colors[1] = ConvArr::GetRGBA(0xFF4500);
-    ConvArr::PrintBin(mat, bin, bin.m_sideLen, colors);
-    ConvArr::DrawBorder(mat, Point(0, 0), Point(2048, 2048), ConvArr::GetRGBA(0x4876FF), 3);
-
-    ConvArr::FlipMat(&mat);
-
-    ASSERT_TRUE(imwrite(PIC_BASE + "/in.jpg", mat));
-}
 int RunTest(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }
-int DrawBin(const ConfigBin &bin, Mat *outMat) {
-    Mat mat(bin.m_height * bin.m_sideLen, bin.m_width * bin.m_sideLen, CV_8UC3, ConvArr::GetRGBA(0xBBFFFF));
-    LOG_DEBUG("width * << bin.m_width "
-              << "\theight\t" << bin.m_height << "\tgap\t" << bin.m_sideLen);
-    ConvArr::AddGrid(mat, 100, ConvArr::GetRGBA(0x696969));
+class ToolControl {
+public:
     std::map<int, Scalar> colors{};
-    colors[1] = ConvArr::GetRGBA(0xFF4500);
-    ConvArr::PrintBin(mat, bin, bin.m_sideLen, colors);
-    ConvArr::DrawBorder(mat, Point(0, 0), Point(2048, 2048), ConvArr::GetRGBA(0x4876FF), 3);
-    (*outMat) = mat;
-    return 0;
-}
+    enum ColorDef {
+        COLOR_UNKNOWN      = 0,
+        COLOR_BASE         = 1,
+        COLOR_GRID         = 2,
+        COLOR_STATIC_BLOCK = 3,
+        COLOR_LINE         = 4,
+        COLOR_CITY         = 5,
+        COLOR_BORDER       = 6,
+
+    };
+    ToolControl() {
+        colors[COLOR_BASE]         = ConvArr::GetRGBA(0xBBFFFF);
+        colors[COLOR_GRID]         = ConvArr::GetRGBA(0x696969);
+        colors[COLOR_STATIC_BLOCK] = ConvArr::GetRGBA(0xFF4500);
+        colors[COLOR_LINE]         = ConvArr::GetRGBA(0x696969);
+        colors[COLOR_CITY]         = ConvArr::GetRGBA(0x696969);
+        colors[COLOR_BORDER]       = ConvArr::GetRGBA(0x4876FF);
+    }
+    int DrawBin(const ConfigBin &bin, Mat *outMat) {
+        Mat mat(bin.m_height * bin.m_sideLen, bin.m_width * bin.m_sideLen, CV_8UC3, colors[COLOR_BASE]);
+        LOG_DEBUG("width\t" << bin.m_width << "\theight\t" << bin.m_height << "\tgap\t" << bin.m_sideLen);
+        ConvArr::PrintBin(mat, bin, bin.m_sideLen, colors[COLOR_STATIC_BLOCK]);
+        ConvArr::AddGrid(mat, 100, colors[COLOR_GRID]);
+        ConvArr::DrawBorder(mat, Point(0, 0), Point(mat.cols, mat.rows), colors[COLOR_BORDER], 3);
+        (*outMat) = mat;
+        return 0;
+    }
+};
+
 int BuildOptions(opt::variables_map *vm, opt::options_description *gloabl, int argc, char **argv) {
     opt::options_description help("help");
     help.add_options()("help,h", "show all operations");
 
     opt::options_description geography("geography cmds");
 
-    geography.add_options()("file,f", opt::value<std::vector<std::string>>(),
+    geography.add_options()("file,f", opt::value<std::vector<std::string>>()->required(),
                             R"(map bin files,multi file will be processed in order
 file also can be defined at args
 eg: tools_conv_arr_bin file1 file2
@@ -140,19 +63,38 @@ eg: tools_conv_arr_bin file1 file2
                             R"(process type
 show : conv all bin to pic
 conv : conv all bin and change first to server type
+raw : show origin bin data)");
+    geography.add_options()("gap,g", opt::value<int>()->required()->default_value(1), "each grid size of first layer");
+    geography.add_options()("color",opt::value<std::vector<string>>(),
+        R"(
+color define: key:value
+        COLOR_BASE         = 1,
+        COLOR_GRID         = 2,
+        COLOR_STATIC_BLOCK = 3,
+        COLOR_LINE         = 4,
+        COLOR_CITY         = 5,
+        COLOR_BORDER       = 6,
+defaule color:
+        colors[COLOR_BASE]         = ConvArr::GetRGBA(0xBBFFFF);
+        colors[COLOR_GRID]         = ConvArr::GetRGBA(0x696969);
+        colors[COLOR_STATIC_BLOCK] = ConvArr::GetRGBA(0xFF4500);
+        colors[COLOR_LINE]         = ConvArr::GetRGBA(0x696969);
+        colors[COLOR_CITY]         = ConvArr::GetRGBA(0x696969);
+        colors[COLOR_BORDER]       = ConvArr::GetRGBA(0x4876FF);
 )");
-    geography.add_options()("gap,g", opt::value<int>()->required(), "each grid size of first layer");
-
     gloabl->add(help).add(geography);
     opt::positional_options_description p{};
     p.add("file", -1);
 
     opt::store(opt::command_line_parser(argc, argv).options(*gloabl).positional(p).run(), *vm);
+    opt::notify(*vm);
     return 0;
 }
+
 int RunCmd(const opt::variables_map &vm, opt::options_description *gloabl) {
+    ToolControl control{};
     if (vm.empty()) {
-        LOG_DEBUG("no para " << *gloabl)
+        LOG_ERROR("no para " << *gloabl)
         return 0;
     }
 
@@ -160,54 +102,82 @@ int RunCmd(const opt::variables_map &vm, opt::options_description *gloabl) {
         LOG_DEBUG(*gloabl)
         return 0;
     }
+    if(vm.count("color")){
+        for(auto color : vm["color"].as<std::vector<uint64>>()){
+            HTLOG_ERROR("unsupported! color "<< color)
+        }
+    }
+    Mat         mat{};
+    int         gap   = vm["gap"].as<int>();
+    std::string cmd   = vm["cmd"].as<std::string>();
+    std::string out   = vm["outfile"].as<std::string>();
+    auto        files = vm["file"].as<std::vector<std::string>>();
+    int         i     = 0;
+    for (auto file : files) {
+        if (i == 0) {
+            ConfigBin bin{}, tmp{};
+            CALL_IF_RETURN(StaticGeographyConventHandle::LoadBin(file, &tmp));
 
-    Mat         mat;
-    int         gap = vm["gap"].as<int>();
-    std::string cmd = vm["cmd"].as<std::string>();
-    std::string out = vm["outfile"].as<std::string>();
-
-    if (vm.count("file")) {
-        auto files = vm["file"].as<std::vector<std::string>>();
-        int  i     = 0;
-        for (auto file : files) {
-            if (i == 0) {
-                ConfigBin bin{}, tmp{};
-                CALL_IF_RET(StaticGeographyConventHandle::LoadBin(file, &tmp));
-
-                if ("show" == cmd) {
-                    bin.m_width  = tmp.m_width;
-                    bin.m_height = tmp.m_height;
-                } else if ("conv" == cmd) {
-                    bin.m_width  = tmp.m_width / gap;
-                    bin.m_height = tmp.m_height / gap;
-                }
-                CALL_IF_RET(StaticGeographyConventHandle::LoadStaticConfig(file, &bin));
-                DrawBin(bin, &mat);
+            if ("show" == cmd) {
+                LOG_INFO("show origin data")
+                bin.m_width  = tmp.m_width;
+                bin.m_height = tmp.m_height;
+                CALL_IF_RETURN(StaticGeographyConventHandle::LoadStaticConfig(file, &bin));
+                control.DrawBin(bin, &mat);
+            } else if ("conv" == cmd) {
+                LOG_INFO("conv data with gap " << gap)
+                bin.m_width  = tmp.m_width / gap;
+                bin.m_height = tmp.m_height / gap;
+                CALL_IF_RETURN(StaticGeographyConventHandle::LoadStaticConfig(file, &bin));
+                control.DrawBin(bin, &mat);
+            } else if ("raw" == cmd) {
+                //                LOG_INFO("conv data with gap " << gap)
+                //                bin.m_width  = tmp.m_width / gap;
+                //                bin.m_height = tmp.m_height / gap;
+                //                CALL_IF_RETURN(StaticGeographyConventHandle::LoadStaticConfig(file, &bin));
+                control.DrawBin(tmp, &mat);
             }
 
-            ++i;
+        } else {
+            HTLOG_ERROR("multi file not support now " << file)
         }
-    } else {
-        LOG_DEBUG("no bin file def, so ignore")
+        ++i;
     }
-    ConvArr::FlipMat(&mat);
-
-    CALL_IF_RET(imwrite(out, mat) != true);
-
+    //    HTLOG_DEBUG("flip pic")
+    //    ConvArr::FlipMat(&mat);
+    HTLOG_DEBUG("write pic to file " << out)
+    CALL_IF_RETURN(!imwrite(out, mat));
     HTLOG_DEBUG("file write to " << out);
     return 0;
 }
+
 int main(int argc, char **argv) {
-    CALL_IF_RET(beforeRun());
+    CALL_IF_RETURN(beforeRun());
     //    iRet = RunTest(argc, argv);
     std::string desc =
-        R"(    bigWorld server map tools
+        R"(bigWorld server map tools
 usage: tools_conv_arr_bin [options] files...
 good luck!!!)";
     opt::options_description opts(desc);
     opt::variables_map       vm{};
 
-    CALL_IF_RET(BuildOptions(&vm, &opts, argc, argv));
-    CALL_IF_RET(RunCmd(vm, &opts));
+    try {
+        CALL_IF_RETURN(BuildOptions(&vm, &opts, argc, argv));
+    } catch (opt::required_option &e) {
+        LOG_RAW_CLINE(opts)
+        LOG_RAW_CLINE("error :need option " << e.get_option_name())
+
+        return -1;
+    } catch (exception &e) {
+        LOG_RAW_CLINE("args wrong! " << e.what())
+        LOG_RAW_CLINE(opts)
+        return -1;
+    } catch (...) {
+        LOG_RAW_CLINE("args wrong!")
+        LOG_RAW_CLINE(opts)
+        return -1;
+    }
+    CALL_IF_RETURN(RunCmd(vm, &opts));
+
     return 0;
 }

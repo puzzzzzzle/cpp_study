@@ -138,7 +138,8 @@ private:
 
 public:
     static int LoadBin(std::string fileName, ConfigBin* outBin) {
-        std::ifstream inFile(fileName);
+        HTLOG_DEBUG("load bin file " << fileName)
+        std::ifstream inFile(fileName, std::ios::binary);
         if (!inFile.is_open()) {
             HTLOG_ERROR("open file fail " << fileName)
             return -1;
@@ -162,21 +163,22 @@ public:
             return -1;
         }
         if (bin.m_width % outBin->m_width != 0 || bin.m_height % outBin->m_height != 0) {
-            HTLOG_ERROR("bin.m_width %  outBin->m_width != 0 || bin.m_height %  outBin->m_height != 0")
+            HTLOG_ERROR("bin.m_width %  outBin->m_width != 0 || bin.m_height %  outBin->m_height != 0\t"
+                        << bin.m_width % outBin->m_width)
             //            return -1;
         }
         if ((bin.m_width / outBin->m_width) != (bin.m_height / outBin->m_height)) {
             HTLOG_ERROR("( outBin->m_width/width) != ( outBin->m_height/height)")
             return -1;
         }
-        int diff = bin.m_width / outBin->m_width;
+        int diff          = bin.m_width / outBin->m_width;
         outBin->m_sideLen = diff;
         if (outBin->m_data == nullptr) {
             outBin->Init();
         }
         for (int x = 0; x < outBin->m_width; ++x) {
             for (int y = 0; y < outBin->m_height; ++y) {
-                (*outBin).m_data[x][y] = CheckPosFalse(bin, x, y, diff);
+                (*outBin).m_data[x][y] = CheckPos(bin, x, y, diff);
             }
         }
         return 0;
@@ -208,7 +210,8 @@ public:
     static void DrawBorder(Mat mat, Point start, Point len, Scalar s, int bordersize) {
         rectangle(mat, start, len, s, bordersize, LINE_8);
     }
-    static void PrintBin(Mat mat, const ConfigBin& bin, int gap, map<int, Scalar>& colors) {
+    static void PrintBin(Mat mat, const ConfigBin& bin, int gap,const Scalar& s) {
+        LOG_DEBUG("start print bin")
         assert(gap >= 1);
         assert(mat.cols >= bin.m_width && mat.rows >= bin.m_height);
         assert(mat.cols >= bin.m_width * gap && mat.rows >= bin.m_height * gap);
@@ -219,10 +222,11 @@ public:
                     continue;
                 }
                 //                LOG_DEBUG("draw bin pos "<< x<<","<<y)
-                DrawPos(mat, x, y, gap, colors[bin.m_data[x][y]]);
+                DrawPos(mat, x, y, gap, s);
                 //                                                    mat.col(x).row(y) = colors[bin.m_data[x][y]];
             }
         }
+        LOG_DEBUG("finish print bin")
     }
     static void FlipMat(Mat* mat) {
         Mat tmp(mat->rows, mat->cols, CV_8UC3, Scalar::all(0));

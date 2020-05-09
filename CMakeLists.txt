@@ -8,7 +8,9 @@ set(VERSION_MAJOR 1.2)
 set(VERSION_MINOR 0)
 # 选项
 option(boost_static "use static boost lib" ON)
-option(use_boost_log "use boost log for logger" ON)
+#log 选项
+#add_definitions(-DLOG_BOOST)
+
 
 # 公用定义,需要在设定完成后include
 include(${CMAKE_SOURCE_DIR}/common/CMake/CommonInclude.cmake)

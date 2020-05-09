@@ -41,10 +41,7 @@ aux_source_directory(${PROJECT_SOURCE_DIR}/common/common_include common_cpps)
 link_directories(${PROJECT_SOURCE_DIR}/common/lib)
 
 
-#log 选项
-if (use_boost_log)
-    add_definitions(-DLOG_BOOST)
-endif ()
+
 #boost dynamic
 if (boost_static)
     message("boost log static")

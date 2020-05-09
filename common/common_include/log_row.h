@@ -14,26 +14,45 @@
 #include <errno.h>
 #include <stdio.h>
 
+class LogTime {
+public:
+    static std::string GetTimeNow() {
+        time_t t = time(0);
+        char   ch[64];
+        strftime(ch, sizeof(ch), "%Y-%m-%d %H:%M:%S", localtime(&t));
+        return ch;
+    }
+};
 #define LOG_TRACE(msg)                                                                                                 \
-    std::cout << "[" << msg << "]   [" << __FILE__ << ":" << __LINE__ << "    " << __PRETTY_FUNCTION__ << "]"          \
+    std::cout << "[TRACE]    [" << LogTime::GetTimeNow() << "]    "                                                    \
+              << "[" << msg << "]   [" << __FILE__ << ":" << __LINE__ << "    " << __PRETTY_FUNCTION__ << "]"          \
               << std::endl;
 #define LOG_DEBUG(msg)                                                                                                 \
-    std::cout << "[" << msg << "]   [" << __FILE__ << ":" << __LINE__ << "    " << __PRETTY_FUNCTION__ << "]"          \
+    std::cout << "[DEBUG]    [" << LogTime::GetTimeNow() << "]    "                                                    \
+              << "[" << msg << "]   [" << __FILE__ << ":" << __LINE__ << "    " << __PRETTY_FUNCTION__ << "]"          \
               << std::endl;
 #define LOG_INFO(msg)                                                                                                  \
-    std::cout << "[" << msg << "]   [" << __FILE__ << ":" << __LINE__ << "    " << __PRETTY_FUNCTION__ << "]"          \
+    std::cout << "[INFO]    [" << LogTime::GetTimeNow() << "]    "                                                     \
+              << "[" << msg << "]   [" << __FILE__ << ":" << __LINE__ << "    " << __PRETTY_FUNCTION__ << "]"          \
               << std::endl;
 #define LOG_WARNING(msg)                                                                                               \
-    std::cerr << msg << "]   [" << __FILE__ << ":" << __LINE__ << "    " << __PRETTY_FUNCTION__ << "]" << std::endl;
+    std::cerr << "[WARNING]    [" << LogTime::GetTimeNow() << "]    "                                                  \
+              << "[" msg << "]   [" << __FILE__ << ":" << __LINE__ << "    " << __PRETTY_FUNCTION__ << "]"             \
+              << std::endl;
 #define LOG_ERROR(msg)                                                                                                 \
-    std::cerr << msg << "]   [" << __FILE__ << ":" << __LINE__ << "    " << __PRETTY_FUNCTION__ << "]" << std::endl;
+    std::cerr << "[ERROR]    [" << LogTime::GetTimeNow() << "]    "                                                    \
+              << "[" msg << "]   [" << __FILE__ << ":" << __LINE__ << "    " << __PRETTY_FUNCTION__ << "]"             \
+              << std::endl;
 //只是一个参考，调用errno检查错误
 #define LOG_PERROR(msg)                                                                                                \
-    std::cerr << msg << "]   ["                                                                                        \
-              << " reason maybe  :  " << strerror(errno) << "   " << __FILE__ << ":" << __LINE__ << "    "             \
-              << __PRETTY_FUNCTION__ << "]" << std::endl;
+    std::cerr < "[ERROR]    [" << LogTime::GetTimeNow() << "]    "                                                     \
+                               << "[" msg << "]   ["                                                                   \
+                               << " reason maybe  :  " << strerror(errno) << "   " << __FILE__ << ":" << __LINE__      \
+                               << "    " << __PRETTY_FUNCTION__ << "]" << std::endl;
 #define LOG_FATAL(msg)                                                                                                 \
-    std::cerr << msg << "]   [" << __FILE__ << ":" << __LINE__ << "    " << __PRETTY_FUNCTION__ << "]" << std::endl;
+    std::cerr << "[FATAL]    [" << LogTime::GetTimeNow() << "]    "                                                    \
+              << "[" msg << "]   [" << __FILE__ << ":" << __LINE__ << "    " << __PRETTY_FUNCTION__ << "]"             \
+              << std::endl;
 ///// 原始输出
 #define LOG_RAW_COUT(msg) std::cout << msg;
 #define LOG_RAW_CLINE(msg) std::cout << msg << std::endl;
