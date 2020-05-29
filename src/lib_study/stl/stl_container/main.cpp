@@ -3,14 +3,20 @@
 //
 #include "common_includes.h"
 #include "stl_common_containor.h"
-
-int run_gtest(int argc, char **argv) {
-    testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
+TEST(test1,1){
+    int size = 10;
+    do{
+        --size;
+    }while (size>3);
+    LOG_DEBUG(size);
 }
-
 int main(int argc, char **argv) {
-    log_init();
-
-    return run_gtest(argc, argv);
+    int iRet = 0;
+    iRet     = beforeRun();
+    if (iRet) {
+        std::cerr << "init fail with " << iRet << std::endl;
+    }
+    testing::InitGoogleTest(&argc, argv);
+    iRet = RUN_ALL_TESTS();
+    return iRet;
 }

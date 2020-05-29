@@ -8,7 +8,8 @@
 #include <deque>
 #include <list>
 #include <vector>
-
+#include "common_includes.h"
+#define INFO(msg) LOG_DEBUG(msg)
 TEST(iterator_test, deque) {
     std::deque<int>    i_ints{};
     std::ostringstream output{};
