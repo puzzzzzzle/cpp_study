@@ -48,7 +48,7 @@ public:
     }
     static void DrawLine(Mat& mat, const std::vector<Point>& linePoints, const Scalar& s) {
         for (int i = 0; i < linePoints.size() - 1; ++i) {
-            cv::line(mat, linePoints[i], linePoints[i + 1], s, 2);
+            cv::line(mat, linePoints[i], linePoints[i + 1], s, 1);
         }
     }
     static void PrintBin(Mat& mat, const ConfigBin& bin, int gap, const Scalar& s) {
