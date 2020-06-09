@@ -2,6 +2,6 @@
 #include "def.h"
 
 class Inc2Test {
-public:
-    int test() { return 0; }
+  public:
+  int test() { return 0; }
 };

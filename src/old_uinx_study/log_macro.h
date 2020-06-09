@@ -24,16 +24,16 @@
 //#define INFO(msg) LOG4CPLUS_INFO(file, msg);
 //#define WARN(msg) LOG4CPLUS_WARN(file, msg);
 //#define ERROR(msg) LOG4CPLUS_ERROR(file, msg);
-//#define PERROR(msg) LOG4CPLUS_ERROR(file, msg);LOG4CPLUS_ERROR(file, "err reason maybe : \t"<<strerror(errno));
-//#define FATAL(msg) LOG4CPLUS_FATAL(file, msg);
-//输出到控制台
-//#define TRACE_CON(msg) LOG4CPLUS_TRACE(console, msg);
+//#define PERROR(msg) LOG4CPLUS_ERROR(file, msg);LOG4CPLUS_ERROR(file, "err
+//reason maybe : \t"<<strerror(errno)); #define FATAL(msg) LOG4CPLUS_FATAL(file,
+//msg); 输出到控制台 #define TRACE_CON(msg) LOG4CPLUS_TRACE(console, msg);
 //#define DEBUG_CON(msg) LOG4CPLUS_DEBUG(console, msg);
 //#define INFO_CON(msg) LOG4CPLUS_INFO(console, msg);
 //#define WARN_CON(msg) LOG4CPLUS_WARN(console, msg);
 //#define ERROR_CON(msg) LOG4CPLUS_ERROR(console, msg);
-//#define PERROR_CON(msg) LOG4CPLUS_ERROR(console, msg);LOG4CPLUS_ERROR(console, "err reason maybe :
-//\t"<<strerror(errno)); #define FATAL_CON(msg) LOG4CPLUS_FATAL(console, msg);
+//#define PERROR_CON(msg) LOG4CPLUS_ERROR(console, msg);LOG4CPLUS_ERROR(console,
+//"err reason maybe : \t"<<strerror(errno)); #define FATAL_CON(msg)
+//LOG4CPLUS_FATAL(console, msg);
 
 //////< console log init
 #define TRACE(msg) std::cout << "log4cplus::TRACE\t" << msg << std::endl;

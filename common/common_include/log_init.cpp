@@ -21,31 +21,33 @@
 #include <fstream>
 #include <string>
 
-namespace logging  = boost::log;
-namespace src      = boost::log::sources;
-namespace expr     = boost::log::expressions;
+namespace logging = boost::log;
+namespace src = boost::log::sources;
+namespace expr = boost::log::expressions;
 namespace keywords = boost::log::keywords;
-namespace attrs    = boost::log::attributes;
-namespace sinks    = boost::log::sinks;
+namespace attrs = boost::log::attributes;
+namespace sinks = boost::log::sinks;
 
 using namespace std;
 using namespace logging::trivial;
-src::severity_channel_logger<severity_level, std::string> logger1(keywords::channel = "MySink1");
-src::severity_channel_logger<severity_level, std::string> logger2(keywords::channel = "MySink2");
+src::severity_channel_logger<severity_level, std::string> logger1(
+    keywords::channel = "MySink1");
+src::severity_channel_logger<severity_level, std::string> logger2(
+    keywords::channel = "MySink2");
 
 int log_init() {
-    logging::add_common_attributes();
-    logging::core::get()->add_thread_attribute("Scope", attrs::named_scope());
+  logging::add_common_attributes();
+  logging::core::get()->add_thread_attribute("Scope", attrs::named_scope());
 
-    logging::register_simple_formatter_factory<severity_level, char>("Severity");
-    logging::register_simple_filter_factory<severity_level, char>("Severity");
+  logging::register_simple_formatter_factory<severity_level, char>("Severity");
+  logging::register_simple_filter_factory<severity_level, char>("Severity");
 
-    std::ifstream file("./data/properties/boost_log_settings.ini");
-    if (!file.is_open()) {
-        std::cerr << "open settings fail" << std::endl;
-        return -1;
-    }
-    logging::init_from_stream(file);
-    file.close();
-    return 0;
+  std::ifstream file("./data/properties/boost_log_settings.ini");
+  if (!file.is_open()) {
+    std::cerr << "open settings fail" << std::endl;
+    return -1;
+  }
+  logging::init_from_stream(file);
+  file.close();
+  return 0;
 }

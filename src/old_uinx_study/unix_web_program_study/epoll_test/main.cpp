@@ -15,18 +15,18 @@
 TEST(test_test, 1) { EXPECT_EQ(1, 1); }
 
 int main(int argc, char **argv) {
-    int result = 0;
-    log_init();
-    //
-    //    if(start_epoll_svr(HOST, PORT)){
-    //        FATAL("start svr err")
-    //        exit(-1);
-    //    }
-    //    sleep(1);
-    //
-    //    testing::InitGoogleTest(&argc, argv);
-    //    result = RUN_ALL_TESTS();
+  int result = 0;
+  log_init();
+  //
+  //    if(start_epoll_svr(HOST, PORT)){
+  //        FATAL("start svr err")
+  //        exit(-1);
+  //    }
+  //    sleep(1);
+  //
+  //    testing::InitGoogleTest(&argc, argv);
+  //    result = RUN_ALL_TESTS();
 
-    epoll_simple_test();
-    return result;
+  epoll_simple_test();
+  return result;
 }

@@ -7,6 +7,6 @@
 #define TIMER_MOVE_SIZE 0x7ff
 
 class DefTest {
-public:
-    int test() { return 0; }
+  public:
+  int test() { return 0; }
 };

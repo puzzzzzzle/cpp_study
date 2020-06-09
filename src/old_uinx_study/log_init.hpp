@@ -15,11 +15,11 @@ using namespace std;
  * @return
  */
 int log_init() {
-    //    PropertyConfigurator::doConfigure(LOG4CPLUS_TEXT("./log4cplus_root.properties"));
-    //    console = Logger::getRoot();
-    //    file = log4cplus::Logger::getInstance("file");
+  //    PropertyConfigurator::doConfigure(LOG4CPLUS_TEXT("./log4cplus_root.properties"));
+  //    console = Logger::getRoot();
+  //    file = log4cplus::Logger::getInstance("file");
 
-    return 0;
+  return 0;
 }
 
 #endif

@@ -11,6 +11,6 @@
 
 #include "common_includes.h"
 
-void        test_chrono();
+void test_chrono();
 std::string asString(std::chrono::system_clock::time_point tp);
 #endif  // CPP_STL_STUDYS_STD_CHRONO_STUDY_H

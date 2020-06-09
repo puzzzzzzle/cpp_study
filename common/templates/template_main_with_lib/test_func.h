@@ -9,8 +9,8 @@
 
 int zero();
 class Hello {
-public:
-    void hello();
+  public:
+  void hello();
 };
 
 #endif  // BOOST_STUDY_TEST_FUNC_H

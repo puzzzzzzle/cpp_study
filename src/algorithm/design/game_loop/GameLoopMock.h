@@ -7,32 +7,32 @@
 #include "GameLoopStatusHandle.h"
 
 class GameMockApi : public GameLoopApi {
-private:
-    long logicNanoTime{};
-    long renderNanoTime{};
+  private:
+  long logicNanoTime{};
+  long renderNanoTime{};
 
-public:
-    StatusHandle statusHandle{};
-    GameMockApi(long _logicNanoTime, long _renderNanoTime)
-        : logicNanoTime(_logicNanoTime), renderNanoTime(_renderNanoTime) {}
+  public:
+  StatusHandle statusHandle{};
+  GameMockApi(long _logicNanoTime, long _renderNanoTime)
+      : logicNanoTime(_logicNanoTime), renderNanoTime(_renderNanoTime) {}
 
-public:
-    virtual void BeforeUpdate() override {}
-    virtual void FixedUpdate() override {
-        if (logicNanoTime > 0) {
-            TimeTools::SleepNano(logicNanoTime);
-        }
-        ++statusHandle.fixedUpdateTimes;
+  public:
+  virtual void BeforeUpdate() override {}
+  virtual void FixedUpdate() override {
+    if (logicNanoTime > 0) {
+      TimeTools::SleepNano(logicNanoTime);
     }
-    virtual void LimitedUpdate() override {
-        if (renderNanoTime > 0) {
-            TimeTools::SleepNano(renderNanoTime);
-        }
-        ++statusHandle.limitUpdateTimes;
+    ++statusHandle.fixedUpdateTimes;
+  }
+  virtual void LimitedUpdate() override {
+    if (renderNanoTime > 0) {
+      TimeTools::SleepNano(renderNanoTime);
     }
-    virtual void RemainTimeUpdate(long remainNanoTime) override {
-        ++statusHandle.remainUpdateTimes;
-    }
+    ++statusHandle.limitUpdateTimes;
+  }
+  virtual void RemainTimeUpdate(long remainNanoTime) override {
+    ++statusHandle.remainUpdateTimes;
+  }
 
-public:
+  public:
 };

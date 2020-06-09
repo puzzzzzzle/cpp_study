@@ -10,12 +10,12 @@
 TEST(test_test, 1) { EXPECT_EQ(1, 1); }
 
 int main(int argc, char **argv) {
-    int result;
-    log_init();
-    testing::InitGoogleTest(&argc, argv);
-    result = RUN_ALL_TESTS();
+  int result;
+  log_init();
+  testing::InitGoogleTest(&argc, argv);
+  result = RUN_ALL_TESTS();
 
-    TRACE("+++++++++++hahahahah")
-    PERROR("haha")
-    return result;
+  TRACE("+++++++++++hahahahah")
+  PERROR("haha")
+  return result;
 }

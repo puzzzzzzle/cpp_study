@@ -5,10 +5,10 @@
 #pragma once
 template <typename... T>
 struct Continuation {
-    using type = std::function<void(T...)>;
+  using type = std::function<void(T...)>;
 };
 
 template <>
 struct Continuation<void> {
-    using type = std::function<void()>;
+  using type = std::function<void()>;
 };

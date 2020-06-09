@@ -13,10 +13,10 @@
 using namespace std;
 
 void socket_main() {
-    std::thread t(socket_server_start);
-    sleep(1);
-    socket_client();
-    //    t.join();
+  std::thread t(socket_server_start);
+  sleep(1);
+  socket_client();
+  //    t.join();
 }
 
 #endif  // UNIXSTUDYCPP_SOCKET_MAIN_H

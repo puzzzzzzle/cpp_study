@@ -16,5 +16,7 @@
 #include "common_includes.h"
 
 TEST(irange, 1) {
-    std::cout << (boost::counting_range(0, 10) | boost::adaptors::transformed([](int i) -> char { return 'a' + i; }));
+  std::cout << (boost::counting_range(0, 10) |
+                boost::adaptors::transformed(
+                    [](int i) -> char { return 'a' + i; }));
 }

@@ -13,7 +13,8 @@
 
 int start_svr();
 
-void do_response(int fd, sockaddr_in *client_addr, socklen_t len, char *read_buff, ssize_t read_len, char *write_buff,
+void do_response(int fd, sockaddr_in *client_addr, socklen_t len,
+                 char *read_buff, ssize_t read_len, char *write_buff,
                  ssize_t write_len);
 
 #endif  // UNIXSTUDY_UDP_SVR_H

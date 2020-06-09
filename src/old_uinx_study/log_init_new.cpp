@@ -16,9 +16,9 @@
  * @return
  */
 int log_init() {
-    //    log4cplus::PropertyConfigurator::doConfigure(LOG4CPLUS_TEXT("./log4cplus_root.properties"));
-    //    console = log4cplus::Logger::getRoot();
-    //    file = log4cplus::Logger::getInstance("file");
+  //    log4cplus::PropertyConfigurator::doConfigure(LOG4CPLUS_TEXT("./log4cplus_root.properties"));
+  //    console = log4cplus::Logger::getRoot();
+  //    file = log4cplus::Logger::getInstance("file");
 
-    return 0;
+  return 0;
 }

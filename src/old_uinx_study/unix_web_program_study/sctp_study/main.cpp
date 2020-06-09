@@ -11,11 +11,11 @@
 TEST(test_test, 1) { EXPECT_EQ(1, 1); }
 
 int main(int argc, char **argv) {
-    int result;
-    log_init();
-    INFO("log4cplus start!");
-    testing::InitGoogleTest(&argc, argv);
+  int result;
+  log_init();
+  INFO("log4cplus start!");
+  testing::InitGoogleTest(&argc, argv);
 
-    result = RUN_ALL_TESTS();
-    return result;
+  result = RUN_ALL_TESTS();
+  return result;
 }

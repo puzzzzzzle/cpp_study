@@ -15,6 +15,7 @@ int select_svr(int svr_fd);
 
 int poll_svr(int svr_fd);
 
-size_t do_response(char *read_buff, ssize_t read_len, char *write_buff, ssize_t write_len);
+size_t do_response(char *read_buff, ssize_t read_len, char *write_buff,
+                   ssize_t write_len);
 
 #endif  // UNIXSTUDY_SVR_H

@@ -6,8 +6,8 @@
 #define UNIXSTUDY_TEST_CMAKE_H
 
 class test_cmake {
-public:
-    void sayHello();
+  public:
+  void sayHello();
 };
 
 void say_hello_from_func();

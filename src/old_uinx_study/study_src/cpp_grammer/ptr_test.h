@@ -10,8 +10,8 @@
 void ptr_func1(int, char *);
 
 void ptr_test() {
-    void (*func1)(int, char *) = ptr_func1;
-    func1(0, const_cast<char *>("sss"));
+  void (*func1)(int, char *) = ptr_func1;
+  func1(0, const_cast<char *>("sss"));
 }
 
 void ptr_func1(int argc, char *argv) { printf("ptrfunc1\n"); }

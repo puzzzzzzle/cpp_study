@@ -21,33 +21,35 @@
 #include <fstream>
 #include <string>
 
-namespace logging  = boost::log;
-namespace src      = boost::log::sources;
-namespace expr     = boost::log::expressions;
+namespace logging = boost::log;
+namespace src = boost::log::sources;
+namespace expr = boost::log::expressions;
 namespace keywords = boost::log::keywords;
-namespace attrs    = boost::log::attributes;
-namespace sinks    = boost::log::sinks;
+namespace attrs = boost::log::attributes;
+namespace sinks = boost::log::sinks;
 
 using namespace std;
 using namespace logging::trivial;
-src::severity_channel_logger<severity_level, std::string> logger1(keywords::channel = "MySink1");
-src::severity_channel_logger<severity_level, std::string> logger2(keywords::channel = "MySink2");
+src::severity_channel_logger<severity_level, std::string> logger1(
+    keywords::channel = "MySink1");
+src::severity_channel_logger<severity_level, std::string> logger2(
+    keywords::channel = "MySink2");
 
 int log_init() {
-    logging::add_common_attributes();
-    logging::core::get()->add_thread_attribute("Scope", attrs::named_scope());
+  logging::add_common_attributes();
+  logging::core::get()->add_thread_attribute("Scope", attrs::named_scope());
 
-    logging::register_simple_formatter_factory<severity_level, char>("Severity");
-    logging::register_simple_filter_factory<severity_level, char>("Severity");
+  logging::register_simple_formatter_factory<severity_level, char>("Severity");
+  logging::register_simple_filter_factory<severity_level, char>("Severity");
 
-    std::ifstream file("boost_log_settings.ini");
-    if (!file.is_open()) {
-        std::cerr << "open settings fail" << std::endl;
-        return -1;
-    }
-    logging::init_from_stream(file);
-    file.close();
-    return 0;
+  std::ifstream file("boost_log_settings.ini");
+  if (!file.is_open()) {
+    std::cerr << "open settings fail" << std::endl;
+    return -1;
+  }
+  logging::init_from_stream(file);
+  file.close();
+  return 0;
 }
 
 //#include <iostream>
@@ -124,9 +126,14 @@ int log_init() {
 //    logging::add_console_log(
 //            std::cout,
 //            keywords::format = expr::stream
-//                    << expr::format_date_time<boost::posix_time::ptime>("TimeStamp", "%Y-%m-%d, %H:%M:%S.%f")
-//                    << " [" << expr::format_date_time<attrs::timer::value_type>("Uptime", "%O:%M:%S")
-//                    << "] [" << expr::format_named_scope("Scope", keywords::format = "%n (%f:%l)")
+//                    <<
+//                    expr::format_date_time<boost::posix_time::ptime>("TimeStamp",
+//                    "%Y-%m-%d, %H:%M:%S.%f")
+//                    << " [" <<
+//                    expr::format_date_time<attrs::timer::value_type>("Uptime",
+//                    "%O:%M:%S")
+//                    << "] [" << expr::format_named_scope("Scope",
+//                    keywords::format = "%n (%f:%l)")
 //                    << "] [" << expr::attr<severity_level>("Severity")
 //                    << "]  " << expr::message
 //    );
@@ -136,32 +143,45 @@ int log_init() {
 //    logging::add_file_log
 //            (
 //                    "sample.log", keywords::auto_flush = true,
-//                    keywords::filter = expr::attr<severity_level>("Severity") >= trace,
-//                    keywords::format = expr::stream
-//                            << expr::format_date_time<boost::posix_time::ptime>("TimeStamp", "%Y-%m-%d, %H:%M:%S.%f")
-//                            << " [" << expr::format_date_time<attrs::timer::value_type>("Uptime", "%O:%M:%S")
-//                            << "] [" << expr::format_named_scope("Scope", keywords::format = "%n (%f:%l)")
+//                    keywords::filter = expr::attr<severity_level>("Severity")
+//                    >= trace, keywords::format = expr::stream
+//                            <<
+//                            expr::format_date_time<boost::posix_time::ptime>("TimeStamp",
+//                            "%Y-%m-%d, %H:%M:%S.%f")
+//                            << " [" <<
+//                            expr::format_date_time<attrs::timer::value_type>("Uptime",
+//                            "%O:%M:%S")
+//                            << "] [" << expr::format_named_scope("Scope",
+//                            keywords::format = "%n (%f:%l)")
 //                            << "] <" << expr::attr<severity_level>("Severity")
 //                            << "> " << expr::message
 //                    /*
-//                            keywords::format = expr::format("%1% [%2%] [%3%] <%4%> %5%")
-//                                % expr::format_date_time< boost::posix_time::ptime >("TimeStamp", "%Y-%m-%d,
-//                                %H:%M:%S.%f") % expr::format_date_time< attrs::timer::value_type >("Uptime",
-//                                "%O:%M:%S") % expr::format_named_scope("Scope", keywords::format = "%n (%f:%l)") %
-//                                expr::attr< severity_level >("Severity") % expr::message
+//                            keywords::format = expr::format("%1% [%2%] [%3%]
+//                            <%4%> %5%")
+//                                % expr::format_date_time<
+//                                boost::posix_time::ptime >("TimeStamp",
+//                                "%Y-%m-%d, %H:%M:%S.%f") %
+//                                expr::format_date_time<
+//                                attrs::timer::value_type >("Uptime",
+//                                "%O:%M:%S") %
+//                                expr::format_named_scope("Scope",
+//                                keywords::format = "%n (%f:%l)") % expr::attr<
+//                                severity_level >("Severity") % expr::message
 //                    */
 //            );
 //    logging::add_common_attributes();
 //    src::severity_logger<severity_level> slg;
 //
 //
-//    // Let's pretend we also want to profile our code, so add a special timer attribute.
-//    slg.add_attribute("Uptime", attrs::timer());
+//    // Let's pretend we also want to profile our code, so add a special timer
+//    attribute. slg.add_attribute("Uptime", attrs::timer());
 //
 //
-//    BOOST_LOG_SEV(slg, trace) <<__FILE__ <<":"<<__LINE__<<":"<<__PRETTY_FUNCTION__<< "A normal severity message, will
-//    not pass to the file"; BOOST_LOG_SEV(slg, info) << "A warning severity message, will pass to the file";
-//    BOOST_LOG_SEV(slg, fatal) << "An f severit!!!!!!!y message, will pass to the file";
+//    BOOST_LOG_SEV(slg, trace) <<__FILE__
+//    <<":"<<__LINE__<<":"<<__PRETTY_FUNCTION__<< "A normal severity message,
+//    will not pass to the file"; BOOST_LOG_SEV(slg, info) << "A warning
+//    severity message, will pass to the file"; BOOST_LOG_SEV(slg, fatal) << "An
+//    f severit!!!!!!!y message, will pass to the file";
 //
 //
 //    return 0;

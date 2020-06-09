@@ -9,20 +9,19 @@
 TEST(test_test, 1) { EXPECT_EQ(1, 1); }
 
 int main(int argc, char **argv) {
-    DefTest defTest{};
-    Inc1Test inc1Test{};
-    Inc2Test inc2Test{};
-    defTest.test();
-    inc1Test.test();
-    inc2Test.test();
+  DefTest defTest{};
+  Inc1Test inc1Test{};
+  Inc2Test inc2Test{};
+  defTest.test();
+  inc1Test.test();
+  inc2Test.test();
 
-
-    int iRet = 0;
-    iRet     = beforeRun();
-    if (iRet) {
-        std::cerr << "init fail with " << iRet << std::endl;
-    }
-    testing::InitGoogleTest(&argc, argv);
-    iRet = RUN_ALL_TESTS();
-    return iRet;
+  int iRet = 0;
+  iRet = beforeRun();
+  if (iRet) {
+    std::cerr << "init fail with " << iRet << std::endl;
+  }
+  testing::InitGoogleTest(&argc, argv);
+  iRet = RUN_ALL_TESTS();
+  return iRet;
 }

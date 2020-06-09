@@ -23,12 +23,14 @@
  * @param src_len 源最大长度
  * @return 实际拷贝的长度
  */
-size_t memncpy(void *__restrict dest, size_t dest_len, const void *__restrict src, size_t src_len);
+size_t memncpy(void *__restrict dest, size_t dest_len,
+               const void *__restrict src, size_t src_len);
 
 /**
  * memncpy,不返回任何信息
  */
-#define MEMNCPY(dest, dest_len, src, src_len) memcpy(dest, src, (src_len < dest_len) ? src_len : dest_len)
+#define MEMNCPY(dest, dest_len, src, src_len) \
+  memcpy(dest, src, (src_len < dest_len) ? src_len : dest_len)
 
 /**
  * 检测读超时的函数（并不进行读操作）

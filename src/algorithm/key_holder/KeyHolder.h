@@ -16,69 +16,56 @@
 
 #define RAND(begin, end) ((rand() % ((end) - (begin))) + (begin))
 
-template<class KeyType>
-class KeyHolder
-{
-private:
-    KeyType *keys{};
-    int point{0};
-    const int MAX_SIZE;
-    std::unordered_map<KeyType, int> keyMap{};
+template <class KeyType>
+class KeyHolder {
+  private:
+  KeyType *keys{};
+  int point{0};
+  const int MAX_SIZE;
+  std::unordered_map<KeyType, int> keyMap{};
 
-public:
-    KeyHolder(KeyHolder &) = delete;
-    KeyHolder(KeyHolder &&) = delete;
+  public:
+  KeyHolder(KeyHolder &) = delete;
+  KeyHolder(KeyHolder &&) = delete;
 
-    KeyHolder(int maxSize) : MAX_SIZE(maxSize)
-    {
-        keys = new KeyType[maxSize];
+  KeyHolder(int maxSize) : MAX_SIZE(maxSize) { keys = new KeyType[maxSize]; }
+  ~KeyHolder() {
+    if (keys != nullptr) {
+      delete[] keys;
+      keys = nullptr;
     }
-    ~KeyHolder()
-    {
-        if (keys != nullptr)
-        {
-            delete[] keys;
-            keys = nullptr;
-        }
+  }
+  int Add(const KeyType &key) {
+    if (point >= MAX_SIZE) {
+      return -2;
     }
-    int Add(const KeyType &key)
-    {
-        if (point >= MAX_SIZE)
-        {
-            return -2;
-        }
-        auto ret = keyMap.insert(std::make_pair(key, point));
-        if (!ret.second)
-        {
-            return -1;
-        }
-        keys[point] = key;
-        ++point;
-        return 0;
+    auto ret = keyMap.insert(std::make_pair(key, point));
+    if (!ret.second) {
+      return -1;
     }
-    int Rand(KeyType *outKey)
-    {
-        if (point == 0)
-        {
-            return 1;
-        }
-        int randNum = RAND(0, point);
-        (*outKey) = keys[randNum];
-        return 0;
+    keys[point] = key;
+    ++point;
+    return 0;
+  }
+  int Rand(KeyType *outKey) {
+    if (point == 0) {
+      return 1;
     }
-    int Remove(const KeyType &key)
-    {
-        auto it = keyMap.find(key);
-        if (it == keyMap.end())
-        {
-            return -1;
-        }
-        int index = it->second;
+    int randNum = RAND(0, point);
+    (*outKey) = keys[randNum];
+    return 0;
+  }
+  int Remove(const KeyType &key) {
+    auto it = keyMap.find(key);
+    if (it == keyMap.end()) {
+      return -1;
+    }
+    int index = it->second;
 
-        // 和最后一个交换位置
-        keys[index] = keys[point - 1];
-        keyMap[keys[index]] = index;
-        --point;
-        return 0;
-    }
+    // 和最后一个交换位置
+    keys[index] = keys[point - 1];
+    keyMap[keys[index]] = index;
+    --point;
+    return 0;
+  }
 };

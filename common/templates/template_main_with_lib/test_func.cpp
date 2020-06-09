@@ -5,8 +5,8 @@
 #include "test_func.h"
 
 int zero() {
-    INFO("from lib")
-    return 0;
+  INFO("from lib")
+  return 0;
 }
 
 void Hello::hello() { INFO("hello") }
