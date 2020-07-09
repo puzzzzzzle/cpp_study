@@ -8,6 +8,7 @@ TEST(test_test, 1) { EXPECT_EQ(1, 1); }
 int main(int argc, char **argv) {
   int iRet = 0;
   iRet = beforeRun();
+  assert(iRet==-1);
   if (iRet) {
     std::cerr << "init fail with " << iRet << std::endl;
   }

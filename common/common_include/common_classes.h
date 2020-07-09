@@ -56,6 +56,7 @@ class AutoJoinThreadGuard {
   AutoJoinThreadGuard(AutoJoinThreadGuard&& guard) : t(std::move(guard.t)) {}
   ~AutoJoinThreadGuard() {
     if (t.joinable()) {
+      printf("join");
       t.join();
     }
   }
