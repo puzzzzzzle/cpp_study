@@ -35,9 +35,9 @@
 
 cmake-build*
 build*
-gui/build-personal_file_gui_qt-Desktop_Qt_5_12_2_MinGW_32_bit-Debug
-gui/build-personal_file_gui_qt-Desktop_Qt_5_12_2_MinGW_32_bit-Release
 .idea
 .vscode*
 .clion*
-cpp_study/aoi_study/QuadTree
+
+!.gitkeep
+common/data/log/*.log
