@@ -1,0 +1,1 @@
+gdb -ex "set pagination 0" -ex "thread apply all bt" -batch -p $pid
