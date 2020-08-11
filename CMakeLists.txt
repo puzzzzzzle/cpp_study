@@ -23,6 +23,13 @@ execute_process(
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 message("conan get libs\t${CONAN_LIBS}\n")
+
+# 编译ptoro, 所有proto 打包为一个定义 PTOTO_CPPS
+set(PROTO_CPP_DIR ${CMAKE_BINARY_DIR}/proto)
+BuildProto(${CMAKE_SOURCE_DIR}/src ${PROTO_CPP_DIR})
+include_directories(${PROTO_CPP_DIR})
+aux_source_directory(${PROTO_CPP_DIR} PROTO_CPPS)
+
 # 遍历文件
 AddAllSubDir()
 
