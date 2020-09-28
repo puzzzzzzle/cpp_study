@@ -1,6 +1,19 @@
 cmake_minimum_required(VERSION 3.7)
 set(project_name cpp_study_all)
 project(${project_name})
+
+#option(USE_32BITS "Compile for 32bits processors(linux only)" ON)
+#
+#if(USE_32BITS)
+#    message(STATUS "using 32bits")
+#    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -m32")
+#
+#    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m32")
+#
+#else()
+#endif(USE_32BITS)
+
+
 include(${CMAKE_SOURCE_DIR}/common/CMake/FuncDefs.cmake)
 
 #设置版本号
