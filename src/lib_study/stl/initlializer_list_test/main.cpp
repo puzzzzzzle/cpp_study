@@ -2,6 +2,10 @@
 // Created by tao on 19-1-17.
 //
 #include "common_includes.h"
+enum class TestEnum : unsigned  int {
+  HELLO=0,
+  WORLD =1
+};
 TEST(test_test, 1) { EXPECT_EQ(1, 1); }
 TEST(vec_test, 1) {
   std::vector<double> vec{};
