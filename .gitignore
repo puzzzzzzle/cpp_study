@@ -1,5 +1,4 @@
-# Prerequisites
-*.d
+cd *.d
 
 # Compiled Object files
 *.slo
@@ -35,7 +34,7 @@
 
 cmake-build*
 build*
-.idea
+../.idea
 .vscode*
 .clion*
 

@@ -6,9 +6,6 @@ protobuf/3.9.1@bincrafters/stable
 libgo/v3.1-stable@tao/test
 libco/v1.0@libco/tao
 opencv/4.1.1@conan/stable
-glew/2.1.0
-glfw/3.3.2
-glad/0.1.33
 
 [generators]
 cmake
