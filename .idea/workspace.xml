@@ -6,17 +6,18 @@
       <config projectName="cpp_study" targetName="lib_study_coroutine_libgo_study_simple_use" />
       <config projectName="cpp_study" targetName="lib_study_stl_stl_container" />
       <config projectName="cpp_study" targetName="lib_study_opengl_glfw_basic" />
-      <config projectName="cpp_study" targetName="cpp_language_rand_arr" />
       <config projectName="cpp_study" targetName="lib_study_boost_study_file_system" />
+      <config projectName="cpp_study" targetName="cpp_language_rand_arr" />
       <config projectName="cpp_study" targetName="cpp_language_raw_string" />
       <config projectName="cpp_study" targetName="algorithm_aoi_orthogonal_list_aoi" />
       <config projectName="cpp_study" targetName="cpp_language_bind_class_test" />
       <config projectName="cpp_study" targetName="lib_study_stl_visit_operator" />
       <config projectName="cpp_study" targetName="lib_study_stl_initlializer_list_test" />
       <config projectName="cpp_study" targetName="algorithm_optimization_bresenham" />
-      <config projectName="cpp_study" targetName="asm_at_t_asm_simple_main" />
       <config projectName="cpp_study" targetName="stl_stl_thread_test" />
+      <config projectName="cpp_study" targetName="asm_at_t_asm_simple_main" />
       <config projectName="cpp_study" targetName="algorithm_barrier" />
+      <config projectName="cpp_study" targetName="stl_future_tetst" />
       <config projectName="cpp_study" targetName="cpp_language_class_bit_value" />
       <config projectName="cpp_study" targetName="cpp_language_place_new" />
       <config projectName="cpp_study" targetName="algorithm_snowflake" />
@@ -24,10 +25,11 @@
       <config projectName="cpp_study" targetName="lib_study_stl_template_main" />
       <config projectName="cpp_study" targetName="lib_study_coroutine_libco_study_basic_uase" />
       <config projectName="cpp_study" targetName="stl_thread_test_2" />
+      <config projectName="cpp_study" targetName="stl_test_string" />
       <config projectName="cpp_study" targetName="lib_study_coroutine_ucontext" />
       <config projectName="cpp_study" targetName="cpp_language_rand_float" />
-      <config projectName="cpp_study" targetName="algorithm_aoi_tower_aoi_for_tars" />
       <config projectName="cpp_study" targetName="asm_at_t_asm_cpu_id_with_c" />
+      <config projectName="cpp_study" targetName="algorithm_aoi_tower_aoi_for_tars" />
       <config projectName="cpp_study" targetName="algorithm_design_ringBuffer" />
       <config projectName="cpp_study" targetName="lib_study_stl_stl_common_tools" />
       <config projectName="cpp_study" targetName="lib_study_boost_study_program_options" />
@@ -48,10 +50,10 @@
       <config projectName="cpp_study" targetName="algorithm_design_bip_buffer" />
       <config projectName="cpp_study" targetName="asm_nasm_c_call_nasm" />
       <config projectName="cpp_study" targetName="asm_nasm_nasm_call_c" />
-      <config projectName="cpp_study" targetName="asm_at_t_asm_sysdep_test" />
       <config projectName="cpp_study" targetName="tools_always_throw" />
-      <config projectName="cpp_study" targetName="asm_nasm_nasm_pure" />
+      <config projectName="cpp_study" targetName="asm_at_t_asm_sysdep_test" />
       <config projectName="cpp_study" targetName="lib_study_coroutine_boost_coroutine" />
+      <config projectName="cpp_study" targetName="asm_nasm_nasm_pure" />
       <config projectName="cpp_study" targetName="cpp_language_test_diff_size_delete" />
       <config projectName="cpp_study" targetName="algorithm_design_csharp_event" />
       <config projectName="cpp_study" targetName="lib_study_boost_study_lock_free" />
@@ -60,8 +62,8 @@
       <config projectName="cpp_study" targetName="cpp_language_test_dyn_aspect" />
       <config projectName="cpp_study" targetName="algorithm_design_csharp_event_with_args" />
       <config projectName="cpp_study" targetName="asm_c_asm_test" />
-      <config projectName="cpp_study" targetName="lib_study_coroutine_boost_context" />
       <config projectName="cpp_study" targetName="lib_study_opencv_study" />
+      <config projectName="cpp_study" targetName="lib_study_coroutine_boost_context" />
       <config projectName="cpp_study" targetName="asm_move_data_study" />
       <config projectName="cpp_study" targetName="algorithm_key_holder" />
     </generated>
@@ -72,7 +74,10 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b38bd5a7-530c-41bd-9ce3-bac1ab07e3c7" name="Default Changelist" comment="" />
+    <list default="true" id="b38bd5a7-530c-41bd-9ce3-bac1ab07e3c7" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -86,7 +91,7 @@
     <option name="directoryName" value="472x5cp9" />
   </component>
   <component name="ProjectId" id="1hD2YBIq79RsgS6fklnmgkECukJ" />
-  <component name="ProjectLevelVcsManager">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
   </component>
   <component name="ProjectViewState">
@@ -106,41 +111,48 @@
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
     <property name="cf.advertisement.text.overridden" value="true" />
     <property name="cf.first.check.clang-format" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/stl" />
     <property name="settings.editor.selected.configurable" value="CPPToolchains" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="E:\myprojects\self_projects\cpp_study" />
-      <recent name="E:\myprojects\self_projects\cpp_study\src\asm" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\myprojects\self_projects\cpp_study\src\stl" />
       <recent name="E:\myprojects\self_projects\cpp_study" />
       <recent name="E:\myprojects\self_projects\cpp_study\src\lib_study\stl" />
       <recent name="E:\myprojects\self_projects\cpp_study\src\asm\at_t_asm" />
       <recent name="E:\myprojects\self_projects\cpp_study\src\lib_study\coroutine" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\myprojects\self_projects\cpp_study" />
+      <recent name="E:\myprojects\self_projects\cpp_study\src\asm" />
+    </key>
   </component>
-  <component name="RunManager" selected="CMake Application.lib_study_stl_initlializer_list_test">
-    <configuration name="init_constor_1.1" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="lib_study_stl_initlializer_list_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="lib_study_stl_initlializer_list_test" TEST_CLASS="init_constor_1" TEST_METHOD="1" TEST_MODE="SUITE_TEST">
+  <component name="RunManager" selected="Google Test.async.defer_2">
+    <configuration name="async.async" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="stl_future_tetst" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="stl_future_tetst" TEST_CLASS="async" TEST_METHOD="async" TEST_MODE="SUITE_TEST">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
         <option name="BeforeTestRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="init_list_int.1" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="lib_study_stl_initlializer_list_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="lib_study_stl_initlializer_list_test" TEST_CLASS="init_list_int" TEST_METHOD="1" TEST_MODE="SUITE_TEST">
+    <configuration name="async.defer_1" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="stl_future_tetst" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="stl_future_tetst" TEST_CLASS="async" TEST_METHOD="defer_1" TEST_MODE="SUITE_TEST">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
         <option name="BeforeTestRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="init_tuple_1.1" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="lib_study_stl_initlializer_list_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="lib_study_stl_initlializer_list_test" TEST_CLASS="init_tuple_1" TEST_METHOD="1" TEST_MODE="SUITE_TEST">
+    <configuration name="async.defer_2" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="stl_future_tetst" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="stl_future_tetst" TEST_CLASS="async" TEST_METHOD="defer_2" TEST_MODE="SUITE_TEST">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
         <option name="BeforeTestRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="init_void_p.1" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="lib_study_stl_initlializer_list_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="lib_study_stl_initlializer_list_test" TEST_CLASS="init_void_p" TEST_METHOD="1" TEST_MODE="SUITE_TEST">
+    <configuration name="packaged_task.1" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="stl_future_tetst" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="stl_future_tetst" TEST_CLASS="packaged_task" TEST_METHOD="1" TEST_MODE="SUITE_TEST">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="BeforeTestRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="packaged_task.async" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="stl_future_tetst" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="stl_future_tetst" TEST_CLASS="packaged_task" TEST_METHOD="async" TEST_MODE="SUITE_TEST">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
         <option name="BeforeTestRunTask" enabled="true" />
@@ -406,11 +418,6 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="lib_study_stl_initlializer_list_test" type="CMakeRunConfiguration" factoryName="Application" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="lib_study_stl_initlializer_list_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="lib_study_stl_initlializer_list_test">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="lib_study_stl_stl_common_tools" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="lib_study_stl_stl_common_tools" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="lib_study_stl_stl_common_tools">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -431,7 +438,17 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="stl_future_tetst" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="stl_future_tetst" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="stl_future_tetst">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="stl_stl_thread_test" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="stl_stl_thread_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="stl_stl_thread_test">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="stl_test_string" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="stl_test_string" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="stl_test_string">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -508,23 +525,25 @@
       <item itemvalue="CMake Application.lib_study_stl_stl_container" />
       <item itemvalue="CMake Application.lib_study_stl_template_main" />
       <item itemvalue="CMake Application.lib_study_stl_visit_operator" />
+      <item itemvalue="CMake Application.stl_future_tetst" />
       <item itemvalue="CMake Application.stl_stl_thread_test" />
+      <item itemvalue="CMake Application.stl_test_string" />
       <item itemvalue="CMake Application.stl_thread_test_2" />
       <item itemvalue="CMake Application.tools_always_throw" />
       <item itemvalue="CMake Application.tools_conv_arr_bin" />
-      <item itemvalue="CMake Application.lib_study_stl_initlializer_list_test" />
-      <item itemvalue="Google Test.init_list_int.1" />
-      <item itemvalue="Google Test.init_void_p.1" />
-      <item itemvalue="Google Test.init_tuple_1.1" />
-      <item itemvalue="Google Test.init_constor_1.1" />
+      <item itemvalue="Google Test.packaged_task.1" />
+      <item itemvalue="Google Test.packaged_task.async" />
+      <item itemvalue="Google Test.async.async" />
+      <item itemvalue="Google Test.async.defer_1" />
+      <item itemvalue="Google Test.async.defer_2" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="CMake Application.lib_study_stl_initlializer_list_test" />
-        <item itemvalue="Google Test.init_constor_1.1" />
-        <item itemvalue="Google Test.init_tuple_1.1" />
-        <item itemvalue="Google Test.init_list_int.1" />
-        <item itemvalue="Google Test.init_void_p.1" />
+        <item itemvalue="Google Test.async.defer_2" />
+        <item itemvalue="Google Test.async.defer_1" />
+        <item itemvalue="Google Test.async.async" />
+        <item itemvalue="Google Test.packaged_task.async" />
+        <item itemvalue="Google Test.packaged_task.1" />
       </list>
     </recent_temporary>
   </component>
@@ -549,7 +568,8 @@
       <workItem from="1601259367193" duration="11755000" />
       <workItem from="1601458597181" duration="599000" />
       <workItem from="1602075238192" duration="1886000" />
-      <workItem from="1602157625988" duration="3068000" />
+      <workItem from="1602157625988" duration="4619000" />
+      <workItem from="1602315141391" duration="9115000" />
     </task>
     <servers />
   </component>
@@ -569,50 +589,54 @@
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="1060" y="464" width="434" height="486" key="FileChooserDialogImpl/2560.8.2560.1410/0.0.2560.1410@0.0.2560.1410" timestamp="1602165200888" />
-    <state width="1822" height="561" key="GridCell.Tab.0.bottom" timestamp="1602165380801">
+    <state width="1822" height="561" key="GridCell.Tab.0.bottom" timestamp="1602504438674">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state width="1822" height="561" key="GridCell.Tab.0.bottom/2560.8.2560.1410/0.0.2560.1410@0.0.2560.1410" timestamp="1602165380801" />
-    <state width="1822" height="561" key="GridCell.Tab.0.center" timestamp="1602165380801">
+    <state width="1822" height="561" key="GridCell.Tab.0.bottom/2560.8.2560.1410/0.0.2560.1410@0.0.2560.1410" timestamp="1602504438674" />
+    <state width="1822" height="561" key="GridCell.Tab.0.center" timestamp="1602504438674">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state width="1822" height="561" key="GridCell.Tab.0.center/2560.8.2560.1410/0.0.2560.1410@0.0.2560.1410" timestamp="1602165380801" />
-    <state width="1822" height="561" key="GridCell.Tab.0.left" timestamp="1602165380801">
+    <state width="1822" height="561" key="GridCell.Tab.0.center/2560.8.2560.1410/0.0.2560.1410@0.0.2560.1410" timestamp="1602504438674" />
+    <state width="1822" height="561" key="GridCell.Tab.0.left" timestamp="1602504438674">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state width="1822" height="561" key="GridCell.Tab.0.left/2560.8.2560.1410/0.0.2560.1410@0.0.2560.1410" timestamp="1602165380801" />
-    <state width="1822" height="561" key="GridCell.Tab.0.right" timestamp="1602165380801">
+    <state width="1822" height="561" key="GridCell.Tab.0.left/2560.8.2560.1410/0.0.2560.1410@0.0.2560.1410" timestamp="1602504438674" />
+    <state width="1822" height="561" key="GridCell.Tab.0.right" timestamp="1602504438674">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state width="1822" height="561" key="GridCell.Tab.0.right/2560.8.2560.1410/0.0.2560.1410@0.0.2560.1410" timestamp="1602165380801" />
-    <state width="1822" height="494" key="GridCell.Tab.1.bottom" timestamp="1601272540755">
+    <state width="1822" height="561" key="GridCell.Tab.0.right/2560.8.2560.1410/0.0.2560.1410@0.0.2560.1410" timestamp="1602504438674" />
+    <state width="1822" height="494" key="GridCell.Tab.1.bottom" timestamp="1602504116165">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state width="1822" height="494" key="GridCell.Tab.1.bottom/2560.8.2560.1410/0.0.2560.1410@0.0.2560.1410" timestamp="1601272540755" />
-    <state width="1822" height="494" key="GridCell.Tab.1.center" timestamp="1601272540755">
+    <state width="1822" height="494" key="GridCell.Tab.1.bottom/2560.8.2560.1410/0.0.2560.1410@0.0.2560.1410" timestamp="1602504116165" />
+    <state width="1822" height="494" key="GridCell.Tab.1.center" timestamp="1602504116165">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state width="1822" height="494" key="GridCell.Tab.1.center/2560.8.2560.1410/0.0.2560.1410@0.0.2560.1410" timestamp="1601272540755" />
-    <state width="1822" height="494" key="GridCell.Tab.1.left" timestamp="1601272540755">
+    <state width="1822" height="494" key="GridCell.Tab.1.center/2560.8.2560.1410/0.0.2560.1410@0.0.2560.1410" timestamp="1602504116165" />
+    <state width="1822" height="494" key="GridCell.Tab.1.left" timestamp="1602504116165">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state width="1822" height="494" key="GridCell.Tab.1.left/2560.8.2560.1410/0.0.2560.1410@0.0.2560.1410" timestamp="1601272540755" />
-    <state width="1822" height="494" key="GridCell.Tab.1.right" timestamp="1601272540755">
+    <state width="1822" height="494" key="GridCell.Tab.1.left/2560.8.2560.1410/0.0.2560.1410@0.0.2560.1410" timestamp="1602504116165" />
+    <state width="1822" height="494" key="GridCell.Tab.1.right" timestamp="1602504116165">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state width="1822" height="494" key="GridCell.Tab.1.right/2560.8.2560.1410/0.0.2560.1410@0.0.2560.1410" timestamp="1601272540755" />
+    <state width="1822" height="494" key="GridCell.Tab.1.right/2560.8.2560.1410/0.0.2560.1410@0.0.2560.1410" timestamp="1602504116165" />
     <state x="781" y="349" key="SettingsEditor" timestamp="1601262348928">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="781" y="349" key="SettingsEditor/2560.8.2560.1410/0.0.2560.1410@0.0.2560.1410" timestamp="1601262348928" />
+    <state x="956" y="438" width="647" height="534" key="find.popup" timestamp="1602322930848">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="956" y="438" width="647" height="534" key="find.popup/2560.8.2560.1410/0.0.2560.1410@0.0.2560.1410" timestamp="1602322930848" />
     <state x="951" y="391" width="341" height="540" key="ftp.server.browser" timestamp="1601262032794">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="951" y="391" width="341" height="540" key="ftp.server.browser/2560.8.2560.1410/0.0.2560.1410@0.0.2560.1410" timestamp="1601262032794" />
-    <state x="936" y="333" key="run.anything.popup" timestamp="1602076892453">
+    <state x="936" y="333" key="run.anything.popup" timestamp="1602165886694">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state x="936" y="333" key="run.anything.popup/2560.8.2560.1410/0.0.2560.1410@0.0.2560.1410" timestamp="1602076892453" />
+    <state x="936" y="333" key="run.anything.popup/2560.8.2560.1410/0.0.2560.1410@0.0.2560.1410" timestamp="1602165886694" />
     <state x="943" y="317" width="672" height="678" key="search.everywhere.popup" timestamp="1599799374146">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
@@ -630,6 +654,11 @@
           <url>file://$PROJECT_DIR$/src/lib_study/coroutine/ucontext/ucontext_test.cpp</url>
           <line>66</line>
           <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/stl/future_tetst/main.cpp</url>
+          <line>90</line>
+          <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

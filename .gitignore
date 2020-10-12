@@ -34,7 +34,7 @@ cd *.d
 
 cmake-build*
 build*
-../.idea
+.idea
 .vscode*
 .clion*
 
