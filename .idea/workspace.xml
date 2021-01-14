@@ -4,6 +4,7 @@
     <generated>
       <config projectName="cpp_study" targetName="cpp_language_macro_test" />
       <config projectName="cpp_study" targetName="lib_study_coroutine_libgo_study_simple_use" />
+      <config projectName="cpp_study" targetName="cpp_language_array_test" />
       <config projectName="cpp_study" targetName="lib_study_stl_stl_container" />
       <config projectName="cpp_study" targetName="lib_study_opengl_glfw_basic" />
       <config projectName="cpp_study" targetName="lib_study_boost_study_file_system" />
@@ -13,9 +14,9 @@
       <config projectName="cpp_study" targetName="cpp_language_bind_class_test" />
       <config projectName="cpp_study" targetName="lib_study_stl_visit_operator" />
       <config projectName="cpp_study" targetName="lib_study_stl_initlializer_list_test" />
-      <config projectName="cpp_study" targetName="algorithm_optimization_bresenham" />
-      <config projectName="cpp_study" targetName="stl_stl_thread_test" />
       <config projectName="cpp_study" targetName="asm_at_t_asm_simple_main" />
+      <config projectName="cpp_study" targetName="stl_stl_thread_test" />
+      <config projectName="cpp_study" targetName="algorithm_optimization_bresenham" />
       <config projectName="cpp_study" targetName="algorithm_barrier" />
       <config projectName="cpp_study" targetName="stl_future_tetst" />
       <config projectName="cpp_study" targetName="cpp_language_class_bit_value" />
@@ -30,8 +31,8 @@
       <config projectName="cpp_study" targetName="cpp_language_rand_float" />
       <config projectName="cpp_study" targetName="asm_at_t_asm_cpu_id_with_c" />
       <config projectName="cpp_study" targetName="algorithm_aoi_tower_aoi_for_tars" />
-      <config projectName="cpp_study" targetName="algorithm_design_ringBuffer" />
       <config projectName="cpp_study" targetName="lib_study_stl_stl_common_tools" />
+      <config projectName="cpp_study" targetName="algorithm_design_ringBuffer" />
       <config projectName="cpp_study" targetName="lib_study_boost_study_program_options" />
       <config projectName="cpp_study" targetName="cpp_language_unique_lock" />
       <config projectName="cpp_study" targetName="asm_at_t_asm_cpu_id" />
@@ -48,17 +49,17 @@
       <config projectName="cpp_study" targetName="cpp_language_reference_test" />
       <config projectName="cpp_study" targetName="lib_study_boost_study_circular_buffer" />
       <config projectName="cpp_study" targetName="algorithm_design_bip_buffer" />
-      <config projectName="cpp_study" targetName="asm_nasm_c_call_nasm" />
       <config projectName="cpp_study" targetName="asm_nasm_nasm_call_c" />
-      <config projectName="cpp_study" targetName="tools_always_throw" />
+      <config projectName="cpp_study" targetName="asm_nasm_c_call_nasm" />
       <config projectName="cpp_study" targetName="asm_at_t_asm_sysdep_test" />
-      <config projectName="cpp_study" targetName="lib_study_coroutine_boost_coroutine" />
+      <config projectName="cpp_study" targetName="tools_always_throw" />
       <config projectName="cpp_study" targetName="asm_nasm_nasm_pure" />
+      <config projectName="cpp_study" targetName="lib_study_coroutine_boost_coroutine" />
       <config projectName="cpp_study" targetName="cpp_language_test_diff_size_delete" />
       <config projectName="cpp_study" targetName="algorithm_design_csharp_event" />
       <config projectName="cpp_study" targetName="lib_study_boost_study_lock_free" />
-      <config projectName="cpp_study" targetName="algorithm_design_game_loop" />
       <config projectName="cpp_study" targetName="lib_study_coroutine_libgo_study_template_main" />
+      <config projectName="cpp_study" targetName="algorithm_design_game_loop" />
       <config projectName="cpp_study" targetName="cpp_language_test_dyn_aspect" />
       <config projectName="cpp_study" targetName="algorithm_design_csharp_event_with_args" />
       <config projectName="cpp_study" targetName="asm_c_asm_test" />
@@ -70,13 +71,18 @@
   </component>
   <component name="CMakeSettings">
     <configurations>
-      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" ENABLED="true" />
     </configurations>
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b38bd5a7-530c-41bd-9ce3-bac1ab07e3c7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/other.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cpp_bootstrap" beforeDir="false" afterPath="$PROJECT_DIR$/cpp_bootstrap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cpp_bootstrap/common/CMake/CommonInclude.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cpp_bootstrap/common/CMake/CommonInclude.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stl/stl_thread_test/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/stl/stl_thread_test/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,7 +91,10 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/cpp_bootstrap" />
+  </component>
+  <component name="GitToolBoxStore">
+    <option name="projectConfigVersion" value="2" />
   </component>
   <component name="MacroExpansionManager">
     <option name="directoryName" value="472x5cp9" />
@@ -96,7 +105,6 @@
   </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
     <option name="showVisibilityIcons" value="true" />
   </component>
@@ -111,361 +119,356 @@
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
     <property name="cf.advertisement.text.overridden" value="true" />
     <property name="cf.first.check.clang-format" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/stl" />
-    <property name="settings.editor.selected.configurable" value="CPPToolchains" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\myprojects\self_projects\cpp_study\src\stl" />
-      <recent name="E:\myprojects\self_projects\cpp_study" />
-      <recent name="E:\myprojects\self_projects\cpp_study\src\lib_study\stl" />
-      <recent name="E:\myprojects\self_projects\cpp_study\src\asm\at_t_asm" />
-      <recent name="E:\myprojects\self_projects\cpp_study\src\lib_study\coroutine" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\myprojects\self_projects\cpp_study" />
       <recent name="E:\myprojects\self_projects\cpp_study\src\asm" />
     </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\myprojects\self_projects\cpp_study\src\cpp_language" />
+      <recent name="E:\myprojects\self_projects\cpp_study\src\stl" />
+      <recent name="E:\myprojects\self_projects\cpp_study" />
+      <recent name="E:\myprojects\self_projects\cpp_study\src\lib_study\stl" />
+      <recent name="E:\myprojects\self_projects\cpp_study\src\asm\at_t_asm" />
+    </key>
   </component>
-  <component name="RunManager" selected="Google Test.async.defer_2">
-    <configuration name="async.async" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="stl_future_tetst" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="stl_future_tetst" TEST_CLASS="async" TEST_METHOD="async" TEST_MODE="SUITE_TEST">
+  <component name="RunManager" selected="CMake Application.cpp_language_array_test">
+    <configuration name="arrayTest.2" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="cpp_language_array_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="cpp_language_array_test" TEST_CLASS="arrayTest" TEST_METHOD="2" TEST_MODE="SUITE_TEST">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
         <option name="BeforeTestRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="async.defer_1" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="stl_future_tetst" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="stl_future_tetst" TEST_CLASS="async" TEST_METHOD="defer_1" TEST_MODE="SUITE_TEST">
+    <configuration name="async.defer_2" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="stl_future_tetst" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="stl_future_tetst" TEST_CLASS="async" TEST_METHOD="defer_2" TEST_MODE="SUITE_TEST">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
         <option name="BeforeTestRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="async.defer_2" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="stl_future_tetst" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="stl_future_tetst" TEST_CLASS="async" TEST_METHOD="defer_2" TEST_MODE="SUITE_TEST">
+    <configuration name="threadtest.throwTest" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="stl_stl_thread_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="stl_stl_thread_test" TEST_CLASS="threadtest" TEST_METHOD="throwTest" TEST_MODE="SUITE_TEST">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
         <option name="BeforeTestRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="packaged_task.1" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="stl_future_tetst" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="stl_future_tetst" TEST_CLASS="packaged_task" TEST_METHOD="1" TEST_MODE="SUITE_TEST">
+    <configuration name="threadtest.whileThrowTest" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="stl_stl_thread_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="stl_stl_thread_test" TEST_CLASS="threadtest" TEST_METHOD="whileThrowTest" TEST_MODE="SUITE_TEST">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
         <option name="BeforeTestRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="packaged_task.async" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="stl_future_tetst" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="stl_future_tetst" TEST_CLASS="packaged_task" TEST_METHOD="async" TEST_MODE="SUITE_TEST">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-        <option name="BeforeTestRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="algorithm_aoi_orthogonal_list_aoi" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="algorithm_aoi_orthogonal_list_aoi" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="algorithm_aoi_orthogonal_list_aoi">
+    <configuration name="algorithm_aoi_orthogonal_list_aoi" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="algorithm_aoi_orthogonal_list_aoi" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="algorithm_aoi_orthogonal_list_aoi">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="algorithm_aoi_simple_quda_tree" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="algorithm_aoi_simple_quda_tree" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="algorithm_aoi_simple_quda_tree">
+    <configuration name="algorithm_aoi_simple_quda_tree" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="algorithm_aoi_simple_quda_tree" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="algorithm_aoi_simple_quda_tree">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="algorithm_aoi_tower_aoi" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="algorithm_aoi_tower_aoi" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="algorithm_aoi_tower_aoi">
+    <configuration name="algorithm_aoi_tower_aoi" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="algorithm_aoi_tower_aoi" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="algorithm_aoi_tower_aoi">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="algorithm_aoi_tower_aoi_for_tars" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="algorithm_aoi_tower_aoi_for_tars" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="algorithm_aoi_tower_aoi_for_tars">
+    <configuration name="algorithm_aoi_tower_aoi_for_tars" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="algorithm_aoi_tower_aoi_for_tars" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="algorithm_aoi_tower_aoi_for_tars">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="algorithm_barrier" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="algorithm_barrier" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="algorithm_barrier">
+    <configuration name="algorithm_barrier" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="algorithm_barrier" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="algorithm_barrier">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="algorithm_design_bip_buffer" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="algorithm_design_bip_buffer" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="algorithm_design_bip_buffer">
+    <configuration name="algorithm_design_bip_buffer" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="algorithm_design_bip_buffer" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="algorithm_design_bip_buffer">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="algorithm_design_csharp_event" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="algorithm_design_csharp_event" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="algorithm_design_csharp_event">
+    <configuration name="algorithm_design_csharp_event" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="algorithm_design_csharp_event" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="algorithm_design_csharp_event">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="algorithm_design_csharp_event_with_args" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="algorithm_design_csharp_event_with_args" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="algorithm_design_csharp_event_with_args">
+    <configuration name="algorithm_design_csharp_event_with_args" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="algorithm_design_csharp_event_with_args" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="algorithm_design_csharp_event_with_args">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="algorithm_design_game_loop" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="algorithm_design_game_loop" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="algorithm_design_game_loop">
+    <configuration name="algorithm_design_game_loop" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="algorithm_design_game_loop" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="algorithm_design_game_loop">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="algorithm_design_ringBuffer" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="algorithm_design_ringBuffer" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="algorithm_design_ringBuffer">
+    <configuration name="algorithm_design_ringBuffer" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="algorithm_design_ringBuffer" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="algorithm_design_ringBuffer">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="algorithm_design_scope_guard" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="algorithm_design_scope_guard" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="algorithm_design_scope_guard">
+    <configuration name="algorithm_design_scope_guard" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="algorithm_design_scope_guard" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="algorithm_design_scope_guard">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="algorithm_design_timer_wheel" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="algorithm_design_timer_wheel" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="algorithm_design_timer_wheel">
+    <configuration name="algorithm_design_timer_wheel" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="algorithm_design_timer_wheel" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="algorithm_design_timer_wheel">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="algorithm_key_holder" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="algorithm_key_holder" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="algorithm_key_holder">
+    <configuration name="algorithm_key_holder" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="algorithm_key_holder" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="algorithm_key_holder">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="algorithm_optimization_bresenham" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="algorithm_optimization_bresenham" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="algorithm_optimization_bresenham">
+    <configuration name="algorithm_optimization_bresenham" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="algorithm_optimization_bresenham" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="algorithm_optimization_bresenham">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="algorithm_snowflake" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="algorithm_snowflake" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="algorithm_snowflake">
+    <configuration name="algorithm_snowflake" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="algorithm_snowflake" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="algorithm_snowflake">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="asm_at_t_asm_cpu_id" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="asm_at_t_asm_cpu_id" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="asm_at_t_asm_cpu_id">
+    <configuration name="asm_at_t_asm_cpu_id" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="asm_at_t_asm_cpu_id" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="asm_at_t_asm_cpu_id">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="asm_at_t_asm_cpu_id_with_c" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="asm_at_t_asm_cpu_id_with_c" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="asm_at_t_asm_cpu_id_with_c">
+    <configuration name="asm_at_t_asm_cpu_id_with_c" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="asm_at_t_asm_cpu_id_with_c" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="asm_at_t_asm_cpu_id_with_c">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="asm_at_t_asm_simple_main" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="asm_at_t_asm_simple_main" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="asm_at_t_asm_simple_main">
+    <configuration name="asm_at_t_asm_simple_main" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="asm_at_t_asm_simple_main" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="asm_at_t_asm_simple_main">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="asm_at_t_asm_sysdep_test" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="asm_at_t_asm_sysdep_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="asm_at_t_asm_sysdep_test">
+    <configuration name="asm_at_t_asm_sysdep_test" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="asm_at_t_asm_sysdep_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="asm_at_t_asm_sysdep_test">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="asm_c_asm_test" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="asm_c_asm_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="asm_c_asm_test">
+    <configuration name="asm_c_asm_test" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="asm_c_asm_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="asm_c_asm_test">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="asm_move_data_study" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="asm_move_data_study" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="asm_move_data_study">
+    <configuration name="asm_move_data_study" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="asm_move_data_study" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="asm_move_data_study">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="asm_nasm_c_call_nasm" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="asm_nasm_c_call_nasm" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="asm_nasm_c_call_nasm">
+    <configuration name="asm_nasm_c_call_nasm" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="asm_nasm_c_call_nasm" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="asm_nasm_c_call_nasm">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="asm_nasm_nasm_call_c" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="asm_nasm_nasm_call_c" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="asm_nasm_nasm_call_c">
+    <configuration name="asm_nasm_nasm_call_c" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="asm_nasm_nasm_call_c" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="asm_nasm_nasm_call_c">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="asm_nasm_nasm_pure" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="asm_nasm_nasm_pure" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="asm_nasm_nasm_pure">
+    <configuration name="asm_nasm_nasm_pure" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="asm_nasm_nasm_pure" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="asm_nasm_nasm_pure">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="cpp_language_atomic_test" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="cpp_language_atomic_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="cpp_language_atomic_test">
+    <configuration name="cpp_language_array_test" type="CMakeRunConfiguration" factoryName="Application" temporary="true" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="cpp_language_array_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="cpp_language_array_test">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="cpp_language_bind_class_test" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="cpp_language_bind_class_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="cpp_language_bind_class_test">
+    <configuration name="cpp_language_atomic_test" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="cpp_language_atomic_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="cpp_language_atomic_test">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="cpp_language_changable_args" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="cpp_language_changable_args" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="cpp_language_changable_args">
+    <configuration name="cpp_language_bind_class_test" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="cpp_language_bind_class_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="cpp_language_bind_class_test">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="cpp_language_class_bit_value" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="cpp_language_class_bit_value" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="cpp_language_class_bit_value">
+    <configuration name="cpp_language_changable_args" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="cpp_language_changable_args" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="cpp_language_changable_args">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="cpp_language_macro_test" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="cpp_language_macro_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="cpp_language_macro_test">
+    <configuration name="cpp_language_class_bit_value" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="cpp_language_class_bit_value" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="cpp_language_class_bit_value">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="cpp_language_place_new" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="cpp_language_place_new" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="cpp_language_place_new">
+    <configuration name="cpp_language_macro_test" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="cpp_language_macro_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="cpp_language_macro_test">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="cpp_language_protobuf_test" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="cpp_language_protobuf_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="cpp_language_protobuf_test">
+    <configuration name="cpp_language_place_new" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="cpp_language_place_new" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="cpp_language_place_new">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="cpp_language_rand_arr" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="cpp_language_rand_arr" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="cpp_language_rand_arr">
+    <configuration name="cpp_language_protobuf_test" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="cpp_language_protobuf_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="cpp_language_protobuf_test">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="cpp_language_rand_float" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="cpp_language_rand_float" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="cpp_language_rand_float">
+    <configuration name="cpp_language_rand_arr" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="cpp_language_rand_arr" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="cpp_language_rand_arr">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="cpp_language_raw_string" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="cpp_language_raw_string" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="cpp_language_raw_string">
+    <configuration name="cpp_language_rand_float" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="cpp_language_rand_float" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="cpp_language_rand_float">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="cpp_language_reference_test" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="cpp_language_reference_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="cpp_language_reference_test">
+    <configuration name="cpp_language_raw_string" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="cpp_language_raw_string" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="cpp_language_raw_string">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="cpp_language_test_diff_size_delete" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="cpp_language_test_diff_size_delete" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="cpp_language_test_diff_size_delete">
+    <configuration name="cpp_language_reference_test" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="cpp_language_reference_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="cpp_language_reference_test">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="cpp_language_test_dyn_aspect" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="cpp_language_test_dyn_aspect" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="cpp_language_test_dyn_aspect">
+    <configuration name="cpp_language_test_diff_size_delete" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="cpp_language_test_diff_size_delete" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="cpp_language_test_diff_size_delete">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="cpp_language_unique_lock" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="cpp_language_unique_lock" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="cpp_language_unique_lock">
+    <configuration name="cpp_language_test_dyn_aspect" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="cpp_language_test_dyn_aspect" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="cpp_language_test_dyn_aspect">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="cpp_language_unique_process" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="cpp_language_unique_process" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="cpp_language_unique_process">
+    <configuration name="cpp_language_unique_lock" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="cpp_language_unique_lock" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="cpp_language_unique_lock">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="lib_study_boost_study_circular_buffer" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="lib_study_boost_study_circular_buffer" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="lib_study_boost_study_circular_buffer">
+    <configuration name="cpp_language_unique_process" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="cpp_language_unique_process" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="cpp_language_unique_process">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="lib_study_boost_study_file_system" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="lib_study_boost_study_file_system" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="lib_study_boost_study_file_system">
+    <configuration name="lib_study_boost_study_circular_buffer" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="lib_study_boost_study_circular_buffer" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="lib_study_boost_study_circular_buffer">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="lib_study_boost_study_lock_free" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="lib_study_boost_study_lock_free" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="lib_study_boost_study_lock_free">
+    <configuration name="lib_study_boost_study_file_system" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="lib_study_boost_study_file_system" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="lib_study_boost_study_file_system">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="lib_study_boost_study_program_options" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="lib_study_boost_study_program_options" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="lib_study_boost_study_program_options">
+    <configuration name="lib_study_boost_study_lock_free" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="lib_study_boost_study_lock_free" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="lib_study_boost_study_lock_free">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="lib_study_boost_study_range_study" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="lib_study_boost_study_range_study" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="lib_study_boost_study_range_study">
+    <configuration name="lib_study_boost_study_program_options" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="lib_study_boost_study_program_options" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="lib_study_boost_study_program_options">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="lib_study_coroutine_boost_context" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="lib_study_coroutine_boost_context" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="lib_study_coroutine_boost_context">
+    <configuration name="lib_study_boost_study_range_study" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="lib_study_boost_study_range_study" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="lib_study_boost_study_range_study">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="lib_study_coroutine_boost_coroutine" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="lib_study_coroutine_boost_coroutine" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="lib_study_coroutine_boost_coroutine">
+    <configuration name="lib_study_coroutine_boost_context" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="lib_study_coroutine_boost_context" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="lib_study_coroutine_boost_context">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="lib_study_coroutine_libco_study_basic_uase" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="lib_study_coroutine_libco_study_basic_uase" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="lib_study_coroutine_libco_study_basic_uase">
+    <configuration name="lib_study_coroutine_boost_coroutine" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="lib_study_coroutine_boost_coroutine" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="lib_study_coroutine_boost_coroutine">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="lib_study_coroutine_libgo_study_simple_use" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="lib_study_coroutine_libgo_study_simple_use" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="lib_study_coroutine_libgo_study_simple_use">
+    <configuration name="lib_study_coroutine_libco_study_basic_uase" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="lib_study_coroutine_libco_study_basic_uase" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="lib_study_coroutine_libco_study_basic_uase">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="lib_study_coroutine_libgo_study_template_main" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="lib_study_coroutine_libgo_study_template_main" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="lib_study_coroutine_libgo_study_template_main">
+    <configuration name="lib_study_coroutine_libgo_study_simple_use" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="lib_study_coroutine_libgo_study_simple_use" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="lib_study_coroutine_libgo_study_simple_use">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="lib_study_opencv_study" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="lib_study_opencv_study" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="lib_study_opencv_study">
+    <configuration name="lib_study_coroutine_libgo_study_template_main" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="lib_study_coroutine_libgo_study_template_main" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="lib_study_coroutine_libgo_study_template_main">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="lib_study_opengl_glfw_basic" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="lib_study_opengl_glfw_basic" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="lib_study_opengl_glfw_basic">
+    <configuration name="lib_study_opencv_study" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="lib_study_opencv_study" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="lib_study_opencv_study">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="lib_study_stl_changeable_var" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="lib_study_stl_changeable_var" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="lib_study_stl_changeable_var">
+    <configuration name="lib_study_opengl_glfw_basic" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="lib_study_opengl_glfw_basic" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="lib_study_opengl_glfw_basic">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="lib_study_stl_stl_common_tools" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="lib_study_stl_stl_common_tools" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="lib_study_stl_stl_common_tools">
+    <configuration name="lib_study_stl_changeable_var" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="lib_study_stl_changeable_var" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="lib_study_stl_changeable_var">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="lib_study_stl_stl_container" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="lib_study_stl_stl_container" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="lib_study_stl_stl_container">
+    <configuration name="lib_study_stl_stl_common_tools" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="lib_study_stl_stl_common_tools" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="lib_study_stl_stl_common_tools">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="lib_study_stl_template_main" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="lib_study_stl_template_main" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="lib_study_stl_template_main">
+    <configuration name="lib_study_stl_stl_container" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="lib_study_stl_stl_container" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="lib_study_stl_stl_container">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="lib_study_stl_visit_operator" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="lib_study_stl_visit_operator" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="lib_study_stl_visit_operator">
+    <configuration name="lib_study_stl_template_main" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="lib_study_stl_template_main" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="lib_study_stl_template_main">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="stl_future_tetst" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="stl_future_tetst" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="stl_future_tetst">
+    <configuration name="lib_study_stl_visit_operator" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="lib_study_stl_visit_operator" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="lib_study_stl_visit_operator">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="stl_stl_thread_test" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="stl_stl_thread_test" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="stl_stl_thread_test">
+    <configuration name="stl_test_string" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="stl_test_string" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="stl_test_string">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="stl_test_string" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="stl_test_string" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="stl_test_string">
+    <configuration name="stl_thread_test_2" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="stl_thread_test_2" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="stl_thread_test_2">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="stl_thread_test_2" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="stl_thread_test_2" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="stl_thread_test_2">
+    <configuration name="tools_always_throw" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="tools_always_throw" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="tools_always_throw">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="tools_always_throw" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="tools_always_throw" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="tools_always_throw">
+    <configuration name="tools_conv_arr_bin" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="tools_conv_arr_bin" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="tools_conv_arr_bin">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="tools_conv_arr_bin" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_study" TARGET_NAME="tools_conv_arr_bin" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_study" RUN_TARGET_NAME="tools_conv_arr_bin">
+    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <list>
@@ -525,29 +528,27 @@
       <item itemvalue="CMake Application.lib_study_stl_stl_container" />
       <item itemvalue="CMake Application.lib_study_stl_template_main" />
       <item itemvalue="CMake Application.lib_study_stl_visit_operator" />
-      <item itemvalue="CMake Application.stl_future_tetst" />
-      <item itemvalue="CMake Application.stl_stl_thread_test" />
       <item itemvalue="CMake Application.stl_test_string" />
       <item itemvalue="CMake Application.stl_thread_test_2" />
       <item itemvalue="CMake Application.tools_always_throw" />
       <item itemvalue="CMake Application.tools_conv_arr_bin" />
-      <item itemvalue="Google Test.packaged_task.1" />
-      <item itemvalue="Google Test.packaged_task.async" />
-      <item itemvalue="Google Test.async.async" />
-      <item itemvalue="Google Test.async.defer_1" />
+      <item itemvalue="CMake Application.cpp_language_array_test" />
+      <item itemvalue="Google Test.arrayTest.2" />
       <item itemvalue="Google Test.async.defer_2" />
+      <item itemvalue="Google Test.threadtest.throwTest" />
+      <item itemvalue="Google Test.threadtest.whileThrowTest" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="CMake Application.cpp_language_array_test" />
+        <item itemvalue="Google Test.arrayTest.2" />
+        <item itemvalue="Google Test.threadtest.throwTest" />
+        <item itemvalue="Google Test.threadtest.whileThrowTest" />
         <item itemvalue="Google Test.async.defer_2" />
-        <item itemvalue="Google Test.async.defer_1" />
-        <item itemvalue="Google Test.async.async" />
-        <item itemvalue="Google Test.packaged_task.async" />
-        <item itemvalue="Google Test.packaged_task.1" />
       </list>
     </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SshConsoleOptionsProvider">
     <option name="myEncoding" value="UTF-8" />
     <option name="myConnectionType" value="NONE" />
@@ -569,98 +570,41 @@
       <workItem from="1601458597181" duration="599000" />
       <workItem from="1602075238192" duration="1886000" />
       <workItem from="1602157625988" duration="4619000" />
-      <workItem from="1602315141391" duration="9115000" />
+      <workItem from="1602315141391" duration="10325000" />
+      <workItem from="1602551868718" duration="2326000" />
+      <workItem from="1602900158616" duration="575000" />
+      <workItem from="1602901788434" duration="7201000" />
+      <workItem from="1603201301754" duration="590000" />
+      <workItem from="1604372254881" duration="3214000" />
+      <workItem from="1604711797365" duration="6824000" />
+      <workItem from="1605945032768" duration="34000" />
+      <workItem from="1605945078584" duration="1936000" />
+      <workItem from="1606132741731" duration="1193000" />
+      <workItem from="1606198364769" duration="323000" />
+      <workItem from="1606198712301" duration="600000" />
+      <workItem from="1608082177393" duration="4000" />
+      <workItem from="1608088073303" duration="1274000" />
+      <workItem from="1608168629197" duration="1342000" />
+      <workItem from="1608540724372" duration="3947000" />
+      <workItem from="1608643928839" duration="4143000" />
+      <workItem from="1609125183859" duration="892000" />
+      <workItem from="1609833975524" duration="2855000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="3" />
   </component>
-  <component name="WindowStateProjectService">
-    <state x="734" y="359" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1599912180002">
-      <screen x="0" y="0" width="2560" height="1410" />
-    </state>
-    <state x="734" y="359" key="#com.intellij.execution.impl.EditConfigurationsDialog/2560.8.2560.1410/0.0.2560.1410@0.0.2560.1410" timestamp="1599912180002" />
-    <state x="1017" y="507" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1602165146378">
-      <screen x="0" y="0" width="2560" height="1410" />
-    </state>
-    <state x="1017" y="507" key="#com.intellij.fileTypes.FileTypeChooser/2560.8.2560.1410/0.0.2560.1410@0.0.2560.1410" timestamp="1602165146378" />
-    <state x="1060" y="464" width="434" height="486" key="FileChooserDialogImpl" timestamp="1602165200888">
-      <screen x="0" y="0" width="2560" height="1410" />
-    </state>
-    <state x="1060" y="464" width="434" height="486" key="FileChooserDialogImpl/2560.8.2560.1410/0.0.2560.1410@0.0.2560.1410" timestamp="1602165200888" />
-    <state width="1822" height="561" key="GridCell.Tab.0.bottom" timestamp="1602504438674">
-      <screen x="0" y="0" width="2560" height="1410" />
-    </state>
-    <state width="1822" height="561" key="GridCell.Tab.0.bottom/2560.8.2560.1410/0.0.2560.1410@0.0.2560.1410" timestamp="1602504438674" />
-    <state width="1822" height="561" key="GridCell.Tab.0.center" timestamp="1602504438674">
-      <screen x="0" y="0" width="2560" height="1410" />
-    </state>
-    <state width="1822" height="561" key="GridCell.Tab.0.center/2560.8.2560.1410/0.0.2560.1410@0.0.2560.1410" timestamp="1602504438674" />
-    <state width="1822" height="561" key="GridCell.Tab.0.left" timestamp="1602504438674">
-      <screen x="0" y="0" width="2560" height="1410" />
-    </state>
-    <state width="1822" height="561" key="GridCell.Tab.0.left/2560.8.2560.1410/0.0.2560.1410@0.0.2560.1410" timestamp="1602504438674" />
-    <state width="1822" height="561" key="GridCell.Tab.0.right" timestamp="1602504438674">
-      <screen x="0" y="0" width="2560" height="1410" />
-    </state>
-    <state width="1822" height="561" key="GridCell.Tab.0.right/2560.8.2560.1410/0.0.2560.1410@0.0.2560.1410" timestamp="1602504438674" />
-    <state width="1822" height="494" key="GridCell.Tab.1.bottom" timestamp="1602504116165">
-      <screen x="0" y="0" width="2560" height="1410" />
-    </state>
-    <state width="1822" height="494" key="GridCell.Tab.1.bottom/2560.8.2560.1410/0.0.2560.1410@0.0.2560.1410" timestamp="1602504116165" />
-    <state width="1822" height="494" key="GridCell.Tab.1.center" timestamp="1602504116165">
-      <screen x="0" y="0" width="2560" height="1410" />
-    </state>
-    <state width="1822" height="494" key="GridCell.Tab.1.center/2560.8.2560.1410/0.0.2560.1410@0.0.2560.1410" timestamp="1602504116165" />
-    <state width="1822" height="494" key="GridCell.Tab.1.left" timestamp="1602504116165">
-      <screen x="0" y="0" width="2560" height="1410" />
-    </state>
-    <state width="1822" height="494" key="GridCell.Tab.1.left/2560.8.2560.1410/0.0.2560.1410@0.0.2560.1410" timestamp="1602504116165" />
-    <state width="1822" height="494" key="GridCell.Tab.1.right" timestamp="1602504116165">
-      <screen x="0" y="0" width="2560" height="1410" />
-    </state>
-    <state width="1822" height="494" key="GridCell.Tab.1.right/2560.8.2560.1410/0.0.2560.1410@0.0.2560.1410" timestamp="1602504116165" />
-    <state x="781" y="349" key="SettingsEditor" timestamp="1601262348928">
-      <screen x="0" y="0" width="2560" height="1410" />
-    </state>
-    <state x="781" y="349" key="SettingsEditor/2560.8.2560.1410/0.0.2560.1410@0.0.2560.1410" timestamp="1601262348928" />
-    <state x="956" y="438" width="647" height="534" key="find.popup" timestamp="1602322930848">
-      <screen x="0" y="0" width="2560" height="1410" />
-    </state>
-    <state x="956" y="438" width="647" height="534" key="find.popup/2560.8.2560.1410/0.0.2560.1410@0.0.2560.1410" timestamp="1602322930848" />
-    <state x="951" y="391" width="341" height="540" key="ftp.server.browser" timestamp="1601262032794">
-      <screen x="0" y="0" width="2560" height="1410" />
-    </state>
-    <state x="951" y="391" width="341" height="540" key="ftp.server.browser/2560.8.2560.1410/0.0.2560.1410@0.0.2560.1410" timestamp="1601262032794" />
-    <state x="936" y="333" key="run.anything.popup" timestamp="1602165886694">
-      <screen x="0" y="0" width="2560" height="1410" />
-    </state>
-    <state x="936" y="333" key="run.anything.popup/2560.8.2560.1410/0.0.2560.1410@0.0.2560.1410" timestamp="1602165886694" />
-    <state x="943" y="317" width="672" height="678" key="search.everywhere.popup" timestamp="1599799374146">
-      <screen x="0" y="0" width="2560" height="1410" />
-    </state>
-    <state x="943" y="317" width="672" height="678" key="search.everywhere.popup/2560.8.2560.1410/0.0.2560.1410@0.0.2560.1410" timestamp="1599799374146" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/src/lib_study/coroutine/ucontext/ucontext_test.cpp</url>
-          <line>83</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/src/lib_study/coroutine/ucontext/ucontext_test.cpp</url>
-          <line>66</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/src/stl/future_tetst/main.cpp</url>
-          <line>90</line>
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>

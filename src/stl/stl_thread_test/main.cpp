@@ -16,7 +16,7 @@ TEST(threadtest, throwTest) {
         LOG_INFO("start")
         sleep(2);
         LOG_INFO("before")
-//        throw std::runtime_error("throw something");
+        throw std::runtime_error("throw something");
         LOG_INFO("after")
         sleep(2);
         LOG_INFO("stop")

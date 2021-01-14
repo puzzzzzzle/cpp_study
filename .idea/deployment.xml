@@ -5,20 +5,10 @@
       <paths name="dev (bdc64e38-2b64-457a-9d28-4a3da99c7670)">
         <serverdata>
           <mappings>
-            <mapping deploy="/tmp/tmp.LVSnucYvoS" local="$PROJECT_DIR$" />
+            <mapping deploy="/data/root/cpp_study" local="$PROJECT_DIR$" />
           </mappings>
           <excludedPaths>
             <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-debug" />
-            <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-debug" />
-          </excludedPaths>
-        </serverdata>
-      </paths>
-      <paths name="dev_20 (9145adb2-68db-439a-9fd1-8c459a0150d5)">
-        <serverdata>
-          <mappings>
-            <mapping deploy="/tmp/tmp.8yMmOYI1lr" local="$PROJECT_DIR$" />
-          </mappings>
-          <excludedPaths>
             <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-debug" />
           </excludedPaths>
         </serverdata>
