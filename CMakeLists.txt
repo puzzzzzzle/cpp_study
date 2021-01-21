@@ -6,6 +6,8 @@ project(${project_name})
 #设置版本号
 set(VERSION_MAJOR 1.2)
 set(VERSION_MINOR 0)
+# 开启汇编支持
+option(ENABLE_ASM "is enable asm" ON)
 
 #log 选项
 add_definitions(-DLOG_BOOST)
