@@ -9,6 +9,14 @@ set(VERSION_MINOR 0)
 # 开启汇编支持
 option(ENABLE_ASM "is enable asm" ON)
 
+# boost 选项
+option(boost_static "use static boost lib" ON)
+
+# 编译输出地址
+include(cpp_bootstrap/common/CMake/FuncDefs.cmake)
+set(DEFAULT_BIN_DIR ${CMAKE_BINARY_DIR}/bin)
+SetBinDir(${DEFAULT_BIN_DIR})
+
 #log 选项
 add_definitions(-DLOG_BOOST)
 
@@ -21,3 +29,4 @@ set(BOOTSTRAP_DIR ${CMAKE_SOURCE_DIR}/cpp_bootstrap)
 
 # 开始加载
 include(cpp_bootstrap/BasicCmake.cmake)
+AddAllSubDir()
