@@ -4,8 +4,8 @@
 #include "common_includes.h"
 
 #include <boost/preprocessor/repetition/repeat.hpp>
-#define DECL(z, n, text) text##n=n;
-BOOST_PP_REPEAT(5, DECL, int x)
+#define DECL(z, n, text) text##220##n=10##n;
+BOOST_PP_REPEAT(255, DECL, int x)
 
 
 TEST(test_test, 1) { EXPECT_EQ(1, 1); }
