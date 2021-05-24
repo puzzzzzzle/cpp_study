@@ -5,6 +5,7 @@
 
 TEST(test_test, 1) { EXPECT_EQ(1, 1); }
 TEST(arrayTest, 1) {
+  // (,) 表达式的结果是后一个的值,
   int i = (1, 2);
   LOG_DEBUG(i);
   //  int array[3][3] = [[1, 2, 3], [ 4, 5, 6 ], [ 7, 8, 9 ]];
