@@ -7,7 +7,7 @@ project(${project_name})
 set(VERSION_MAJOR 1.2)
 set(VERSION_MINOR 0)
 # 开启汇编支持
-option(ENABLE_ASM "is enable asm" ON)
+option(ENABLE_ASM "is enable asm" OFF)
 
 # boost 选项
 option(boost_static "use static boost lib" ON)
