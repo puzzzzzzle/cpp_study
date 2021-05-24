@@ -1,17 +1,19 @@
 //
 // Created by tao on 19-1-17.
 //
+#include "boost/format.hpp"
 #include "common_includes.h"
-
 TEST(test_test, 1) { EXPECT_EQ(1, 1); }
 
 // 类对象初始化测试
 class TestFieldNameClass {
   public:
-  TestFieldNameClass() { printf("init test class %p\n", this); }
+  TestFieldNameClass() { LOG_DEBUG("init test class " << (size_t)this); }
   int value;
   int i_value{};
-  void print() const { printf("value %d  i_value  %d\n", value, i_value); }
+  void print() const {
+    LOG_DEBUG(boost::format("value %d  i_value  %d\n") % value % i_value);
+  }
 };
 TestFieldNameClass g_val;  // 全局默认初始化, 在main函数前初始化,
                            // 即使没有声明要初始化的变量value也会被置为默认值
@@ -34,11 +36,11 @@ void testFunc() {
   static TestFieldNameClass
       l_s_i_val{};  // 局部静态变量在第一次调用函数时初始化
 
-#define PRINT_C(name)                            \
-  printf("now check [%s]  [%p] ", #name, &name); \
+#define PRINT_C(name)                                                  \
+  LOG_DEBUG(((boost::format("now check [%s]  [%p] ")% #name % &name)));  \
   name.print();
 
-  printf("test int [a : %d]  [i_a : %d]\n", a, i_a);
+  LOG_DEBUG(((boost::format("test int [a : %d]  [i_a : %d]\n")% a% i_a)));
 
   PRINT_C(g_val)
   PRINT_C(g_i_val)
@@ -91,8 +93,9 @@ void TestCallSubClassBeforeClassImpl(FuncClass *c, FuncClassFuncPtrInt func,
 void SubTestCallBeforeClassImpl(FuncSubClass *c, SubFuncClassFuncPtr func) {
   (c->*func)();
 }
-void SubTestCallSubClassBeforeClassImpl(FuncSubClass *c, SubFuncClassFuncPtrInt func,
-                                     int value) {
+void SubTestCallSubClassBeforeClassImpl(FuncSubClass *c,
+                                        SubFuncClassFuncPtrInt func,
+                                        int value) {
   (c->*func)(value);
 }
 class FuncClass {
@@ -123,14 +126,12 @@ TEST(func_ptr, 1) {
     // override 函数正常覆盖
     SubTestCallBeforeClassImpl(&sub, &FuncSubClass::HelloOv);
     // 可以正常访问子类覆盖父类的函数
-    SubTestCallSubClassBeforeClassImpl(&sub,&FuncSubClass::Call,42);
+    SubTestCallSubClassBeforeClassImpl(&sub, &FuncSubClass::Call, 42);
     // override 函数正常覆盖
     SubTestCallBeforeClassImpl(&sub, &FuncClass::Hello);
     // 可以正常访问被覆盖的服类函数
     SubTestCallBeforeClassImpl(&sub, &FuncClass::HelloOv);
   }
-
-
 }
 int main(int argc, char **argv) {
   testFunc();
