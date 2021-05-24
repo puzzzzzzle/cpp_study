@@ -12,9 +12,9 @@ void deleteArr(T *p) {
 //#pragma pack(1)
 class Base {
   public:
-  Base() { INFO("base init\t" << a << "\tptr\t" << (uint64_t)this) }
+  Base() { LOG_DEBUG("base init\t" << a << "\tptr\t" << (uint64_t)this) }
 
-  ~Base() { INFO("base delete\t" << a << "\tptr\t" << (uint64_t)this) }
+  ~Base() { LOG_DEBUG("base delete\t" << a << "\tptr\t" << (uint64_t)this) }
 
   int a{1};
 
@@ -25,9 +25,9 @@ class Base {
 
 class Child : public Base {
   public:
-  Child() { INFO("child init\t" << a << "\tptr\t" << (uint64_t)this) }
+  Child() { LOG_DEBUG("child init\t" << a << "\tptr\t" << (uint64_t)this) }
 
-  ~Child() { INFO("child delete\t" << a << "\tptr\t" << (uint64_t)this) }
+  ~Child() { LOG_DEBUG("child delete\t" << a << "\tptr\t" << (uint64_t)this) }
 
   int new_a{2};
 
@@ -73,7 +73,7 @@ TEST(base2child, out_delete) {
 }
 
 int main(int argc, char **argv) {
-  INFO("sizeof : base\t" << sizeof(Base) << "\tchild\t" << sizeof(Child))
+  LOG_DEBUG("sizeof : base\t" << sizeof(Base) << "\tchild\t" << sizeof(Child))
   int iRet = 0;
   iRet = beforeRun();
   if (iRet) {

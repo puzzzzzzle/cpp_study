@@ -18,7 +18,7 @@ set(DEFAULT_BIN_DIR ${CMAKE_BINARY_DIR}/bin)
 SetBinDir(${DEFAULT_BIN_DIR})
 
 #log 选项
-add_definitions(-DLOG_BOOST)
+#add_definitions(-DLOG_BOOST)
 
 # 设置源码根目录(包含cmake的文件夹将被解析为一个编译target)
 set(SRC_DIR_ROOT ${CMAKE_SOURCE_DIR}/src)

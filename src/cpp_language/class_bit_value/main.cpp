@@ -19,28 +19,28 @@ class MyClass {
 }  // namespace StructTest
 TEST(test_type, struct) {
   StructTest::MyType type;
-  INFO("default " << type.index2)
+  LOG_INFO("default " << type.index2)
 
   EXPECT_EQ(type.index, 1);
   //    EXPECT_EQ( type.index2, 0);
   EXPECT_EQ(type.index3, 3);
 
   type.index2 = 127;
-  INFO(type.index2)
+  LOG_INFO(type.index2)
   EXPECT_EQ(type.index2, 127);
 
   type.index2 = 128;
-  INFO(type.index2)
+  LOG_INFO(type.index2)
   EXPECT_EQ(type.index2, -128);
   EXPECT_NE(type.index2, 128);
 
   type.index2 = 255;
-  INFO(type.index2)
+  LOG_INFO(type.index2)
   EXPECT_EQ(type.index2, -1);
   EXPECT_NE(type.index2, 255);
 
   type.index2 = 256;
-  INFO(type.index2)
+  LOG_INFO(type.index2)
   EXPECT_EQ(type.index2, 0);
   EXPECT_NE(type.index2, 256);
 
@@ -49,28 +49,28 @@ TEST(test_type, struct) {
 }
 TEST(test_type, class) {
   StructTest::MyClass type;
-  INFO("default " << type.index2)
+  LOG_INFO("default " << type.index2)
 
   EXPECT_EQ(type.index, 1);
   //    EXPECT_EQ( type.index2, 0);
   EXPECT_EQ(type.index3, 3);
 
   type.index2 = 127;
-  INFO(type.index2)
+  LOG_INFO(type.index2)
   EXPECT_EQ(type.index2, 127);
 
   type.index2 = 128;
-  INFO(type.index2)
+  LOG_INFO(type.index2)
   EXPECT_EQ(type.index2, -128);
   EXPECT_NE(type.index2, 128);
 
   type.index2 = 255;
-  INFO(type.index2)
+  LOG_INFO(type.index2)
   EXPECT_EQ(type.index2, -1);
   EXPECT_NE(type.index2, 255);
 
   type.index2 = 256;
-  INFO(type.index2)
+  LOG_INFO(type.index2)
   EXPECT_EQ(type.index2, 0);
   EXPECT_NE(type.index2, 256);
 

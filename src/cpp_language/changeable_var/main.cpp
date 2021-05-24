@@ -5,8 +5,7 @@
 #include <stdarg.h>
 
 #include <thread>
-
-#include "log_init.h"
+#include "common_includes.h"
 
 TEST(test_test, 1) { EXPECT_EQ(1, 1); }
 /**
@@ -45,9 +44,12 @@ TEST(changeable_args, 3) {
   EXPECT_EQ(count, 3);
 }
 int main(int argc, char **argv) {
-  int result = 0;
-  log_init();
+  int iRet = 0;
+  iRet = beforeRun();
+  if (iRet) {
+    std::cerr << "init fail with " << iRet << std::endl;
+  }
   testing::InitGoogleTest(&argc, argv);
-  result = RUN_ALL_TESTS();
-  return result;
+  iRet = RUN_ALL_TESTS();
+  return iRet;
 }

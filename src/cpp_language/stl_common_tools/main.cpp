@@ -35,11 +35,10 @@ std::shared_ptr<char> make_space(size_t size) {
 }
 
 int main(int argc, char **argv) {
-  int result = 0;
-  log_init();
+  int result = beforeRun();
   testing::InitGoogleTest(&argc, argv);
 
-  INFO("start raw output test")
+  LOG_INFO("start raw output test")
   RAW_CLINE("version:" << VERSION_MAJOR)
   RAW_PRINTF("hello\n")
   RAW_PRINTF("hello %d\n", 1)
@@ -58,8 +57,8 @@ int main(int argc, char **argv) {
   auto us = std::unique_ptr<char[]>(new char[1000]);
   decltype(us) us1;
   us1 = std::move(us);
-  INFO("is equal:" << (i_s_1 == i_s_2))
-  INFO(std::get<1>(i_s_1))
+  LOG_INFO("is equal:" << (i_s_1 == i_s_2))
+  LOG_INFO(std::get<1>(i_s_1))
   result = RUN_ALL_TESTS();
   test_chrono();
   return result;
