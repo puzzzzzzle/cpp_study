@@ -1,0 +1,22 @@
+//
+// Created by tao on 19-1-17.
+//
+#include "common_includes.h"
+
+TEST(test_test, 1) { EXPECT_EQ(1, 1); }
+int ttt(){
+  LOG_RAW_CLINE("call ttt")
+}
+int hhh();
+int main(int argc, char **argv) {
+  int iRet = 0;
+  decltype(ttt()) i {};
+  decltype(hhh()) j {};
+  iRet = beforeRun();
+  if (iRet) {
+    std::cerr << "init fail with " << iRet << std::endl;
+  }
+  testing::InitGoogleTest(&argc, argv);
+  iRet = RUN_ALL_TESTS();
+  return iRet;
+}
