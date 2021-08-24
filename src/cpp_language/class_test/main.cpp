@@ -36,11 +36,11 @@ void testFunc() {
   static TestFieldNameClass
       l_s_i_val{};  // 局部静态变量在第一次调用函数时初始化
 
-#define PRINT_C(name)                                                  \
-  LOG_DEBUG(((boost::format("now check [%s]  [%p] ")% #name % &name)));  \
+#define PRINT_C(name)                                                    \
+  LOG_DEBUG(((boost::format("now check [%s]  [%p] ") % #name % &name))); \
   name.print();
 
-  LOG_DEBUG(((boost::format("test int [a : %d]  [i_a : %d]\n")% a% i_a)));
+  LOG_DEBUG(((boost::format("test int [a : %d]  [i_a : %d]\n") % a % i_a)));
 
   PRINT_C(g_val)
   PRINT_C(g_i_val)
@@ -132,6 +132,22 @@ TEST(func_ptr, 1) {
     // 可以正常访问被覆盖的服类函数
     SubTestCallBeforeClassImpl(&sub, &FuncClass::HelloOv);
   }
+}
+class Parent {
+  public:
+  virtual void hello() { LOG_DEBUG("parend hello") }
+};
+class Child : public Parent {
+  public:
+  virtual void hello() override { LOG_DEBUG("Child hello") }
+};
+TEST(calss_test, 1) {
+  LOG_DEBUG("------------")
+  auto ch = std::make_shared<Child>();
+  ch->hello();
+  LOG_DEBUG("------------")
+  Parent &p = *ch;
+  p.hello();
 }
 int main(int argc, char **argv) {
   testFunc();
