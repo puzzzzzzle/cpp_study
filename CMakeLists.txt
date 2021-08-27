@@ -29,4 +29,5 @@ set(BOOTSTRAP_DIR ${CMAKE_SOURCE_DIR}/cpp_bootstrap)
 
 # 开始加载
 include(cpp_bootstrap/BasicCmake.cmake)
+message("----------- ${CMAKE_CXX_FLAGS}")
 AddAllSubDir()
