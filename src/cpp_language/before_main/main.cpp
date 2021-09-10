@@ -39,6 +39,33 @@ static int i = []() -> int{
   LOG_RAW_CLINE("before main in cpp")
   return 1;
 }();
+
+
+// 全局变量初始化
+bool before_main_0() {
+  printf("clike before_main_0\n");
+  return true;
+}
+bool _before_main_ret = before_main_0();
+
+// gcc 方言
+__attribute__((constructor)) void before_main_1() { printf("clike before_main_1\n"); }
+
+class ClassFunc
+{
+  // gcc 方言
+  __attribute__((constructor)) static void before_main_2() { printf("ClassFunc before_main_2\n"); }
+
+  // 全局变量初始化
+  static bool before_main_3() {
+    printf("ClassFunc before_main_3\n");
+    return true;
+  }
+  static bool _before_main_ret;
+};
+bool ClassFunc::_before_main_ret = ClassFunc::before_main_3();
+
+
 int main(int argc, char **argv) {
   LOG_RAW_CLINE("main start")
   int iRet = 0;

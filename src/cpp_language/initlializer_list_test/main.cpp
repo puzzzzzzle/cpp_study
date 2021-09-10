@@ -87,6 +87,70 @@ public:
   };
   MyClassInner temp = {3, "hello", 33.6};
 }
+
+class NestedInteger final {
+  public:
+  NestedInteger(int i) : type_(INT), val_int_(i) {}
+  NestedInteger(const std::initializer_list<int>& ni) : type_(VECTOR) {
+    for (auto it = ni.begin(); it != ni.end(); it++) {
+      val_vec_.template emplace_back(*it);
+    }
+  }
+  NestedInteger(const std::initializer_list<std::initializer_list<int>> & ni) : type_(VECTOR) {
+    for (auto it = ni.begin(); it != ni.end(); it++) {
+      val_vec_.template emplace_back(*it);
+    }
+  }
+  template <class T>
+  NestedInteger(const std::initializer_list<T>& ni) : type_(VECTOR) {
+    for (auto it = ni.begin(); it != ni.end(); it++) {
+      val_vec_.template emplace_back(*it);
+    }
+  }
+
+  private:
+  enum { INT, VECTOR } type_{};
+  int val_int_;
+  std::vector<NestedInteger> val_vec_{};
+};
+
+TEST(type1, type1) {
+  NestedInteger ni1{1};
+  NestedInteger ni2{1, 2, 3};
+  NestedInteger ni3{{1}, 2, 3};
+  NestedInteger ni4{{1, 2, 3}};
+  std::initializer_list<std::initializer_list<int>> t = {{1, 2, 3}};
+  std::initializer_list<std::initializer_list<int>> t1 = {{1, 2, 3},
+                                                          {4, 5, 6, 7}};
+  std::initializer_list<std::initializer_list<std::initializer_list<int>>> t2 =
+      {{{1, 2, 3}, {4, 5, 6, 7}}};
+
+  NestedInteger ni5(t);
+  NestedInteger ni6(t1);
+  NestedInteger ni7(t2);
+
+  {
+    NestedInteger ni8({{1, 2, 3}, {4, 5, 6, 7}}); // error without NestedInteger(const std::initializer_list<std::initializer_list<int>> & ni)
+    NestedInteger ni9({{{1, 2, 3}, {4, 5, 6, 7}}});  // error without NestedInteger(const std::initializer_list<std::initializer_list<int>> & ni)
+  }
+
+  {
+    NestedInteger ni8((std::initializer_list<std::initializer_list<int>>){
+        {1, 2, 3}, {4, 5, 6, 7}});
+    NestedInteger ni9((std::initializer_list<
+                       std::initializer_list<std::initializer_list<int>>>){
+        {{1, 2, 3}, {4, 5, 6, 7}}});
+  }
+  {
+    NestedInteger ni8({
+        {{1, 2, 3}, {1, 2, 3}, {1, 2, 3}}, {{1, 2, 3}, {1, 2, 3}, {1, 2, 3}}});  // ERROR without <<<int>>>
+    NestedInteger ni9((std::initializer_list<
+                       std::initializer_list<std::initializer_list<int>>>){
+        {{1, 2, 3}, {4, 5, 6, 7}}});
+  }
+  //    NestedInteger ni6{{{{1, 2, 3}, {4, 5, 6, 7}}}};
+}
+
 int main(int argc, char **argv) {
     class MyClassInner {
 public:
