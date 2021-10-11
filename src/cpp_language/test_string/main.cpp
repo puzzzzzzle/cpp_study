@@ -20,5 +20,12 @@ int main(int argc, char **argv) {
   }
   testing::InitGoogleTest(&argc, argv);
   iRet = RUN_ALL_TESTS();
+#define TestGet(para)                      \
+  LOG_DEBUG("find:\t" << (para) << "\t:\t" \
+                      << FindParaEx(argc, argv, (para), "<not found>"))
+  TestGet("--hp");
+  TestGet("--bs");
+  TestGet("ggg");
+  TestGet("1545");
   return iRet;
 }
