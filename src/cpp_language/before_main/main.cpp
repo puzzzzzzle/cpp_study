@@ -65,6 +65,12 @@ class ClassFunc
 };
 bool ClassFunc::_before_main_ret = ClassFunc::before_main_3();
 
+// static的 只会在当前 cpp 对应的 .o 文件中生效, 这样全局就可以有多个 i 定义, 每个购汇初始化
+// 非static 时 相当于这个被拷贝到了多个cpp中, 会重定义
+static int j = []() -> int{
+  LOG_RAW_CLINE("before main in cpp header.h")
+  return 1;
+}();
 
 int main(int argc, char **argv) {
   LOG_RAW_CLINE("main start")
