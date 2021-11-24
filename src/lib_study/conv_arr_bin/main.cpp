@@ -95,7 +95,7 @@ eg: tools_conv_arr_bin file1 file2
     or tools_conv_arr_bin -ffile1 -f file2)");
   geography.add_options()("outfile,o",
                           opt::value<std::string>()->default_value("out.jpg"),
-                          "out put image file, eg:out.jpg");
+                          "out Put image file, eg:out.jpg");
   geography.add_options()("cmd,c",
                           opt::value<std::string>()->default_value("show"),
                           R"(process type

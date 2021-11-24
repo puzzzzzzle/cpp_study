@@ -74,7 +74,7 @@ class ConvArr {
         //                                                    colors[bin.m_data[x][y]];
       }
     }
-    LOG_DEBUG("finish print bin")
+    LOG_DEBUG("Finish print bin")
   }
   static void FlipMat(Mat* mat) {
     Mat tmp(mat->rows, mat->cols, CV_8UC3, Scalar::all(0));
