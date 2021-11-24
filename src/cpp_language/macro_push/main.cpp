@@ -2,6 +2,11 @@
 // Created by tao on 19-1-17.
 //
 #include "common_includes.h"
+#pragma region R_1
+
+
+#pragma endregion
+
 
 #define VALUE 100
 
@@ -11,12 +16,11 @@ int get_value_1() { return VALUE; }
 #undef VALUE
 #define VALUE 42
 int get_value_2() { return VALUE; }
-#undef VALUE
 #pragma pop_macro("VALUE")
 
 int get_value_3() { return VALUE; }
 
-TEST(macrt, 1) {
+TEST(macro, 1) {
   LOG_DEBUG(get_value_1())
   LOG_DEBUG(get_value_2())
   LOG_DEBUG(get_value_3())
