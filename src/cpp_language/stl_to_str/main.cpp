@@ -58,6 +58,33 @@ TEST(array, TestPayload) {
   LOG_DEBUG(vec_like_to_string(v1))
   LOG_DEBUG((vec_like_to_string<decltype(v1), TestPayloadValueToStream>(v1)))
 }
+TEST(forward_list, TestPayload) {
+  std::forward_list<TestPayload> v1{};
+  for (int i = 0; i < 5; ++i) {
+    v1.push_front(TestPayload::Get());
+  }
+  LOG_DEBUG(v1)
+  LOG_DEBUG(vec_like_to_string(v1))
+  LOG_DEBUG((vec_like_to_string<decltype(v1), TestPayloadValueToStream>(v1)))
+}
+TEST(list, TestPayload) {
+  std::list<TestPayload> v1{};
+  for (int i = 0; i < 5; ++i) {
+    v1.push_front(TestPayload::Get());
+  }
+  LOG_DEBUG(v1)
+  LOG_DEBUG(vec_like_to_string(v1))
+  LOG_DEBUG((vec_like_to_string<decltype(v1), TestPayloadValueToStream>(v1)))
+}
+TEST(deque, TestPayload) {
+  std::deque<TestPayload> v1{};
+  for (int i = 0; i < 5; ++i) {
+    v1.push_front(TestPayload::Get());
+  }
+  LOG_DEBUG(v1)
+  LOG_DEBUG(vec_like_to_string(v1))
+  LOG_DEBUG((vec_like_to_string<decltype(v1), TestPayloadValueToStream>(v1)))
+}
 TEST(vec, TestPayload) {
   std::set<TestPayload> v1{};
   for (int i = 0; i < 5; ++i) {
@@ -72,6 +99,25 @@ TEST(set, TestPayload) {
   for (int i = 0; i < 5; ++i) {
     v1.insert(TestPayload::Get());
   }
+  LOG_DEBUG(v1)
+  LOG_DEBUG(vec_like_to_string(v1))
+  LOG_DEBUG((vec_like_to_string<decltype(v1), TestPayloadValueToStream>(v1)))
+}
+TEST(multiset, TestPayload) {
+  std::multiset<TestPayload> v1{};
+  for (int i = 0; i < 5; ++i) {
+    v1.insert(TestPayload::Get());
+  }
+  LOG_DEBUG(v1)
+  LOG_DEBUG(vec_like_to_string(v1))
+  LOG_DEBUG((vec_like_to_string<decltype(v1), TestPayloadValueToStream>(v1)))
+}
+TEST(unordered_multiset, TestPayload) {
+  std::unordered_multiset<TestPayload, TestPayloadHash> v1{};
+  for (int i = 0; i < 5; ++i) {
+    v1.insert(TestPayload::Get());
+  }
+  std::cout << v1;
   LOG_DEBUG(v1)
   LOG_DEBUG(vec_like_to_string(v1))
   LOG_DEBUG((vec_like_to_string<decltype(v1), TestPayloadValueToStream>(v1)))
@@ -91,6 +137,26 @@ TEST(map, TestPayload) {
     v1[i] = TestPayload::Get();
   }
   LOG_DEBUG(v1)
+  LOG_DEBUG(map_like_to_string(v1))
+  LOG_DEBUG((map_like_to_string<decltype(v1), default_value_to_stream<int>,
+                                TestPayloadValueToStream>(v1)))
+}
+TEST(multimap, TestPayload) {
+  std::multimap<int, TestPayload> v1{};
+  for (int i = 0; i < 5; ++i) {
+    v1.insert({i,TestPayload::Get()});
+  }
+  LOG_DEBUG(v1)
+  LOG_DEBUG(map_like_to_string(v1))
+  LOG_DEBUG((map_like_to_string<decltype(v1), default_value_to_stream<int>,
+                                TestPayloadValueToStream>(v1)))
+}
+TEST(unordered_multimap, TestPayload) {
+  std::unordered_multimap<int, TestPayload> v1{};
+  for (int i = 0; i < 5; ++i) {
+    v1.insert({i,TestPayload::Get()});
+  }
+//  LOG_DEBUG(v1)
   LOG_DEBUG(map_like_to_string(v1))
   LOG_DEBUG((map_like_to_string<decltype(v1), default_value_to_stream<int>,
                                 TestPayloadValueToStream>(v1)))
