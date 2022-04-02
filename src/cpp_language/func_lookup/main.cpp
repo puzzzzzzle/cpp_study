@@ -1,11 +1,16 @@
 //
 // Created by tao on 19-1-17.
 //
-#include "common_includes.h"
+//#include "common_includes.h"
+#include <iostream>
+#include <sstream>
+#include <vector>
+#include "stl_to_steam.h"
 
+#define LOG_DEBUG(msg) std::cout << msg << std::endl;
 class MyStream {
   protected:
-  std::ostringstream _buffer;
+  std::stringstream _buffer;
 
   public:
   MyStream() {}
@@ -57,15 +62,7 @@ class Base {
 
 // 按照 ADL规则, operator<< 最好和类的生命处于相同的命名空间中
 namespace GGG {
-std::ostream& operator<<(std::ostream& os, Base& a) {
-  os << a.ToString() << &a;
-  return os;
-}
-std::ostringstream& operator<<(std::ostringstream& os, Base& a) {
-  os << a.ToString() << &a;
-  return os;
-}
-MyStream& operator<<(MyStream& os, Base& a) {
+std::ostream& operator<<(std::ostream& os, const Base& a) {
   os << a.ToString() << &a;
   return os;
 }
@@ -73,20 +70,35 @@ MyStream& operator<<(MyStream& os, Base& a) {
 
 namespace A {
 class ClassA : public GGG::Base {
+  public:
   virtual std::string ToString() const override { return "ClassA"; }
 };
 }  // namespace A
 
+
+
 namespace B {
+using A::ClassA;
+
 void main() {
-  A::ClassA a{};
-  std::cout << a << std::endl;
+  ClassA a{};
+  LOG_DEBUG(a)
   std::ostringstream oss{};
   oss << a;
-  std::cout << oss.str();
+  LOG_DEBUG(oss.str())
+  std::vector<ClassA> va{};
+  std::vector<std::vector<ClassA>> vas{};
+
+  for (int i = 0; i < 10; ++i) {
+    va.emplace_back();
+    vas.push_back(va);
+  }
+  LOG_DEBUG(va)
+  LOG_DEBUG(vas)
 
   MyStream ms{};
   ms << a << std::endl;
+  ms << va << std::endl;
 }
 }  // namespace B
 namespace C {
