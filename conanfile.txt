@@ -1,13 +1,13 @@
 [requires]
-bzip2/1.0.8@conan/stable
-zlib/1.2.11@conan/stable
-boost/1.71.0@conan/stable
-gtest/1.8.1@bincrafters/stable
+bzip2/1.0.8
+zlib/1.2.12
+boost/1.78.0
+gtest/1.8.1
 #protobuf/3.9.1@bincrafters/stable
 #libgo/v3.1-stable@tao/test
 #libco/v1.0@libco/tao
 #opencv/4.1.1@conan/stable
-swig/4.0.2
+#swig/4.0.2
 [generators]
 cmake
 
