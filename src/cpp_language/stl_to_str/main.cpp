@@ -132,6 +132,36 @@ TEST(unordered_multiset, TestPayload) {
   LOG_DEBUG(vec_like_to_string(v1))
   LOG_DEBUG((vec_like_to_string<decltype(v1), TestPayloadValueToStream>(v1)))
 }
+TEST(stack, TestPayload) {
+  std::stack<TestPayload> v1{};
+  for (int i = 0; i < 5; ++i) {
+    v1.push(TestPayload::Get());
+  }
+  std::cout << v1;
+  LOG_DEBUG(v1)
+  LOG_DEBUG(adaptor_to_string(v1))
+  LOG_DEBUG((adaptor_to_string<decltype(v1), TestPayloadValueToStream>(v1)))
+}
+TEST(queue, TestPayload) {
+  std::queue<TestPayload> v1{};
+  for (int i = 0; i < 5; ++i) {
+    v1.push(TestPayload::Get());
+  }
+  std::cout << v1;
+  LOG_DEBUG(v1)
+  LOG_DEBUG(adaptor_to_string(v1))
+  LOG_DEBUG((adaptor_to_string<decltype(v1), TestPayloadValueToStream>(v1)))
+}
+TEST(priority_queue, TestPayload) {
+  std::priority_queue<TestPayload> v1{};
+  for (int i = 0; i < 5; ++i) {
+    v1.push(TestPayload::Get());
+  }
+  std::cout << v1;
+  LOG_DEBUG(v1)
+  LOG_DEBUG(adaptor_to_string(v1))
+  LOG_DEBUG((adaptor_to_string<decltype(v1), TestPayloadValueToStream>(v1)))
+}
 TEST(unordered_set, TestPayload) {
   std::unordered_set<TestPayload, TestPayloadHash> v1{};
   for (int i = 0; i < 5; ++i) {
@@ -157,7 +187,7 @@ TEST(map, recursive) {
 
   for (int i = 0; i < 5; ++i) {
     v1[i] = TestPayload::Get();
-    vv1[i*10000] = v1;
+    vv1[i * 10000] = v1;
   }
   LOG_DEBUG(v1)
   LOG_DEBUG(vv1)
