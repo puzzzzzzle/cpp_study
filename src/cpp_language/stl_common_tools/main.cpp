@@ -13,7 +13,7 @@ TEST(test_test, 1) { EXPECT_EQ(1, 1); }
 // std::shared_ptr<char> make_space_1(size_t size) {
 //    auto s = std::make_shared<char>(new char[size],
 //                                    [](char *p) {
-//                                        TRACE("clear :" << p)
+//                                        LOG_TRACE("clear :" << p)
 //                                        delete[] p;
 //                                    });
 //    return s;
@@ -28,7 +28,7 @@ std::shared_ptr<T> make_shared_array(size_t size) {
 std::shared_ptr<char> make_space(size_t size) {
   // default_delete是STL中的默认删除器
   auto s = std::shared_ptr<char>(new char[size], [](char *p) {
-    TRACE("clear :" << p)
+    LOG_TRACE("clear :" << p)
     delete[] p;
   });
   return s;
