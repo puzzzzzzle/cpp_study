@@ -3,7 +3,6 @@
 //
 #include "common_includes.h"
 #include "stl_to_steam.h"
-#define STL_TO_STR_WITH_COUNT
 
 class TestPayload {
   static int Count;

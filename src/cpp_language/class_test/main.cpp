@@ -135,11 +135,39 @@ TEST(func_ptr, 1) {
 }
 class Parent {
   public:
-  virtual void hello() { LOG_DEBUG("parend hello") }
+  virtual void func(const std::vector<double> &vec) {
+    for (const auto d : vec) {
+      func(d);
+    }
+  }
+  virtual void func(double d) { LOG_DEBUG("parent" << d) }
+  virtual void hello() {
+    std::vector<double> vec{};
+    vec.push_back(1);
+    func(vec);
+    LOG_DEBUG("parend hello")
+  }
 };
 class Child : public Parent {
   public:
-  virtual void hello() override { LOG_DEBUG("Child hello") }
+  void func(double d) { LOG_DEBUG("Child" << d) }
+  virtual void hello() override {
+    std::vector<double> vec{};
+    vec.push_back(1);
+    //error : c++ 重载不能跨域, 即使继承也不行
+//    func(vec);
+    LOG_DEBUG("Child hello")
+  }
+};
+class Child2 : public Child {
+  void func(double d) { LOG_DEBUG("Child" << d) }
+  virtual void hello() override {
+    std::vector<double> vec{};
+    vec.push_back(1);
+    //error : c++ 重载不能跨域, 即使继承也不行
+//    func(vec);
+    LOG_DEBUG("Child hello")
+  }
 };
 TEST(calss_test, 1) {
   LOG_DEBUG("------------")
