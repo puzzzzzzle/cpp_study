@@ -152,7 +152,12 @@ class D : public virtual A {
   virtual void func() {}
   virtual void func1() {}
 };
-
+class E : public virtual A {
+  public:
+  int j_{};
+  virtual void func() {}
+  virtual void func1() {}
+};
 /**
 (gdb) p n
 $1 = (RhombusDerived) {
@@ -250,8 +255,38 @@ class RhombusDerivedD : public B, public D
   virtual void func() {}
   virtual void func1() {}
 };
+/**
+(gdb) p n
+$1 = (RhombusDerivedE) {
+  <D> = {
+    <A> = {
+      _vptr.A = 0x5555555c3978 <vtable for RhombusDerivedE+104>,
+      i_ = 0
+    },
+    members of D:
+    _vptr.D = 0x5555555c3928 <vtable for RhombusDerivedE+24>,
+    j_ = 0
+  },
+  <E> = {
+    members of E:
+    _vptr.E = 0x5555555c3950 <vtable for RhombusDerivedE+64>,
+    j_ = 0
+  },
+  members of RhombusDerivedE:
+  k_ = 0
+}
+(gdb)  p sizeof(n)
+$2 = 48
+
+ */
+class RhombusDerivedE : public D, public E
+{
+  int k_{};
+  virtual void func() {}
+  virtual void func1() {}
+};
 TEST(test_test, 1) {
-  RhombusDerivedD n{};
+  RhombusDerivedE n{};
   EXPECT_EQ(1, 1);
 }
 
