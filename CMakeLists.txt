@@ -23,8 +23,16 @@ SetBinDir(${DEFAULT_BIN_DIR})
 # 设置源码根目录(包含cmake的文件夹将被解析为一个编译target)
 set(SRC_DIR_ROOTS "")
 list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src)
-#list (APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src)
 
+# c++ 20 的一些测试
+include(CheckCXXCompilerFlag)
+check_cxx_compiler_flag("-std=c++20" COMPILER_SUPPORTS_CXX20)
+if (COMPILER_SUPPORTS_CXX20)
+    message("this compile support cxx 20")
+    list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src_cxx20)
+endif ()
+
+message("all roots ${SRC_DIR_ROOTS}")
 # 设置配目录(运行时拷贝)
 set(CONFIG_DIR ${CMAKE_SOURCE_DIR}/data)
 # 设置 boostStrap 文件夹名
