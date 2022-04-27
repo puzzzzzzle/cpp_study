@@ -1,7 +1,15 @@
 cmake_minimum_required(VERSION 3.7)
 set(project_name cpp_study)
-set(CMAKE_CXX_STANDARD 17)
 project(${project_name})
+
+include(CheckCXXCompilerFlag)
+check_cxx_compiler_flag("-std=c++20" COMPILER_SUPPORTS_CXX20)
+if (COMPILER_SUPPORTS_CXX20)
+    message("this compile support cxx 20")
+    set(CMAKE_CXX_STANDARD 20)
+else ()
+    set(CMAKE_CXX_STANDARD 17)
+endif ()
 
 #设置版本号
 set(VERSION_MAJOR 1.2)
