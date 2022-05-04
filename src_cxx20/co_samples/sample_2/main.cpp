@@ -20,7 +20,7 @@ struct Generator {
   using handle_type = std::coroutine_handle<promise_type>;
 
   struct promise_type {  // 必要
-    T value_;
+    T value_{};
     std::exception_ptr exception_;
 
     Generator get_return_object() {

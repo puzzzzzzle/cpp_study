@@ -35,7 +35,6 @@ list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src)
 
 # c++ 20 的一些测试
 if (COMPILER_SUPPORTS_CXX20)
-    message("this compile support cxx 20")
     list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src_cxx20)
 endif ()
 
