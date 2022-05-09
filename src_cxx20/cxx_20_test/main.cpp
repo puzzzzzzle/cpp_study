@@ -31,7 +31,7 @@ TEST(if_constexpr, 1) {
   using namespace std::string_literals;
 
   LOG_DEBUG(get_i(0))
-  // 甚至可以有不同的返回值
+  // 甚至可以有不同的返回类型
   LOG_DEBUG(get_i(4.2))
   // 用用户定义字面量 (后缀表达式) 强制转换成 std::string
   LOG_DEBUG(get_i("sdfadfasdf"s))
