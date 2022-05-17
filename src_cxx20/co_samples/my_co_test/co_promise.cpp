@@ -61,6 +61,7 @@ TEST(good, 1) {
   //  h();
   h.resume();
   h.done();
+  // TODO 奇怪, 会segment fault
   h.destroy();
 }
 }  // namespace co_promise_test
