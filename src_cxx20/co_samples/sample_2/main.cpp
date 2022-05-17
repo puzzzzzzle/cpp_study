@@ -96,6 +96,7 @@ Generator<uint64_t> fibonacci_sequence(unsigned n) {
 }
 
 int run_coroutine() {
+  int i = 1;
   try {
     auto gen = fibonacci_sequence(10);  //最大值94，避免 uint64_t 溢出
 
