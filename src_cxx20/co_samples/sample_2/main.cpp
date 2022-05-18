@@ -5,7 +5,7 @@
 #include <exception>
 #include <iostream>
 
-#include "common_includes.h"
+//#include "common_includes.h"
 
 template <typename T>
 struct Generator {
@@ -109,15 +109,16 @@ int run_coroutine() {
   }
   return 0;
 }
-TEST(run_coroutine, 1) { run_coroutine(); }
+//TEST(run_coroutine, 1) { run_coroutine(); }
 
 int main(int argc, char** argv) {
-  int iRet = 0;
-  iRet = beforeRun();
-  if (iRet) {
-    std::cerr << "init fail with " << iRet << std::endl;
-  }
-  testing::InitGoogleTest(&argc, argv);
-  iRet = RUN_ALL_TESTS();
-  return iRet;
+  run_coroutine();
+//  int iRet = 0;
+//  iRet = beforeRun();
+//  if (iRet) {
+//    std::cerr << "init fail with " << iRet << std::endl;
+//  }
+//  testing::InitGoogleTest(&argc, argv);
+//  iRet = RUN_ALL_TESTS();
+//  return iRet;
 }
