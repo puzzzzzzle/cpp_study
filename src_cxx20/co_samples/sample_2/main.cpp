@@ -63,31 +63,45 @@ struct Generator {
     if (!full_) {
       h_();
       if (h_.promise().exception_)
+      {
+        // 在调用上下文中传播协程异常
         std::rethrow_exception(h_.promise().exception_);
-      // 在调用上下文中传播协程异常
-
+      }
       full_ = true;
     }
   }
 };
 
 Generator<uint64_t> fibonacci_sequence(unsigned n) {
-  if (n == 0) co_return;
+  if (n == 0)
+  {
+    co_return;
+  }
 
-  if (n > 94) throw std::runtime_error("斐波那契序列过大，元素将会溢出");
+  if (n > 94)
+  {
+    throw std::runtime_error("斐波那契序列过大，元素将会溢出");
+  }
 
   co_yield 0;
 
-  if (n == 1) co_return;
+  if (n == 1)
+  {
+    co_return;
+  }
 
   co_yield 1;
 
-  if (n == 2) co_return;
+  if (n == 2)
+  {
+    co_return;
+  }
 
   uint64_t a = 0;
   uint64_t b = 1;
 
-  for (unsigned i = 2; i < n; i++) {
+  for (unsigned i = 2; i < n; i++)
+  {
     uint64_t s = a + b;
     co_yield s;
     a = b;
@@ -100,11 +114,17 @@ int run_coroutine() {
   try {
     auto gen = fibonacci_sequence(10);  //最大值94，避免 uint64_t 溢出
 
-    for (int j = 0; gen; j++) std::cout << "fib(" << j << ")=" << gen() << '\n';
+    for (int j = 0; gen; j++)
+    {
+      auto genRet = gen();
+      std::cout << "fib(" << j << ")=" << genRet  << '\n';
+    }
 
-  } catch (const std::exception& ex) {
+  } catch (const std::exception& ex)
+  {
     std::cerr << "发生了异常：" << ex.what() << '\n';
-  } catch (...) {
+  } catch (...)
+  {
     std::cerr << "未知异常\n";
   }
   return 0;
