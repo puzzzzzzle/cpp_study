@@ -17,7 +17,8 @@ struct Generator {
   // （注意：在重命名时，你还需要调整构造函数/析构函数的名字）
 
   struct promise_type;
-  using handle_type = std::coroutine_handle<promise_type>;
+  using
+      handle_type = std::coroutine_handle<promise_type>;
 
   struct promise_type {  // 必要
     T value_{};

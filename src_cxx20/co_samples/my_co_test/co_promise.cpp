@@ -59,9 +59,8 @@ TEST(good, 1) {
   }(42);
   // operator () 就是 resume
   //  h();
-  h.resume();
-  h.done();
-  // TODO 奇怪, 会segment fault
-  h.destroy();
+  h();
+  LOG_DEBUG("done " << (int)h.done())
+  LOG_DEBUG("done " << (int)h.done())
 }
 }  // namespace co_promise_test
