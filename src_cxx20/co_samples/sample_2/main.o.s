@@ -317,8 +317,9 @@ Disassembly of section .text:
     2412:	5d                   	pop    %rbp
     2413:	c3                   	retq   
 
+
 0000000000002414 <_Z18fibonacci_sequencej>:
-    2414:	f3 0f 1e fa          	endbr64 
+    2414:	f3 0f 1e fa          	endbr64
     2418:	55                   	push   %rbp
     2419:	48 89 e5             	mov    %rsp,%rbp
     241c:	53                   	push   %rbx
@@ -326,11 +327,11 @@ Disassembly of section .text:
     2421:	48 89 7d c8          	mov    %rdi,-0x38(%rbp)     # 传入的参数 1
     2425:	89 75 c4             	mov    %esi,-0x3c(%rbp)     # 传入的参数 2
     2428:	64 48 8b 04 25 28 00 	mov    %fs:0x28,%rax
-    242f:	00 00 
+    242f:	00 00
     2431:	48 89 45 e8          	mov    %rax,-0x18(%rbp)
     2435:	31 c0                	xor    %eax,%eax
     2437:	48 c7 45 e0 00 00 00 	movq   $0x0,-0x20(%rbp)
-    243e:	00 
+    243e:	00
     243f:	c6 45 df 00          	movb   $0x0,-0x21(%rbp)
     2443:	c6 45 de 00          	movb   $0x0,-0x22(%rbp)
     2447:	b8 70 00 00 00       	mov    $0x70,%eax
@@ -376,7 +377,7 @@ Disassembly of section .text:
     24d5:	48 89 c7             	mov    %rax,%rdi
     24d8:	e8 7c 00 00 00       	callq  2559 <_Z29_Z18fibonacci_sequencej.actorPZ18fibonacci_sequencejE29_Z18fibonacci_sequencej.frame> #_Z18fibonacci_sequencej.actor(fibonacci_sequence(unsigned int)::_Z18fibonacci_sequencej.frame*)
     24dd:	eb 5c                	jmp    253b <_Z18fibonacci_sequencej+0x127>     # fibonacci_sequence(unsigned int) + 0x127 = 253B
-    24df:	f3 0f 1e fa          	endbr64 
+    24df:	f3 0f 1e fa          	endbr64
     24e3:	48 89 c7             	mov    %rax,%rdi
     24e6:	e8 15 fd ff ff       	callq  2200 <__cxa_begin_catch@plt>
     24eb:	80 7d de 00          	cmpb   $0x0,-0x22(%rbp)
@@ -394,7 +395,7 @@ Disassembly of section .text:
     2517:	48 89 c7             	mov    %rax,%rdi
     251a:	e8 21 fd ff ff       	callq  2240 <_ZdlPv@plt>
     251f:	e8 8c fd ff ff       	callq  22b0 <__cxa_rethrow@plt>
-    2524:	f3 0f 1e fa          	endbr64 
+    2524:	f3 0f 1e fa          	endbr64
     2528:	48 89 c3             	mov    %rax,%rbx
     252b:	e8 a0 fd ff ff       	callq  22d0 <__cxa_end_catch@plt>
     2530:	48 89 d8             	mov    %rbx,%rax
@@ -402,16 +403,16 @@ Disassembly of section .text:
     2536:	e8 c5 fd ff ff       	callq  2300 <_Unwind_Resume@plt>
     253b:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
     253f:	64 48 2b 04 25 28 00 	sub    %fs:0x28,%rax
-    2546:	00 00 
+    2546:	00 00
     2548:	74 05                	je     254f <_Z18fibonacci_sequencej+0x13b>
     254a:	e8 41 fd ff ff       	callq  2290 <__stack_chk_fail@plt>
     254f:	48 8b 45 c8          	mov    -0x38(%rbp),%rax
     2553:	48 8b 5d f8          	mov    -0x8(%rbp),%rbx
-    2557:	c9                   	leaveq 
-    2558:	c3                   	retq   
+    2557:	c9                   	leaveq
+    2558:	c3                   	retq
 
-0000000000002559 <_Z29_Z18fibonacci_sequencej.actorPZ18fibonacci_sequencejE29_Z18fibonacci_sequencej.frame>:
-    2559:	f3 0f 1e fa          	endbr64 
+0000000000002559 <_Z29_Z18fibonacci_sequencej.actorPZ18fibonacci_sequencejE29_Z18fibonacci_sequencej.frame>:    # _Z18fibonacci_sequencej.actor(fibonacci_sequence(unsigned int)::_Z18fibonacci_sequencej.frame*)
+    2559:	f3 0f 1e fa          	endbr64
     255d:	55                   	push   %rbp
     255e:	48 89 e5             	mov    %rsp,%rbp
     2561:	41 54                	push   %r12
@@ -419,7 +420,7 @@ Disassembly of section .text:
     2564:	48 83 ec 20          	sub    $0x20,%rsp
     2568:	48 89 7d d8          	mov    %rdi,-0x28(%rbp)
     256c:	64 48 8b 04 25 28 00 	mov    %fs:0x28,%rax
-    2573:	00 00 
+    2573:	00 00
     2575:	48 89 45 e8          	mov    %rax,-0x18(%rbp)
     2579:	31 c0                	xor    %eax,%eax
     257b:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
@@ -434,14 +435,14 @@ Disassembly of section .text:
     2599:	77 23                	ja     25be <_Z29_Z18fibonacci_sequencej.actorPZ18fibonacci_sequencejE29_Z18fibonacci_sequencej.frame+0x65>
     259b:	89 c0                	mov    %eax,%eax
     259d:	48 8d 14 85 00 00 00 	lea    0x0(,%rax,4),%rdx
-    25a4:	00 
+    25a4:	00
     25a5:	48 8d 05 8c 1a 00 00 	lea    0x1a8c(%rip),%rax        # 4038 <_IO_stdin_used+0x38>
     25ac:	8b 04 02             	mov    (%rdx,%rax,1),%eax
-    25af:	48 98                	cltq   
+    25af:	48 98                	cltq
     25b1:	48 8d 15 80 1a 00 00 	lea    0x1a80(%rip),%rdx        # 4038 <_IO_stdin_used+0x38>
     25b8:	48 01 d0             	add    %rdx,%rax
     25bb:	3e ff e0             	notrack jmpq *%rax
-    25be:	0f 0b                	ud2    
+    25be:	0f 0b                	ud2
     25c0:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
     25c4:	0f b7 40 22          	movzwl 0x22(%rax),%eax
     25c8:	0f b7 c0             	movzwl %ax,%eax
@@ -449,33 +450,33 @@ Disassembly of section .text:
     25ce:	77 68                	ja     2638 <_Z29_Z18fibonacci_sequencej.actorPZ18fibonacci_sequencejE29_Z18fibonacci_sequencej.frame+0xdf>
     25d0:	89 c0                	mov    %eax,%eax
     25d2:	48 8d 14 85 00 00 00 	lea    0x0(,%rax,4),%rdx
-    25d9:	00 
+    25d9:	00
     25da:	48 8d 05 87 1a 00 00 	lea    0x1a87(%rip),%rax        # 4068 <_IO_stdin_used+0x68>
     25e1:	8b 04 02             	mov    (%rdx,%rax,1),%eax
-    25e4:	48 98                	cltq   
+    25e4:	48 98                	cltq
     25e6:	48 8d 15 7b 1a 00 00 	lea    0x1a7b(%rip),%rdx        # 4068 <_IO_stdin_used+0x68>
     25ed:	48 01 d0             	add    %rdx,%rax
     25f0:	3e ff e0             	notrack jmpq *%rax
     25f3:	48 8b 5d d8          	mov    -0x28(%rbp),%rbx
     25f7:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
     25fb:	48 89 c7             	mov    %rax,%rdi
-    25fe:	e8 e2 09 00 00       	callq  2fe5 <_ZNSt7__n486116coroutine_handleIN9GeneratorImE12promise_typeEE12from_addressEPv>
+    25fe:	e8 e2 09 00 00       	callq  2fe5 <_ZNSt7__n486116coroutine_handleIN9GeneratorImE12promise_typeEE12from_addressEPv>   # std::__n4861::coroutine_handle<Generator<unsigned long>::promise_type>::from_address(void*)
     2603:	48 89 43 28          	mov    %rax,0x28(%rbx)
     2607:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
     260b:	c6 40 34 00          	movb   $0x0,0x34(%rax)
     260f:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
     2613:	48 83 c0 10          	add    $0x10,%rax
     2617:	48 89 c7             	mov    %rax,%rdi
-    261a:	e8 e9 08 00 00       	callq  2f08 <_ZN9GeneratorImE12promise_type15initial_suspendEv>
+    261a:	e8 e9 08 00 00       	callq  2f08 <_ZN9GeneratorImE12promise_type15initial_suspendEv> # Generator<unsigned long>::promise_type::initial_suspend()
     261f:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
     2623:	48 83 c0 35          	add    $0x35,%rax
     2627:	48 89 c7             	mov    %rax,%rdi
-    262a:	e8 39 07 00 00       	callq  2d68 <_ZNKSt7__n486114suspend_always11await_readyEv>
+    262a:	e8 39 07 00 00       	callq  2d68 <_ZNKSt7__n486114suspend_always11await_readyEv> # std::__n4861::suspend_always::await_ready() const
     262f:	83 f0 01             	xor    $0x1,%eax
     2632:	84 c0                	test   %al,%al
     2634:	75 04                	jne    263a <_Z29_Z18fibonacci_sequencej.actorPZ18fibonacci_sequencejE29_Z18fibonacci_sequencej.frame+0xe1>
     2636:	eb 31                	jmp    2669 <_Z29_Z18fibonacci_sequencej.actorPZ18fibonacci_sequencejE29_Z18fibonacci_sequencej.frame+0x110>
-    2638:	0f 0b                	ud2    
+    2638:	0f 0b                	ud2
     263a:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
     263e:	66 c7 40 22 02 00    	movw   $0x2,0x22(%rax)
     2644:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
@@ -484,7 +485,7 @@ Disassembly of section .text:
     2650:	48 8b 40 28          	mov    0x28(%rax),%rax
     2654:	48 89 c6             	mov    %rax,%rsi
     2657:	48 89 d7             	mov    %rdx,%rdi
-    265a:	e8 1d 07 00 00       	callq  2d7c <_ZNKSt7__n486114suspend_always13await_suspendENS_16coroutine_handleIvEE>
+    265a:	e8 1d 07 00 00       	callq  2d7c <_ZNKSt7__n486114suspend_always13await_suspendENS_16coroutine_handleIvEE>   # std::__n4861::suspend_always::await_suspend(std::__n4861::coroutine_handle<void>) const
     265f:	e9 68 03 00 00       	jmpq   29cc <_Z29_Z18fibonacci_sequencej.actorPZ18fibonacci_sequencejE29_Z18fibonacci_sequencej.frame+0x473>
     2664:	e9 2f 03 00 00       	jmpq   2998 <_Z29_Z18fibonacci_sequencej.actorPZ18fibonacci_sequencejE29_Z18fibonacci_sequencej.frame+0x43f>
     2669:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
@@ -492,7 +493,7 @@ Disassembly of section .text:
     2671:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
     2675:	48 83 c0 35          	add    $0x35,%rax
     2679:	48 89 c7             	mov    %rax,%rdi
-    267c:	e8 0f 07 00 00       	callq  2d90 <_ZNKSt7__n486114suspend_always12await_resumeEv>
+    267c:	e8 0f 07 00 00       	callq  2d90 <_ZNKSt7__n486114suspend_always12await_resumeEv>    # std::__n4861::suspend_always::await_resume() const
     2681:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
     2685:	8b 40 30             	mov    0x30(%rax),%eax
     2688:	85 c0                	test   %eax,%eax
@@ -504,7 +505,7 @@ Disassembly of section .text:
     269c:	e9 89 02 00 00       	jmpq   292a <_Z29_Z18fibonacci_sequencej.actorPZ18fibonacci_sequencejE29_Z18fibonacci_sequencej.frame+0x3d1>
     26a1:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
     26a5:	8b 40 30             	mov    0x30(%rax),%eax
-    26a8:	83 f8 5e             	cmp    $0x5e,%eax
+    26a8:	83 f8 5e             	cmp    $0x5e,%eax           # if n>94 throw runtime_error....
     26ab:	76 38                	jbe    26e5 <_Z29_Z18fibonacci_sequencej.actorPZ18fibonacci_sequencejE29_Z18fibonacci_sequencej.frame+0x18c>
     26ad:	bf 10 00 00 00       	mov    $0x10,%edi
     26b2:	e8 59 fb ff ff       	callq  2210 <__cxa_allocate_exception@plt>
@@ -517,20 +518,20 @@ Disassembly of section .text:
     26d3:	48 8b 05 16 39 00 00 	mov    0x3916(%rip),%rax        # 5ff0 <_ZTISt13runtime_error@GLIBCXX_3.4>
     26da:	48 89 c6             	mov    %rax,%rsi
     26dd:	48 89 df             	mov    %rbx,%rdi
-    26e0:	e8 fb fb ff ff       	callq  22e0 <__cxa_throw@plt>
-    26e5:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
-    26e9:	c7 40 4c 00 00 00 00 	movl   $0x0,0x4c(%rax)
+    26e0:	e8 fb fb ff ff       	callq  22e0 <__cxa_throw@plt>       #  endif
+    26e5:	48 8b 45 d8          	mov    -0x28(%rbp),%rax        # 取出协程帧地址
+    26e9:	c7 40 4c 00 00 00 00 	movl   $0x0,0x4c(%rax)          # 写入返回值 在 0x4c的偏移上
     26f0:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
-    26f4:	48 83 c0 10          	add    $0x10,%rax
-    26f8:	48 8b 55 d8          	mov    -0x28(%rbp),%rdx
-    26fc:	48 83 c2 4c          	add    $0x4c,%rdx
-    2700:	48 89 d6             	mov    %rdx,%rsi
-    2703:	48 89 c7             	mov    %rax,%rdi
-    2706:	e8 93 07 00 00       	callq  2e9e <_ZN9GeneratorImE12promise_type11yield_valueIiEENSt7__n486114suspend_alwaysEOT_>
+    26f4:	48 83 c0 10          	add    $0x10,%rax           # 协程帧地址 +0x10 (promise 地址)
+    26f8:	48 8b 55 d8          	mov    -0x28(%rbp),%rdx     # 取出协程帧地址
+    26fc:	48 83 c2 4c          	add    $0x4c,%rdx           # 协程帧地址 +0x4c (返回值)
+    2700:	48 89 d6             	mov    %rdx,%rsi            # 参数 : 返回值
+    2703:	48 89 c7             	mov    %rax,%rdi            # 参数 : promise 地址 (+0x10)
+    2706:	e8 93 07 00 00       	callq  2e9e <_ZN9GeneratorImE12promise_type11yield_valueIiEENSt7__n486114suspend_alwaysEOT_>    # std::__n4861::suspend_always Generator<unsigned long>::promise_type::yield_value<int>(int&&)
     270b:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
-    270f:	48 83 c0 48          	add    $0x48,%rax
+    270f:	48 83 c0 48          	add    $0x48,%rax   # 协程帧地址 +0x48 yield 的返回值?
     2713:	48 89 c7             	mov    %rax,%rdi
-    2716:	e8 4d 06 00 00       	callq  2d68 <_ZNKSt7__n486114suspend_always11await_readyEv>
+    2716:	e8 4d 06 00 00       	callq  2d68 <_ZNKSt7__n486114suspend_always11await_readyEv>     # std::__n4861::suspend_always::await_ready() const
     271b:	83 f0 01             	xor    $0x1,%eax
     271e:	84 c0                	test   %al,%al
     2720:	74 2f                	je     2751 <_Z29_Z18fibonacci_sequencej.actorPZ18fibonacci_sequencejE29_Z18fibonacci_sequencej.frame+0x1f8>
@@ -542,7 +543,7 @@ Disassembly of section .text:
     2738:	48 8b 40 28          	mov    0x28(%rax),%rax
     273c:	48 89 c6             	mov    %rax,%rsi
     273f:	48 89 d7             	mov    %rdx,%rdi
-    2742:	e8 35 06 00 00       	callq  2d7c <_ZNKSt7__n486114suspend_always13await_suspendENS_16coroutine_handleIvEE>
+    2742:	e8 35 06 00 00       	callq  2d7c <_ZNKSt7__n486114suspend_always13await_suspendENS_16coroutine_handleIvEE>   # std::__n4861::suspend_always::await_suspend(std::__n4861::coroutine_handle<void>) const
     2747:	e9 80 02 00 00       	jmpq   29cc <_Z29_Z18fibonacci_sequencej.actorPZ18fibonacci_sequencejE29_Z18fibonacci_sequencej.frame+0x473>
     274c:	e9 47 02 00 00       	jmpq   2998 <_Z29_Z18fibonacci_sequencej.actorPZ18fibonacci_sequencejE29_Z18fibonacci_sequencej.frame+0x43f>
     2751:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
@@ -600,10 +601,10 @@ Disassembly of section .text:
     281a:	e9 0b 01 00 00       	jmpq   292a <_Z29_Z18fibonacci_sequencej.actorPZ18fibonacci_sequencejE29_Z18fibonacci_sequencej.frame+0x3d1>
     281f:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
     2823:	48 c7 40 38 00 00 00 	movq   $0x0,0x38(%rax)
-    282a:	00 
+    282a:	00
     282b:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
     282f:	48 c7 40 40 01 00 00 	movq   $0x1,0x40(%rax)
-    2836:	00 
+    2836:	00
     2837:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
     283b:	c7 40 58 02 00 00 00 	movl   $0x2,0x58(%rax)
     2842:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
@@ -709,15 +710,15 @@ Disassembly of section .text:
     29bf:	48 89 c7             	mov    %rax,%rdi
     29c2:	e8 79 f8 ff ff       	callq  2240 <_ZdlPv@plt>
     29c7:	e9 80 00 00 00       	jmpq   2a4c <_Z29_Z18fibonacci_sequencej.actorPZ18fibonacci_sequencejE29_Z18fibonacci_sequencej.frame+0x4f3>
-    29cc:	f3 0f 1e fa          	endbr64 
+    29cc:	f3 0f 1e fa          	endbr64
     29d0:	eb 7a                	jmp    2a4c <_Z29_Z18fibonacci_sequencej.actorPZ18fibonacci_sequencejE29_Z18fibonacci_sequencej.frame+0x4f3>
-    29d2:	f3 0f 1e fa          	endbr64 
+    29d2:	f3 0f 1e fa          	endbr64
     29d6:	49 89 c4             	mov    %rax,%r12
     29d9:	48 89 df             	mov    %rbx,%rdi
     29dc:	e8 3f f8 ff ff       	callq  2220 <__cxa_free_exception@plt>
     29e1:	4c 89 e0             	mov    %r12,%rax
     29e4:	eb 04                	jmp    29ea <_Z29_Z18fibonacci_sequencej.actorPZ18fibonacci_sequencejE29_Z18fibonacci_sequencej.frame+0x491>
-    29e6:	f3 0f 1e fa          	endbr64 
+    29e6:	f3 0f 1e fa          	endbr64
     29ea:	48 89 c7             	mov    %rax,%rdi
     29ed:	e8 0e f8 ff ff       	callq  2200 <__cxa_begin_catch@plt>
     29f2:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
@@ -736,7 +737,7 @@ Disassembly of section .text:
     2a26:	e8 ed 04 00 00       	callq  2f18 <_ZN9GeneratorImE12promise_type19unhandled_exceptionEv>
     2a2b:	e8 a0 f8 ff ff       	callq  22d0 <__cxa_end_catch@plt>
     2a30:	e9 f5 fe ff ff       	jmpq   292a <_Z29_Z18fibonacci_sequencej.actorPZ18fibonacci_sequencejE29_Z18fibonacci_sequencej.frame+0x3d1>
-    2a35:	f3 0f 1e fa          	endbr64 
+    2a35:	f3 0f 1e fa          	endbr64
     2a39:	48 89 c3             	mov    %rax,%rbx
     2a3c:	e8 8f f8 ff ff       	callq  22d0 <__cxa_end_catch@plt>
     2a41:	48 89 d8             	mov    %rbx,%rax
@@ -745,17 +746,17 @@ Disassembly of section .text:
     2a4c:	90                   	nop
     2a4d:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
     2a51:	64 48 2b 04 25 28 00 	sub    %fs:0x28,%rax
-    2a58:	00 00 
+    2a58:	00 00
     2a5a:	74 05                	je     2a61 <_Z29_Z18fibonacci_sequencej.actorPZ18fibonacci_sequencejE29_Z18fibonacci_sequencej.frame+0x508>
     2a5c:	e8 2f f8 ff ff       	callq  2290 <__stack_chk_fail@plt>
     2a61:	48 83 c4 20          	add    $0x20,%rsp
     2a65:	5b                   	pop    %rbx
     2a66:	41 5c                	pop    %r12
     2a68:	5d                   	pop    %rbp
-    2a69:	c3                   	retq   
+    2a69:	c3                   	retq
 
 0000000000002a6a <_Z31_Z18fibonacci_sequencej.destroyPZ18fibonacci_sequencejE29_Z18fibonacci_sequencej.frame>:
-    2a6a:	f3 0f 1e fa          	endbr64 
+    2a6a:	f3 0f 1e fa          	endbr64
     2a6e:	55                   	push   %rbp
     2a6f:	48 89 e5             	mov    %rsp,%rbp
     2a72:	48 83 ec 10          	sub    $0x10,%rsp
@@ -769,8 +770,9 @@ Disassembly of section .text:
     2a8f:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
     2a93:	48 89 c7             	mov    %rax,%rdi
     2a96:	e8 be fa ff ff       	callq  2559 <_Z29_Z18fibonacci_sequencej.actorPZ18fibonacci_sequencejE29_Z18fibonacci_sequencej.frame>
-    2a9b:	c9                   	leaveq 
-    2a9c:	c3                   	retq   
+    2a9b:	c9                   	leaveq
+    2a9c:	c3                   	retq
+
 
 0000000000002a9d <_Z13run_coroutinev>:
     2a9d:	f3 0f 1e fa          	endbr64 
