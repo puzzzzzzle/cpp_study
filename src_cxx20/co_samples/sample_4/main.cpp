@@ -34,7 +34,11 @@ struct task_t {
   }
   ~task_t() {
     // final_suspend suspend_always 时需要手动销毁, suspend_never时会自动销毁
-    h_.destroy();
+    if(h_)
+    {
+      h_.destroy();
+      LOG_DEBUG("- call : h_.destroy()")
+    }
     LOG_DEBUG("- call : " << __PRETTY_FUNCTION__)
   }
   handle_t h_{};
