@@ -1,6 +1,6 @@
 aux_source_directory(. ${build_temp}cpps)
 include_directories(.)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fcoroutines")
+OpenCoroutine()
 # 可执行文件
 add_executable(${build_temp} ${${build_temp}cpps} )
 

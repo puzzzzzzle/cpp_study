@@ -2,7 +2,8 @@ cmake_minimum_required(VERSION 3.7)
 set(project_name cpp_study)
 project(${project_name})
 
-set(CMAKE_VERBOSE_MAKEFILE ON)
+# 详细编译信息开关
+#set(CMAKE_VERBOSE_MAKEFILE ON)
 
 #设置版本号
 set(VERSION_MAJOR 1.2)
@@ -24,6 +25,10 @@ SetCompilerVersion()
 
 # 查找依赖
 FindCommonLib()
+# 按需安装boost 依赖
+list(APPEND NEED_COMPONENTS regex system log filesystem)
+FindBoostLib(NEED_COMPONENTS)
+
 message("COMMON_LIBS ${COMMON_LIBS}")
 
 
