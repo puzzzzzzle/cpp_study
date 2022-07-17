@@ -13,7 +13,7 @@ OperatorLogClass get_big_obj(long value) {
 }
 OperatorLogClass get_big_obj_1(long value) {
   return get_big_obj(value);
-}gi
+}
 TEST(oper, 2) {
   auto obj = get_big_obj_1(42);
 }
