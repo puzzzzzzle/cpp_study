@@ -5,7 +5,6 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
-#include "stl_to_steam.h"
 
 #define LOG_DEBUG(msg) std::cout << msg << std::endl;
 class MyStream {

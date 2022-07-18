@@ -3,7 +3,6 @@
 //
 #include "addressbook.pb.h"
 #include "common_includes.h"
-#include "cpp_reflact.hpp"
 #include "google/protobuf/util/json_util.h"
 using namespace std;
 namespace tutorial {
