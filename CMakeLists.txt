@@ -38,9 +38,12 @@ message("COMMON_LIBS ${COMMON_LIBS}")
 # 设置源码根目录(包含cmake的文件夹将被解析为一个编译target)
 set(SRC_DIR_ROOTS "")
 # 一些测试工程
-list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src)
+list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src_tests)
 # 一些算法
 list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src_algorithm)
+# 一些c++工具库
+list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src_cpp_tools)
+
 # c++ 20 独有的工程
 if (COMPILER_SUPPORTS_CXX20)
     list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src_cxx20)
