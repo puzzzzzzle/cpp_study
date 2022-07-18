@@ -5,7 +5,7 @@ project(${project_name})
 # 详细编译信息开关
 #set(CMAKE_VERBOSE_MAKEFILE ON)
 
-#设置版本号
+# 版本号
 set(VERSION_MAJOR 1.2)
 set(VERSION_MINOR 0)
 
@@ -18,7 +18,7 @@ set(BOOTSTRAP_DIR ${CMAKE_SOURCE_DIR}/cpp_bootstrap)
 # 设置运行时输出文件地址
 SetBinDir(${CMAKE_BINARY_DIR}/bin)
 
-# 设置通用项目选项
+# 设置通用编译选项
 SetCommonBuildFlag()
 GenConfig()
 SetCompilerVersion()
@@ -37,7 +37,10 @@ message("COMMON_LIBS ${COMMON_LIBS}")
 
 # 设置源码根目录(包含cmake的文件夹将被解析为一个编译target)
 set(SRC_DIR_ROOTS "")
+# 一些测试工程
 list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src)
+# 一些算法
+list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src_algorithm)
 # c++ 20 独有的工程
 if (COMPILER_SUPPORTS_CXX20)
     list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src_cxx20)

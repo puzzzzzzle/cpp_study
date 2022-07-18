@@ -5,7 +5,7 @@ include_directories(${CMAKE_SOURCE_DIR}/src/path_search)
 include_directories(${CMAKE_SOURCE_DIR}/src/cluster/union_find)
 
 # 可执行文件
-add_executable(${build_temp} ${${build_temp}cpps} ${common_cpps})
+add_executable(${build_temp} ${${build_temp}cpps} )
 
 #通用动态链接库
-target_link_libraries(${build_temp} ${THREAD_LIB} ${CONAN_LIBS})
+target_link_libraries(${build_temp}  ${COMMON_LIBS})
