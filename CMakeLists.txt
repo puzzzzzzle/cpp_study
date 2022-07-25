@@ -43,7 +43,8 @@ list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src_tests)
 list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src_algorithm)
 # 一些c++工具库
 list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src_cpp_tools)
-
+# 汇编测试工程
+list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src_asm)
 # c++ 20 独有的工程
 if (COMPILER_SUPPORTS_CXX20)
     list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src_cxx20)

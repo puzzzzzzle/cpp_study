@@ -1,0 +1,1495 @@
+	.file	"c_funcs.cpp"
+	.text
+.Ltext0:
+	.globl	void_ret_func
+	.type	void_ret_func, @function
+void_ret_func:
+.LFB0:
+	.file 1 "/tmp/tmp.0bk9m8wu0L/src/at_t_asm/c_call_asm/c_funcs.cpp"
+	.loc 1 5 0
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	.loc 1 5 0
+	nop
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE0:
+	.size	void_ret_func, .-void_ret_func
+	.globl	ret_int_func
+	.type	ret_int_func, @function
+ret_int_func:
+.LFB1:
+	.loc 1 6 0
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+.LBB2:
+	.loc 1 7 0
+	movl	$42, -4(%rbp)
+	.loc 1 8 0
+	movl	-4(%rbp), %eax
+.LBE2:
+	.loc 1 9 0
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE1:
+	.size	ret_int_func, .-ret_int_func
+	.globl	int_arg_func
+	.type	int_arg_func, @function
+int_arg_func:
+.LFB2:
+	.loc 1 10 0
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movl	%edi, -4(%rbp)
+	.loc 1 10 0
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2:
+	.size	int_arg_func, .-int_arg_func
+	.section	.text._ZN11SmallStructC2Ev,"axG",@progbits,_ZN11SmallStructC5Ev,comdat
+	.align 2
+	.weak	_ZN11SmallStructC2Ev
+	.type	_ZN11SmallStructC2Ev, @function
+_ZN11SmallStructC2Ev:
+.LFB5:
+	.loc 1 11 0
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movq	%rdi, -8(%rbp)
+.LBB3:
+	.loc 1 11 0
+	movq	-8(%rbp), %rax
+	movl	$0, (%rax)
+.LBE3:
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE5:
+	.size	_ZN11SmallStructC2Ev, .-_ZN11SmallStructC2Ev
+	.weak	_ZN11SmallStructC1Ev
+	.set	_ZN11SmallStructC1Ev,_ZN11SmallStructC2Ev
+	.text
+	.globl	return_SmallStruct
+	.type	return_SmallStruct, @function
+return_SmallStruct:
+.LFB3:
+	.loc 1 35 0
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$16, %rsp
+.LBB4:
+	.loc 1 35 0
+	movl	$0, -16(%rbp)
+	leaq	-16(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZN11SmallStructC1Ev
+	movl	-16(%rbp), %eax
+.LBE4:
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE3:
+	.size	return_SmallStruct, .-return_SmallStruct
+	.section	.text._ZN9BigStructC2Ev,"axG",@progbits,_ZN9BigStructC5Ev,comdat
+	.align 2
+	.weak	_ZN9BigStructC2Ev
+	.type	_ZN9BigStructC2Ev, @function
+_ZN9BigStructC2Ev:
+.LFB9:
+	.loc 1 14 0
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movq	%rdi, -8(%rbp)
+.LBB5:
+	.loc 1 14 0
+	movq	-8(%rbp), %rax
+	movq	$0, (%rax)
+	movq	-8(%rbp), %rax
+	movq	$0, 8(%rax)
+	movq	-8(%rbp), %rax
+	movq	$0, 16(%rax)
+	movq	-8(%rbp), %rax
+	movq	$0, 24(%rax)
+	movq	-8(%rbp), %rax
+	movq	$0, 32(%rax)
+	movq	-8(%rbp), %rax
+	movq	$0, 40(%rax)
+	movq	-8(%rbp), %rax
+	movq	$0, 48(%rax)
+	movq	-8(%rbp), %rax
+	movq	$0, 56(%rax)
+	movq	-8(%rbp), %rax
+	movq	$0, 64(%rax)
+	movq	-8(%rbp), %rax
+	movq	$0, 72(%rax)
+.LBE5:
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE9:
+	.size	_ZN9BigStructC2Ev, .-_ZN9BigStructC2Ev
+	.weak	_ZN9BigStructC1Ev
+	.set	_ZN9BigStructC1Ev,_ZN9BigStructC2Ev
+	.text
+	.globl	return_BigStruct
+	.type	return_BigStruct, @function
+return_BigStruct:
+.LFB7:
+	.loc 1 35 0
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$16, %rsp
+	movq	%rdi, -8(%rbp)
+.LBB6:
+	.loc 1 35 0
+	movq	-8(%rbp), %rax
+	movq	%rax, %rsi
+	movl	$0, %eax
+	movl	$10, %edx
+	movq	%rsi, %rdi
+	movq	%rdx, %rcx
+	rep stosq
+	movq	-8(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZN9BigStructC1Ev
+	nop
+.LBE6:
+	movq	-8(%rbp), %rax
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE7:
+	.size	return_BigStruct, .-return_BigStruct
+	.section	.text._ZN14CharBuffStructC2Ev,"axG",@progbits,_ZN14CharBuffStructC5Ev,comdat
+	.align 2
+	.weak	_ZN14CharBuffStructC2Ev
+	.type	_ZN14CharBuffStructC2Ev, @function
+_ZN14CharBuffStructC2Ev:
+.LFB13:
+	.loc 1 27 0
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movq	%rdi, -8(%rbp)
+.LBB7:
+	.loc 1 27 0
+	movq	-8(%rbp), %rax
+	movq	%rax, %rdx
+	movl	$1024, %esi
+	movl	$0, %eax
+	movq	%rdx, %rcx
+	andl	$1, %ecx
+	testq	%rcx, %rcx
+	je	.L13
+	movb	%al, (%rdx)
+	addq	$1, %rdx
+	subl	$1, %esi
+.L13:
+	movq	%rdx, %rcx
+	andl	$2, %ecx
+	testq	%rcx, %rcx
+	je	.L14
+	movw	%ax, (%rdx)
+	addq	$2, %rdx
+	subl	$2, %esi
+.L14:
+	movq	%rdx, %rcx
+	andl	$4, %ecx
+	testq	%rcx, %rcx
+	je	.L15
+	movl	%eax, (%rdx)
+	addq	$4, %rdx
+	subl	$4, %esi
+.L15:
+	movl	%esi, %ecx
+	shrl	$3, %ecx
+	movl	%ecx, %ecx
+	movq	%rdx, %rdi
+	rep stosq
+	movq	%rdi, %rdx
+	movl	%esi, %ecx
+	andl	$4, %ecx
+	testl	%ecx, %ecx
+	je	.L16
+	movl	%eax, (%rdx)
+	addq	$4, %rdx
+.L16:
+	movl	%esi, %ecx
+	andl	$2, %ecx
+	testl	%ecx, %ecx
+	je	.L17
+	movw	%ax, (%rdx)
+	addq	$2, %rdx
+.L17:
+	andl	$1, %esi
+	movl	%esi, %ecx
+	testl	%ecx, %ecx
+	je	.L12
+	movb	%al, (%rdx)
+	addq	$1, %rdx
+.L12:
+.LBE7:
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE13:
+	.size	_ZN14CharBuffStructC2Ev, .-_ZN14CharBuffStructC2Ev
+	.weak	_ZN14CharBuffStructC1Ev
+	.set	_ZN14CharBuffStructC1Ev,_ZN14CharBuffStructC2Ev
+	.text
+	.globl	return_CharBuffStruct
+	.type	return_CharBuffStruct, @function
+return_CharBuffStruct:
+.LFB11:
+	.loc 1 35 0
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$16, %rsp
+	movq	%rdi, -8(%rbp)
+.LBB8:
+	.loc 1 35 0
+	movq	-8(%rbp), %rax
+	movq	%rax, %rdx
+	movl	$1024, %esi
+	movl	$0, %eax
+	movq	%rdx, %rcx
+	andl	$1, %ecx
+	testq	%rcx, %rcx
+	je	.L20
+	movb	%al, (%rdx)
+	addq	$1, %rdx
+	subl	$1, %esi
+.L20:
+	movq	%rdx, %rcx
+	andl	$2, %ecx
+	testq	%rcx, %rcx
+	je	.L21
+	movw	%ax, (%rdx)
+	addq	$2, %rdx
+	subl	$2, %esi
+.L21:
+	movq	%rdx, %rcx
+	andl	$4, %ecx
+	testq	%rcx, %rcx
+	je	.L22
+	movl	%eax, (%rdx)
+	addq	$4, %rdx
+	subl	$4, %esi
+.L22:
+	movl	%esi, %ecx
+	shrl	$3, %ecx
+	movl	%ecx, %ecx
+	movq	%rdx, %rdi
+	rep stosq
+	movq	%rdi, %rdx
+	movl	%esi, %ecx
+	andl	$4, %ecx
+	testl	%ecx, %ecx
+	je	.L23
+	movl	%eax, (%rdx)
+	addq	$4, %rdx
+.L23:
+	movl	%esi, %ecx
+	andl	$2, %ecx
+	testl	%ecx, %ecx
+	je	.L24
+	movw	%ax, (%rdx)
+	addq	$2, %rdx
+.L24:
+	andl	$1, %esi
+	movl	%esi, %ecx
+	testl	%ecx, %ecx
+	je	.L25
+	movb	%al, (%rdx)
+	addq	$1, %rdx
+.L25:
+	movq	-8(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZN14CharBuffStructC1Ev
+	nop
+.LBE8:
+	movq	-8(%rbp), %rax
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE11:
+	.size	return_CharBuffStruct, .-return_CharBuffStruct
+	.globl	input_SmallStruct
+	.type	input_SmallStruct, @function
+input_SmallStruct:
+.LFB15:
+	.loc 1 38 0
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movl	%edi, -16(%rbp)
+	.loc 1 38 0
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE15:
+	.size	input_SmallStruct, .-input_SmallStruct
+	.globl	input_BigStruct
+	.type	input_BigStruct, @function
+input_BigStruct:
+.LFB16:
+	.loc 1 38 0
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	.loc 1 38 0
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE16:
+	.size	input_BigStruct, .-input_BigStruct
+	.globl	input_CharBuffStruct
+	.type	input_CharBuffStruct, @function
+input_CharBuffStruct:
+.LFB17:
+	.loc 1 38 0
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	.loc 1 38 0
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE17:
+	.size	input_CharBuffStruct, .-input_CharBuffStruct
+	.globl	test_func
+	.type	test_func, @function
+test_func:
+.LFB18:
+	.loc 1 41 0
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$80, %rsp
+.LBB9:
+	.loc 1 42 0
+	leaq	-80(%rbp), %rax
+	movq	%rax, %rdi
+	call	return_BigStruct
+.LBE9:
+	.loc 1 43 0
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE18:
+	.size	test_func, .-test_func
+	.globl	input_BigStruct_1
+	.type	input_BigStruct_1, @function
+input_BigStruct_1:
+.LFB19:
+	.loc 1 44 0
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	.loc 1 45 0
+	movq	$1, 16(%rbp)
+	.loc 1 46 0
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE19:
+	.size	input_BigStruct_1, .-input_BigStruct_1
+	.globl	test_func_1
+	.type	test_func_1, @function
+test_func_1:
+.LFB20:
+	.loc 1 48 0
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$160, %rsp
+.LBB10:
+	.loc 1 49 0
+	leaq	-80(%rbp), %rsi
+	movl	$0, %eax
+	movl	$10, %edx
+	movq	%rsi, %rdi
+	movq	%rdx, %rcx
+	rep stosq
+	leaq	-80(%rbp), %rax
+	movq	%rax, %rdi
+	call	_ZN9BigStructC1Ev
+	.loc 1 50 0
+	movq	-80(%rbp), %rax
+	movq	%rax, (%rsp)
+	movq	-72(%rbp), %rax
+	movq	%rax, 8(%rsp)
+	movq	-64(%rbp), %rax
+	movq	%rax, 16(%rsp)
+	movq	-56(%rbp), %rax
+	movq	%rax, 24(%rsp)
+	movq	-48(%rbp), %rax
+	movq	%rax, 32(%rsp)
+	movq	-40(%rbp), %rax
+	movq	%rax, 40(%rsp)
+	movq	-32(%rbp), %rax
+	movq	%rax, 48(%rsp)
+	movq	-24(%rbp), %rax
+	movq	%rax, 56(%rsp)
+	movq	-16(%rbp), %rax
+	movq	%rax, 64(%rsp)
+	movq	-8(%rbp), %rax
+	movq	%rax, 72(%rsp)
+	call	input_BigStruct_1
+.LBE10:
+	.loc 1 51 0
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE20:
+	.size	test_func_1, .-test_func_1
+.Letext0:
+	.section	.debug_info,"",@progbits
+.Ldebug_info0:
+	.long	0x49a
+	.value	0x4
+	.long	.Ldebug_abbrev0
+	.byte	0x8
+	.uleb128 0x1
+	.long	.LASF32
+	.byte	0x4
+	.long	.LASF33
+	.long	.Ldebug_ranges0+0
+	.quad	0
+	.long	.Ldebug_line0
+	.uleb128 0x2
+	.long	.LASF0
+	.byte	0x4
+	.byte	0x1
+	.byte	0xb
+	.long	0x4d
+	.uleb128 0x3
+	.long	.LASF2
+	.byte	0x1
+	.byte	0xc
+	.long	0x4d
+	.byte	0
+	.uleb128 0x4
+	.long	.LASF0
+	.long	0x46
+	.uleb128 0x5
+	.long	0x54
+	.byte	0
+	.byte	0
+	.uleb128 0x6
+	.byte	0x4
+	.byte	0x5
+	.string	"int"
+	.uleb128 0x7
+	.byte	0x8
+	.long	0x25
+	.uleb128 0x2
+	.long	.LASF1
+	.byte	0x50
+	.byte	0x1
+	.byte	0xe
+	.long	0xee
+	.uleb128 0x3
+	.long	.LASF2
+	.byte	0x1
+	.byte	0x10
+	.long	0xee
+	.byte	0
+	.uleb128 0x3
+	.long	.LASF3
+	.byte	0x1
+	.byte	0x11
+	.long	0xee
+	.byte	0x8
+	.uleb128 0x3
+	.long	.LASF4
+	.byte	0x1
+	.byte	0x12
+	.long	0xee
+	.byte	0x10
+	.uleb128 0x3
+	.long	.LASF5
+	.byte	0x1
+	.byte	0x13
+	.long	0xee
+	.byte	0x18
+	.uleb128 0x3
+	.long	.LASF6
+	.byte	0x1
+	.byte	0x14
+	.long	0xee
+	.byte	0x20
+	.uleb128 0x3
+	.long	.LASF7
+	.byte	0x1
+	.byte	0x15
+	.long	0xee
+	.byte	0x28
+	.uleb128 0x3
+	.long	.LASF8
+	.byte	0x1
+	.byte	0x16
+	.long	0xee
+	.byte	0x30
+	.uleb128 0x3
+	.long	.LASF9
+	.byte	0x1
+	.byte	0x17
+	.long	0xee
+	.byte	0x38
+	.uleb128 0x3
+	.long	.LASF10
+	.byte	0x1
+	.byte	0x18
+	.long	0xee
+	.byte	0x40
+	.uleb128 0x3
+	.long	.LASF11
+	.byte	0x1
+	.byte	0x19
+	.long	0xee
+	.byte	0x48
+	.uleb128 0x4
+	.long	.LASF1
+	.long	0xe7
+	.uleb128 0x5
+	.long	0xf5
+	.byte	0
+	.byte	0
+	.uleb128 0x8
+	.byte	0x8
+	.byte	0x5
+	.long	.LASF12
+	.uleb128 0x7
+	.byte	0x8
+	.long	0x5a
+	.uleb128 0x9
+	.long	.LASF13
+	.value	0x400
+	.byte	0x1
+	.byte	0x1b
+	.long	0x124
+	.uleb128 0x3
+	.long	.LASF14
+	.byte	0x1
+	.byte	0x1c
+	.long	0x124
+	.byte	0
+	.uleb128 0x4
+	.long	.LASF13
+	.long	0x11d
+	.uleb128 0x5
+	.long	0x143
+	.byte	0
+	.byte	0
+	.uleb128 0xa
+	.long	0x13c
+	.long	0x135
+	.uleb128 0xb
+	.long	0x135
+	.value	0x3ff
+	.byte	0
+	.uleb128 0x8
+	.byte	0x8
+	.byte	0x7
+	.long	.LASF15
+	.uleb128 0x8
+	.byte	0x1
+	.byte	0x6
+	.long	.LASF16
+	.uleb128 0x7
+	.byte	0x8
+	.long	0xfb
+	.uleb128 0xc
+	.long	.LASF34
+	.byte	0x1
+	.byte	0x5
+	.quad	.LFB0
+	.quad	.LFE0-.LFB0
+	.uleb128 0x1
+	.byte	0x9c
+	.uleb128 0xd
+	.long	.LASF17
+	.byte	0x1
+	.byte	0x6
+	.long	0x4d
+	.quad	.LFB1
+	.quad	.LFE1-.LFB1
+	.uleb128 0x1
+	.byte	0x9c
+	.long	0x1a2
+	.uleb128 0xe
+	.quad	.LBB2
+	.quad	.LBE2-.LBB2
+	.uleb128 0xf
+	.string	"i"
+	.byte	0x1
+	.byte	0x7
+	.long	0x4d
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 -20
+	.byte	0
+	.byte	0
+	.uleb128 0x10
+	.long	.LASF26
+	.byte	0x1
+	.byte	0xa
+	.quad	.LFB2
+	.quad	.LFE2-.LFB2
+	.uleb128 0x1
+	.byte	0x9c
+	.long	0x1ce
+	.uleb128 0x11
+	.string	"arg"
+	.byte	0x1
+	.byte	0xa
+	.long	0x4d
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 -20
+	.byte	0
+	.uleb128 0x12
+	.long	0x3d
+	.byte	0x1
+	.byte	0xb
+	.byte	0x2
+	.long	0x1de
+	.long	0x1e8
+	.uleb128 0x13
+	.long	.LASF20
+	.long	0x1e8
+	.byte	0
+	.uleb128 0x14
+	.long	0x54
+	.uleb128 0x15
+	.long	0x1ce
+	.long	.LASF21
+	.quad	.LFB5
+	.quad	.LFE5-.LFB5
+	.uleb128 0x1
+	.byte	0x9c
+	.long	0x210
+	.long	0x219
+	.uleb128 0x16
+	.long	0x1de
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 -24
+	.byte	0
+	.uleb128 0x17
+	.long	.LASF18
+	.byte	0x1
+	.byte	0x23
+	.long	0x25
+	.quad	.LFB3
+	.quad	.LFE3-.LFB3
+	.uleb128 0x1
+	.byte	0x9c
+	.long	0x25b
+	.uleb128 0xe
+	.quad	.LBB4
+	.quad	.LBE4-.LBB4
+	.uleb128 0x18
+	.long	.LASF19
+	.byte	0x1
+	.byte	0x23
+	.long	0x25
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 -32
+	.byte	0
+	.byte	0
+	.uleb128 0x12
+	.long	0xde
+	.byte	0x1
+	.byte	0xe
+	.byte	0x2
+	.long	0x26b
+	.long	0x275
+	.uleb128 0x13
+	.long	.LASF20
+	.long	0x275
+	.byte	0
+	.uleb128 0x14
+	.long	0xf5
+	.uleb128 0x15
+	.long	0x25b
+	.long	.LASF22
+	.quad	.LFB9
+	.quad	.LFE9-.LFB9
+	.uleb128 0x1
+	.byte	0x9c
+	.long	0x29d
+	.long	0x2a6
+	.uleb128 0x16
+	.long	0x26b
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 -24
+	.byte	0
+	.uleb128 0x17
+	.long	.LASF23
+	.byte	0x1
+	.byte	0x23
+	.long	0x5a
+	.quad	.LFB7
+	.quad	.LFE7-.LFB7
+	.uleb128 0x1
+	.byte	0x9c
+	.long	0x2e9
+	.uleb128 0xe
+	.quad	.LBB6
+	.quad	.LBE6-.LBB6
+	.uleb128 0x18
+	.long	.LASF19
+	.byte	0x1
+	.byte	0x23
+	.long	0x5a
+	.uleb128 0x3
+	.byte	0x91
+	.sleb128 -24
+	.byte	0x6
+	.byte	0
+	.byte	0
+	.uleb128 0x12
+	.long	0x114
+	.byte	0x1
+	.byte	0x1b
+	.byte	0x2
+	.long	0x2f9
+	.long	0x303
+	.uleb128 0x13
+	.long	.LASF20
+	.long	0x303
+	.byte	0
+	.uleb128 0x14
+	.long	0x143
+	.uleb128 0x15
+	.long	0x2e9
+	.long	.LASF24
+	.quad	.LFB13
+	.quad	.LFE13-.LFB13
+	.uleb128 0x1
+	.byte	0x9c
+	.long	0x32b
+	.long	0x334
+	.uleb128 0x16
+	.long	0x2f9
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 -24
+	.byte	0
+	.uleb128 0x17
+	.long	.LASF25
+	.byte	0x1
+	.byte	0x23
+	.long	0xfb
+	.quad	.LFB11
+	.quad	.LFE11-.LFB11
+	.uleb128 0x1
+	.byte	0x9c
+	.long	0x377
+	.uleb128 0xe
+	.quad	.LBB8
+	.quad	.LBE8-.LBB8
+	.uleb128 0x18
+	.long	.LASF19
+	.byte	0x1
+	.byte	0x23
+	.long	0xfb
+	.uleb128 0x3
+	.byte	0x91
+	.sleb128 -24
+	.byte	0x6
+	.byte	0
+	.byte	0
+	.uleb128 0x10
+	.long	.LASF27
+	.byte	0x1
+	.byte	0x26
+	.quad	.LFB15
+	.quad	.LFE15-.LFB15
+	.uleb128 0x1
+	.byte	0x9c
+	.long	0x3a2
+	.uleb128 0x11
+	.string	"st"
+	.byte	0x1
+	.byte	0x26
+	.long	0x25
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 -32
+	.byte	0
+	.uleb128 0x10
+	.long	.LASF28
+	.byte	0x1
+	.byte	0x26
+	.quad	.LFB16
+	.quad	.LFE16-.LFB16
+	.uleb128 0x1
+	.byte	0x9c
+	.long	0x3cd
+	.uleb128 0x11
+	.string	"st"
+	.byte	0x1
+	.byte	0x26
+	.long	0x5a
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 0
+	.byte	0
+	.uleb128 0x10
+	.long	.LASF29
+	.byte	0x1
+	.byte	0x26
+	.quad	.LFB17
+	.quad	.LFE17-.LFB17
+	.uleb128 0x1
+	.byte	0x9c
+	.long	0x3f8
+	.uleb128 0x11
+	.string	"st"
+	.byte	0x1
+	.byte	0x26
+	.long	0xfb
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 0
+	.byte	0
+	.uleb128 0x19
+	.long	.LASF30
+	.byte	0x1
+	.byte	0x28
+	.quad	.LFB18
+	.quad	.LFE18-.LFB18
+	.uleb128 0x1
+	.byte	0x9c
+	.long	0x437
+	.uleb128 0xe
+	.quad	.LBB9
+	.quad	.LBE9-.LBB9
+	.uleb128 0xf
+	.string	"obj"
+	.byte	0x1
+	.byte	0x2a
+	.long	0x5a
+	.uleb128 0x3
+	.byte	0x91
+	.sleb128 -96
+	.byte	0
+	.byte	0
+	.uleb128 0x10
+	.long	.LASF31
+	.byte	0x1
+	.byte	0x2c
+	.quad	.LFB19
+	.quad	.LFE19-.LFB19
+	.uleb128 0x1
+	.byte	0x9c
+	.long	0x462
+	.uleb128 0x11
+	.string	"st"
+	.byte	0x1
+	.byte	0x2c
+	.long	0x5a
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 0
+	.byte	0
+	.uleb128 0x1a
+	.long	.LASF35
+	.byte	0x1
+	.byte	0x2f
+	.quad	.LFB20
+	.quad	.LFE20-.LFB20
+	.uleb128 0x1
+	.byte	0x9c
+	.uleb128 0xe
+	.quad	.LBB10
+	.quad	.LBE10-.LBB10
+	.uleb128 0xf
+	.string	"obj"
+	.byte	0x1
+	.byte	0x31
+	.long	0x5a
+	.uleb128 0x3
+	.byte	0x91
+	.sleb128 -96
+	.byte	0
+	.byte	0
+	.byte	0
+	.section	.debug_abbrev,"",@progbits
+.Ldebug_abbrev0:
+	.uleb128 0x1
+	.uleb128 0x11
+	.byte	0x1
+	.uleb128 0x25
+	.uleb128 0xe
+	.uleb128 0x13
+	.uleb128 0xb
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x55
+	.uleb128 0x17
+	.uleb128 0x11
+	.uleb128 0x1
+	.uleb128 0x10
+	.uleb128 0x17
+	.byte	0
+	.byte	0
+	.uleb128 0x2
+	.uleb128 0x13
+	.byte	0x1
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0xb
+	.uleb128 0xb
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x1
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0x3
+	.uleb128 0xd
+	.byte	0
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x38
+	.uleb128 0xb
+	.byte	0
+	.byte	0
+	.uleb128 0x4
+	.uleb128 0x2e
+	.byte	0x1
+	.uleb128 0x3f
+	.uleb128 0x19
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x34
+	.uleb128 0x19
+	.uleb128 0x3c
+	.uleb128 0x19
+	.uleb128 0x64
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0x5
+	.uleb128 0x5
+	.byte	0
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x34
+	.uleb128 0x19
+	.byte	0
+	.byte	0
+	.uleb128 0x6
+	.uleb128 0x24
+	.byte	0
+	.uleb128 0xb
+	.uleb128 0xb
+	.uleb128 0x3e
+	.uleb128 0xb
+	.uleb128 0x3
+	.uleb128 0x8
+	.byte	0
+	.byte	0
+	.uleb128 0x7
+	.uleb128 0xf
+	.byte	0
+	.uleb128 0xb
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0x8
+	.uleb128 0x24
+	.byte	0
+	.uleb128 0xb
+	.uleb128 0xb
+	.uleb128 0x3e
+	.uleb128 0xb
+	.uleb128 0x3
+	.uleb128 0xe
+	.byte	0
+	.byte	0
+	.uleb128 0x9
+	.uleb128 0x13
+	.byte	0x1
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0xb
+	.uleb128 0x5
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x1
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0xa
+	.uleb128 0x1
+	.byte	0x1
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x1
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0xb
+	.uleb128 0x21
+	.byte	0
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x2f
+	.uleb128 0x5
+	.byte	0
+	.byte	0
+	.uleb128 0xc
+	.uleb128 0x2e
+	.byte	0
+	.uleb128 0x3f
+	.uleb128 0x19
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x11
+	.uleb128 0x1
+	.uleb128 0x12
+	.uleb128 0x7
+	.uleb128 0x40
+	.uleb128 0x18
+	.uleb128 0x2117
+	.uleb128 0x19
+	.byte	0
+	.byte	0
+	.uleb128 0xd
+	.uleb128 0x2e
+	.byte	0x1
+	.uleb128 0x3f
+	.uleb128 0x19
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x11
+	.uleb128 0x1
+	.uleb128 0x12
+	.uleb128 0x7
+	.uleb128 0x40
+	.uleb128 0x18
+	.uleb128 0x2117
+	.uleb128 0x19
+	.uleb128 0x1
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0xe
+	.uleb128 0xb
+	.byte	0x1
+	.uleb128 0x11
+	.uleb128 0x1
+	.uleb128 0x12
+	.uleb128 0x7
+	.byte	0
+	.byte	0
+	.uleb128 0xf
+	.uleb128 0x34
+	.byte	0
+	.uleb128 0x3
+	.uleb128 0x8
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x2
+	.uleb128 0x18
+	.byte	0
+	.byte	0
+	.uleb128 0x10
+	.uleb128 0x2e
+	.byte	0x1
+	.uleb128 0x3f
+	.uleb128 0x19
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x11
+	.uleb128 0x1
+	.uleb128 0x12
+	.uleb128 0x7
+	.uleb128 0x40
+	.uleb128 0x18
+	.uleb128 0x2117
+	.uleb128 0x19
+	.uleb128 0x1
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0x11
+	.uleb128 0x5
+	.byte	0
+	.uleb128 0x3
+	.uleb128 0x8
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x2
+	.uleb128 0x18
+	.byte	0
+	.byte	0
+	.uleb128 0x12
+	.uleb128 0x2e
+	.byte	0x1
+	.uleb128 0x47
+	.uleb128 0x13
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x20
+	.uleb128 0xb
+	.uleb128 0x64
+	.uleb128 0x13
+	.uleb128 0x1
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0x13
+	.uleb128 0x5
+	.byte	0
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x34
+	.uleb128 0x19
+	.byte	0
+	.byte	0
+	.uleb128 0x14
+	.uleb128 0x26
+	.byte	0
+	.uleb128 0x49
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0x15
+	.uleb128 0x2e
+	.byte	0x1
+	.uleb128 0x31
+	.uleb128 0x13
+	.uleb128 0x6e
+	.uleb128 0xe
+	.uleb128 0x11
+	.uleb128 0x1
+	.uleb128 0x12
+	.uleb128 0x7
+	.uleb128 0x40
+	.uleb128 0x18
+	.uleb128 0x64
+	.uleb128 0x13
+	.uleb128 0x2117
+	.uleb128 0x19
+	.uleb128 0x1
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0x16
+	.uleb128 0x5
+	.byte	0
+	.uleb128 0x31
+	.uleb128 0x13
+	.uleb128 0x2
+	.uleb128 0x18
+	.byte	0
+	.byte	0
+	.uleb128 0x17
+	.uleb128 0x2e
+	.byte	0x1
+	.uleb128 0x3f
+	.uleb128 0x19
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x11
+	.uleb128 0x1
+	.uleb128 0x12
+	.uleb128 0x7
+	.uleb128 0x40
+	.uleb128 0x18
+	.uleb128 0x2116
+	.uleb128 0x19
+	.uleb128 0x1
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0x18
+	.uleb128 0x34
+	.byte	0
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x2
+	.uleb128 0x18
+	.byte	0
+	.byte	0
+	.uleb128 0x19
+	.uleb128 0x2e
+	.byte	0x1
+	.uleb128 0x3f
+	.uleb128 0x19
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x11
+	.uleb128 0x1
+	.uleb128 0x12
+	.uleb128 0x7
+	.uleb128 0x40
+	.uleb128 0x18
+	.uleb128 0x2116
+	.uleb128 0x19
+	.uleb128 0x1
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0x1a
+	.uleb128 0x2e
+	.byte	0x1
+	.uleb128 0x3f
+	.uleb128 0x19
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x11
+	.uleb128 0x1
+	.uleb128 0x12
+	.uleb128 0x7
+	.uleb128 0x40
+	.uleb128 0x18
+	.uleb128 0x2116
+	.uleb128 0x19
+	.byte	0
+	.byte	0
+	.byte	0
+	.section	.debug_aranges,"",@progbits
+	.long	0x5c
+	.value	0x2
+	.long	.Ldebug_info0
+	.byte	0x8
+	.byte	0
+	.value	0
+	.value	0
+	.quad	.Ltext0
+	.quad	.Letext0-.Ltext0
+	.quad	.LFB5
+	.quad	.LFE5-.LFB5
+	.quad	.LFB9
+	.quad	.LFE9-.LFB9
+	.quad	.LFB13
+	.quad	.LFE13-.LFB13
+	.quad	0
+	.quad	0
+	.section	.debug_ranges,"",@progbits
+.Ldebug_ranges0:
+	.quad	.Ltext0
+	.quad	.Letext0
+	.quad	.LFB5
+	.quad	.LFE5
+	.quad	.LFB9
+	.quad	.LFE9
+	.quad	.LFB13
+	.quad	.LFE13
+	.quad	0
+	.quad	0
+	.section	.debug_line,"",@progbits
+.Ldebug_line0:
+	.section	.debug_str,"MS",@progbits,1
+.LASF26:
+	.string	"int_arg_func"
+.LASF33:
+	.string	"/tmp/tmp.0bk9m8wu0L/src/at_t_asm/c_call_asm/c_funcs.cpp"
+.LASF19:
+	.string	"data"
+.LASF27:
+	.string	"input_SmallStruct"
+.LASF22:
+	.string	"_ZN9BigStructC2Ev"
+.LASF3:
+	.string	"value_2"
+.LASF2:
+	.string	"value_1"
+.LASF0:
+	.string	"SmallStruct"
+.LASF4:
+	.string	"value_3"
+.LASF5:
+	.string	"value_4"
+.LASF6:
+	.string	"value_5"
+.LASF7:
+	.string	"value_6"
+.LASF8:
+	.string	"value_7"
+.LASF9:
+	.string	"value_8"
+.LASF10:
+	.string	"value_9"
+.LASF18:
+	.string	"return_SmallStruct"
+.LASF1:
+	.string	"BigStruct"
+.LASF29:
+	.string	"input_CharBuffStruct"
+.LASF16:
+	.string	"char"
+.LASF24:
+	.string	"_ZN14CharBuffStructC2Ev"
+.LASF11:
+	.string	"value_10"
+.LASF32:
+	.string	"GNU C++ 4.8.5 20150623 (Red Hat 4.8.5-39) -mtune=generic -march=x86-64 -g -std=gnu++1y"
+.LASF20:
+	.string	"this"
+.LASF17:
+	.string	"ret_int_func"
+.LASF34:
+	.string	"void_ret_func"
+.LASF25:
+	.string	"return_CharBuffStruct"
+.LASF12:
+	.string	"long int"
+.LASF35:
+	.string	"test_func_1"
+.LASF13:
+	.string	"CharBuffStruct"
+.LASF30:
+	.string	"test_func"
+.LASF21:
+	.string	"_ZN11SmallStructC2Ev"
+.LASF23:
+	.string	"return_BigStruct"
+.LASF31:
+	.string	"input_BigStruct_1"
+.LASF28:
+	.string	"input_BigStruct"
+.LASF14:
+	.string	"buff"
+.LASF15:
+	.string	"sizetype"
+	.ident	"GCC: (GNU) 4.8.5 20150623 (Red Hat 4.8.5-39)"
+	.section	.note.GNU-stack,"",@progbits
