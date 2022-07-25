@@ -14,9 +14,9 @@ _start:
     movl %edx, 4(%edi)
     movl %ecx, 8(%edi)
 
-    pushl $buffer
-    pushl $output
+    push $buffer
+    push $output
     call printf
     addl $8, %esp
-    pushl $0
+    push $0
     call exit

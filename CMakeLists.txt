@@ -3,7 +3,7 @@ set(project_name cpp_study)
 project(${project_name})
 
 # 详细编译信息开关
-#set(CMAKE_VERBOSE_MAKEFILE ON)
+set(CMAKE_VERBOSE_MAKEFILE ON)
 
 # 版本号
 set(VERSION_MAJOR 1.2)
