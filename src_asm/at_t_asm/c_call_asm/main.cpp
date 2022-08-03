@@ -1,20 +1,17 @@
 //
 // Created by khalidzhang on 2021/6/18.
 //
-
+#include "cstdio"
 extern "C"
 {
 void cpu_id();
-void c_void_func()
-{
-
-}
 void test_func();
 }
 int main(int argc, char* argv[])
 {
+  printf("start \n");
   cpu_id();
-  c_void_func();
   test_func();
+  printf("end \n");
   return 0;
 }
