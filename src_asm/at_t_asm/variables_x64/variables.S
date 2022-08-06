@@ -1,9 +1,24 @@
-.section .data                           #以下为数据段           
-output:                     			#标签(变量名)：关联了当前地址
-       .ascii "hello,world!\n"
-len = . - output  			#定义字符串的长度, 直接被转换为了对应值
-.section .text  					#以下为代码段
-.globl _start						#起始的函数名
+// .file variable.S
+.section .data
+/*
+标签(变量名)：关联了当前地址
+这种是真的在data中有数据
+*/
+output: .ascii "hello,world!\n"
+/* 定义字符串的长度, 直接被转换为了对应值
+   . 表示 当前内存位置
+   当前内存位置 - output开始位置， 就是长度
+   = 或者 .equ 是一种编译期标记， data中并没有 在编译时直接替换
+*/
+len = . - output
+
+/*
+i1 才是内存值, 存储在 data 中
+*/
+i1: .int 1024
+
+.section .text
+.globl _start
 _start:
      mov $1, %rax    # sys_write
      mov $1, %rdi  # fd = 1
