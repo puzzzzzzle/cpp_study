@@ -18,7 +18,7 @@ _print_int:
 _print_double:
     push %rbp
     movq %rsp,%rbp
-    # 栈对齐
+    # 栈对齐， sse 及后续指令需要 16 位栈对齐
     sub $0x10,%rsp
     # 输出 浮点
     # gdb : print $xmm1
