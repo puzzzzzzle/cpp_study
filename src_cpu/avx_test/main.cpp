@@ -22,9 +22,9 @@ void float_calc() {
   float g = f / 2;
 }
 void double_calc() {
-//  double f = 3.14;
-//  float g = f / 2;
-  printf("%d,%f, %f, %d",1024,3.1,3.2,3);
+  double f = 3.14;
+  double g = f / 2;
+  printf("%f",g);
 }
 TEST(row_call, float_div) { double_calc(); }
 

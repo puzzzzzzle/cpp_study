@@ -1,5 +1,6 @@
 .section .data
-    f: .double 3.14
+    f1: .double 3.14
+    f2: .double 2.0
     i: .int 3
     out_str_int: .asciz "out int is %d\n"
     out_str_double: .asciz "out float is %f\n"
@@ -34,9 +35,16 @@ _print_double:
 _avx_div:
     push %rbp
     movq %rsp,%rbp
-    movq i(%rip),%rdi
-    call _print_int
-    movq f(%rip),%rdi
+    sub $0x10,%rsp
+
+    # 3.14/2.0
+    vmovsd f1(%rip), %xmm0
+    vmovsd f2(%rip), %xmm1
+    vdivsd %xmm1,%xmm0,%xmm0
+
+    # 把结果移回到 rdi, 并打印
+    vmovsd %xmm0,-0x8(%rbp)
+    mov -0x8(%rbp), %rdi
     call _print_double
 
     leave
