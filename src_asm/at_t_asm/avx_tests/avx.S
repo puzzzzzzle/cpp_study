@@ -4,6 +4,7 @@
     i: .int 3
     out_str_int: .asciz "out int is %d\n"
     out_str_double: .asciz "out float is %f\n"
+    out_str_double_by_address: .asciz "address out float is %f\n"
 
 .section .text
 _print_int:
@@ -11,23 +12,32 @@ _print_int:
     movq %rsp,%rbp
     # 输出 整数
     movq %rdi,%rsi
-    lea out_str_int(%rip),%rax
-    mov %rax,%rdi
+    lea out_str_int(%rip),%rdi
     call printf
     leave
     ret
 _print_double:
+# 这种方式需要开辟栈, 因为 vmovsd 不支持直接从r64 到xmm64, 必须由 m64中转
     push %rbp
     movq %rsp,%rbp
-    # 栈对齐， sse 及后续指令需要 16 位栈对齐
+        # 栈对齐， sse 及后续指令需要 16 位栈对齐
     sub $0x10,%rsp
-    # 输出 浮点
-    # gdb : print $xmm1
-    # gdb : info r xmm
+        # 输出 浮点
+        # gdb : print $xmm1
+        # gdb : info r xmm
     movq %rdi,-0x8(%rbp)
     vmovsd -0x8(%rbp), %xmm0
-    leaq out_str_double(%rip),%rax
-    movq %rax,%rdi
+    leaq out_str_double(%rip),%rdi
+    movq $1, %rax           # 1 FP arg in xmm registers (as opposed to memory)
+    call printf
+    leave
+    ret
+_print_double_by_address:
+# 这种方式不用开辟栈
+    push %rbp
+    movq %rsp,%rbp
+    vmovsd (%rdi), %xmm0
+    leaq out_str_double_by_address(%rip),%rdi
     movq $1, %rax           # 1 FP arg in xmm registers (as opposed to memory)
     call printf
     leave
@@ -44,9 +54,12 @@ _avx_div:
 
     # 把结果移回到 rdi, 并打印
     vmovsd %xmm0,-0x8(%rbp)
+
     mov -0x8(%rbp), %rdi
     call _print_double
 
+    lea -0x8(%rbp), %rdi
+    call _print_double_by_address
     leave
     ret
 
