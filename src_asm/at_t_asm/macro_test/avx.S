@@ -1,6 +1,6 @@
-.macro print_int str,i
-    movq i(%rip),%rsi
-    lea out_str_int(%rip),%rax
+.macro print_int s,i
+    movq \i(%rip),%rsi
+    lea \s(%rip),%rax
     mov %rax,%rdi
     call printf
 .endm
