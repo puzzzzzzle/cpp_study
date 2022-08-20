@@ -5,6 +5,7 @@
     out_str_int: .asciz "out int is %d\n"
     out_str_double: .asciz "out float is %f\n"
     out_str_double_by_address: .asciz "address out float is %f\n"
+    out_str_double_by_amd64_abi: .asciz "amd64 out float is %f\n"
 
 .section .text
 _print_int:
@@ -55,6 +56,15 @@ _print_double_by_address:
     call printf
     popq %rbp
     ret
+_print_double_by_amd64_abi:
+# 以amd64 abi标准规定的参数传递方式
+    push %rbp
+    movq %rsp,%rbp
+    leaq out_str_double_by_amd64_abi(%rip),%rdi
+    movq $1,%rax
+    call printf
+    pop %rbp
+    ret
 _avx_div:
     push %rbp
     movq %rsp,%rbp
@@ -84,6 +94,8 @@ _start:
      lea f1(%rip), %rdi
      call _print_double_by_address
 
+    movq f1(%rip),%xmm0
+    call _print_double_by_amd64_abi
 
  	 mov $0x3c,%rax       #系统调用值 60 syc_exit
      mov $0,%rdi       #退出码    可以用echo $? 查看
