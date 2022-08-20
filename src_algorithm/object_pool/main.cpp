@@ -14,7 +14,7 @@ struct DefaultObjectConstructor {
     assert(object->data == nullptr);
     object->name = std::to_string(time(nullptr));
     object->data = new char[100];
-    snprintf(object->data, 100, object->name.c_str());
+    snprintf(object->data, 100, "%s", object->name.c_str());
     LOG_DEBUG("++  " << object->ToString())
   }
 };
@@ -32,7 +32,7 @@ using MyPool = ObjectPoolImpl::ObjectPool<
     OperatorLogClass, ObjectPoolImpl::QueuePoolType<OperatorLogClass *>, 5,
     DefaultObjectConstructor, DefaultObjectDestructor>;
 static MyPool pool{};
-using MyManulPool = ObjectPoolImpl::ObjectManulPool<
+using MyManulPool = ObjectPoolImpl::ObjectManualPool<
     OperatorLogClass,
     ObjectPoolImpl::QueuePoolType<std::shared_ptr<OperatorLogClass>>, 5,
     DefaultObjectConstructor, DefaultObjectDestructor>;
@@ -102,7 +102,7 @@ TEST(rand_alloc, manul_pool) {
   }
 }
 TEST(big_alloc, 1) {
-  using BigPool = ObjectPoolImpl::ObjectManulPool<
+  using BigPool = ObjectPoolImpl::ObjectManualPool<
       OperatorLogClass,
       ObjectPoolImpl::QueuePoolType<std::shared_ptr<OperatorLogClass>>, 10000,
       DefaultObjectConstructor, DefaultObjectDestructor>;

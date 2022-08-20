@@ -203,7 +203,7 @@ template <typename Object,
           size_t KEEP_SIZE_NUM = 10000,
           typename Constructor = DefaultObjectConstructor<Object *>,
           typename Destructor = DefaultObjectDestructor<Object *>>
-class ObjectManulPool {
+class ObjectManualPool {
   public:
   using ObjectT = Object;
   using ConstructorT = Constructor;
@@ -249,7 +249,7 @@ class ObjectManulPool {
   }
 
   public:
-  ~ObjectManulPool() {
+  ~ObjectManualPool() {
     // 标记不再回收
     m_isStopping = true;
     // 释放所有对象
@@ -258,7 +258,7 @@ class ObjectManulPool {
       ptr = nullptr;
     }
   }
-  ObjectManulPool() : m_isStopping(false){};
+  ObjectManualPool() : m_isStopping(false){};
   ObjectPtrT Alloc() {
     // 有可重用的, 就直接使用
     ObjectPtrT ptr = m_reusePool.Take();
