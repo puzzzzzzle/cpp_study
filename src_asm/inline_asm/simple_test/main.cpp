@@ -6,7 +6,7 @@
 void inline_asm_test() {
   int64_t a{10}, b{};
   __asm__ __volatile__(R"(movq %1,%%rax;
-movq %%rax,%0
+movq %%rax,%0;
 )"
                        : "=r"(b)
                        : "r"(a)
