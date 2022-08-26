@@ -48,9 +48,9 @@ list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src_asm)
 # 一些cpu底层指令/汇编指令
 list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src_cpu)
 
-# c++ 20 独有的工程
+# 最新c++特性
 if (COMPILER_SUPPORTS_CXX20)
-    list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src_cxx20)
+    list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src_cxx_newest)
 endif ()
 message("all roots ${SRC_DIR_ROOTS}")
 
