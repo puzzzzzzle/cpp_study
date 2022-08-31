@@ -7,6 +7,6 @@
 extern AutoWiredImpl<> g_autoWired;
 
 class Test1{
-  int * a_1{};
-  AUTO_WIRED(g_autoWired,a_1)
+//  int * a_1{};
+//  AUTO_WIRED(g_autoWired,a_1)
 };

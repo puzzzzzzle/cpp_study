@@ -5,7 +5,7 @@
 #pragma once
 #include <map>
 #include <vector>
-
+#include <string>
 //#define AUTO_WIRED_BASE(name, var, index) \
 //  name##Export* var {}
 //#define AUTO_WIRED(name, var) AUTO_WIRED_BASE(name, var, 0)
