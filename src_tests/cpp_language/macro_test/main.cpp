@@ -8,6 +8,8 @@
 
 TEST(test_test, 1) { EXPECT_EQ(1, 1); }
 
+#define TEST_MACRO_FUNC(msg) LOG_DEBUG(msg)
+
 int main(int argc, char **argv) {
   DefTest defTest{};
   Inc1Test inc1Test{};
@@ -16,6 +18,9 @@ int main(int argc, char **argv) {
   inc1Test.test();
   inc2Test.test();
 
+#ifdef TEST_MACRO_FUNC
+  TEST_MACRO_FUNC("has TEST_MACRO_FUNC")
+#endif
   int iRet = 0;
   iRet = beforeRun();
   if (iRet) {
