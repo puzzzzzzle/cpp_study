@@ -1,0 +1,20 @@
+ docker rm -f linux_build && docker run -itd --name linux_build --entrypoint bash -v /home/tao:/tao  puzzzzzzle/clion_local:0.8
+
+make ARCH=x86_64 tinyconfig
+
+make menuconfig
+
+make -j16
+
+
+qemu-system-x86_64
+
+
+qemu-system-x86_64 -machine accel=tcg -kernel arch/x86/boot/bzImage -hda /dev/zero -append "root=/dev/zero console=ttyS0" -serial stdio -display none
+
+
+git clone git://git.buildroot.net/buildroot
+
+buildroot
+
+qemu-system-x86_64 -machine accel=tcg -kernel arch/x86/boot/bzImage -initrd ./rootfs -append "root=/dev/ram console=ttyS0 rdinit=/helloworld" -serial stdio -display none
