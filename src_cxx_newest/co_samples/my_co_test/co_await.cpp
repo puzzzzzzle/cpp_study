@@ -1,14 +1,20 @@
 //
 // Created by khalidzhang on 2022/5/17.
 //
+//#define CPP_INSIGHTS
+#ifndef CPP_INSIGHTS
 #include <gtest/gtest.h>
+
+#include "log_init.h"
+#else
+#include <iostream>
+#define LOG_DEBUG(msg) std::cout << msg;
+#endif
 
 #include <chrono>
 #include <coroutine>
 #include <exception>
 #include <thread>
-
-#include "log_init.h"
 
 namespace co_await_test {
 struct awaitable {
@@ -63,7 +69,7 @@ auto resume_by_thread_timer() -> task {
   // 这个并不会被立即执行 需要等 协程 resume 后才会
   LOG_DEBUG("end")
 }
-TEST(co_await_test, 1) {
+void RunTests() {
   LOG_DEBUG("start call coroutine")
   auto t = resume_by_thread_timer();
   LOG_DEBUG("start resume coroutine")
@@ -72,4 +78,12 @@ TEST(co_await_test, 1) {
   // 不用destroy
   //  t.h_.destroy();
 }
+#ifndef CPP_INSIGHTS
+TEST(co_await_test, 1) { RunTests(); }
+#else
+int main(int argc, char* argv[]) {
+  RunTests();
+  return 0;
+}
+#endif
 }  // namespace co_await_test

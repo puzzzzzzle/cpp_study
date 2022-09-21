@@ -42,12 +42,11 @@ TEST(Pipeable, Transform) {
       | then([&]{ ++count; })
       | sync_wait();
 
-  auto twocount = then([&]{ ++count; }) | then([&]{ ++count; });
+  auto two_count = then([&]{ ++count; }) | then([&]{ ++count; });
 
   just()
       | then([&]{ ++count; })
-      | twocount
-      | sync_wait();
+      | two_count | sync_wait();
 
   EXPECT_EQ(count, 4);
 }
