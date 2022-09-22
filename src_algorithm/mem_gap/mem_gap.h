@@ -1,7 +1,7 @@
 /************************************************
  * @author puzzzzzzle
  * @email 2359173906@qq.com
- * @desc
+ * @desc 进程内存变化追踪工具, 只支持Linux
  * @time 2022/9/21
  * @file mem_gap.h
  * @version
