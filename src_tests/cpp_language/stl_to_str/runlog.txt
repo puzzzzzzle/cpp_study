@@ -17,13 +17,13 @@ C:\WINDOWS\system32\wsl.exe --distribution Ubuntu20.04LTS --exec /usr/bin/zsh -c
 [       OK ] vec.TestPayload (0 ms)
 [----------] 3 tests from vec (1 ms total)
 
-[----------] 1 test from array
-[ RUN      ] array.TestPayload
+[----------] 1 test from delay_array
+[ RUN      ] delay_array.TestPayload
 [DEBUG]    [2022-04-05 03:21:09]    [[TestPayload_5,TestPayload_6,TestPayload_7,TestPayload_8,TestPayload_9]]   [/mnt/c/programmer/projects/cpp_study/src/cpp_language/stl_to_str/main.cpp:67    virtual void array_TestPayload_Test::TestBody()]
 [DEBUG]    [2022-04-05 03:21:09]    [[TestPayload_5,TestPayload_6,TestPayload_7,TestPayload_8,TestPayload_9]]   [/mnt/c/programmer/projects/cpp_study/src/cpp_language/stl_to_str/main.cpp:68    virtual void array_TestPayload_Test::TestBody()]
 [DEBUG]    [2022-04-05 03:21:09]    [[TestPayload_5@0x7ffc648e4790,TestPayload_6@0x7ffc648e47a0,TestPayload_7@0x7ffc648e47b0,TestPayload_8@0x7ffc648e47c0,TestPayload_9@0x7ffc648e47d0]]   [/mnt/c/programmer/projects/cpp_study/src/cpp_language/stl_to_str/main.cpp:69    virtual void array_TestPayload_Test::TestBody()]
-[       OK ] array.TestPayload (0 ms)
-[----------] 1 test from array (0 ms total)
+[       OK ] delay_array.TestPayload (0 ms)
+[----------] 1 test from delay_array (0 ms total)
 
 [----------] 1 test from forward_list
 [ RUN      ] forward_list.TestPayload
