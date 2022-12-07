@@ -44,7 +44,10 @@ TEST(opencv_1, arr) {
         }
       }
     }
-    ASSERT_TRUE(imwrite(PIC_BASE + "/arr_x_50.jpg", img));
+    if(!imwrite(PIC_BASE + "./arr_x_50.jpg", img))
+    {
+      ::perror()
+    }
   }
 
   {
