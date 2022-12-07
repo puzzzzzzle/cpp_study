@@ -37,16 +37,20 @@ message("COMMON_LIBS ${COMMON_LIBS}")
 
 # 设置源码根目录(包含cmake的文件夹将被解析为一个编译target)
 set(SRC_DIR_ROOTS "")
-# 一些测试工程
-list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src_tests)
 # 一些算法
 list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src_algorithm)
-# 一些c++工具库
-list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src_cpp_tools)
 # 汇编测试工程
 list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src_asm)
+# c++ 语法测试
+list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src_cpp_language)
+# c++ 工具类
+list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src_cpp_tools)
 # 一些cpu底层指令/汇编指令
 list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src_cpu)
+# 一些c++工具库
+list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src_lib_tests)
+# linux 函数测试
+list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src_linux_tests)
 
 # 最新c++特性
 if (COMPILER_SUPPORTS_CXX20)
