@@ -1,0 +1,11 @@
+# objdump -s -j .rodata ../../bin/src_cpp_language_class_link > rodata.txt
+
+
+../../bin/src_cpp_language_class_link:     file format elf64-x86-64
+
+Contents of section .rodata:
+ 2000 01000200 436c6173 7332006d 61696e3a  ....Class2.main:
+ 2010 3a436c61 73733100 6d61696e 20737461  :Class1.main sta
+ 2020 72742000 436c6173 73320074 6573743a  rt .Class2.test:
+ 2030 3a436c61 73733200 74657374 20737461  :Class2.test sta
+ 2040 72742000                             rt .            

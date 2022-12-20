@@ -1,0 +1,10 @@
+strings ../../bin/src_cpp_language_class_link | grep test > strings.txt
+
+
+test::Class2
+test start 
+test
+_Z4testv
+/tmp/tmp.vnh9o7HhMq/src_cpp_language/class_link/test.cpp
+test.cpp
+_Z4testv
