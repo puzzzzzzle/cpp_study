@@ -6,6 +6,10 @@ class Class1 {
   void fun() { printf("main::Class1\n"); }
 };
 void test();
+inline void test2()
+{
+  printf("main::test2\n");
+}
 /**
  * 输出:
  *
@@ -36,4 +40,5 @@ int main() {
   Class2 c2{};
   c2.fun();
   test();
+  test2();
 }

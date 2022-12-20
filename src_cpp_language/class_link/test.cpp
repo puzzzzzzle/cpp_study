@@ -5,6 +5,10 @@ class Class1 {
   public:
   void fun() { printf("test::Class2\n"); }
 };
+inline void test2()
+{
+  printf("test::test2\n");
+}
 void test()
 {
   printf("test start \n");
@@ -12,4 +16,5 @@ void test()
   c1.fun();
   Class2 c2{};
   c2.fun();
+  test2();
 }
