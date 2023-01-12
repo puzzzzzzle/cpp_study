@@ -4,6 +4,10 @@ project(${project_name})
 
 # 详细编译信息开关
 set(CMAKE_VERBOSE_MAKEFILE ON)
+# boost 库静态链接选项
+set(BOOST_USE_STATIC_LINK ON)
+#log 选项 使用boostlog 还是 std out
+set(LOG_USE_BOOST ON)
 
 # 版本号
 set(VERSION_MAJOR 1.2)
@@ -26,14 +30,10 @@ SetCompilerVersion()
 # 查找依赖
 FindCommonLib()
 # 按需安装boost 依赖
-list(APPEND NEED_COMPONENTS regex system log filesystem)
+list(APPEND NEED_COMPONENTS regex filesystem log log_setup)
 FindBoostLib(NEED_COMPONENTS)
 
 message("COMMON_LIBS ${COMMON_LIBS}")
-
-
-#log 选项
-#add_definitions(-DLOG_BOOST)
 
 # 设置源码根目录(包含cmake的文件夹将被解析为一个编译target)
 set(SRC_DIR_ROOTS "")
