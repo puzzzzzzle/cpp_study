@@ -39,7 +39,7 @@
 #include <pthread.h>
 #define SET_THREAD_NAME(name) pthread_setname_np(pthread_self(), name);
 #else
-#define SET_THREAD_NAME(name) GROUP_MNG_LOG("not support set thread name %s", name);
+#define SET_THREAD_NAME(name) GROUP_MNG_LOG("not support set thread name ");
 #endif
 
 
