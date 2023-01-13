@@ -28,19 +28,20 @@
 #include <functional>
 #include <stdexcept>
 #include <sstream>
+
+// 日志开关, 如果外部有定义 GROUP_MNG_LOG 则使用外部的
+#ifndef GROUP_MNG_LOG
+#define GROUP_MNG_LOG(msg)
+#endif
+
 // 设置线程名字相关
 #ifdef _POSIX_THREADS
 #include <pthread.h>
 #define SET_THREAD_NAME(name) pthread_setname_np(pthread_self(), name);
 #else
-#define SET_THREAD_NAME(name) printf("not support set thread name %s", name);
+#define SET_THREAD_NAME(name) GROUP_MNG_LOG("not support set thread name %s", name);
 #endif
 
-// 日志开关, 如果外部有定义 GROUP_MNG_LOG 则使用外部的
-#ifdef GROUP_MNG_LOG
-#else
-#define GROUP_MNG_LOG(msg)
-#endif
 
 namespace group_task
 {
