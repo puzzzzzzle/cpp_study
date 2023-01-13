@@ -30,7 +30,7 @@ SetCompilerVersion()
 # 查找依赖
 FindCommonLib()
 # 按需安装boost 依赖
-list(APPEND NEED_COMPONENTS regex filesystem log log_setup)
+list(APPEND NEED_COMPONENTS regex filesystem)
 FindBoostLib(NEED_COMPONENTS)
 
 message("COMMON_LIBS ${COMMON_LIBS}")
