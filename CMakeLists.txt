@@ -7,7 +7,9 @@ set(CMAKE_VERBOSE_MAKEFILE ON)
 # boost 库静态链接选项
 set(BOOST_USE_STATIC_LINK ON)
 #log 选项 使用boostlog 还是 std out
-set(LOG_USE_BOOST ON)
+set(LOG_USE_BOOST OFF)
+# std log 打印log时， 是否加锁
+set(STD_LOG_SYNC ON)
 
 # 版本号
 set(VERSION_MAJOR 1.2)
