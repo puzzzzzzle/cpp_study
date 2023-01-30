@@ -3,7 +3,8 @@
 //
 #include "common_includes.h"
 
-#define GROUP_MNG_LOG(msg) LOG_DEBUG(" -- group mng :" << msg)
+//#define GROUP_MNG_LOG(msg) LOG_DEBUG(" -- group mng :" << msg)
+#define GROUP_MNG_LOG_INFO(msg) LOG_DEBUG(" -- group mng :" << msg)
 
 #include "group_tasks.h"
 using group_task::GroupTaskMng;
@@ -14,7 +15,7 @@ private:
 };
 TEST(test_test, 1)
 {
-    GroupTaskMng group(1000, true);
+    GroupTaskMng group(600, true);
     // 组 1 上注册一个生产者, 进行生产
     // product 虽然是无锁且被多线程访问, 但是一定不会有问题, 因为 组1 和组2 是分开执行的
     int product{};

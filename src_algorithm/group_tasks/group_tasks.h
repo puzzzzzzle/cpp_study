@@ -34,6 +34,11 @@
 #define GROUP_MNG_LOG(msg)
 #endif
 
+#ifndef GROUP_MNG_LOG_INFO
+#define GROUP_MNG_LOG_INFO(msg) GROUP_MNG_LOG(msg)
+#endif
+
+
 // 设置线程名字相关
 #ifdef _POSIX_THREADS
 #include <pthread.h>
@@ -167,10 +172,11 @@ public:
         cv_.wait(lock, [this] { return count_ <= 0; });
     }
 };
-
+#ifndef GROUP_TASK_USE_DYN_ID_TYPE
 using GroupIDType = int64_t;
 using TaskIDType = int64_t;
 using MergedIDType = __int128_t;
+#endif
 using TaskFuncType = std::function<bool()>;
 inline GroupIDType GroupID(const MergedIDType &merge_id)
 {
@@ -316,7 +322,7 @@ public:
         task_info.func = std::move(func);
         task_info.need_run = std::move(need_run);
         task_info.id = id;
-        GROUP_MNG_LOG("reg task " << ToString(id))
+        GROUP_MNG_LOG_INFO("reg task " << ToString(id))
         return id;
     }
     template<typename T>
@@ -346,7 +352,7 @@ public:
             });
         std::unique_lock<std::mutex> lock(mu);
         cv.wait(lock, [this, &has_called]() -> bool { return has_called.load(); });
-        GROUP_MNG_LOG("WaitStopTask end " << ToString(merged_id) << "\t" << (int)ret_value.load())
+        GROUP_MNG_LOG_INFO("WaitStopTask end " << ToString(merged_id) << "\t" << (int)ret_value.load())
         return ret_value.load();
     }
 
@@ -361,7 +367,10 @@ public:
         // 手动执行时本地线程不能启动
         assert(running_.load() == false);
         bool executed{};
+        // 添加新加的Task
         executed |= ApplyTask();
+        // 清理要删除的数据
+        executed |= ApplyStopTask();
         if (group != -1)
         {
             auto g = group_tasks_.find(group);
@@ -439,7 +448,7 @@ private:
             }
             else
             {
-                GROUP_MNG_LOG("start one group " << it->first)
+                GROUP_MNG_LOG_INFO("start one group " << it->first)
                 executed |= RunOneGroup(it->second);
                 ++it;
             }
