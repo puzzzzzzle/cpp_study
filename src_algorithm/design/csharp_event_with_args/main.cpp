@@ -100,10 +100,7 @@ TEST(MultiOrderedEventImpl, multi) {
 }
 int main(int argc, char **argv) {
   int iRet = 0;
-  iRet = beforeRun();
-  if (iRet) {
-    std::cerr << "init fail with " << iRet << std::endl;
-  }
+
   testing::InitGoogleTest(&argc, argv);
   iRet = RUN_ALL_TESTS();
   sleep(1);

@@ -35,7 +35,6 @@ std::shared_ptr<char> make_space(size_t size) {
 }
 
 int main(int argc, char **argv) {
-  int result = beforeRun();
   testing::InitGoogleTest(&argc, argv);
 
   LOG_INFO("start raw output test")

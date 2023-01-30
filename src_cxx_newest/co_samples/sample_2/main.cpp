@@ -135,10 +135,7 @@ int run_coroutine() {
 int main(int argc, char** argv) {
   run_coroutine();
 //  int iRet = 0;
-//  iRet = beforeRun();
-//  if (iRet) {
-//    std::cerr << "init fail with " << iRet << std::endl;
-//  }
+
 //  testing::InitGoogleTest(&argc, argv);
 //  iRet = RUN_ALL_TESTS();
 //  return iRet;

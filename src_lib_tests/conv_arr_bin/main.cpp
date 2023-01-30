@@ -292,10 +292,6 @@ void BuildFakeMap() {
   bin.Save(ofs);
 }
 int main(int argc, char **argv) {
-  CALL_IF_RETURN(beforeRun());
-  //    iRet = RunTest(argc, argv);
-  //    BuildFakeMap();
-  //    return 0;
   std::string desc =
       R"(bigWorld server map tools
 usage: tools_conv_arr_bin [options] files...

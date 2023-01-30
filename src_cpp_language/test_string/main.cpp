@@ -14,10 +14,7 @@ std::string getString() {
 int main(int argc, char **argv) {
   int iRet = 0;
   LOG_DEBUG(getString())
-  iRet = beforeRun();
-  if (iRet) {
-    std::cerr << "init fail with " << iRet << std::endl;
-  }
+
   testing::InitGoogleTest(&argc, argv);
   iRet = RUN_ALL_TESTS();
 #define TestGet(para)                      \

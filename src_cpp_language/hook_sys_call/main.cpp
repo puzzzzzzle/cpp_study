@@ -12,10 +12,7 @@ void func4() { func3(); }
 void func5() { func4(); }
 int main(int argc, char **argv) {
   int iRet = 0;
-  iRet = beforeRun();
-  if (iRet) {
-    std::cerr << "init fail with " << iRet << std::endl;
-  }
+
   malloc(10);
   try {
     func5();

@@ -180,10 +180,7 @@ TEST(calss_test, 1) {
 int main(int argc, char **argv) {
   testFunc();
   int iRet = 0;
-  iRet = beforeRun();
-  if (iRet) {
-    std::cerr << "init fail with " << iRet << std::endl;
-  }
+
   testing::InitGoogleTest(&argc, argv);
   iRet = RUN_ALL_TESTS();
   sleep(1);

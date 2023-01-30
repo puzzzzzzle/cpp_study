@@ -55,10 +55,7 @@ TEST(test_test, 2) {
 }
 int main(int argc, char** argv) {
   int iRet = 0;
-  iRet = beforeRun();
-  if (iRet) {
-    std::cerr << "init fail with " << iRet << std::endl;
-  }
+
   F_LOG_DEBUG(1, "hello")
 
   Temp t{};

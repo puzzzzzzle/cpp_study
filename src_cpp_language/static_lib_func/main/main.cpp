@@ -10,12 +10,6 @@ TEST(test_test, 0) { EXPECT_EQ(0, zero()); }
 
 int main(int argc, char **argv) {
   int iRet = 0;
-  iRet = beforeRun();
-  LOG_INFO("logger inited")
-  if (iRet) {
-    std::cerr << "init fail with " << iRet << std::endl;
-    return iRet;
-  }
   Hello h;
   h.hello();
   testing::InitGoogleTest(&argc, argv);
