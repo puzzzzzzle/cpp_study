@@ -31,8 +31,11 @@ SetCompilerVersion()
 
 # 查找依赖
 FindCommonLib()
-# 按需安装boost 依赖
-list(APPEND NEED_COMPONENTS regex filesystem)
+# 按需安装boost 依赖 eg: regex filesystem
+# 会给所有子工程都链接
+# 只给单个子工程链接可以用 FindInBoost() 然后手动链接
+#list(APPEND NEED_COMPONENTS regex filesystem)
+list(APPEND NEED_COMPONENTS "")
 FindBoostLib(NEED_COMPONENTS)
 
 message("COMMON_LIBS ${COMMON_LIBS}")
@@ -57,4 +60,4 @@ endif ()
 message("all roots ${SRC_DIR_ROOTS}")
 
 # 开始加载
-AddAllSubDir()
+#AddAllSubDir()
