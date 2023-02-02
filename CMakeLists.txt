@@ -60,4 +60,4 @@ endif ()
 message("all roots ${SRC_DIR_ROOTS}")
 
 # 开始加载
-#AddAllSubDir()
+AddAllSubDir()
