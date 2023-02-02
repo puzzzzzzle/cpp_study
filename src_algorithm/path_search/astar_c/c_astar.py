@@ -1,13 +1,11 @@
 import os
 from ctypes import *
 import platform
-import cv2
-import logging
-import array
 
 if platform.system() == "Windows":
     # windows
-    dll_path = f"{os.path.abspath(os.path.dirname(os.path.abspath(__file__)))}/c_src/shared_lib/astar_ctype_bind_win_x64.dll"
+    dll_path = f"{os.path.abspath(os.path.dirname(os.path.abspath(__file__)))}/c_src/shared_lib" \
+               f"/astar_ctype_bind_win_x64.dll"
     dll = WinDLL(dll_path)
 else:
     raise RuntimeError(f"not support this platform {platform.system()}")
@@ -32,7 +30,7 @@ version_info.argtypes = []
 
 astar_new = dll.astar_new
 astar_new.restype = c_void_p
-astar_new.argtypes = [c_int32, c_int32, POINTER(c_ubyte)]
+astar_new.argtypes = [c_int32, c_int32, POINTER(c_uint8)]
 
 astar_delete = dll.astar_delete
 astar_delete.restype = None
@@ -56,7 +54,7 @@ class AstarSearchFail(Exception):
 
 
 class Astar:
-    def __init__(self, width: int, height: int, arr: POINTER(c_ubyte)):
+    def __init__(self, width: int, height: int, arr: POINTER(c_uint8)):
         self.handle = astar_new(width, height, arr)
         pass
 
@@ -94,8 +92,8 @@ if __name__ == '__main__':
     arr = bytearray(b'\x01') * (arr_len ** 2)
     for i in range(arr_len):
         arr[3 * rate * arr_len + i] = 0
-    raw_bytes = (c_ubyte * len(arr)).from_buffer_copy(arr)
-    astar = Astar(arr_len, arr_len, raw_bytes)
+    raw_bytes = (c_uint8 * len(arr)).from_buffer_copy(arr)
+    astar = Astar(arr_len, arr_len, cast(raw_bytes, POINTER(c_uint8)))
     print(astar.dump_map())
 
 
