@@ -1,0 +1,4 @@
+windows :
+x64 编译器 : cl /LD /Ox /EHsc astar_ctype_bind.cpp -o .\shared_lib\astar_ctype_bind_win_x64.dll
+linux :
+    x64 编译器 : g++ -shared -fPIC -O3 -o ./shared_lib/astar_ctype_bind_linux_x64.so astar_ctype_bind.cpp
