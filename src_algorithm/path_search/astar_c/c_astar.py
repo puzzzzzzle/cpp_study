@@ -6,10 +6,12 @@ if platform.system() == "Windows":
     # windows
     dll_path = f"{os.path.abspath(os.path.dirname(os.path.abspath(__file__)))}/c_src/shared_lib" \
                f"/astar_ctype_bind_win_x64.dll"
-    dll = WinDLL(dll_path)
-    libc = cdll.msvcrt
 else:
-    raise RuntimeError(f"not support this platform {platform.system()}")
+    dll_path = f"{os.path.abspath(os.path.dirname(os.path.abspath(__file__)))}/c_src/shared_lib" \
+               f"/astar_ctype_bind_linux_x64.so"
+
+dll = cdll.LoadLibrary(dll_path)
+
 
 
 class AstarPoint(Structure):
