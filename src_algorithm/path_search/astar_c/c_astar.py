@@ -7,6 +7,7 @@ if platform.system() == "Windows":
     dll_path = f"{os.path.abspath(os.path.dirname(os.path.abspath(__file__)))}/c_src/shared_lib" \
                f"/astar_ctype_bind_win_x64.dll"
     dll = WinDLL(dll_path)
+    libc = cdll.msvcrt
 else:
     raise RuntimeError(f"not support this platform {platform.system()}")
 
@@ -23,6 +24,9 @@ class AstarResult(Structure):
                 ("path", POINTER(AstarPoint)),
                 ]
 
+free_mem=dll.free_mem
+free_mem.restype = None
+free_mem.argtypes = [c_void_p]
 
 version_info = dll.version_info
 version_info.restype = c_char_p
@@ -37,16 +41,16 @@ astar_delete.restype = None
 astar_delete.argtypes = [c_void_p]
 
 astar_dump_map = dll.astar_dump_map
-astar_dump_map.restype = c_char_p
+astar_dump_map.restype = c_void_p
 astar_dump_map.argtypes = [c_void_p]
 
 astar_search = dll.astar_search
 astar_search.restype = AstarResult
 astar_search.argtypes = [c_void_p, AstarPoint, AstarPoint]
 
-astar_free_result = dll.astar_free_result
-astar_free_result.restype = None
-astar_free_result.argtypes = [AstarResult]
+astar_result_delete = dll.astar_result_delete
+astar_result_delete.restype = None
+astar_result_delete.argtypes = [AstarResult]
 
 
 class AstarSearchFail(Exception):
@@ -63,7 +67,9 @@ class Astar:
 
     def dump_map(self):
         c_str = astar_dump_map(self.handle)
-        return c_str.decode("utf-8")
+        map_str = cast(c_str,c_char_p).value.decode(encoding="utf-8")
+        free_mem(cast(c_str,c_void_p))
+        return map_str
 
     def search(self, src_x, src_y, end_x, end_y):
         src = AstarPoint()
@@ -79,7 +85,7 @@ class Astar:
         for i in range(astar_ret.len):
             p = astar_ret.path[i]
             path.append((p.x, p.y))
-        astar_free_result(astar_ret)
+        astar_result_delete(astar_ret)
         return path
         pass
 

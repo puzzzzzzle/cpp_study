@@ -32,8 +32,9 @@ EXPORT void* astar_new(int inWidth, int inHeight, uint8_t* arr);
 EXPORT void astar_delete(void* astar);
 EXPORT char* astar_dump_map(void* astar);
 EXPORT AstarResult astar_search(void* astar, AstarPoint start, AstarPoint end);
-EXPORT void astar_free_result(AstarResult result);
+EXPORT void astar_result_delete(AstarResult result);
 EXPORT const char * version_info();
+EXPORT void free_mem(void* astar);
 #ifdef __cplusplus
 }
 #endif

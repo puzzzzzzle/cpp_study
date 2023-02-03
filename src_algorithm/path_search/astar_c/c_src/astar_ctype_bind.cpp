@@ -120,27 +120,31 @@ void* astar_new(int inWidth, int inHeight, uint8_t* arr) {
 void astar_delete(void* astar) {
   auto data = static_cast<DataType*>(astar);
   if (data == nullptr) {
-    throw std::runtime_error("static_cast<DataType *>(astar) fail");
+    return;
   }
   delete data;
 }
 char* astar_dump_map(void* astar) {
   auto data = static_cast<DataType*>(astar);
-  if (data == nullptr) {
-    throw std::runtime_error("static_cast<DataType *>(astar) fail");
+  std::string value= "nullptr error : static_cast<DataType*>(astar)";
+  if (data != nullptr) {
+    try
+    {
+      value = data->to_string();
+    }
+    catch(...)
+    {
+    }
   }
-  auto value = data->to_string();
-  auto cstr = (char*)malloc(value.size() + 1);
-  memcpy(cstr, value.c_str(), value.size());
-  cstr[value.size()] = 0;
-  return cstr;
+  return strdup(value.c_str());
 }
 AstarResult astar_search(void* astar, AstarPoint start, AstarPoint end) {
+  AstarResult result{};
   auto data = static_cast<DataType*>(astar);
   if (data == nullptr) {
-    throw std::runtime_error("static_cast<DataType *>(astar) fail");
+    result.result = -100;
+    return result;
   }
-  AstarResult result{};
   PathFindType finder(CPosition(start), CPosition(end), data);
   int ret = finder.searching();
   if (ret) {
@@ -157,14 +161,14 @@ AstarResult astar_search(void* astar, AstarPoint start, AstarPoint end) {
   }
   return result;
 }
-void astar_free_result(AstarResult result) {
+void astar_result_delete(AstarResult result) {
   delete result.path;
   result.len = 0;
   result.result = -1;
 }
-const char * version_info()
-{
-  return "c astar v1";
+const char* version_info() { return "c astar v1"; }
+void free_mem(void* mem){
+  free(mem);
 }
 #ifdef __cplusplus
 }
