@@ -2,7 +2,13 @@
 // Created by tao on 19-1-17.
 //
 #include "common_includes.h"
-TEST(test_test, 1) { EXPECT_EQ(1, 1); }
+#include "udp.h"
+TEST(test_test, 1) {
+  LOG_DEBUG(sizeof (sockaddr))
+  LOG_DEBUG(sizeof (sockaddr_in))
+  LOG_DEBUG(sizeof (sockaddr_in6))
+
+  EXPECT_EQ(1, 1); }
 
 int main(int argc, char **argv) {
   int iRet = 0;
