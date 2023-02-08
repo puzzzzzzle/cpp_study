@@ -1,12 +1,12 @@
 //
 // Created by khalidzhang on 2023/2/7.
 //
-#include <ikcp.h>
-#include <udp.h>
+#include "kcp.h"
 
 #include <condition_variable>
 
 #include "common_includes.h"
+#include "udp.h"
 class CutDownLatch {
   private:
   std::mutex mutex_{};
@@ -30,6 +30,35 @@ class CutDownLatch {
   void Wait() noexcept {
     std::unique_lock<std::mutex> lock(mutex_);
     cv_.wait(lock, [this] { return count_ <= 0; });
+  }
+};
+template <typename T>
+class ThreadWrapper {
+  private:
+  bool is_running_{false}, stopped_{true};
+  // 如果启动了本地线程的话
+  std::thread local_thread_{};
+  T *runnable_{};
+
+  public:
+  ThreadWrapper(T *t) : runnable_(t) {}
+  ~ThreadWrapper() { WaitStop(); }
+  void Start() {
+    is_running_ = true;
+    stopped_ = false;
+    local_thread_ = std::thread([this]() {
+      while (is_running_) {
+        runnable_->OneLoop();
+      }
+      stopped_ = true;
+    });
+  }
+  void MarkStop() { is_running_ = false; }
+  void WaitStop() {
+    MarkStop();
+    while (!stopped_) {
+      std::this_thread::sleep_for(std::chrono::milliseconds(10));
+    }
   }
 };
 TEST(udp, simple) {
@@ -110,7 +139,7 @@ TEST(udp, simple) {
     threads.emplace_back(client_func, i);
   }
 
-  for (auto& t : threads) {
+  for (auto &t : threads) {
     if (t.joinable()) {
       t.join();
     }

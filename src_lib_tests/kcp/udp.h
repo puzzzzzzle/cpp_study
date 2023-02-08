@@ -26,9 +26,9 @@ typedef unsigned long long SocketType; /* SOCKET = 64-bit UINT_PTR */
 typedef unsigned long SocketType; /* SOCKET = 32-bit UINT_PTR */
 #endif
 #define INVALID_SOCKET ((SocketType)(~0)) /* INVALID_SOCKET */
+#include<winsock2.h>
 #else
 #include <arpa/inet.h>
-#include <netinet/in.h>
 #include <sys/socket.h>
 #include <sys/types.h>
 typedef int SocketType;
@@ -111,36 +111,6 @@ inline int UdpConn(const SocketHandle &s, sockaddr *init_addr,
                    socklen_t init_addr_len) {
   return connect(s.socket, init_addr, init_addr_len);
 }
-
-template <typename T>
-class ThreadWrapper {
-  private:
-  bool is_running_{false}, stopped_{true};
-  // 如果启动了本地线程的话
-  std::thread local_thread_{};
-  T *runnable_{};
-
-  public:
-  ThreadWrapper(T *t) : runnable_(t) {}
-  ~ThreadWrapper() { WaitStop(); }
-  void Start() {
-    is_running_ = true;
-    stopped_ = false;
-    local_thread_ = std::thread([this]() {
-      while (is_running_) {
-        runnable_->OneLoop();
-      }
-      stopped_ = true;
-    });
-  }
-  void MarkStop() { is_running_ = false; }
-  void WaitStop() {
-    MarkStop();
-    while (!stopped_) {
-      std::this_thread::sleep_for(std::chrono::milliseconds(10));
-    }
-  }
-};
 // 一些杂项配置
 enum class UdpConfig {
   kUseIpV6,
