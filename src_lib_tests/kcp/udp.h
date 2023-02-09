@@ -11,6 +11,8 @@
 
 #pragma once
 #include <atomic>
+#include <cerrno>
+#include <cstring>
 #include <functional>
 #include <string>
 #include <thread>
@@ -26,7 +28,7 @@ typedef unsigned long long SocketType; /* SOCKET = 64-bit UINT_PTR */
 typedef unsigned long SocketType; /* SOCKET = 32-bit UINT_PTR */
 #endif
 #define INVALID_SOCKET ((SocketType)(~0)) /* INVALID_SOCKET */
-#include<winsock2.h>
+#include <winsock2.h>
 #else
 #include <arpa/inet.h>
 #include <sys/socket.h>
@@ -41,6 +43,62 @@ struct SocketHandle {
   SocketType socket{};
   bool is_ip_v6{};
 };
+struct SocketAddr {
+  union {
+    sockaddr_in v4;
+    sockaddr_in6 v6;
+  };
+  bool IsV4() const { return ((sockaddr *)this)->sa_family == AF_INET; }
+  bool IsV6() const { return ((sockaddr *)this)->sa_family == AF_INET6; }
+  socklen_t CSize() const {
+    if (IsV4()) {
+      return sizeof(sockaddr_in);
+    } else if (IsV6()) {
+      return sizeof(sockaddr_in6);
+    } else {
+      return sizeof(SocketAddr);
+    }
+  }
+  sockaddr *AsCAddr() const { return (sockaddr *)this; }
+  static SocketAddr FromAddress(bool v6, const char *ip, int port) {
+    SocketAddr out{};
+    if (v6) {
+      auto *my_addr = &out.v6;
+      memset(my_addr, 0, sizeof(sockaddr_in6));
+      my_addr->sin6_family = AF_INET6;
+      inet_pton(AF_INET6, ip, &(my_addr->sin6_addr));
+      my_addr->sin6_port = htons(port);
+    } else {
+      auto *my_addr = &out.v4;
+      memset(my_addr, 0, sizeof(sockaddr_in));
+      my_addr->sin_family = AF_INET;
+      inet_pton(AF_INET, ip, &(my_addr->sin_addr));
+      my_addr->sin_port = htons(port);
+    }
+    return out;
+  }
+  inline std::pair<std::string, int> ToStringInfo() const {
+    //  "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff:12345" : ipv6 最大 45 个字符
+
+    char buff[100]{0};
+    if (IsV6()) {
+      auto my_addr = (sockaddr_in6 *)&v6;
+      inet_ntop(AF_INET6, &(my_addr->sin6_addr), buff, sizeof(buff));
+      return {std::string(buff), ntohs(my_addr->sin6_port)};
+    } else if (IsV4()) {
+      auto my_addr = (sockaddr_in *)&v4;
+      inet_ntop(AF_INET, &(my_addr->sin_addr), buff, sizeof(buff));
+      return {std::string(buff), ntohs(my_addr->sin_port)};
+    } else {
+      return {"error: unknown", -1};
+    }
+  }
+  inline std::string ToString() const {
+    auto info = ToStringInfo();
+    return info.first + ":" + std::to_string(info.second);
+  }
+};
+
 inline const SocketHandle UdpSocket(bool v6) {
   if (v6) {
     return {socket(AF_INET6, SOCK_DGRAM, 0), true};
@@ -49,50 +107,12 @@ inline const SocketHandle UdpSocket(bool v6) {
     return {socket(AF_INET, SOCK_DGRAM, 0), false};
   }
 }
-inline std::pair<sockaddr *, socklen_t> UdpStringToAddress(bool v6,
-                                                           const char *ip,
-                                                           int port) {
-  sockaddr *ret_addr{};
-  socklen_t addr_len{};
-  if (v6) {
-    auto *my_addr = new sockaddr_in6;
-    ret_addr = (sockaddr *)my_addr;
-    my_addr->sin6_family = AF_INET6;
-    inet_pton(AF_INET6, ip, &(my_addr->sin6_addr));
-    my_addr->sin6_port = htons(port);
-    addr_len = sizeof(sockaddr_in6);
-  } else {
-    auto *my_addr = new sockaddr_in;
-    ret_addr = (sockaddr *)my_addr;
-    my_addr->sin_family = AF_INET;
-    inet_pton(AF_INET, ip, &(my_addr->sin_addr));
-    my_addr->sin_port = htons(port);
-    addr_len = sizeof(sockaddr_in);
-  }
-  return {ret_addr, addr_len};
-}
-inline std::pair<std::string, int> UdpAddrToString(bool v6,
-                                                   const sockaddr *addr) {
-  //  "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff:12345" : ipv6 最大 45 个字符
 
-  char buff[100]{0};
-  if (v6) {
-    auto my_addr = (sockaddr_in6 *)addr;
-    inet_ntop(AF_INET6, &(my_addr->sin6_addr), buff, sizeof(buff));
-    return {std::string(buff), ntohs(my_addr->sin6_port)};
-  } else {
-    auto my_addr = (sockaddr_in *)addr;
-    inet_ntop(AF_INET, &(my_addr->sin_addr), buff, sizeof(buff));
-    return {std::string(buff), ntohs(my_addr->sin_port)};
-  }
+inline int UdpBind(const SocketHandle &s, const SocketAddr &addr) {
+  return bind(s.socket, addr.AsCAddr(), addr.CSize());
 }
-inline int UdpBind(const SocketHandle &s, const char *ip, int port) {
-  sockaddr *ret_addr{};
-  socklen_t addr_len{};
-  std::tie(ret_addr, addr_len) = UdpStringToAddress(s.is_ip_v6, ip, port);
-  int ret = bind(s.socket, ret_addr, addr_len);
-  delete ret_addr;
-  return ret;
+inline int UdpConn(const SocketHandle &s, const SocketAddr &addr) {
+  return connect(s.socket, addr.AsCAddr(), addr.CSize());
 }
 inline int UdpSetTimeout(const SocketHandle &s, bool is_recv, int us) {
   timeval t{};
@@ -107,10 +127,6 @@ inline int UdpSetTimeout(const SocketHandle &s, bool is_recv, int us) {
   return ret;
 }
 
-inline int UdpConn(const SocketHandle &s, sockaddr *init_addr,
-                   socklen_t init_addr_len) {
-  return connect(s.socket, init_addr, init_addr_len);
-}
 // 一些杂项配置
 enum class UdpConfig {
   kUseIpV6,
@@ -139,10 +155,6 @@ class NetException : public std::exception {
 };
 // Udp server
 // 非多线程安全
-// 传入的数据， 如果不能立即处理， 需要拷贝走， 下一个请求的会立马覆盖
-using RecvFunc =
-    std::function<void(char *buff, ssize_t len, const sockaddr *addr,
-                       socklen_t addr_len, bool is_ip_v6)>;
 class Udp final {
   public:
   private:
@@ -160,15 +172,15 @@ class Udp final {
   char *buf_{};
   // 表示本次接受到数据来源
   // client 模式下只是拿来校验
-  sockaddr *recv_addr_{};
-  socklen_t recv_addr_len_{};
-
+  SocketAddr recv_addr_{};
   // 工作模式
   WorkMode mode_{};
   // client 模式下表示服务器的ip port
   // server 模式下表示服务器监听的ip port
   std::string ip_{};
   int port_{};
+  // 上面的ip port对应的 addr
+  SocketAddr init_addr_{};
 
   public:
   Udp() = default;
@@ -178,7 +190,6 @@ class Udp final {
   Udp &operator=(const Udp &&) = delete;
   ~Udp() {
     delete[] buf_;
-    delete recv_addr_;
     Close();
   }
   /**
@@ -213,13 +224,7 @@ class Udp final {
     socket_ = UdpSocket(GetConf(UdpConfig::kUseIpV6, false));
     buf_len_ = GetConf(UdpConfig::kBuffSize, UINT16_MAX);
     buf_ = new char[buf_len_];
-    if (socket_.is_ip_v6) {
-      recv_addr_ = (sockaddr *)(new sockaddr_in6);
-      recv_addr_len_ = sizeof(sockaddr_in6);
-    } else {
-      recv_addr_ = (sockaddr *)(new sockaddr_in);
-      recv_addr_len_ = sizeof(sockaddr_in);
-    }
+    init_addr_ = SocketAddr::FromAddress(socket_.is_ip_v6, ip_.c_str(), port_);
   }
 
   public:
@@ -231,9 +236,10 @@ class Udp final {
   Udp &Bind() {
     Init();
     mode_ = WorkMode::kServer;
-    int ret = UdpBind(socket_, ip_.c_str(), port_);
+    int ret = UdpBind(socket_, init_addr_);
     if (ret) {
-      throw NetException("UdpBind fail " + std::to_string(ret));
+      throw NetException("UdpBind fail " + std::to_string(ret) +
+                         " ;reason maybe: " + strerror(errno));
     }
     // 每 100 ms timeout一次， 方便线程退出
     UdpSetTimeout(socket_, true, GetConf(UdpConfig::kRecvTimeOut, 1000 * 100));
@@ -250,15 +256,11 @@ class Udp final {
   Udp &Conn() {
     Init();
     mode_ = WorkMode::kClient;
-    // 设置服务器地址
-    sockaddr *init_addr{};
-    socklen_t init_addr_len{};
-    std::tie(init_addr, init_addr_len) =
-        UdpStringToAddress(socket_.is_ip_v6, ip_.c_str(), port_);
-    int ret = UdpConn(socket_, init_addr, init_addr_len);
-    delete init_addr;
+
+    int ret = UdpConn(socket_, init_addr_);
     if (ret) {
-      throw NetException("UdpConn fail " + std::to_string(ret));
+      throw NetException("UdpConn fail " + std::to_string(ret) +
+                         " ; reason maybe: " + std::strerror(errno));
     }
     // 接收超时
     UdpSetTimeout(socket_, true, GetConf(UdpConfig::kRecvTimeOut, 1000 * 3000));
@@ -278,6 +280,7 @@ class Udp final {
     port_ = port;
     return *this;
   }
+  const SocketAddr &InitAddress() const { return init_addr_; }
   /**
    * 关闭server
    */
@@ -297,8 +300,8 @@ class Udp final {
    * 对象存活期间均可用， 且地址不会变
    * @return
    */
-  std::tuple<sockaddr *, socklen_t *, char *, ssize_t> GetBuf() {
-    return {recv_addr_, &recv_addr_len_, buf_, buf_len_};
+  std::tuple<SocketAddr *, char *, ssize_t> GetBuf() {
+    return {&recv_addr_, buf_, buf_len_};
   }
   /**
    * 接受数据， 并写在本对象的缓存中
@@ -307,57 +310,33 @@ class Udp final {
    * @return
    */
   ssize_t Recv() {
-    ssize_t ret{};
-    if (mode_ == WorkMode::kClient) {
-      // client 只从绑定的server接收
-      ret = recv(socket_.socket, buf_, buf_len_, 0);
-    } else {
-      // server 接收任意来源的数据， 并且保存来源地址
-      ret = recvfrom(socket_.socket, buf_, buf_len_, 0, recv_addr_,
-                     &recv_addr_len_);
-    }
-    return ret;
+    socklen_t socklen = recv_addr_.CSize();
+    // server 接收任意来源的数据， 并且保存来源地址
+    // client 由于调用过bind，  只从绑定的server接收
+    auto len = recvfrom(socket_.socket, buf_, buf_len_, 0, recv_addr_.AsCAddr(),
+                        &socklen);
+    return len;
   }
   ssize_t ClientSend(const char *buf, ssize_t buf_len) {
     if (mode_ != WorkMode::kClient) {
       throw NetException("only for client mode");
     }
+    return SendTo(buf, buf_len, &init_addr_);
+  }
+  ssize_t SendTo(const char *buf, ssize_t buf_len,
+                 const SocketAddr *addr) {
     if (buf_len <= 0) {
       return 0;
     }
     ssize_t write_len = 0;
     while (true) {
-      auto len = send(socket_.socket, buf + write_len, buf_len - write_len, 0);
-      if (len < 0) {
-        return -1;
-      }
-      write_len += len;
+      write_len += sendto(socket_.socket, buf, buf_len, 0, addr->AsCAddr(),
+                          addr->CSize());
       if (write_len >= buf_len) {
         break;
       }
     }
     return write_len;
-  }
-  ssize_t SendTo(const char *buf, ssize_t buf_len, const sockaddr *addr,
-                 socklen_t addr_len) {
-    if (buf_len <= 0) {
-      return 0;
-    }
-    ssize_t write_len = 0;
-    while (true) {
-      write_len += sendto(socket_.socket, buf, buf_len, 0, addr, addr_len);
-      if (write_len >= buf_len) {
-        break;
-      }
-    }
-    return write_len;
-  }
-  std::string AddrToString(const sockaddr *addr) {
-    if (addr == nullptr) {
-      return "nullptr";
-    }
-    const auto [ip, port] = UdpAddrToString(socket_.is_ip_v6, addr);
-    return ip + ":" + std::to_string(port);
   }
 };
 }  // namespace Udp

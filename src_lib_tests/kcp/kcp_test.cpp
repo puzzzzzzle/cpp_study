@@ -62,8 +62,18 @@ class ThreadWrapper {
   }
 };
 TEST(udp, simple) {
-  auto ip = "0.0.0.0";
-  auto port = 3344;
+  bool ip6 = false;
+  auto ip = "127.0.0.1";
+  auto ip_client = ip;
+
+//  bool ip6 = true;
+//  auto ip = "::";
+//  auto ip_client = "::1";
+
+
+
+  auto port = 22345;
+
   int count = 10;
   std::string echo = "echo:";
   int client_count = 5;
@@ -72,10 +82,11 @@ TEST(udp, simple) {
   // server
   CutDownLatch latch(1);
   threads.emplace_back([=, &latch]() {
-    LOG_DEBUG("server start")
     Udp::Udp server{};
-    server.Address(ip, port).Bind();
-    const auto [recv_addr, recv_addr_len, buf, buf_len] = server.GetBuf();
+    server.Address(ip, port).Config(Udp::UdpConfig::kUseIpV6,ip6).Bind();
+    LOG_DEBUG("server start at : " <<server.InitAddress().ToString())
+
+    const auto [recv_addr, buf, buf_len] = server.GetBuf();
     int count_inner = count * client_count;
     latch.CountDown();
     while (count_inner > 0) {
@@ -87,11 +98,11 @@ TEST(udp, simple) {
         // req
         std::string req(buf, size);
         LOG_DEBUG("server recv : " << req << "\tfrom: "
-                                   << server.AddrToString(recv_addr))
+                                   << recv_addr->ToString())
         // rsp
         auto rsp = echo + req;
         auto send =
-            server.SendTo(rsp.c_str(), rsp.length(), recv_addr, *recv_addr_len);
+            server.SendTo(rsp.c_str(), rsp.length(), recv_addr);
         ASSERT_EQ(send, rsp.length());
         LOG_DEBUG("server send : " << rsp)
         --count_inner;
@@ -104,8 +115,8 @@ TEST(udp, simple) {
 
   auto client_func = [=](int id) {
     Udp::Udp client{};
-    client.Address(ip, port).Conn();
-    const auto [recv_addr, recv_addr_len, buf, buf_len] = client.GetBuf();
+    client.Address(ip_client, port).Config(Udp::UdpConfig::kUseIpV6,ip6).Conn();
+    const auto [recv_addr, buf, buf_len] = client.GetBuf();
     int count_inner = count;
 
     while (count_inner > 0) {
