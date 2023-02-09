@@ -187,11 +187,39 @@ class Udp final {
   SocketAddr init_addr_{};
 
   public:
-  Udp() = default;
+  Udp() {}
+
   Udp(const Udp &) = delete;
-  Udp(const Udp &&) = delete;
+  Udp(Udp &&input) {
+      Move(std::move(input));
+  };
   Udp &operator=(const Udp &) = delete;
-  Udp &operator=(const Udp &&) = delete;
+  Udp &operator=(Udp &&input) {
+      Move(std::move(input));
+    return *this;
+  };
+  void Move(Udp &&input)
+  {
+    // 基础数据clone
+    socket_ = input.socket_;
+    inited_ = input.inited_;
+    std::copy(std::begin(input.conf_), std::end(input.conf_),
+              std::begin(conf_));
+    // buff
+    buf_len_ = input.buf_len_;
+    buf_ = input.buf_;
+
+    // recv_addr_
+    recv_addr_ = input.recv_addr_;
+    // 拷贝ip信息
+    mode_ = input.mode_;
+    ip_ = std::move(input.ip_);
+    port_ = input.port_;
+    init_addr_ = input.init_addr_;
+
+    input.buf_ = nullptr;
+    input.buf_len_ = 0;
+  }
   ~Udp() {
     delete[] buf_;
     Close();
@@ -202,7 +230,7 @@ class Udp final {
    * @param default_value
    * @return
    */
-  int GetConf(UdpConfig k, int default_value = 0) {
+  int GetConf(UdpConfig k, int default_value = 0) const {
     if (conf_[(int)k] == 0) {
       return default_value;
     }
@@ -232,6 +260,28 @@ class Udp final {
   }
 
   public:
+  Udp Clone() const {
+    if (!inited_) {
+      throw NetException("already Bind");
+    }
+    Udp clone{};
+    // 基础数据clone
+    clone.socket_ = socket_;
+    clone.inited_ = inited_;
+    std::copy(std::begin(conf_), std::end(conf_), std::begin(clone.conf_));
+    // buff新创建
+    clone.buf_len_ = buf_len_;
+    clone.buf_ = new char[buf_len_];
+
+    // recv_addr_置空
+    memset(&clone.recv_addr_, 0, sizeof(recv_addr_));
+    // 拷贝ip信息
+    clone.mode_ = mode_;
+    clone.ip_ = ip_;
+    clone.port_ = port_;
+    clone.init_addr_ = init_addr_;
+    return clone;
+  }
   /**
    * 设置进入server模式并绑定
    * 初始化， 之后就不允许再调整配置了
@@ -311,14 +361,15 @@ class Udp final {
    * 接受数据， 并写在本对象的缓存中
    * 在下一次Recv()前可用
    * 获取到的数据指向 GetBuf()
+   * 不保证读完
    * @return
    */
   ssize_t Recv() {
     socklen_t socklen = recv_addr_.CSize();
     // server 接收任意来源的数据， 并且保存来源地址
     // client 由于调用过bind，  只从绑定的server接收
-    auto len = recvfrom(socket_.socket, buf_, buf_len_, 0, recv_addr_.AsCAddr(),
-                        &socklen);
+    auto len = recvfrom(socket_.socket, buf_, buf_len_, MSG_WAITALL,
+                        recv_addr_.AsCAddr(), &socklen);
     return len;
   }
   ssize_t ClientSend(const char *buf, ssize_t buf_len) {
@@ -327,19 +378,18 @@ class Udp final {
     }
     return SendTo(buf, buf_len, &init_addr_);
   }
+  /**
+   * 写， 不保证写完
+   * @param buf
+   * @param buf_len
+   * @param addr
+   * @return
+   */
   ssize_t SendTo(const char *buf, ssize_t buf_len, const SocketAddr *addr) {
-    if (buf_len <= 0) {
-      return 0;
-    }
-    ssize_t write_len = 0;
-    while (true) {
-      write_len += sendto(socket_.socket, buf, buf_len, 0, addr->AsCAddr(),
-                          addr->CSize());
-      if (write_len >= buf_len) {
-        break;
-      }
-    }
-    return write_len;
+    auto len =
+        sendto(socket_.socket, buf, buf_len, 0, addr->AsCAddr(), addr->CSize());
+
+    return len;
   }
 };
 }  // namespace Udp

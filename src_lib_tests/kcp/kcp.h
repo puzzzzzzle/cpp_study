@@ -26,9 +26,25 @@ enum class KcpConfig {
 
   kMax,
 };
+struct Connection{
+  uint32_t conn;
+  uint32_t conv;
+
+};
+class KcpWorker
+{
+  private:
+  ikcpcb * kcp_{};
+  Udp::Udp * udp_{};
+  public:
+      void OneLoop()
+      {
+
+      }
+};
 class KcpServer {
   private:
-
+      Udp::Udp udp_{};
   public:
       KcpServer() = default;
       KcpServer(const KcpServer &) = delete;
@@ -42,8 +58,13 @@ class KcpServer {
    * @return
    */
   KcpServer &Config(KcpConfig k, int value) {
+    return *this;
   }
 
+  void OneLoop()
+  {
+    udp_.Recv();
+  }
 
 };
 }  // namespace Kcp
