@@ -62,13 +62,12 @@ class ThreadWrapper {
   }
 };
 TEST(udp, simple) {
-  bool ip6 = false;
-  auto ip = "127.0.0.1";
-  auto ip_client = ip;
+//  bool ip6 = false;
+//  auto ip = "127.0.0.1";
 
-//  bool ip6 = true;
-//  auto ip = "::";
-//  auto ip_client = "::1";
+  // 注意： ipv6下， 需要确认自己的机器支持且网卡开启了
+  bool ip6 = true;
+  auto ip = "::1";
 
 
 
@@ -115,7 +114,7 @@ TEST(udp, simple) {
 
   auto client_func = [=](int id) {
     Udp::Udp client{};
-    client.Address(ip_client, port).Config(Udp::UdpConfig::kUseIpV6,ip6).Conn();
+    client.Address(ip, port).Config(Udp::UdpConfig::kUseIpV6,ip6).Conn();
     const auto [recv_addr, buf, buf_len] = client.GetBuf();
     int count_inner = count;
 

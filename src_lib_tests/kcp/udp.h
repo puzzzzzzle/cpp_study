@@ -48,9 +48,9 @@ struct SocketAddr {
     sockaddr_in v4;
     sockaddr_in6 v6;
   };
-  bool IsV4() const { return ((sockaddr *)this)->sa_family == AF_INET; }
-  bool IsV6() const { return ((sockaddr *)this)->sa_family == AF_INET6; }
-  socklen_t CSize() const {
+  inline bool IsV4() const { return ((sockaddr *)this)->sa_family == AF_INET; }
+  inline bool IsV6() const { return ((sockaddr *)this)->sa_family == AF_INET6; }
+  inline socklen_t CSize() const {
     if (IsV4()) {
       return sizeof(sockaddr_in);
     } else if (IsV6()) {
@@ -59,7 +59,7 @@ struct SocketAddr {
       return sizeof(SocketAddr);
     }
   }
-  sockaddr *AsCAddr() const { return (sockaddr *)this; }
+  inline sockaddr *AsCAddr() const { return (sockaddr *)this; }
   static SocketAddr FromAddress(bool v6, const char *ip, int port) {
     SocketAddr out{};
     if (v6) {
@@ -77,26 +77,30 @@ struct SocketAddr {
     }
     return out;
   }
-  inline std::pair<std::string, int> ToStringInfo() const {
+  std::string IP() const {
     //  "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff:12345" : ipv6 最大 45 个字符
-
-    char buff[100]{0};
+    char buff[100]{"unknown"};
     if (IsV6()) {
       auto my_addr = (sockaddr_in6 *)&v6;
       inet_ntop(AF_INET6, &(my_addr->sin6_addr), buff, sizeof(buff));
-      return {std::string(buff), ntohs(my_addr->sin6_port)};
     } else if (IsV4()) {
       auto my_addr = (sockaddr_in *)&v4;
       inet_ntop(AF_INET, &(my_addr->sin_addr), buff, sizeof(buff));
-      return {std::string(buff), ntohs(my_addr->sin_port)};
+    }
+    return std::string(buff);
+  }
+  int Port() const {
+    if (IsV6()) {
+      auto my_addr = (sockaddr_in6 *)&v6;
+      return ntohs(my_addr->sin6_port);
+    } else if (IsV4()) {
+      auto my_addr = (sockaddr_in *)&v4;
+      return ntohs(my_addr->sin_port);
     } else {
-      return {"error: unknown", -1};
+      return -1;
     }
   }
-  inline std::string ToString() const {
-    auto info = ToStringInfo();
-    return info.first + ":" + std::to_string(info.second);
-  }
+  std::string ToString() const { return IP() + ":" + std::to_string(Port()); }
 };
 
 inline const SocketHandle UdpSocket(bool v6) {
@@ -323,8 +327,7 @@ class Udp final {
     }
     return SendTo(buf, buf_len, &init_addr_);
   }
-  ssize_t SendTo(const char *buf, ssize_t buf_len,
-                 const SocketAddr *addr) {
+  ssize_t SendTo(const char *buf, ssize_t buf_len, const SocketAddr *addr) {
     if (buf_len <= 0) {
       return 0;
     }
