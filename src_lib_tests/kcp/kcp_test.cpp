@@ -63,7 +63,6 @@ class ThreadWrapper {
 };
 static auto port = 22345;
 
-
 static bool ip6 = false;
 static auto ip = "127.0.0.1";
 
@@ -108,7 +107,7 @@ void ClientFunc(Udp::Udp &client, int id) {
         "client_" + std::to_string(id) + "_" + std::to_string(count_inner);
 
     // send
-    auto send = client.ClientSend(req.c_str(), req.length());
+    auto send = ClientSend(client, req.c_str(), req.length());
     if (send <= 0) {
       LOG_PERROR("fail");
     }
@@ -165,10 +164,8 @@ TEST(udp, share) {
   Udp::Udp server{};
   server.Address(ip, port).Config(Udp::UdpConfig::kUseIpV6, ip6).Bind();
 
-
-  threads.emplace_back([server_move = std::move(server)]() mutable {
-    ServerFunc(server_move);
-  });
+  threads.emplace_back(
+      [server_move = std::move(server)]() mutable { ServerFunc(server_move); });
   // wait server start up
 
   for (int i = 0; i < client_count; ++i) {

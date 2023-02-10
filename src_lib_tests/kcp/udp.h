@@ -145,12 +145,12 @@ enum class WorkMode {
   kClient,
   kServer,
 };
-class NetException : public std::exception {
+class UdpException : public std::exception {
   std::string what_{};
 
   public:
-  NetException() = default;
-  NetException(std::string what) : what_(what) {}
+  UdpException() = default;
+  UdpException(const std::string &what) : what_(what) {}
 
   public:
   const char *what() const _GLIBCXX_TXN_SAFE_DYN _GLIBCXX_NOTHROW override {
@@ -197,7 +197,8 @@ class Udp final {
     MoveFrom(std::move(input));
     return *this;
   };
-
+  const SocketAddr &GetInitAddr() const { return init_addr_; }
+  bool IsInited() { return inited_; }
   /**
    * 把from移动到当前对象中
    * @param from
@@ -283,7 +284,7 @@ class Udp final {
   private:
   void Init() {
     if (inited_) {
-      throw NetException("already Bind");
+      throw UdpException("already Bind");
     }
     inited_ = true;
     socket_ = UdpSocket(GetConf(UdpConfig::kUseIpV6, false));
@@ -303,7 +304,7 @@ class Udp final {
     mode_ = WorkMode::kServer;
     int ret = UdpBind(socket_, init_addr_);
     if (ret) {
-      throw NetException("UdpBind fail " + std::to_string(ret) +
+      throw UdpException("UdpBind fail " + std::to_string(ret) +
                          " ;reason maybe: " + strerror(errno));
     }
     // 每 100 ms timeout一次， 方便线程退出
@@ -324,7 +325,7 @@ class Udp final {
 
     int ret = UdpConn(socket_, init_addr_);
     if (ret) {
-      throw NetException("UdpConn fail " + std::to_string(ret) +
+      throw UdpException("UdpConn fail " + std::to_string(ret) +
                          " ; reason maybe: " + std::strerror(errno));
     }
     // 接收超时
@@ -383,12 +384,6 @@ class Udp final {
                         recv_addr_.AsCAddr(), &socklen);
     return len;
   }
-  ssize_t ClientSend(const char *buf, ssize_t buf_len) {
-    if (mode_ != WorkMode::kClient) {
-      throw NetException("only for client mode");
-    }
-    return SendTo(buf, buf_len, &init_addr_);
-  }
   /**
    * 写， 不保证写完
    * @param buf
@@ -403,4 +398,7 @@ class Udp final {
     return len;
   }
 };
+inline ssize_t ClientSend(Udp &udp, const char *buf, ssize_t buf_len) {
+  return udp.SendTo(buf, buf_len, &udp.GetInitAddr());
+}
 }  // namespace Udp
