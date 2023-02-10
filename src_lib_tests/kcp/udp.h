@@ -189,38 +189,71 @@ class Udp final {
   public:
   Udp() {}
 
-  Udp(const Udp &) = delete;
-  Udp(Udp &&input) {
-      Move(std::move(input));
-  };
-  Udp &operator=(const Udp &) = delete;
+  Udp(const Udp &from) { from.CloneTo(*this); };
+  Udp &operator=(const Udp &from) { from.CloneTo(*this); };
+
+  Udp(Udp &&input) { MoveFrom(std::move(input)); };
   Udp &operator=(Udp &&input) {
-      Move(std::move(input));
+    MoveFrom(std::move(input));
     return *this;
   };
-  void Move(Udp &&input)
-  {
+
+  /**
+   * 把from移动到当前对象中
+   * @param from
+   */
+  void MoveFrom(Udp &&from) {
     // 基础数据clone
-    socket_ = input.socket_;
-    inited_ = input.inited_;
-    std::copy(std::begin(input.conf_), std::end(input.conf_),
-              std::begin(conf_));
+    socket_ = from.socket_;
+    inited_ = from.inited_;
+    std::copy(std::begin(from.conf_), std::end(from.conf_), std::begin(conf_));
     // buff
-    buf_len_ = input.buf_len_;
-    buf_ = input.buf_;
+    buf_len_ = from.buf_len_;
+    buf_ = from.buf_;
 
     // recv_addr_
-    recv_addr_ = input.recv_addr_;
+    recv_addr_ = from.recv_addr_;
     // 拷贝ip信息
-    mode_ = input.mode_;
-    ip_ = std::move(input.ip_);
-    port_ = input.port_;
-    init_addr_ = input.init_addr_;
+    mode_ = from.mode_;
+    ip_ = std::move(from.ip_);
+    port_ = from.port_;
+    init_addr_ = from.init_addr_;
 
-    input.buf_ = nullptr;
-    input.buf_len_ = 0;
+    from.buf_ = nullptr;
+    from.buf_len_ = 0;
+    from.inited_ = false;
+  }
+  /**
+   * 把当前对象clone到目标中
+   * @param to
+   */
+  void CloneTo(Udp &to) const {
+    // 基础数据clone
+    to.socket_ = socket_;
+    to.inited_ = inited_;
+    std::copy(std::begin(conf_), std::end(conf_), std::begin(to.conf_));
+    // buff新创建
+    if (inited_) {
+      to.buf_len_ = buf_len_;
+      to.buf_ = new char[buf_len_];
+    }
+    // recv_addr_置空
+    memset(&to.recv_addr_, 0, sizeof(recv_addr_));
+    // 拷贝ip信息
+    to.mode_ = mode_;
+    to.ip_ = ip_;
+    to.port_ = port_;
+    to.init_addr_ = init_addr_;
+  }
+  Udp Clone() const {
+    Udp udp{};
+    CloneTo(udp);
+    return udp;
   }
   ~Udp() {
+    if (!inited_) {
+      return;
+    }
     delete[] buf_;
     Close();
   }
@@ -260,28 +293,6 @@ class Udp final {
   }
 
   public:
-  Udp Clone() const {
-    if (!inited_) {
-      throw NetException("already Bind");
-    }
-    Udp clone{};
-    // 基础数据clone
-    clone.socket_ = socket_;
-    clone.inited_ = inited_;
-    std::copy(std::begin(conf_), std::end(conf_), std::begin(clone.conf_));
-    // buff新创建
-    clone.buf_len_ = buf_len_;
-    clone.buf_ = new char[buf_len_];
-
-    // recv_addr_置空
-    memset(&clone.recv_addr_, 0, sizeof(recv_addr_));
-    // 拷贝ip信息
-    clone.mode_ = mode_;
-    clone.ip_ = ip_;
-    clone.port_ = port_;
-    clone.init_addr_ = init_addr_;
-    return clone;
-  }
   /**
    * 设置进入server模式并绑定
    * 初始化， 之后就不允许再调整配置了
