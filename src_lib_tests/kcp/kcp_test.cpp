@@ -129,7 +129,6 @@ void ClientFunc(Udp::Udp &client, int id) {
   }
 }
 TEST(udp, simple) {
-  auto port = 22345;
   std::vector<std::thread> threads{};
   // server
   CutDownLatch latch(1);

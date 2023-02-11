@@ -111,12 +111,14 @@ class KcpServer {
     }
     uint32_t conv{};
     memcpy(&conv,udp_buf_,4);
-
+    return true;
   }
   /**
    * 等待发送， block， 不过udp缓冲区不满， 一般不会block
    * @return
    */
-  bool Send() {}
+  bool Send() {
+    return true;
+  }
 };
 }  // namespace Kcp

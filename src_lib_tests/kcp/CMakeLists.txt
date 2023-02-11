@@ -5,4 +5,6 @@ include_directories(.)
 add_executable(${build_temp} ${${build_temp}cpps} )
 
 #通用动态链接库
-target_link_libraries(${build_temp} -static  ${COMMON_LIBS} kcp)
+target_link_libraries(${build_temp}  ${COMMON_LIBS} kcp)
+# 静态链接libc 库
+#target_link_libraries(${build_temp} -static  ${COMMON_LIBS} kcp)
