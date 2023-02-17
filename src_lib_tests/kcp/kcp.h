@@ -41,10 +41,59 @@ class KcpException : public std::exception {
     return what_.c_str();
   }
 };
-struct Connection {
-  uint32_t conv;
-  Udp::SocketAddr addr;
+class KcpConnection {
+  private:
+  uint32_t conv_{};
+  Udp::SocketAddr peer_addr_{};
   ikcpcb *kcp_{};
+  Udp::Udp udp_{};
+
+  public:
+  KcpConnection(uint32_t conv, const Udp::SocketAddr &addr)
+      : conv_(conv), peer_addr_(addr) {
+    kcp_ = ikcp_create(conv_, nullptr);
+  }
+  ~KcpConnection() {
+    if (kcp_ != nullptr) {
+      ikcp_release(kcp_);
+      kcp_ = nullptr;
+    }
+  }
+  KcpConnection(const KcpConnection &) = delete;
+  KcpConnection &operator=(const KcpConnection &) = delete;
+
+  KcpConnection(KcpConnection &&from) { MoveFrom(std::move(from)); }
+  KcpConnection &operator=(KcpConnection &&from) {
+    MoveFrom(std::move(from));
+    return *this;
+  }
+  void MoveFrom(KcpConnection &&from) {
+    conv_ = from.conv_;
+    peer_addr_ = from.peer_addr_;
+    kcp_ = from.kcp_;
+    udp_.MoveFrom(std::move(from.udp_));
+    from.kcp_ = nullptr;
+  }
+
+  /**
+   * 等待接收， block
+   * @return
+   */
+  bool Recv() {
+    auto size = udp_.Recv();
+    // 最少要一个int， 获取conv
+    if (size <= 4) {
+      return false;
+    }
+    uint32_t conv{};
+    memcpy(&conv, udp_buf_, 4);
+    return true;
+  }
+  /**
+   * 等待发送， block， 不过udp缓冲区不满， 一般不会block
+   * @return
+   */
+  bool Send() { return true; }
 };
 
 class KcpServer {
@@ -98,25 +147,5 @@ class KcpServer {
     conf_[(int)k] = value;
     return *this;
   }
-
-  /**
-   * 等待接收， block
-   * @return
-   */
-  bool Recv() {
-    auto size = udp_.Recv();
-    // 最少要一个int， 获取conv
-    if (size <= 4) {
-      return false;
-    }
-    uint32_t conv{};
-    memcpy(&conv,udp_buf_,4);
-
-  }
-  /**
-   * 等待发送， block， 不过udp缓冲区不满， 一般不会block
-   * @return
-   */
-  bool Send() {}
 };
 }  // namespace Kcp
