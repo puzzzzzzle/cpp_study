@@ -192,8 +192,8 @@ class Udp final {
   Udp(const Udp &from) { from.CloneTo(*this); };
   Udp &operator=(const Udp &from) { from.CloneTo(*this); };
 
-  Udp(Udp &&input) { MoveFrom(std::move(input)); };
-  Udp &operator=(Udp &&input) {
+  Udp(Udp &&input) noexcept { MoveFrom(std::move(input)); };
+  Udp &operator=(Udp &&input) noexcept  {
     MoveFrom(std::move(input));
     return *this;
   };
