@@ -8,8 +8,9 @@
  * version        author            desc
  * 1.0            puzzzzzzle       create
  ************************************************/
-#include "msg_head.h"
+#include "msg_def.h"
 #include <boost/asio.hpp>
+
 class UdpServer
 {
 
