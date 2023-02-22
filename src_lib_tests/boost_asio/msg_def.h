@@ -12,6 +12,7 @@
 #include <bit>
 #include <cstdint>
 #include <cstring>
+#include <stdexcept>
 #include <string>
 namespace MsgHead {
 #define bswap_16(value) ((((value)&0xff) << 8) | ((value) >> 8))
@@ -71,41 +72,54 @@ struct MsgHead {
   }
 };
 static_assert(sizeof(MsgHead) == 4);
+
+class MsgException : public std::runtime_error {
+  public:
+  using runtime_error::runtime_error;
+};
 class MsgBufBase {
   protected:
-  char* buf_;
-  ssize_t size_;
+  std::string buf_{};
   // custom_head_size_ 已经写在buff中了， 这里冗余了一份， 用来加速
-  uint32_t custom_head_size_;
+  uint32_t custom_head_size_{};
   static constexpr ssize_t kCustomHeadLen = 4;
   void Init(ssize_t size, ssize_t custom_head_size) {
     // 自定义包头长度
-    size_ = sizeof(MsgHead) + size;
+    auto real_size = sizeof(MsgHead) + size;
     custom_head_size_ = custom_head_size;
     if (custom_head_size > 0) {
-      size_ += (custom_head_size + kCustomHeadLen);
+      real_size += (custom_head_size + kCustomHeadLen);
     }
-    buf_ = new char[size_];
+    buf_.resize(real_size);
     MsgHead head{};
     if (custom_head_size > 0) {
       head.flags |= (uint8_t)Flags::kCustomHead;
-      WriteUint32(buf_ + sizeof(MsgHead), custom_head_size);
+      WriteUint32(buf_.data() + sizeof(MsgHead), custom_head_size);
     }
     SetHead(head);
   }
+  void ReDecode() {
+    MsgHead head;
+    ReadHead(head);
+    if (head.flags & (uint8_t)Flags::kCustomHead) {
+      custom_head_size_ = ReadUint32(buf_.data() + sizeof(MsgHead));
+    } else {
+      custom_head_size_ = 0;
+    }
+  }
 
   public:
-  void SetHead(const MsgHead& head) { head.ToBuf(buf_); }
-  void ReadHead(MsgHead& head) const { head.FromBuf(buf_); }
-  char* Buf() { return buf_ + ExternSize(); }
-  ssize_t BufSize() const { return size_ - ExternSize(); }
+  void SetHead(const MsgHead& head) { head.ToBuf(buf_.data()); }
+  void ReadHead(MsgHead& head) const { head.FromBuf(buf_.data()); }
+  char* Buf() { return buf_.data() + ExternSize(); }
+  ssize_t BufSize() const { return buf_.size() - ExternSize(); }
 
   bool HadCustomHead() const { return custom_head_size_ > 0; }
   char* CustomHead() {
     if (!HadCustomHead()) {
       return nullptr;
     }
-    return buf_ + sizeof(MsgHead) + kCustomHeadLen;
+    return buf_.data() + sizeof(MsgHead) + kCustomHeadLen;
   }
   ssize_t CustomHeadSize() const { return custom_head_size_; }
   ssize_t ExternSize() const {
@@ -115,25 +129,42 @@ class MsgBufBase {
     return sizeof(MsgHead);
   }
 
+  void Resize(ssize_t size) {
+    auto extern_size = ExternSize();
+    if (size < extern_size) {
+      throw MsgException("invalid msg");
+    }
+    buf_.resize(ExternSize() + size);
+  }
+
   public:
+  MsgBufBase() {}
   MsgBufBase(ssize_t size, ssize_t custom_head_size) {
     Init(size, custom_head_size);
   }
   MsgBufBase(const char* buf, ssize_t size, ssize_t custom_head_size) {
     Init(size, custom_head_size);
-    memcpy(buf_ + ExternSize(), buf, size);
+    memcpy(buf_.data() + ExternSize(), buf, size);
   }
   MsgBufBase(const std::string& buf, ssize_t custom_head_size) {
     Init(buf.size(), custom_head_size);
-    memcpy(buf_ + ExternSize(), buf.data(), buf.size());
+    memcpy(buf_.data() + ExternSize(), buf.data(), buf.size());
   }
-  ~MsgBufBase() { delete[] buf_; }
-
+  static MsgBufBase Decode(const std::string& data) {
+    MsgBufBase buf;
+    buf.buf_ = data;
+    buf.ReDecode();
+    return buf;
+  }
+  static MsgBufBase Decode(std::string&& data) {
+    MsgBufBase buf;
+    buf.buf_ = std::move(data);
+    buf.ReDecode();
+    return buf;
+  }
   void CopyFrom(const MsgBufBase& buf) {
-    size_ = buf.size_;
-    buf_ = new char[size_];
+    buf_ = buf.buf_;
     custom_head_size_ = buf.custom_head_size_;
-    memcpy(buf_, buf.buf_, size_);
   }
   MsgBufBase(const MsgBufBase& buf) { CopyFrom(buf); }
   MsgBufBase& operator=(const MsgBufBase& buf) {
@@ -142,12 +173,8 @@ class MsgBufBase {
   }
 
   void MoveFrom(MsgBufBase& buf) noexcept {
-    size_ = buf.size_;
-    buf_ = buf.buf_;
+    buf_ = std::move(buf.buf_);
     custom_head_size_ = buf.custom_head_size_;
-    buf.size_ = 0;
-    buf.buf_ = nullptr;
-    buf.custom_head_size_ = 0;
   }
   MsgBufBase(MsgBufBase&& buf) noexcept { MoveFrom(buf); }
   MsgBufBase& operator=(MsgBufBase&& buf) noexcept {

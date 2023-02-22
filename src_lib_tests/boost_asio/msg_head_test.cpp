@@ -21,9 +21,7 @@ TEST(msg_buf, 1) {
   ASSERT_NE(buf1.Buf(), buf2.Buf());
 
   // move
-  char* buf2_addr = buf2.Buf();
   auto buf3 = std::move(buf2);
-  ASSERT_EQ(buf2_addr, buf3.Buf());
   ASSERT_TRUE(str == buf3.Buf());
   ASSERT_EQ(buf3.BufSize(), str.size());
 
@@ -72,9 +70,7 @@ TEST(pad_msg_buf, 1) {
   ASSERT_EQ(memcmp(&pad, &read_pad, sizeof(CustomeHead)), 0);
 
   // move
-  char* buf2_addr = buf2.Buf();
   auto buf3 = std::move(buf2);
-  ASSERT_EQ(buf2_addr, buf3.Buf());
   ASSERT_TRUE(str == buf3.Buf());
   ASSERT_EQ(buf3.BufSize(), str.size());
   memset(&read_pad, 0, sizeof(CustomeHead));
@@ -111,9 +107,7 @@ TEST(pad_buf, 1) {
   ASSERT_EQ(memcmp(&pad, &read_pad, sizeof(CustomeHead)), 0);
 
   // move
-  char* buf2_addr = buf2.Buf();
   auto buf3 = std::move(buf2);
-  ASSERT_EQ(buf2_addr, buf3.Buf());
   ASSERT_TRUE(str == buf3.Buf());
   ASSERT_EQ(buf3.BufSize(), str.size());
   memset(&read_pad, 0, sizeof(CustomeHead));
