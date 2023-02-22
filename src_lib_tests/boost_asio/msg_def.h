@@ -51,49 +51,84 @@ struct MsgHead {
 #undef BIG_LITTLE_ENDIAN_SWAP_16
 };
 static_assert(sizeof(MsgHead) == 4);
-// template <typename T>
-class MsgBuf {
+template <ssize_t PadSize>
+class MsgBufBase {
+  public:
+  static constexpr ssize_t PadSize_ = PadSize;
+  static constexpr ssize_t ExternSize_ = PadSize_ + sizeof(MsgHead);
+
+  protected:
   char* buf_;
   ssize_t size_{};
 
   void Init(ssize_t size) {
-    size_ = sizeof(MsgHead) + size;
+    size_ = ExternSize_ + size;
     buf_ = new char[size_];
   }
 
   public:
-  MsgBuf(ssize_t size) { Init(size); }
-  MsgBuf(const char* buf, ssize_t size) {
+  MsgBufBase(ssize_t size) { Init(size); }
+  MsgBufBase(const char* buf, ssize_t size) {
     Init(size);
-    memcpy(buf_ + sizeof(MsgHead), buf, size);
+    memcpy(buf_ + ExternSize_, buf, size);
   }
-  MsgBuf(const std::string& buf) {
+  MsgBufBase(const std::string& buf) {
     Init(buf.size());
-    memcpy(buf_ + sizeof(MsgHead), buf.data(), buf.size());
+    memcpy(buf_ + ExternSize_, buf.data(), buf.size());
   }
-  ~MsgBuf() { delete[] buf_; }
+  ~MsgBufBase() { delete[] buf_; }
 
-  void CopyFrom(const MsgBuf& buf) {
+  void CopyFrom(const MsgBufBase& buf) {
     size_ = buf.size_;
     buf_ = new char[size_];
     memcpy(buf_, buf.buf_, size_);
   }
-  MsgBuf(const MsgBuf& buf) { CopyFrom(buf); }
-  MsgBuf& operator=(const MsgBuf& buf) { CopyFrom(buf); }
+  MsgBufBase(const MsgBufBase& buf) { CopyFrom(buf); }
+  MsgBufBase& operator=(const MsgBufBase& buf) { CopyFrom(buf); }
 
-  void MoveFrom(MsgBuf& buf) noexcept {
+  void MoveFrom(MsgBufBase& buf) noexcept {
     size_ = buf.size_;
     buf_ = buf.buf_;
     buf.size_ = 0;
     buf.buf_ = nullptr;
   }
-  MsgBuf(MsgBuf&& buf) noexcept { MoveFrom(buf); }
-  MsgBuf& operator=(MsgBuf&& buf) noexcept { MoveFrom(buf); }
+  MsgBufBase(MsgBufBase&& buf) noexcept { MoveFrom(buf); }
+  MsgBufBase& operator=(MsgBufBase&& buf) noexcept { MoveFrom(buf); }
 
   void SetHead(const MsgHead& head) { head.ToBuf(buf_); }
-  void ReadHead(MsgHead& head) { head.FromBuf(buf_); }
+  void ReadHead(MsgHead& head) const { head.FromBuf(buf_); }
 
-  char* Buf() { return buf_ + sizeof(MsgHead); }
-  ssize_t Size() { return size_ - sizeof(MsgHead); }
+  char* Buf() { return buf_ + ExternSize_; }
+  ssize_t BufSize() const { return size_ - ExternSize_; }
+};
+template <ssize_t PadSize>
+class PadMsgBuf : public MsgBufBase<PadSize> {
+  public:
+  using BufBaseT = MsgBufBase<PadSize>;
+  using MsgBufBase<PadSize>::MsgBufBase;
+  char* PadBuf() {
+    if constexpr (PadSize == 0) {
+      return nullptr;
+    }
+    return BufBaseT::buf_ + sizeof(MsgHead);
+  }
+  ssize_t PadBufSize() const { return PadSize; }
+};
+template <class T>
+class PadStructMsgBuf : public MsgBufBase<sizeof(T)> {
+  public:
+  using BufBaseT = MsgBufBase<sizeof(T)>;
+  using MsgBufBase<sizeof(T)>::MsgBufBase;
+  void SetPad(const T& pad) {
+    pad.ToBuf(BufBaseT::buf_ + sizeof(MsgHead), BufBaseT::PadSize_);
+  }
+  void ReadPad(T& pad) {
+    pad.FromBuf(BufBaseT::buf_ + sizeof(MsgHead), BufBaseT::PadSize_);
+  }
+};
+class MsgBuf : public MsgBufBase<0> {
+  public:
+  using BufBaseT = MsgBufBase<0>;
+  using BufBaseT::MsgBufBase;
 };
 }  // namespace MsgHead

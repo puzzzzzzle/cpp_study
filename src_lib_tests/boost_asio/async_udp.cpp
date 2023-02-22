@@ -9,7 +9,6 @@
  * 1.0            puzzzzzzle       create
  ************************************************/
 #include "msg_def.h"
-#include <boost/asio.hpp>
 
 class UdpServer
 {
