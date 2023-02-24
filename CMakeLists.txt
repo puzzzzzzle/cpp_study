@@ -1,19 +1,23 @@
 cmake_minimum_required(VERSION 3.7)
-set(project_name cpp_study)
-project(${project_name})
+project(
+        cpp_study
+        VERSION 0.1.1
+        DESCRIPTION "cpp study project"
+        LANGUAGES C CXX
+        )
 
 # 详细编译信息开关
 set(CMAKE_VERBOSE_MAKEFILE ON)
 # boost 库静态链接选项
 set(BOOST_USE_STATIC_LINK ON)
 #log 选项 使用boostlog 还是 std out
-set(LOG_USE_BOOST ON)
+set(LOG_USE_BOOST OFF)
 # std log 打印log时， 是否加锁
 set(STD_LOG_SYNC ON)
 
 # 版本号
-set(VERSION_MAJOR 1.2)
-set(VERSION_MINOR 0)
+set(VERSION_MAJOR 0.1)
+set(VERSION_MINOR 1)
 
 # 引用函数库
 include(cpp_bootstrap/common/CMake/FuncDefs.cmake)

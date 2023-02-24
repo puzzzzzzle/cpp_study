@@ -1,7 +1,7 @@
 
 
-aux_source_directory(. ${build_temp}cpps)
+aux_source_directory(. ${CURRENT_TASK}_SRCS)
 include_directories(.)
 
 # 可执行文件
-add_executable(${build_temp} ${${build_temp}cpps} ${SRCS})
+add_executable(${CURRENT_TASK} ${${CURRENT_TASK}_SRCS} ${SRCS})

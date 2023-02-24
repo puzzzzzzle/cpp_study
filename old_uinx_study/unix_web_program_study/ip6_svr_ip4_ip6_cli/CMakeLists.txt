@@ -1,19 +1,19 @@
 
 
-aux_source_directory(. ${build_temp}cpps)
+aux_source_directory(. ${CURRENT_TASK}_SRCS)
 include_directories(.)
 
-add_executable(${build_temp} ${${build_temp}cpps}
+add_executable(${CURRENT_TASK} ${${CURRENT_TASK}_SRCS}
         #编译器不认aux到的cpp文件，不进行符号表处理，只能手动变一遍
         #如果发布，删除以下内容
 
         svr.cpp svr.h cli.cpp cli.h)
 
 add_custom_command(
-        TARGET ${build_temp}
+        TARGET ${CURRENT_TASK}
         COMMAND echo copying files:
         COMMAND cp -v ${PROJECT_SOURCE_DIR}/properties/log4cplus_root.properties `pwd`/
         COMMAND echo copying files is finished.
 )
 
-target_link_libraries(${build_temp} log4cplus gtest pthread)
+target_link_libraries(${CURRENT_TASK} log4cplus gtest pthread)

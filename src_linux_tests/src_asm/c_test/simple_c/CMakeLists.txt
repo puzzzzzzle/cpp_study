@@ -1,8 +1,8 @@
 
-add_library(${build_temp}_lib SHARED testdyn.cpp)
+add_library(${CURRENT_TASK}_lib SHARED testdyn.cpp)
 
 # 可执行文件
-add_executable(${build_temp} main.cpp)
+add_executable(${CURRENT_TASK} main.cpp)
 
 #通用动态链接库
-target_link_libraries(${build_temp} ${build_temp}_lib)
+target_link_libraries(${CURRENT_TASK} ${CURRENT_TASK}_lib)
