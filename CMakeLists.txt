@@ -15,10 +15,6 @@ set(LOG_USE_BOOST OFF)
 # std log 打印log时， 是否加锁
 set(STD_LOG_SYNC ON)
 
-# 版本号
-set(VERSION_MAJOR 0.1)
-set(VERSION_MINOR 1)
-
 # 引用函数库
 include(cpp_bootstrap/common/CMake/FuncDefs.cmake)
 # 设置配目录(运行时拷贝)
@@ -27,6 +23,8 @@ set(CONFIG_DIR ${CMAKE_SOURCE_DIR}/data)
 set(BOOTSTRAP_DIR ${CMAKE_SOURCE_DIR}/cpp_bootstrap)
 # 设置运行时输出文件地址
 SetBinDir(${CMAKE_BINARY_DIR}/bin)
+
+PrintAllVars()
 
 # 设置通用编译选项
 SetCommonBuildFlag()
