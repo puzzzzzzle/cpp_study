@@ -7,7 +7,7 @@ set(CMAKE_VERBOSE_MAKEFILE ON)
 # boost 库静态链接选项
 set(BOOST_USE_STATIC_LINK ON)
 #log 选项 使用boostlog 还是 std out
-set(LOG_USE_BOOST OFF)
+set(LOG_USE_BOOST ON)
 # std log 打印log时， 是否加锁
 set(STD_LOG_SYNC ON)
 
@@ -31,12 +31,6 @@ SetCompilerVersion()
 
 # 查找依赖
 FindCommonLib()
-# 按需安装boost 依赖 eg: regex filesystem
-# 会给所有子工程都链接
-# 只给单个子工程链接可以用 FindInBoost() 然后手动链接
-#list(APPEND NEED_COMPONENTS regex filesystem)
-list(APPEND NEED_COMPONENTS "")
-FindBoostLib(NEED_COMPONENTS)
 
 message("COMMON_LIBS ${COMMON_LIBS}")
 

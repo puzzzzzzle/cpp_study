@@ -1,4 +1,4 @@
-aux_source_directory(. ${build_temp}cpps)
+file(GLOB_RECURSE  ${build_temp}cpps . "*.cpp")
 include_directories(.)
 
 # 可执行文件

@@ -99,10 +99,19 @@ class MsgBufBase {
     SetHead(head);
   }
   void ReDecode() {
+    if (buf_.size() < sizeof(MsgHead)) {
+      throw MsgException("invalid msg: too short");
+    }
     MsgHead head;
     ReadHead(head);
     if (head.flags & (uint8_t)Flags::kCustomHead) {
+      if (buf_.size() < sizeof(MsgHead) + sizeof(uint32_t)) {
+        throw MsgException("invalid msg: too short");
+      }
       custom_head_size_ = ReadUint32(buf_.data() + sizeof(MsgHead));
+      if (buf_.size() < ExternSize() + custom_head_size_) {
+        throw MsgException("invalid msg: too short");
+      }
     } else {
       custom_head_size_ = 0;
     }
@@ -150,17 +159,15 @@ class MsgBufBase {
     Init(buf.size(), custom_head_size);
     memcpy(buf_.data() + ExternSize(), buf.data(), buf.size());
   }
-  static MsgBufBase Decode(const std::string& data) {
+  void Decode(const std::string& data) {
     MsgBufBase buf;
     buf.buf_ = data;
     buf.ReDecode();
-    return buf;
   }
-  static MsgBufBase Decode(std::string&& data) {
+  void Decode(std::string&& data) {
     MsgBufBase buf;
     buf.buf_ = std::move(data);
     buf.ReDecode();
-    return buf;
   }
   void CopyFrom(const MsgBufBase& buf) {
     buf_ = buf.buf_;
