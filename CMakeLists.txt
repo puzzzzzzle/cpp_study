@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.7)
+cmake_minimum_required(VERSION 3.22)
 project(
         cpp_study
         VERSION 0.1.1
@@ -23,8 +23,6 @@ set(CONFIG_DIR ${CMAKE_SOURCE_DIR}/data)
 set(BOOTSTRAP_DIR ${CMAKE_SOURCE_DIR}/cpp_bootstrap)
 # 设置运行时输出文件地址
 SetBinDir(${CMAKE_BINARY_DIR}/bin)
-
-PrintAllVars()
 
 # 设置通用编译选项
 SetCommonBuildFlag()
