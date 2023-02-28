@@ -49,7 +49,7 @@ inline char *remake_mutable_string_data(std::string *s, size_t size) {
   return mutable_string_data(s);
 }
 template <typename T>
-  requires std::is_standard_layout_v<T>
+  requires std::is_trivially_copyable_v<T>
 void pod_struct_serialization(std::string *value, const T &obj) {
   auto ptr = remake_mutable_string_data(value, sizeof(T));
   memcpy(ptr, &obj, sizeof(T));
