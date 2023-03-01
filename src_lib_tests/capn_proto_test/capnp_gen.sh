@@ -1,0 +1,1 @@
+capnp compile -oc++ myschema.capnp

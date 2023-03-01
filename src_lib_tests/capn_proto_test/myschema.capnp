@@ -1,11 +1,10 @@
  @0xe11480911139e2e9;
 
 struct Person {
-  name @0 :Text;
-  birthdate @3 :Date;
-
-  email @1 :Text;
-  phones @2 :List(PhoneNumber);
+  id @0 :UInt32;
+  name @1 :Text;
+  email @2 :Text;
+  phones @3 :List(PhoneNumber);
 
   struct PhoneNumber {
     number @0 :Text;
@@ -17,6 +16,18 @@ struct Person {
       work @2;
     }
   }
+
+  employment :union {
+    unemployed @4 :Void;
+    employer @5 :Text;
+    school @6 :Text;
+    selfEmployed @7 :Void;
+    # We assume that a person is only one of these.
+  }
+}
+
+struct AddressBook {
+  people @0 :List(Person);
 }
 
 struct Date {
