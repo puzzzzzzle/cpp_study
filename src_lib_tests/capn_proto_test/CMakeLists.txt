@@ -5,4 +5,4 @@ include_directories(.)
 add_executable(${CURRENT_TASK} ${${CURRENT_TASK}_SRCS} )
 
 #通用动态链接库
-target_link_libraries(${CURRENT_TASK}  ${COMMON_LIBS})
+target_link_libraries(${CURRENT_TASK}  ${COMMON_LIBS} capnp kj)
