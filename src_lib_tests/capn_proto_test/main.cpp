@@ -63,7 +63,7 @@ TEST(capnp, official_example) {
     LOG_DEBUG(data.toString().flatten().cStr())
   }
 }
-
+// todo : shm python
 int main(int argc, char **argv) {
   int iRet = 0;
 
