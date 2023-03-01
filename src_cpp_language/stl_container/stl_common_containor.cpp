@@ -71,11 +71,38 @@ TEST(iterator_test, deque) {
       copyed.cbegin(), copyed.cend(), i_ints.cbegin(), std::back_inserter(muti),
       std::bind(
           std::multiplies<int>(), std::placeholders::_1,
-          std::placeholders::_2)  //都行
-                                  //                   std::multiplies<int>()
+          std::placeholders::_2)  // 都行
+                                  //                    std::multiplies<int>()
   );
   output.str("");
   std::copy(muti.cbegin(), muti.cend(),
             std::ostream_iterator<int>(output, "\t"));
   INFO("muti :\t" << output.str())
+}
+
+TEST(vec_rand, 1) {
+  std::vector<int> v{};
+  v.push_back(1);
+  v.push_back(42);
+
+  for (int i = 0; i < 100; ++i) {
+    LOG_DEBUG(v[rand() % v.size()])
+  }
+}
+
+TEST(vec_loop_push, 1) {
+  std::vector<int> v{};
+  v.push_back(1);
+  v.push_back(42);
+
+  // for 循环, 每次都会对  i < v.size() 整体求值, 所以会无限循环
+  int b = 100;
+  for (int i = 0; i < v.size(); ++i) {
+    LOG_DEBUG(v[i])
+    v.push_back(b);
+    --b;
+    if (b < 0) {
+      break;
+    }
+  }
 }
