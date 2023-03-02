@@ -47,7 +47,7 @@ struct PathDataInit : public MapDataInit {
     LOG_INFO("\trun in map " << tasks.mapPath)
     build_from_file(tasks.mapPath);
     run_tasks();
-    LOG_INFO("\treport:\n" << VecLikeToString(results) << "\n")
+    LOG_INFO("\treport:\n" << results << "\n")
   }
 };
 

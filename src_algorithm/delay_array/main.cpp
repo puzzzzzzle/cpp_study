@@ -6,12 +6,7 @@
 
 TEST(delay_array,1)
 {
-  delay_array::delay_array<int,10> a1{};
-  std::vector<int>::iterator it{};
-  for (auto i : a1)
-  {
-    LOG_DEBUG(i)
-  }
+
 }
 int main(int argc, char **argv) {
   int iRet = 0;

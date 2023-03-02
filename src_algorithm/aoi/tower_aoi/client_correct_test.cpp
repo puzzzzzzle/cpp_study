@@ -7,11 +7,16 @@
 #include "common_includes.h"
 #include "time_gap.hpp"
 #include "tower_aoi.h"
+#include "common_funcs.h"
+#include "common_funcs.h"
+
+#define INFO(msg) LOG_DEBUG(msg)
 
 namespace TestClient {
 TOWER_DEFINE(uint32_t, uint32_t)
 const int MAX_TYPE = 5;
 const int MAX_VIEW_RANGE = 2;
+using PointType = Point;
 
 class ObjectClient {
   public:

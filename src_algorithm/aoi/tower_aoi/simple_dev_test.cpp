@@ -5,8 +5,12 @@
 #include "common_includes.h"
 #include "time_gap.hpp"
 #include "tower_aoi.h"
+#include "common_funcs.h"
+
+#define INFO(msg) LOG_DEBUG(msg)
 
 TOWER_DEFINE(uint32_t, int)
+using PointType = Point;
 
 TEST(correct_1, toweraoi_obj) {
   //构建一座塔

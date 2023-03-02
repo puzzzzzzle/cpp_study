@@ -118,7 +118,7 @@ struct PathFindResult {
     std::ostringstream oss{};
     oss << "task " << task.first.to_string() << "\t" << task.second.to_string()
         << "\tret:" << ret << "\ttime(usec微秒):" << time;
-    oss << "\t" << VecLikeToString(result) << "\n";
+    oss << "\t" << result << "\n";
     return oss.str();
   }
   friend std::ostream& operator<<(std::ostream& os,

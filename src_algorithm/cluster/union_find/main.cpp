@@ -14,7 +14,7 @@ std::string print_sets(UnionFindParent &uf) {
   std::ostringstream oss{};
   oss << "\n";
   for (auto &item : sets) {
-    oss << item.first << "\t" << VecLikeToString(item.second) << "\n";
+    oss << item.first << "\t" << item.second << "\n";
   }
   return oss.str();
 }

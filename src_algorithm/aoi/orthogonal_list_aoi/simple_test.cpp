@@ -6,7 +6,7 @@
 #include "AbstractAoi.h"
 #include "OrthogonalListAoi.hpp"
 #include "common_includes.h"
-
+#define INFO(msg) LOG_DEBUG(msg)
 typedef OrthogonalListAoi<int, int, false> AOI;
 typedef AOI::Node Node;
 TEST(zero, zero) {

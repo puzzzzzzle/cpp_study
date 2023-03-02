@@ -5,6 +5,7 @@
 #include "path_find_test_base.h"
 #include "union_find_connect.h"
 #include "union_find_parent.h"
+#include "common_funcs.h"
 
 using ConnectAnalize = UnionFindConnectCluster::UnionFindConnectCluster<
     DataType, Point, UnionFind::UnionFindParent>;
@@ -60,7 +61,7 @@ TEST_F(ConnectTest, conn_1) {
   conn.init(&data, Point(0, 0), Point(7, 6));
   conn.scan_region();
   auto regions = conn.get_valid_regions();
-  LOG_DEBUG(MapLikeToString(regions, "\n"))
+  LOG_DEBUG(regions)
   ASSERT_TRUE(regions.size() == 2);
 }
 TEST_F(ConnectTest, conn_2) {
@@ -68,7 +69,7 @@ TEST_F(ConnectTest, conn_2) {
   conn.init(&data, Point(2, 4), Point(7, 10));
   conn.scan_region();
   auto regions = conn.get_valid_regions();
-  LOG_DEBUG(MapLikeToString(regions, "\n"))
+  LOG_DEBUG(regions)
   ASSERT_TRUE(regions.size() == 2);
 }
 TEST_F(ConnectTest, conn_3) {
@@ -76,7 +77,7 @@ TEST_F(ConnectTest, conn_3) {
   conn.init(&data, Point(0, 0), Point(10, 10));
   conn.scan_region();
   auto regions = conn.get_valid_regions();
-  LOG_DEBUG(MapLikeToString(regions, "\n"))
+  LOG_DEBUG(regions)
   ASSERT_TRUE(regions.size() == 4);
 }
 

@@ -15,7 +15,8 @@
 #include <map>
 #include <set>
 #include <vector>
-
+#include <cstdint>
+#include <sstream>
 namespace TowerAoiImpl {
 /**
  * 灯塔配置
