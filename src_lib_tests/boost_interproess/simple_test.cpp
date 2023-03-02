@@ -20,6 +20,6 @@ TEST(shm_test, 1) {
   bshm::mapped_region region(mem, bshm::read_write);
   char* c = static_cast<char*>(region.get_address());
   auto str = "hello world";
-  memcpy(c,str, strlen(str));
+  strcpy(c,str);
 
 }
