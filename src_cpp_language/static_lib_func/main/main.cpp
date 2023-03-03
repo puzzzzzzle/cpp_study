@@ -2,7 +2,7 @@
 // Created by tao on 19-1-17.
 //
 #include "common_includes.h"
-#include "test_func.h"
+#include "funcs.h"
 
 TEST(test_test, 1) { EXPECT_EQ(1, 1); }
 

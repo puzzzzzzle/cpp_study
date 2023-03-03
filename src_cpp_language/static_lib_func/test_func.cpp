@@ -2,7 +2,7 @@
 // Created by tao on 2019/6/12.
 //
 
-#include "test_func.h"
+#include "funcs.h"
 
 extern "C" int zero() {
   LOG_INFO("from lib")
