@@ -328,6 +328,25 @@ void struct_init_test_1() {
 }
  */
 TEST(struct_init, 1) { struct_init_test_1(); }
+
+
+class Base1{};
+class Base2{};
+class Sub1:public Base1{};
+class Sub2: private Base1{};
+class Sub3: public Base1,Base2{
+  void fun()
+  {
+    Base2* tt = this;
+  }
+};
+TEST(i,1)
+{
+  Base1 *b1 = new Sub1;
+//  Base1 *b2 = new Sub2;  // private 不能视为是继承
+
+//  Base2 * b3 = new Sub3;  // 每个继承父类, 必须被主动声明没public
+}
 int main(int argc, char **argv) {
   testFunc();
   int iRet = 0;
