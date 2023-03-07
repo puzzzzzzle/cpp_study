@@ -4,7 +4,7 @@
 #include "common_includes.h"
 
 #include <boost/preprocessor/repetition/repeat.hpp>
-#define DECL(z, n, text) text##220##n=10##n;
+#define DECL(z, n, text) text##_##n=10##n;
 BOOST_PP_REPEAT(255, DECL, int x)
 
 

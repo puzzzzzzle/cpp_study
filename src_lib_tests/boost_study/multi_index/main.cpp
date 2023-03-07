@@ -11,6 +11,7 @@
 TEST(test_test, 1) { EXPECT_EQ(1, 1); }
 
 using namespace std;
+using namespace boost;
 // 玩家信息
 class CPlayer {
   public:
