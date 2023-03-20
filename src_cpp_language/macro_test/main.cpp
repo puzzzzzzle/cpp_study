@@ -10,6 +10,10 @@ TEST(test_test, 1) { EXPECT_EQ(1, 1); }
 
 #define TEST_MACRO_FUNC(msg) LOG_DEBUG(msg)
 
+#define IF_TRUE_ACTION(cond,action,args...) if(cond){ \
+    LOG_DEBUG(args);                                                  \
+    action;                                           \
+  }
 int main(int argc, char **argv) {
   DefTest defTest{};
   Inc1Test inc1Test{};
@@ -17,6 +21,7 @@ int main(int argc, char **argv) {
   defTest.test();
   inc1Test.test();
   inc2Test.test();
+  IF_TRUE_ACTION(true,return 0,"")
 
 #ifdef TEST_MACRO_FUNC
   TEST_MACRO_FUNC("has TEST_MACRO_FUNC")

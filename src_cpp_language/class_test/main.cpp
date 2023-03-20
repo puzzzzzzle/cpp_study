@@ -23,7 +23,7 @@ static TestFieldNameClass g_s_val;      // 全局默认初始化
 static TestFieldNameClass g_s_i_val{};  // 全局默认初始化
 
 void testFunc() {
-  printf("==== start func \n");
+  printf("==== start i_func \n");
 
   int a;                     // 局部基础变量不会初始化
   int i_a{};                 // 局部变量调用默认初始化函数初始化

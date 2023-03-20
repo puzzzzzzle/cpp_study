@@ -29,7 +29,7 @@ void funcn()
 }
 
 using namespace HGame;
-void func()
+void i_func()
 {
   HGameCore::NullMsg msg{};
 }

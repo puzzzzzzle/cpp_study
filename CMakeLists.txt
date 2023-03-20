@@ -13,7 +13,7 @@ set(BOOST_USE_STATIC_LINK ON)
 #log 选项 使用boostlog 还是 std out
 set(LOG_USE_BOOST OFF)
 # std log 打印log时， 是否加锁
-set(STD_LOG_SYNC ON)
+set(STD_LOG_SYNC OFF)
 
 # 引用函数库
 include(cpp_bootstrap/common/CMake/FuncDefs.cmake)

@@ -15,8 +15,8 @@ void foo();
 static_assert(!has_foo::check::value);
 
 // 声明一个func
-void func();
-HAS_GLOBAL_FUNC(func)
+void i_func();
+HAS_GLOBAL_FUNC(i_func)
 static_assert(has_func::check::value);
 
 int main(int argc, char **argv) {

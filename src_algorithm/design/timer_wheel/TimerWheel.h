@@ -157,7 +157,7 @@ class TimerWheel {
           frameForDay % FRAME_PEER_HOUR % FRAME_PEER_MINUTE / FRAME_PEER_SECOND;
       point.frame =
           frameForDay % FRAME_PEER_HOUR % FRAME_PEER_MINUTE % FRAME_PEER_SECOND;
-      task->func = callBack;
+      task->i_func = callBack;
       task->repeatable = repeatable;
     }
     // 锁
@@ -174,7 +174,7 @@ class TimerWheel {
         continue;
       }
       // TODO : 使用线程池去执行，不要卡主流程
-      task->func(nextFrameTimerPoint);
+      task->i_func(nextFrameTimerPoint);
       if (task->repeatable) {
         DoAfterFrame(task);
       }

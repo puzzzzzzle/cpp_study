@@ -50,7 +50,7 @@ class CppObjectFactory {
    * @return
    */
   bool registClass(string name, PTRCreateObject method) {
-    std::cout << "ret class " << name << "\t func address " << (size_t)method
+    std::cout << "ret class " << name << "\t i_func address " << (size_t)method
               << std::endl;
     return m_ClassMap.insert(pair<string, PTRCreateObject>(name, method))
         .second;

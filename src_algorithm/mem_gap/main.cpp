@@ -3,6 +3,8 @@
 //
 #include "common_includes.h"
 #include "mem_gap.h"
+#include <thread>
+
 TEST(get_pid, 1) {
   LOG_DEBUG("pid:" << getpid() << "\ttid:" << gettid() << "\tgid:" << getgid())
   auto r = std::thread([]() {

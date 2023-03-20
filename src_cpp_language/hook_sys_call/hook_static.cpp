@@ -27,7 +27,7 @@ static void init_dyn_handle() {
 //  这个符号声明于静态库中
 // 在本程序中找到了这个符号就不在静态库中找了, 所以会直接调用到本函数而非静态库中的函数
 extern "C" int zero() {
-  printf("-------------- call zero hook func \n");
+  printf("-------------- call zero hook i_func \n");
   // TODO 调用静态库中的函数
 
   //

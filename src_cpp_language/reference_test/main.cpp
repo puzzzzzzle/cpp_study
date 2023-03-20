@@ -9,8 +9,8 @@
 namespace copy_lRef {
 class Funcs {
   public:
-  void IntParaFunc(int func) { LOG_DEBUG("int func " << func) }
-  void IntParaFunc(int &func) { LOG_DEBUG("int &func " << func) }
+  void IntParaFunc(int func) { LOG_DEBUG("int i_func " << func) }
+  void IntParaFunc(int &func) { LOG_DEBUG("int &i_func " << func) }
   //    void IntParaFunc(int &&func) { LOG_DEBUG("int &&func " << func) }
 };
 }  // namespace copy_lRef
@@ -18,9 +18,9 @@ class Funcs {
 namespace copy_rRef {
 class Funcs {
   public:
-  void IntParaFunc(int func) { LOG_DEBUG("int func " << func) }
+  void IntParaFunc(int func) { LOG_DEBUG("int i_func " << func) }
   //    void IntParaFunc(int &func) { LOG_DEBUG("int &func " << func) }
-  void IntParaFunc(int &&func) { LOG_DEBUG("int &&func " << func) }
+  void IntParaFunc(int &&func) { LOG_DEBUG("int &&i_func " << func) }
 };
 }  // namespace copy_rRef
 
@@ -28,8 +28,8 @@ namespace lRef_rRef {
 class Funcs {
   public:
   //    void IntParaFunc(int func) { LOG_DEBUG("int func " << func) }
-  void IntParaFunc(int &func) { LOG_DEBUG("int &func " << func) }
-  void IntParaFunc(int &&func) { LOG_DEBUG("int &&func " << func) }
+  void IntParaFunc(int &func) { LOG_DEBUG("int &i_func " << func) }
+  void IntParaFunc(int &&func) { LOG_DEBUG("int &&i_func " << func) }
 };
 }  // namespace lRef_rRef
 

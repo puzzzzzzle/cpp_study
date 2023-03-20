@@ -319,7 +319,7 @@ public:
         id |= ++id_gen_;
         auto &group_info = wait_add_tasks_[group_id];
         auto &task_info = group_info[id];
-        task_info.func = std::move(func);
+        task_info.i_func = std::move(func);
         task_info.need_run = std::move(need_run);
         task_info.id = id;
         GROUP_MNG_LOG_INFO("reg task " << ToString(id))
@@ -516,7 +516,7 @@ private:
             else
             {
                 // 需要执行的分发执行
-                executor_(task.func, barrier, executed);
+                executor_(task.i_func, barrier, executed);
                 GROUP_MNG_LOG("send execute " << ToString(task.id))
             }
         }

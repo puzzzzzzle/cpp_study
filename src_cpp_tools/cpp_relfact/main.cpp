@@ -24,7 +24,7 @@ TEST(reflect, 1) {
     for (const auto& item :
          CppObjectFactory::getInstance().getAllReflection()) {
       LOG_DEBUG("get ont creator "
-                << item.first << "  func ptr address :" << (size_t)item.second)
+                << item.first << "  i_func ptr address :" << (size_t)item.second)
     }
   }
 }
