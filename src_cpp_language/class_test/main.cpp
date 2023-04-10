@@ -169,7 +169,69 @@ class Child2 : public Child {
     LOG_DEBUG("Child hello")
   }
 };
+void class_test_foo()
+{
+  Parent *ch = new Child{};
+  ch->hello();
+  ch->func(3.14);
+  return ;
+}
+/*
+
+_Z14class_test_foov:
+.LFB9213:
+        .loc 35 173 1
+        .cfi_startproc
+        endbr64
+        pushq   %rbp
+        .cfi_def_cfa_offset 16
+        .cfi_offset 6, -16
+        movq    %rsp, %rbp
+        .cfi_def_cfa_register 6
+        pushq   %rbx
+        subq    $24, %rsp
+        .cfi_offset 3, -24
+        .loc 35 174 26
+        movl    $8, %edi
+        call    _Znwm@PLT
+        movq    %rax, %rbx
+        movq    $0, (%rbx)
+        movq    %rbx, %rdi
+        call    _ZN5ChildC1Ev@PLT
+        movq    %rbx, -24(%rbp)
+        .loc 35 175 12
+        movq    -24(%rbp), %rax   # 加载 ch
+        movq    (%rax), %rax    # 解引 *ch, 首位是 vptr 地址, 放在rax中
+        addq    $16, %rax   # 偏移 vptr 地址 得到 hello 指针地址
+        movq    (%rax), %rdx  # 解引hello指针地址, 得到text段的hello地址, 放在rdx中
+        movq    -24(%rbp), %rax   # 加载ch地址, 放在 rax -> rdi中 作为第一个参数
+        movq    %rax, %rdi
+        call    *%rdx   # 解引并调用rdx指向的函数
+.LVL15:
+        .loc 35 176 11
+        movq    -24(%rbp), %rax
+        movq    (%rax), %rax
+        addq    $8, %rax
+        movq    (%rax), %rcx
+        movq    .LC53(%rip), %rdx
+        movq    -24(%rbp), %rax
+        movq    %rdx, %xmm0
+        movq    %rax, %rdi
+        call    *%rcx
+.LVL16:
+        .loc 35 177 3
+        nop
+        .loc 35 178 1
+        movq    -8(%rbp), %rbx
+        leave
+        .cfi_def_cfa 7, 8
+        ret
+        .cfi_endproc
+
+ */
+
 TEST(calss_test, 1) {
+  class_test_foo();
   LOG_DEBUG("------------")
   auto ch = std::make_shared<Child>();
   ch->hello();
