@@ -57,6 +57,18 @@ TEST(oper, 3) {
   std::cout << cobj.get();
 
 }
+class OperatorLogClassSub :public OperatorLogClass
+{
+  using OperatorLogClass::OperatorLogClass;
+};
+TEST(cp,1)
+{
+  OperatorLogClassSub sub1,sub2;
+  sub2=sub1;
+  sub2=std::move(sub1);
+  OperatorLogClassSub sub3(sub1);
+  OperatorLogClassSub sub4(std::move(sub1));
+}
 int main(int argc, char **argv) {
   int iRet = 0;
 

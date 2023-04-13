@@ -33,7 +33,6 @@ private:
   ~coroutine_ret() {
     //! 自行销毁
     if (coro_handle_) {
-      LOG_DEBUG("destroy coroutine")
       coro_handle_.destroy();
     }
   }
@@ -49,7 +48,6 @@ private:
     if (!started_) {
       start();
     }
-    LOG_DEBUG("send ")
     coro_handle_.promise().send_data_ = send;
     coro_handle_.resume();
     return coro_handle_.done();
@@ -58,7 +56,6 @@ private:
     if (started_) {
       return coro_handle_.done();
     }
-    LOG_DEBUG("start ")
     started_ = true;
     coro_handle_.resume();
     return coro_handle_.done();
