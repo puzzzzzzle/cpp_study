@@ -10,37 +10,51 @@
 #include "common_includes.h"
 
 void TestBarrer() {
-  int waitNum = 5, checkNum = 1000000;
-  std::atomic_int flag(0);
-  //  std::vector<AutoJoinThreadGuard> ts{};
+  int waitNum = 11, checkNum = 10000;
 
   Barrier barrier(waitNum);
 
   for (int loop = 0; loop < checkNum; ++loop) {
+    std::atomic_int flag(0);
     std::vector<std::thread> ts{};
-    //    LOG_RAW_CLINE("one loop start!")
-    for (int i = 0; i < waitNum - 1; ++i) {
+
+
+    for (int i = 0; i < waitNum -1; ++i) {
       ts.emplace_back([&barrier, &flag]() {
-        //        sleep(1);
-        //        LOG_RAW_CLINE("before wait!")
         flag += 1;
         barrier.wait();
-        //        LOG_RAW_CLINE("after wait!")
       });
     }
-    //    LOG_RAW_CLINE("main wait one loop finish!")
     barrier.wait();
-    assert(flag == 4);
-    flag = 0;
+    assert(flag == 10);
+
+    for (int i = 0; i < waitNum -1; ++i) {
+      ts.emplace_back([&barrier, &flag]() {
+        flag += 1;
+        barrier.wait();
+      });
+    }
+    barrier.wait();
+    assert(flag == 20);
+
+    for (int i = 0; i < waitNum -1; ++i) {
+      ts.emplace_back([&barrier, &flag]() {
+        flag += 1;
+        barrier.wait();
+      });
+    }
+    barrier.wait();
+    assert(flag == 30);
+
+
     for (auto &t : ts) {
       if (t.joinable()) {
         t.join();
       }
     }
-    if (loop % 10000 == 0) {
+    if (loop % 1000 == 0) {
       LOG_RAW_CLINE("loop finish!" << loop)
     }
-    //    LOG_RAW_CLINE("one loop finish!" << loop)
   }
 
   LOG_RAW_CLINE("leave")

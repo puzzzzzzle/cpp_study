@@ -7,42 +7,36 @@
 #include "condition_variable"
 #include "mutex"
 
-class Barrier {
-  private:
-  std::size_t m_initial;
-  std::size_t m_current;
-  std::size_t m_cycle{0};
-  std::mutex m_mtx{};
-  std::condition_variable m_cond{};
-
+class CyclicBarrier
+{
   public:
-  explicit Barrier(std::size_t initial)
-      : m_initial{initial}, m_current{m_initial} {
-    assert(initial != 0);
-  }
+  CyclicBarrier(size_t count) : m_count(count), m_waiting(0), m_generation(0) {}
 
-  Barrier(Barrier const&) = delete;
-  Barrier& operator=(Barrier const&) = delete;
+  void wait()
+  {
+    std::unique_lock<std::mutex> lock(m_mutex);
 
-  bool wait() {
-    //    printf("a:%lu\n", m_current);
-    std::unique_lock<std::mutex> lk{m_mtx};
-    const std::size_t cycle = m_cycle;
-    //    printf("b: %lu\n", m_current);
-    if (0 == --m_current) {
-      //      printf("c: %lu\n", m_current);
-      ++m_cycle;
-      m_current = m_initial;
-      lk.unlock();  // no pessimization
-      m_cond.notify_all();
-      //      printf("d: %lu\n", m_current);
+    size_t gen = m_generation;
 
-      return true;
+    ++m_waiting;
+    if (m_waiting == m_count)
+    {
+      ++m_generation;
+      m_waiting = 0;
+      lock.unlock();
+      m_cv.notify_all();
     }
-    //    printf("e: %lu\n", m_current);
-    m_cond.wait(lk, [&] { return cycle != m_cycle; });
-    //    printf("f: %lu\n", m_current);
-
-    return false;
+    else
+    {
+      m_cv.wait(lock, [this, gen] { return gen != m_generation; });
+    }
   }
+
+  private:
+  const size_t m_count;
+  size_t m_waiting;
+  size_t m_generation;
+  std::mutex m_mutex;
+  std::condition_variable m_cv;
 };
+using Barrier = CyclicBarrier;
