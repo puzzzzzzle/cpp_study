@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package test_data;
+
+message Empty
+{
+
+}
+message Values
+{
+    int32 i1 = 1;
+    uint64 i2 = 2;
+    double f3 = 3;
+    string str4 = 4;
+}
+message MessageInMessage
+{
+    Values v1 = 1;
+    Empty v2 = 2;
+    Values v3 = 3;
+}
+message WithList
+{
+    Values v1 = 1;
+    repeated Values l2 = 2;
+    map<int32, Values> m3 = 3;
+    string str4 = 4;
+}
+message OneOfMessage
+{
+    Values v1 = 1;
+    oneof payload {
+        Values v2 = 2;
+        WithList v3 = 3;
+    }
+}
