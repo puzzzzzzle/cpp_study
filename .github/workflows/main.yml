@@ -1,1 +1,7 @@
-
+name: cpp study test action
+on: [push]
+jobs:
+  Test-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "start action"
