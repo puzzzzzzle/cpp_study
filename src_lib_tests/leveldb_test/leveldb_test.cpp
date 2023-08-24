@@ -55,7 +55,7 @@ void pod_struct_serialization(std::string *value, const T &obj) {
   memcpy(ptr, &obj, sizeof(T));
 }
 template <typename T>
-  requires std::is_standard_layout_v<T>
+  requires std::is_trivially_copyable_v<T>
 void pod_struct_deserialization(T *obj, const std::string &value) {
   assert(value.size() == sizeof(T));
   memcpy(obj, value.data(), sizeof(T));
