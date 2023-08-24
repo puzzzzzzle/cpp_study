@@ -1,7 +1,12 @@
 name: cpp study test action
 on: [push]
 jobs:
-  Test-Actions:
+  Test-Job-1:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "start action"
+      - run: ls
+  Test-Job-2:
     runs-on: ubuntu-latest
     steps:
       - run: echo "start action"
