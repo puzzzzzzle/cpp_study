@@ -9,7 +9,7 @@ add_executable(${CURRENT_TASK} ${${CURRENT_TASK}_SRCS})
 add_custom_command(
         TARGET ${CURRENT_TASK}
         PRE_BUILD
-        COMMAND ${CMAKE_COMMAND} -E rm -r "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/py_module"
+        COMMAND ${CMAKE_COMMAND} -E rm -rf "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/py_module"
         COMMAND ${CMAKE_COMMAND} -E copy_directory "${BUILD_ABS_PATH}/py_module" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/py_module"
 )
 #通用动态链接库

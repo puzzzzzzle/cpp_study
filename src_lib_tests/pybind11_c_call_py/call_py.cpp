@@ -40,6 +40,7 @@ TEST(load_local_module,1)
   py::exec(R"(
         c = a + b
         message = fmt.format(a, b, c)
+        print(message)
     )", py::globals(), locals);
 
   assert(locals["c"].cast<int>() == 3);
