@@ -14,6 +14,8 @@ set(BOOST_USE_STATIC_LINK ON)
 set(LOG_USE_BOOST OFF)
 # std log 打印log时， 是否加锁
 set(STD_LOG_SYNC OFF)
+# 生成 command json
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # 引用函数库
 include(cpp_bootstrap/common/CMake/FuncDefs.cmake)
@@ -46,7 +48,8 @@ list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src_cpp_tools)
 list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src_lib_tests)
 # linux 函数测试
 list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src_linux_tests)
-
+# c++ header tool 测试
+list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/lib_clang_study)
 # 最新c++特性
 if (COMPILER_SUPPORTS_CXX20)
     list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src_cxx_newest)
