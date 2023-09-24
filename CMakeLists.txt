@@ -49,7 +49,7 @@ list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src_lib_tests)
 # linux 函数测试
 list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src_linux_tests)
 # c++ header tool 测试
-list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/lib_clang_study)
+list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src_lib_clang_study)
 # 最新c++特性
 if (COMPILER_SUPPORTS_CXX20)
     list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src_cxx_newest)

@@ -6,6 +6,10 @@
 
 namespace generated_test {
 
-class book_actor {};
+CH_CLASS()
+class BookActor {
+  CH_GENERATED()
+  public:
+};
 
 }  // namespace generated_test
