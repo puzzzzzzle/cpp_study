@@ -8,7 +8,7 @@ namespace generated_test {
 
 CH_CLASS()
 class BookActor {
-  CH_GENERATED()
+  CH_GENERATED(name="sss")
   public:
 };
 

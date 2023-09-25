@@ -19,8 +19,8 @@ i18n = ["Babel (>=2.7)"]
 
 [package.source]
 type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
+url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+reference = "tsinghua"
 
 [[package]]
 name = "libclang"
@@ -44,8 +44,8 @@ files = [
 
 [package.source]
 type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
+url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+reference = "tsinghua"
 
 [[package]]
 name = "markupsafe"
@@ -118,10 +118,10 @@ files = [
 
 [package.source]
 type = "legacy"
-url = "https://pypi.doubanio.com/simple"
-reference = "douban"
+url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+reference = "tsinghua"
 
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "d89ec85cbd46ddedc0933587e2d4858cbbdfbbb21c3c0e5a9e607b732ad9a305"
+content-hash = "8882f89400b07e20adbe70183fb865a3c19883c2b7162c0f73670a1cada37850"

@@ -1,5 +1,6 @@
 import logging
 import os
+from pathlib import Path
 
 
 def mkdir_recursively(path):
@@ -63,7 +64,7 @@ def init_logger(path: str):
     cli_log.setLevel("DEBUG")
     logger.addHandler(cli_log)
     # curr log file
-    base_log_dir = mkdir_recursively(path)
+    base_log_dir = mkdir_recursively(str(Path(path).absolute()))
     once_log = logging.FileHandler(f"{base_log_dir}/all.log")
     once_log.setFormatter(formatter)
     logger.addHandler(once_log)
