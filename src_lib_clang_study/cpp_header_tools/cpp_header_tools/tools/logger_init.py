@@ -50,7 +50,7 @@ def mkdir_recursively(path):
 
 def init_logger(path: str):
     """
-    初始化日志系统
+    logger init
     :return:
     """
     logger = logging.getLogger()

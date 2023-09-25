@@ -5,6 +5,6 @@
 #include "book_actor.h"
 using namespace generated_test;
 TEST(book_actor, create) {
-  book_actor ba{};
+  BookActor ba{};
   LOG_DEBUG("inited at " << &ba)
 }
