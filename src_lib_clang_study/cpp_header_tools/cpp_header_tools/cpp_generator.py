@@ -1,6 +1,6 @@
 from pathlib import Path
-from pprint import pprint
 import logging
+from pprint import pprint
 
 import clang.cindex as cl
 
@@ -52,8 +52,21 @@ class Generator:
             result += f"#define {name}(...)\n"
         return result
 
+    def _traverse(self, node: cl.Cursor, depth):
+        src_file: str = node.location.file
+        if src_file is not None and not src_file.name.endswith(f"{self.file_name}.h"):
+            return
+        try:
+            kind = node.kind
+        except ValueError as e:
+            kind = f"unknown value {node._kind_id}"
+        print(f"{'|    ' * depth}{kind},{node.spelling}")
+        for n in node.get_children():
+            self._traverse(n, depth + 1)
+
     def _analyze_all_macro(self):
         tu: cl.TranslationUnit = self.cpp_tu
+        self._traverse(tu.cursor, 0)
 
         pass
 

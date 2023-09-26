@@ -47,4 +47,5 @@ def linux_main():
 
 if __name__ == '__main__':
     init_logger("./log/")
-    linux_main()
+    win_main()
+    # linux_main()
