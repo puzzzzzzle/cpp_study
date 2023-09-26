@@ -25,7 +25,7 @@ class Generator:
     """
 
     def __init__(self, cmd: str, src: str, templates, out_header_dir: str):
-        self.tu = None
+        self.cpp_tu = None
         self.cmd = cmd
         self.templates = templates
         self.out_dir = out_header_dir
@@ -53,20 +53,31 @@ class Generator:
         return result
 
     def _analyze_all_macro(self):
-        tu: cl.TranslationUnit = self.tu
+        tu: cl.TranslationUnit = self.cpp_tu
 
         pass
 
     def _pre_check_includes(self):
-        tu: cl.TranslationUnit = self.tu
-        for inc in tu.get_includes():
-            logger.debug(f"{inc.source}")
-        includes = tu.get_includes()
-        *_, last = includes
-        last_file: str = last.source.name
-        if not last_file.endswith(f"{self.file_name}.generated.h"):
-            raise RuntimeError(f"generated.h mast include last :{self.file_name}")
-        pass
+        """
+        xxx.generated.h mast be included at last of the xxx.h
+        """
+        tu: cl.TranslationUnit = self.cpp_tu
+        found = False
+        for item in tu.get_includes():
+            if not item.include.name.endswith(f"{self.file_name}.h"):
+                continue
+            header_index = cl.Index.create()
+            header_tu = header_index.parse(None, [f"{item.include.name}"], options=cl.TranslationUnit.PARSE_INCOMPLETE)
+            includes = [x for x in header_tu.get_includes()]
+            if len(includes) <= 0:
+                raise RuntimeError(f"{self.file_name}.generated.h must be included by {self.file_name}.h")
+            last = includes[-1]
+            if not last.include.name.endswith(f"{self.file_name}.generated.h"):
+                raise RuntimeError(f"{self.file_name}.generated.h must be included at last")
+            found = True
+        if not found:
+            raise RuntimeError(f"{self.file_name}.generated.h must be included by {self.file_name}.h")
+        logger.debug(f"pass header check")
 
     def gen(self):
         index = cl.Index.create()
@@ -75,6 +86,6 @@ class Generator:
         tu = index.parse(None, args, options=cl.TranslationUnit.PARSE_DETAILED_PROCESSING_RECORD)
         if not tu:
             raise RuntimeError("parse cmd fail")
-        self.tu = tu
+        self.cpp_tu = tu
         self._pre_check_includes()
         self._analyze_all_macro()
