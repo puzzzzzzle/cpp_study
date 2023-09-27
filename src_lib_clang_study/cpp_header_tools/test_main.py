@@ -30,7 +30,8 @@ def win_main():
 
 
 def linux_main():
-    with open(Path("/tmp/tmp.O6S6c6tjik/cmake-build-debug-docker/") / "compile_commands.json") as f:
+    cmd_db = Path("/tmp/tmp.O6S6c6tjik/cmake-build-debug-docker/")
+    with open(cmd_db / "compile_commands.json") as f:
         db = json.load(f)
     proc_item = None
     for item in db:
@@ -43,9 +44,15 @@ def linux_main():
     src = proc_item["file"]
     out = Path("/tmp/tmp.O6S6c6tjik/") / "src_lib_clang_study/generated_test/"
     ch.generated_one(cmd, src, out)
+    import clang.cindex as cl
+    index = cl.Index.create()
+
+    # Step 1: load the compilation database
+    compdb:cl.CompilationDatabase = cl.CompilationDatabase.fromDirectory(str(cmd_db))
+    pass
 
 
 if __name__ == '__main__':
     init_logger("./log/")
-    win_main()
-    # linux_main()
+    # win_main()
+    linux_main()

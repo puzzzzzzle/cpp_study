@@ -92,13 +92,22 @@ class Generator:
             raise RuntimeError(f"{self.file_name}.generated.h must be included by {self.file_name}.h")
         logger.debug(f"pass header check")
 
-    def gen(self):
+    def _pre_build_header(self):
         index = cl.Index.create()
         args = self.cmd.split(" ")
-        # needs processing macro info
+        tu = index.parse(None, args,
+                         options=cl.TranslationUnit.PARSE_DETAILED_PROCESSING_RECORD | cl.TranslationUnit.PARSE_INCOMPLETE)
+
+    def _pre_build_cpp(self):
+        index = cl.Index.create()
+        args = self.cmd.split(" ")
         tu = index.parse(None, args, options=cl.TranslationUnit.PARSE_DETAILED_PROCESSING_RECORD)
         if not tu:
             raise RuntimeError("parse cmd fail")
         self.cpp_tu = tu
+
+    def gen(self):
+        self._pre_build_cpp()
+        self._pre_build_header()
         self._pre_check_includes()
-        self._analyze_all_macro()
+        # self._analyze_all_macro()
