@@ -100,12 +100,16 @@ class HeaderAnalyze:
         header_tu = self.index.parse(None, self.build_args.get_compile_cmd(self.header_path, True),
                                      options=cl.TranslationUnit.PARSE_INCOMPLETE | cl.TranslationUnit.PARSE_DETAILED_PROCESSING_RECORD)
         self.header_tu = header_tu
-        logger.warning(f"{pformat(show.get_diagnostics(header_tu))}")
+        diagnostics = show.get_diagnostics(header_tu)
+        if len(diagnostics) != 0:
+            logger.warning(f"{pformat(diagnostics)}")
         # load cpp
         cpp_tu = self.index.parse(None, self.build_args.get_compile_cmd(self.cpp_path, False),
                                   options=cl.TranslationUnit.PARSE_DETAILED_PROCESSING_RECORD)
         self.cpp_tu = cpp_tu
-        logger.warning(f"{pformat(show.get_diagnostics(cpp_tu))}")
+        diagnostics = show.get_diagnostics(cpp_tu)
+        if len(diagnostics) != 0:
+            logger.warning(f"{pformat(diagnostics)}")
 
     def _pre_check_includes(self):
         """
@@ -121,9 +125,7 @@ class HeaderAnalyze:
         logger.debug(f"pass include check")
 
     def _analyze_macro_relations(self):
-        # show.traverse(self.header_tu.cursor, 0, self.header_path)
-        show.traverse(self.cpp_tu.cursor, 0, self.header_path)
-        # show.traverse(self.cpp_tu.cursor, 0, self.cpp_path)
+        # show.traverse(self.cpp_tu.cursor, 0, self.header_path)
 
         generated_class_cursor: cl.Cursor = None
         brothers = []
