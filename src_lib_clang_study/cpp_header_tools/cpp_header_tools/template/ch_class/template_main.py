@@ -1,4 +1,5 @@
 import jinja2
-import cpp_header_tools.tools.class_dict
+import clang.cindex as cl
 
 macro_name = "CH_CLASS"
+interest_kinds = [cl.CursorKind.CLASS_DECL]
