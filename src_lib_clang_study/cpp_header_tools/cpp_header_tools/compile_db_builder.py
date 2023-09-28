@@ -2,8 +2,9 @@ import logging
 from pathlib import Path
 
 import clang.cindex as cl
-from cpp_header_tools.header_analyze import HeaderAnalyze, BuildArgsGetter
+from cpp_header_tools.class_analyze import CppClassAnalyze, BuildArgsGetter
 from cpp_header_tools.templates_mng import TemplatesMng
+from cpp_header_tools.generate_session import GenerateSession
 
 logger = logging.getLogger(__name__)
 
@@ -36,8 +37,11 @@ class CompileDBBuilder:
 
     def build(self, header_path: str, cpp_path: str, outer_header_path: str):
         assert Path(header_path).exists() and Path(header_path).is_file()
-        analyze = HeaderAnalyze(header_path, cpp_path, self.args_getter, self.templates, outer_header_path)
-        analyze.build()
+        analyzer = CppClassAnalyze(header_path, cpp_path, self.args_getter, self.templates, outer_header_path)
+        analyzer.analyze()
+        session = GenerateSession(analyzer, analyzer.relations, outer_header_path)
+
+        session.write_all()
         pass
 
     pass

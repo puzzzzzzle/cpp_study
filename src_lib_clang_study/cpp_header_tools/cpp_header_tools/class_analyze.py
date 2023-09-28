@@ -1,10 +1,11 @@
 from pathlib import Path
 import logging
 from pprint import pprint, pformat
-import cpp_header_tools.tools.show_info_tools as show
+import cpp_header_tools.utils.show_info_tools as show
 import clang.cindex as cl
 
 from cpp_header_tools.templates_mng import TemplatesMng
+from cpp_header_tools.utils.exceptions import GeneratedException
 
 logger = logging.getLogger(__name__)
 
@@ -22,7 +23,7 @@ def node_kind(node):
     return kind
 
 
-class HeaderAnalyze:
+class CppClassAnalyze:
     """
     generator for one header define
     one header must have only one class with generated macros
@@ -48,7 +49,7 @@ class HeaderAnalyze:
             .replace(":", "_")
         self.header_mark = f"__CPP_HEADER_TOOLS_"
 
-    def build(self):
+    def analyze(self):
         """
         build generated code for header define
         :return:
@@ -73,7 +74,8 @@ class HeaderAnalyze:
         # check all macro only in target class/struct
         # TODO
 
-        # start generated
+        # check decorated target correct
+        # TODO
 
     def _pre_gen_macro(self):
         """
@@ -125,10 +127,10 @@ class HeaderAnalyze:
         header_tu = self.header_tu
         includes = [x for x in header_tu.get_includes()]
         if len(includes) <= 0:
-            raise RuntimeError(f"{self.file_name}.generated.h must be included by {self.header_path}")
+            raise GeneratedException(f"{self.file_name}.generated.h must be included by {self.header_path}")
         last = includes[-1]
         if not last.include.name.endswith(f"{self.file_name}.generated.h"):
-            raise RuntimeError(f"{self.file_name}.generated.h must be included at last")
+            raise GeneratedException(f"{self.file_name}.generated.h must be included at last")
         logger.debug(f"pass include check")
 
     def _analyze_macro_relations(self):
@@ -155,7 +157,6 @@ class HeaderAnalyze:
                 # process
             kind = node_kind(node)
             if kind == cl.CursorKind.STRUCT_DECL and node.spelling.startswith(f"{self.header_mark}_GENERATED_MARK"):
-                assert generated_class_cursor is None
                 generated_class_cursor = node.semantic_parent
             # recursive children
             for n in node.get_children():
@@ -166,7 +167,7 @@ class HeaderAnalyze:
 
         get_basic_infos(self.cpp_tu.cursor)
         if generated_class_cursor is None:
-            raise RuntimeError("cannot find CH_GENERATED() in one class or struct")
+            raise GeneratedException("cannot find CH_GENERATED() in one class or struct")
 
         for node in generated_class_cursor.semantic_parent.get_children():
             if not pre_check(node):
@@ -177,9 +178,9 @@ class HeaderAnalyze:
             if node == generated_class_cursor:
                 brothers.append(node)
         if len(brothers) < 2:
-            raise RuntimeError("at least needs CH_CLASS() ")
+            raise GeneratedException("at least needs CH_CLASS() ")
         if brothers[-1] != generated_class_cursor:
-            raise RuntimeError("should not use any CH_ macros after class defined")
+            raise GeneratedException("should not use any CH_ macros after class defined")
         brothers.pop()
         brothers = [trans_to_cursor(x) for x in brothers]
 
@@ -210,8 +211,7 @@ class HeaderAnalyze:
             curr_decorated = []
             status = 0
         if status != 0:
-            assert len(curr_decorated) != 0
-            raise RuntimeError(
+            raise GeneratedException(
                 f"some decorated not found target {[pformat(show.get_node_info(x)) for x in curr_decorated]}")
         logger.debug(f"class:{pformat((generated_class_cursor.kind, generated_class_cursor.spelling))}")
         logger.debug(f"class decorated:\n{pformat([(x.kind, x.spelling) for x in brothers])}")

@@ -1,5 +1,5 @@
 from pathlib import Path
-from cpp_header_tools.tools.logger_init import init_logger
+from cpp_header_tools.utils.logger_init import init_logger
 from cpp_header_tools.compile_db_builder import CompileDBBuilder
 
 

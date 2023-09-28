@@ -4,6 +4,8 @@ import logging
 import importlib.util
 import clang.cindex as cl
 
+from cpp_header_tools.utils.exceptions import GeneratedException
+
 logger = logging.getLogger(__name__)
 
 
@@ -30,7 +32,8 @@ class TemplatesMng:
     def _load_built_in(self):
         from . import template
         path = resources.files(template)
-        assert path.is_dir()
+        if not path.is_dir():
+            raise GeneratedException(f"target is not dir {path}")
         for sub_path in path.iterdir():
             if not sub_path.is_dir():
                 continue
@@ -73,9 +76,9 @@ class TemplatesMng:
         if old is not None:
             old_group = old["group"]
             if old_group == group:
-                raise RuntimeError(f"macro already defined {macro_name} {group}")
+                raise GeneratedException(f"macro already defined {macro_name} {group}")
             if old_group != "built_in":
-                raise RuntimeError(f"outer macro not allow redefine {macro_name} {group}")
+                raise GeneratedException(f"outer macro not allow redefine {macro_name} {group}")
 
         self.templates[macro_name] = {"module": module, "group": group, "interest_kinds": interest_kinds}
 
