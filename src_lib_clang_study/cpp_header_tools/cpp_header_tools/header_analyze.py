@@ -81,9 +81,16 @@ class HeaderAnalyze:
         :return:
         """
         macros: dict = self.templates.templates
-        result = """#define CONCAT_IMPL( x, y )  x##y
+        result = """// pre generated header, just for clang to analyze
+#undef CONCAT_IMPL
+#undef MACRO_CONCAT
+#define CONCAT_IMPL( x, y )  x##y
 #define MACRO_CONCAT( x, y ) CONCAT_IMPL( x, y )
 """
+        result += f"#undef CH_GENERATED\n"
+        for name, info in macros.items():
+            result += f"#undef {name}\n"
+
         result += f"#define CH_GENERATED(...) struct MACRO_CONCAT({self.header_mark}_GENERATED_MARK_,__COUNTER__) {{}};\n"
         for name, info in macros.items():
             pre_defined = f"#define {name}(...) struct MACRO_CONCAT({self.header_mark}_{name}_MARK_,__COUNTER__) {{}};\n"
