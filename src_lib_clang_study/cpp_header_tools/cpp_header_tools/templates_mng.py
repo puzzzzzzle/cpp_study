@@ -2,7 +2,7 @@ from importlib import resources
 from pathlib import Path
 import logging
 import importlib.util
-import sys
+import clang.cindex as cl
 
 logger = logging.getLogger(__name__)
 
@@ -18,6 +18,14 @@ class TemplatesMng:
         if outer_templates is not None:
             for item in outer_templates:
                 self._load_outer(item)
+        self.all_macro_names = set()
+        self.all_interest_kinds = set()
+        for key, value in self.templates.items():
+            self.all_macro_names.add(key)
+            for item in value["interest_kinds"]:
+                assert not cl.CursorKind.is_invalid(item)
+                assert item != cl.CursorKind.MACRO_INSTANTIATION
+                self.all_interest_kinds.add(item)
 
     def _load_built_in(self):
         from . import template
@@ -57,6 +65,8 @@ class TemplatesMng:
         # get macro name
         macro_name = getattr(module, "macro_name")
         logger.debug(f"load {macro_name} from {main_path}")
+        interest_kinds = getattr(module, "interest_kinds")
+        assert isinstance(interest_kinds, list)
 
         # save
         old = self.templates.get(macro_name, None)
@@ -67,6 +77,6 @@ class TemplatesMng:
             if old_group != "built_in":
                 raise RuntimeError(f"outer macro not allow redefine {macro_name} {group}")
 
-        self.templates[macro_name] = {"module": module, "group": group}
+        self.templates[macro_name] = {"module": module, "group": group, "interest_kinds": interest_kinds}
 
     pass

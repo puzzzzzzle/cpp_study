@@ -1,12 +1,6 @@
+from pathlib import Path
 
-def get_diag_info(diag):
-    return {
-        "severity": diag.severity,
-        "location": diag.location,
-        "spelling": diag.spelling,
-        "ranges": diag.ranges,
-        "fixits": diag.fixits,
-    }
+import clang.cindex as cl
 
 
 def get_cursor_id(cursor, cursor_list=[]):
@@ -50,3 +44,37 @@ def get_all_info(node):
         "definition id": get_cursor_id(node.get_definition()),
         "children": children,
     }
+
+
+def traverse(node: cl.Cursor, depth, file=None):
+    if file is not None:
+        src_file: cl.File = node.location.file
+        if src_file is None or Path(src_file.name).resolve() == Path(file).resolve():
+            pass
+        else:
+            return
+    try:
+        kind = node.kind
+    except ValueError as e:
+        kind = f"unknown kind {node._kind_id}"
+    print(f"{'|    ' * depth}{kind},{node.spelling}")
+    for n in node.get_children():
+        traverse(n, depth + 1, file)
+
+
+def get_diag_info(diag):
+    return {
+        "severity": diag.severity,
+        "location": diag.location,
+        "spelling": diag.spelling,
+        "ranges": diag.ranges,
+        "fixits": diag.fixits,
+    }
+
+
+def get_diagnostics(translation_unit, level=3):
+    result = []
+    for diag in translation_unit.diagnostics:
+        if diag.severity >= level:
+            result.append(get_diag_info(diag))
+    return result

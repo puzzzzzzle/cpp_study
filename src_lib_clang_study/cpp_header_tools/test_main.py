@@ -8,6 +8,7 @@ def main():
     cmake_path = Path(f"{proj_path}/cmake-build-debug-docker/")
     builder = CompileDBBuilder(str(cmake_path))
     builder.build(f"{proj_path}/src_lib_clang_study/generated_test/book_actor.h",
+                  f"{proj_path}/src_lib_clang_study/generated_test/book_actor.cpp",
                   f"{proj_path}/src_lib_clang_study/generated_test/")
 
     pass
