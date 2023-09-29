@@ -21,6 +21,13 @@ class GenerateSession:
         self.writer_target_dir = {"generated.h": header_path, "generated.cpp": cpp_path}
 
         self.generated = {}
+
+        # global header generated
+        # TODO
+
+        # global cpp generated
+        # TODO
+
         pass
 
     def set_out_type_dir(self, file_type, path):

@@ -66,20 +66,27 @@ class TemplatesMng:
         spec.loader.exec_module(module)
 
         # get macro name
-        macro_name = getattr(module, "macro_name")
-        logger.debug(f"load {macro_name} from {main_path}")
+        curr_macro_names = getattr(module, "macro_names")
+        logger.debug(f"load {curr_macro_names} from {main_path}")
+
         interest_kinds = getattr(module, "interest_kinds")
         assert isinstance(interest_kinds, list)
 
-        # save
-        old = self.templates.get(macro_name, None)
-        if old is not None:
-            old_group = old["group"]
-            if old_group == group:
-                raise GeneratedException(f"macro already defined {macro_name} {group}")
-            if old_group != "built_in":
-                raise GeneratedException(f"outer macro not allow redefine {macro_name} {group}")
+        generate_main = getattr(module, "generate_main")
+        import types
+        assert isinstance(generate_main, types.FunctionType)
 
-        self.templates[macro_name] = {"module": module, "group": group, "interest_kinds": interest_kinds}
+        # save
+        for macro_name in curr_macro_names:
+            old = self.templates.get(macro_name, None)
+            if old is not None:
+                old_group = old["group"]
+                if old_group == group:
+                    raise GeneratedException(f"macro already defined {macro_name} {group}")
+                if old_group != "built_in":
+                    raise GeneratedException(f"outer macro not allow redefine {macro_name} {group}")
+
+            self.templates[macro_name] = {"module": module, "group": group, "interest_kinds": interest_kinds,
+                                          "generate_main": generate_main}
 
     pass

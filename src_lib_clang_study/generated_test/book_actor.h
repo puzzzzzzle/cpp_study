@@ -10,14 +10,13 @@ CH_CLASS()
 class BookActor {
   CH_GENERATED()
   public:
-  CH_PRIORITY()
-  CH_PRIORITY()
-  CH_PRIORITY()
+  CH_PROPERTY()
+  CH_PROPERTY()
+  CH_PROPERTY()
   double prize_{};
-  CH_PRIORITY()
+  CH_PROPERTY(NO_GETTER, NO_SETTER, ALIAS = "pageNum", )
   int page_num_{};
   inline void BookActor_print() {}
 };
 
-inline void BookActor_print(const BookActor& b) {}
 }  // namespace generated_test

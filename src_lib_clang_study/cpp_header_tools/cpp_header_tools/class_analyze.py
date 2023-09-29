@@ -71,7 +71,10 @@ class CppClassAnalyze:
         # load macro infos
         self._analyze_macro_relations()
 
-        # check all macro only in target class/struct
+        # check all macro only be used in target class/struct
+        # TODO
+
+        # check all decorated is macro instantiation
         # TODO
 
         # check decorated target correct
@@ -213,8 +216,9 @@ class CppClassAnalyze:
         if status != 0:
             raise GeneratedException(
                 f"some decorated not found target {[pformat(show.get_node_info(x)) for x in curr_decorated]}")
-        logger.debug(f"class:{pformat((generated_class_cursor.kind, generated_class_cursor.spelling))}")
-        logger.debug(f"class decorated:\n{pformat([(x.kind, x.spelling) for x in brothers])}")
+        logger.debug(
+            f"\nclass:{pformat((generated_class_cursor.kind, generated_class_cursor.spelling))}\n"
+            f"class decorated:\n{pformat([(x.kind, x.spelling) for x in brothers])}\n")
         logger.debug(f"inner decorated:\n{pformat(decorate_info_display)}")
         self.relations = {"class": generated_class_cursor, "decorated": brothers,
                           "inner_decorated": decorate_info}
