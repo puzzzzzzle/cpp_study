@@ -32,7 +32,7 @@ R"""
 public: const {{ filed_type }}& get_{{ field_alias }}();
 {% endif %}
 {% if gen_setter %}
-public: void set_{{ field_alias }} ({{ filed_type}} {{ field_alias}}_val);
+public: void set_{{ field_alias }} ( const {{ filed_type}}& {{ field_alias}}_val);
 {% endif %}
 """)
 
@@ -48,7 +48,7 @@ return this->{{ field_name }};
 
 {% if gen_setter %}
 // setter for {{ field_name }}
-void {{ namespace }}::{{ class_name }}::set_{{const field_alias }}({{ filed_type }}& {{ field_alias }}_val)
+void {{ namespace }}::{{ class_name }}::set_{{ field_alias }}( const {{ filed_type }}& {{ field_alias }}_val)
 {
 this->{{ field_name }} = {{ field_alias }}_val;
 }
