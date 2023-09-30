@@ -1,6 +1,6 @@
 from pathlib import Path
 from cpp_header_tools.utils.logger_init import init_logger
-from cpp_header_tools.builder import CompileDBBuilder
+from cpp_header_tools.generator_builder import CompileDBBuilder
 
 
 def main():
