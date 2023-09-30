@@ -62,8 +62,6 @@ def collect_info(target: cl.Cursor, decorated: cl.Cursor, metas: list):
 
     result["gen_getter"] = not ("NO_GETTER" in metas)
     result["gen_setter"] = not ("NO_SETTER" in metas)
-
-    # TODO
     result["filed_type"] = target.type.spelling
 
     parent: cl.Cursor = target.semantic_parent
