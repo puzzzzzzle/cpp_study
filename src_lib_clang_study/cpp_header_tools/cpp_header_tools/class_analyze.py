@@ -42,6 +42,7 @@ class CppClassAnalyze:
         self.out_header = None
         self.header_tu = None
         self.relations = None
+        self.header_inc = None
 
         self.header_uid = str(Path(self.header_path).resolve().as_posix()) \
             .replace("/", "_") \
@@ -135,6 +136,18 @@ class CppClassAnalyze:
         if not last.include.name.endswith(f"{self.file_name}.generated.h"):
             raise GeneratedException(f"{self.file_name}.generated.h must be included at last")
         logger.debug(f"pass include check")
+        cpp_tu = self.cpp_tu
+        # for x in cpp_tu.get_includes():
+        #     if Path(x.include.name).resolve() == Path(self.header_path).resolve():
+        #         self.header_inc = cl.Cursor.from_location(cpp_tu, x.location)
+        #         sp = self.header_inc.spelling
+        #         break
+        for x in cpp_tu.cursor.get_children():
+            if node_kind(x) == cl.CursorKind.INCLUSION_DIRECTIVE:
+                self.header_inc = x
+                break
+        if self.header_inc is None:
+            raise GeneratedException(f"{self.file_name} cannot find header include")
 
     def _analyze_macro_relations(self):
         # show.traverse(self.cpp_tu.cursor, 0, self.header_path)

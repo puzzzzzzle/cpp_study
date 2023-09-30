@@ -7,9 +7,10 @@ def main():
     proj_path = "/tmp/tmp.P2TjzjZZfu"
     cmake_path = Path(f"{proj_path}/cmake-build-debug-docker/")
     builder = CompileDBBuilder(str(cmake_path))
-    builder.build_target(f"{proj_path}/src_lib_clang_study/generated_test/book_actor.h",
-                  f"{proj_path}/src_lib_clang_study/generated_test/book_actor.cpp",
-                  f"{proj_path}/src_lib_clang_study/generated_test/")
+    builder.build_one_target(f"{proj_path}/src_lib_clang_study/generated_test/book_actor.h",
+                             f"{proj_path}/src_lib_clang_study/generated_test/book_actor.cpp",
+                             f"{proj_path}/src_lib_clang_study/generated_test/")
+    builder.write_all()
 
     pass
 

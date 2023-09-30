@@ -1,10 +1,12 @@
 //
 // Created by khalidzhang on 2023/9/18.
 //
-#include "CommonClass.h"
 #include "book_actor.h"
-using namespace generated_test;
+
+#include "CommonClass.h"
+using namespace generated_test::nn;
 TEST(book_actor, create) {
   BookActor ba{};
-  LOG_DEBUG("inited at " << &ba)
+  ba.set_pageNum(1000);
+  LOG_DEBUG("inited at " << ba.get_pageNum())
 }

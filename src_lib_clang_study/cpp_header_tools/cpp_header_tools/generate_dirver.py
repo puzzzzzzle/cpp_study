@@ -12,5 +12,5 @@ class GenerateDriver:
     def generate(self):
         for name, infos in self.templates.templates.items():
             generate_main = infos["generate_main"]
-            generate_main(self.analyzer, self.session)
+            generate_main(self.analyzer, self.session,infos)
         pass

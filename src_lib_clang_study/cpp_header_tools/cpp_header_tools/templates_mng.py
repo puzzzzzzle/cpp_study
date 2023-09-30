@@ -87,6 +87,6 @@ class TemplatesMng:
                     raise GeneratedException(f"outer macro not allow redefine {macro_name} {group}")
 
             self.templates[macro_name] = {"module": module, "group": group, "interest_kinds": interest_kinds,
-                                          "generate_main": generate_main}
+                                          "generate_main": generate_main, "path": path}
 
     pass
