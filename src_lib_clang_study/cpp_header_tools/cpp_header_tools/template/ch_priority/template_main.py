@@ -27,33 +27,28 @@ meta_infos = {
                       "eg: ALIAS = 'pageNum'"},
 }
 generated_template = jinja2.Template(
-R"""
-{% if gen_getter %}
+R"""{% if gen_getter -%}
 public: const {{ filed_type }}& get_{{ field_alias }}();
-{% endif %}
-{% if gen_setter %}
+{% endif -%}
+{% if gen_setter -%}
 public: void set_{{ field_alias }} ( const {{ filed_type}}& {{ field_alias}}_val);
-{% endif %}
-""")
+{% endif -%}""")
 
 cpp_template = jinja2.Template(
-R"""
-{% if gen_getter %}
+R"""{% if gen_getter -%}
 // getter for {{ field_name }}
 const {{ filed_type }}& {{ namespace }}::{{ class_name }}::get_{{ field_alias }}()
 {
 return this->{{ field_name }};
 }
-{% endif %}
-
-{% if gen_setter %}
+{% endif -%}
+{% if gen_setter -%}
 // setter for {{ field_name }}
 void {{ namespace }}::{{ class_name }}::set_{{ field_alias }}( const {{ filed_type }}& {{ field_alias }}_val)
 {
 this->{{ field_name }} = {{ field_alias }}_val;
 }
-{% endif %}
-""")
+{% endif -%}""")
 
 
 def collect_info(target: cl.Cursor, decorated: cl.Cursor, metas: list):

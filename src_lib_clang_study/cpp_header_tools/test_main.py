@@ -1,10 +1,11 @@
+import os
 from pathlib import Path
 from cpp_header_tools.utils.logger_init import init_logger
 from cpp_header_tools.generator_builder import CompileDBBuilder
 
 
 def main():
-    proj_path = "/tmp/tmp.P2TjzjZZfu"
+    proj_path = str(Path("../..").absolute().resolve())
     cmake_path = Path(f"{proj_path}/cmake-build-debug-docker/")
     builder = CompileDBBuilder(str(cmake_path))
     builder.build_one_target(f"{proj_path}/src_lib_clang_study/generated_test/book_actor.h",

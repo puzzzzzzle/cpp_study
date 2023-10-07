@@ -19,6 +19,7 @@ class BookActor {
 
   // same as defined in one macro
   CH_PROPERTY(NO_GETTER, ALIAS = "useless", )
+  // comment is ok
   // empty is ok
   CH_PROPERTY()
   CH_PROPERTY(NO_SETTER)

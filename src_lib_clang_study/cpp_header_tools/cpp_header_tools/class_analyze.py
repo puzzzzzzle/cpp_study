@@ -6,6 +6,7 @@ import clang.cindex as cl
 
 from cpp_header_tools.templates_mng import TemplatesMng
 from cpp_header_tools.utils.exceptions import GeneratedException
+from cpp_header_tools.utils.tools import time_me
 
 logger = logging.getLogger(__name__)
 
@@ -50,6 +51,7 @@ class CppClassAnalyze:
             .replace(":", "_")
         self.header_mark = f"__CPP_HEADER_TOOLS_"
 
+    @time_me()
     def analyze(self):
         """
         build generated code for header define
@@ -104,6 +106,7 @@ class CppClassAnalyze:
 
         return result
 
+    @time_me()
     def _load_source(self):
         """
         load cpp and header translation unit info
@@ -124,6 +127,7 @@ class CppClassAnalyze:
         if len(diagnostics) != 0:
             logger.warning(f"{pformat(diagnostics)}")
 
+    @time_me()
     def _pre_check_includes(self):
         """
         xxx.generated.h mast be included at last of the xxx.h
@@ -149,6 +153,7 @@ class CppClassAnalyze:
         if self.header_inc is None:
             raise GeneratedException(f"{self.file_name} cannot find header include")
 
+    @time_me()
     def _analyze_macro_relations(self):
         # show.traverse(self.cpp_tu.cursor, 0, self.header_path)
 

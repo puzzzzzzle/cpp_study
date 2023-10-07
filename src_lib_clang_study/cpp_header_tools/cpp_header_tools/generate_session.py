@@ -71,7 +71,7 @@ class GenerateSession:
     def write_type(self, file_type):
         target_dir = self.writer_target_dir.get(file_type, None)
         if target_dir is None:
-            logger.warning(f"target type not defined out dir , write to header dir {file_type}")
+            logger.debug(f"target type not defined out dir , write to header dir {file_type}")
             target_dir = self.writer_target_dir["generated.h"]
         generated_info = self.generated.get(file_type, None)
         if generated_info is None or len(generated_info) is None:
