@@ -69,4 +69,9 @@ struct CPosition {
     os << pos.to_string();
     return os;
   }
+  void clear()
+  {
+    x=0;
+    y=0;
+  }
 };
