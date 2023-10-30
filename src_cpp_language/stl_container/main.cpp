@@ -3,6 +3,14 @@
 //
 #include "common_includes.h"
 #include "stl_common_containor.h"
+#include "common_funcs.h"
+
+TEST(split, simple_1) {
+  auto str = "hello_world_by_c++";
+  auto vec = Split(str, "_");
+  LOG_DEBUG("origin: " << str)
+  LOG_DEBUG("split: " << vec)
+}
 TEST(test1, 1) {
   int size = 10;
   do {
