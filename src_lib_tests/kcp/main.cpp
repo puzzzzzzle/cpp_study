@@ -14,6 +14,5 @@ int main(int argc, char **argv) {
   int iRet = 0;
   testing::InitGoogleTest(&argc, argv);
   iRet = RUN_ALL_TESTS();
-  sleep(1);
   return iRet;
 }
