@@ -8,7 +8,7 @@
 // 多线程异常
 //int level = 0;
 
-// 多线程异常, i++ 是三个指令 : load add save, 无法保证原子性
+// 多线程异常, i++ 是#~5个指令 : mem -> cache, cache -> reg, add reg, reg -> cache, cache -> mem, 无法保证原子性
 //volatile int level = 0;
 
 // 正常
