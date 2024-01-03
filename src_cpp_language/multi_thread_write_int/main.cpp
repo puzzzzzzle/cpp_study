@@ -4,25 +4,29 @@
 #include <vector>
 
 int unused = 42;
-
+constexpr int MAX_LEVEL = 5;
 // 正常, 每个线程有自己的变量
-// thread_local int level = 0;
+thread_local int level = 0;
 
 // 多线程异常
- int level = 0;
+// int level = 0;
 
 // 多线程异常, i++ 是#~5个指令 : mem -> cache, cache -> reg, add reg, reg ->
 // cache, cache -> mem, 无法保证原子性
 // volatile int level = 0;
 
 // 正常
-//std::atomic_int level = 0;
+// std::atomic_int level = 0;
 
 class Test {
   public:
   Test() {
     if (level < 0) {
-      throw std::runtime_error("level < 0: (" + std::to_string(level) +")");
+      throw std::runtime_error("level < 0: (" + std::to_string(level) + ")");
+    }
+    if (level > MAX_LEVEL) {
+      throw std::runtime_error("level > MAX_LEVEL: (" + std::to_string(level) +
+                               ")");
     }
     level++;
   }
