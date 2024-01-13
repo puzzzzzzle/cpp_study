@@ -1,6 +1,32 @@
+
+#include <algorithm>
+#include <ranges>
+
 #include "common_includes.h"
 TEST(test_test, 1) { EXPECT_EQ(1, 1); }
+TEST(simple_test, 1) {
+  std::vector<int> vec = {5, 2, 3, 4, 1, 7};
+  LOG_DEBUG(vec);
+  auto vec1 = vec;
+  LOG_DEBUG(vec1);
+  std::ranges::sort(vec1);
+  LOG_DEBUG(vec1);
 
+  auto vec2 = vec;
+  std::sort(vec2.begin(), vec2.end());
+  LOG_DEBUG(vec2);
+}
+TEST(simple_test, 2) {
+  // views::iota 只是 ranges::iota_view 的一个包装
+  // xxx_view 是最终实现的类, view中只是一个CPO包装
+  //  std::views::iota(1,100);
+  auto view = std::ranges::iota_view(1, 100) |
+              std::views::transform([](int i) { return i * i; }) |
+              std::views::filter([](int i) { return i % 2 == 0; });
+  //  auto vec = view | std::ranges::to<std::vector>();  // c++23
+  auto vec = std::vector<int>(view.begin(), view.end());
+  LOG_DEBUG(vec)
+}
 int main(int argc, char **argv) {
   int iRet = 0;
 
