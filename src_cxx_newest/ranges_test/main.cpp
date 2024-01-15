@@ -20,12 +20,25 @@ TEST(simple_test, 2) {
   // views::iota 只是 ranges::iota_view 的一个包装
   // xxx_view 是最终实现的类, view中只是一个CPO包装
   //  std::views::iota(1,100);
-  auto view = std::ranges::iota_view(1, 100) |
+  auto view = std::ranges::iota_view(1, 10) |
               std::views::transform([](int i) { return i * i; }) |
               std::views::filter([](int i) { return i % 2 == 0; });
   //  auto vec = view | std::ranges::to<std::vector>();  // c++23
   auto vec = std::vector<int>(view.begin(), view.end());
   LOG_DEBUG(vec)
+}
+
+TEST(simple_test, 3) {
+  auto result = std::ranges::iota_view(1, 10) |
+                std::views::transform([](int i) {
+                  LOG_DEBUG("transformd: " << i);
+                  return i * i;
+                }) |
+                std::views::filter([](int i) { return i % 2 == 0; });
+
+  // foreach 执行时才会求值
+  LOG_DEBUG("start for_each");
+  std::ranges::for_each(result, [](int n) { LOG_DEBUG("+++ get " << n) });
 }
 int main(int argc, char **argv) {
   int iRet = 0;
