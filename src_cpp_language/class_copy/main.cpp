@@ -69,6 +69,64 @@ TEST(cp,1)
   OperatorLogClassSub sub3(sub1);
   OperatorLogClassSub sub4(std::move(sub1));
 }
+
+namespace DestructTest
+{
+class OnDeleteLog {
+  public:
+      std::string name_{};
+  ~OnDeleteLog() { LOG_DEBUG("OnDeleteLog called " << this <<"\t" << name_) }
+};
+class Base {
+  public:
+//  virtual ~Base() {}  // 声明为虚函数
+};
+
+class Derived : public Base {
+  public:
+  OnDeleteLog p;
+  Derived(const std::string&name){
+    p.name_=name;
+  }
+};
+}
+namespace DestructTestVirtual
+{
+class OnDeleteLog {
+  public:
+  std::string name_{};
+  ~OnDeleteLog() { LOG_DEBUG("OnDeleteLog called " << this <<"\t" << name_) }
+};
+class Base {
+  public:
+    virtual ~Base() {}  // 声明为虚函数
+};
+
+class Derived : public Base {
+  public:
+  OnDeleteLog p;
+  Derived(const std::string&name){
+    p.name_=name;
+  }
+};
+}
+TEST(class_copy_Destruct, 1) {
+  // 父类没有virtual析构，子类的析构不会被调用。
+  DestructTest::Base* rowPtr = new DestructTest::Derived("row ptr");
+  delete rowPtr;
+  LOG_DEBUG("rowPtr deleted");
+
+  // 父类有申明为虚函数，子类的析构会被调用。
+  DestructTestVirtual::Base* rowPtrVirtual = new DestructTestVirtual::Derived("row ptr");
+  delete rowPtrVirtual;
+  LOG_DEBUG("rowPtrVirtual deleted");
+
+  // shared ptr 特殊, 构造的时候额外保存了析构块, 类似类型擦除, 可以在析构时调用子类的析构函数
+  std::shared_ptr<DestructTest::Base> basePtr =
+      std::make_shared<DestructTest::Derived>("shared ptr");
+  basePtr = nullptr;
+  LOG_DEBUG("shared ptr deleted");
+}
 int main(int argc, char **argv) {
   int iRet = 0;
 
