@@ -111,21 +111,31 @@ class Derived : public Base {
 };
 }
 TEST(class_copy_Destruct, 1) {
-  // 父类没有virtual析构，子类的析构不会被调用。
-  DestructTest::Base* rowPtr = new DestructTest::Derived("row ptr");
-  delete rowPtr;
-  LOG_DEBUG("rowPtr deleted");
+  {
+    // 父类有申明为虚函数，子类的析构会被调用。
+    DestructTestVirtual::Base* rowPtrVirtual = new DestructTestVirtual::Derived("DestructTestVirtual row ptr");
+    delete rowPtrVirtual;
+    LOG_DEBUG("row ptr deleted deleted");
 
-  // 父类有申明为虚函数，子类的析构会被调用。
-  DestructTestVirtual::Base* rowPtrVirtual = new DestructTestVirtual::Derived("row ptr");
-  delete rowPtrVirtual;
-  LOG_DEBUG("rowPtrVirtual deleted");
+    // 析构函数也会被调用
+    std::shared_ptr<DestructTestVirtual::Base> basePtr =
+        std::make_shared<DestructTestVirtual::Derived>("DestructTestVirtual shared ptr");
+    basePtr = nullptr;
+    LOG_DEBUG("shared_ptr deleted");
+  }
 
-  // shared ptr 特殊, 构造的时候额外保存了析构块, 类似类型擦除, 可以在析构时调用子类的析构函数
-  std::shared_ptr<DestructTest::Base> basePtr =
-      std::make_shared<DestructTest::Derived>("shared ptr");
-  basePtr = nullptr;
-  LOG_DEBUG("shared ptr deleted");
+  {
+    // 父类没有virtual析构，子类的析构不会被调用。
+    DestructTest::Base* rowPtr = new DestructTest::Derived("DestructTest row ptr");
+    delete rowPtr;
+    LOG_DEBUG("row ptr deleted");
+
+    // shared ptr 特殊, 构造的时候额外保存了析构块, 类似类型擦除, 可以在析构时调用子类的析构函数
+    std::shared_ptr<DestructTest::Base> basePtr =
+        std::make_shared<DestructTest::Derived>("DestructTest shared ptr");
+    basePtr = nullptr;
+    LOG_DEBUG("shared_ptr deleted");
+  }
 }
 int main(int argc, char **argv) {
   int iRet = 0;
