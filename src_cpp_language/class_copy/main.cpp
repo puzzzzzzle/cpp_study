@@ -44,6 +44,7 @@ TEST(oper, 3) {
 }
 class OperatorLogClassSub :public OperatorLogClass
 {
+  // 暴露父类的构造函数
   using OperatorLogClass::OperatorLogClass;
 };
 TEST(cp,1)
@@ -51,8 +52,10 @@ TEST(cp,1)
   OperatorLogClassSub sub1,sub2;
   sub2=sub1;
   sub2=std::move(sub1);
-  OperatorLogClassSub sub3(sub1);
-  OperatorLogClassSub sub4(std::move(sub1));
+  // sub1 不再可用
+  OperatorLogClassSub sub3(sub2);
+  OperatorLogClassSub sub4(std::move(sub2));
+  // sub2 不再可用
 }
 int main(int argc, char **argv) {
   int iRet = 0;

@@ -1,43 +1,42 @@
-#include <string>
 #include <common_includes.h>
+
+#include <string>
 
 class OperatorLogClass {
   public:
   std::string name{};
   char* data{nullptr};
   std::string ToString() const {
-    return "OperatorLogClass:" + name + "\t@" + std::to_string((intptr_t)this);
+    return "OperatorLogClass:" + name + "@" + std::to_string((intptr_t)this);
   }
-  OperatorLogClass(){LOG_DEBUG(ToString())};
+  OperatorLogClass(){LOG_DEBUG(__PRETTY_FUNCTION__ << "\t" << ToString())};
   OperatorLogClass(const std::string& _name) {
     name = _name;
-    LOG_DEBUG(ToString())
+    LOG_DEBUG(__PRETTY_FUNCTION__ << ToString())
   }
   OperatorLogClass(const OperatorLogClass& obj) {
     name = obj.name;
-    LOG_DEBUG("this: " << ToString() << "\tobj: " << obj.ToString())
+    LOG_DEBUG(__PRETTY_FUNCTION__ << "\tthis: " << ToString()
+                           << "\tobj: " << obj.ToString())
   };
   OperatorLogClass(OperatorLogClass&& obj) {
-    LOG_DEBUG("\tobj: " << obj.ToString())
     std::swap(name, obj.name);
-    LOG_DEBUG("this: " << ToString())
+    LOG_DEBUG(__PRETTY_FUNCTION__ << "\tthis: " << ToString())
   };
-  virtual ~OperatorLogClass(){LOG_DEBUG(ToString())};
+  virtual ~OperatorLogClass(){LOG_DEBUG(__PRETTY_FUNCTION__ << ToString())};
   OperatorLogClass& operator=(const OperatorLogClass& obj) {
-    LOG_DEBUG("this: " << ToString() << "\tobj: " << obj.ToString())
     name = obj.name;
-    LOG_DEBUG("this: " << ToString() << "\tobj: " << obj.ToString())
+    LOG_DEBUG(__PRETTY_FUNCTION__ << "\tthis: " << ToString()
+                           << "\tobj: " << obj.ToString())
     return *this;
   };
 
   OperatorLogClass& operator=(OperatorLogClass&& obj) {
-    LOG_DEBUG("\tobj: " << obj.ToString())
     std::swap(name, obj.name);
-    LOG_DEBUG("this: " << ToString())
+    LOG_DEBUG(__PRETTY_FUNCTION__ << "\tthis: " << ToString())
     return *this;
   };
 };
-
 
 struct CPosition {
   int x = 0;
@@ -69,9 +68,8 @@ struct CPosition {
     os << pos.to_string();
     return os;
   }
-  void clear()
-  {
-    x=0;
-    y=0;
+  void clear() {
+    x = 0;
+    y = 0;
   }
 };
