@@ -8,6 +8,7 @@
 /***
  * 快速jsonable
  * 使用 CRTP 实现静态多态 , 避免虚函数
+ * 继承它不打破 TriviallyCopyable & StandardLayoutType 具名要求 (POD 同理)
  * 适用于大量小物体 , 保持
  * 需要实现
  * rapidjson::Value ToRapidJsonImpl(rapidjson::Document::AllocatorType &allocator) const

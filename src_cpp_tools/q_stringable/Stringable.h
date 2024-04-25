@@ -3,6 +3,7 @@
 #include <sstream>
 /**
  * stringable 非虚函数版
+* 继承它不打破 TriviallyCopyable & StandardLayoutType 具名要求 (POD 同理)
  * 假定每个继承子Stringable的都实现了 std::ostream &ToStringImpl(std::ostream &os) const 这个函数
  * 使用 CRTP 实现静态多态
  * eg:
