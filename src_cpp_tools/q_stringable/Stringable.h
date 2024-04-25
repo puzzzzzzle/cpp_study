@@ -3,7 +3,7 @@
 #include <sstream>
 /**
  * stringable 非虚函数版
- * 假定每个继承子QStringable的都实现了 std::ostream &ToStringImpl(std::ostream &os) const 这个函数
+ * 假定每个继承子Stringable的都实现了 std::ostream &ToStringImpl(std::ostream &os) const 这个函数
  * 使用 CRTP 实现静态多态
  * eg:
  struct Data : public Stringable<Data>
@@ -21,7 +21,7 @@
 template <class T>
 class Stringable {
 public:
-  // 假定每个继承子QStringable的都实现了这个函数
+  // 假定每个继承子Stringable的都实现了这个函数
   //    std::ostream &ToStringImpl(std::ostream &os) const
   //    {
   //        return os;
