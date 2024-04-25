@@ -28,12 +28,14 @@ SetBinDir(${CMAKE_BINARY_DIR}/bin)
 
 # 设置通用编译选项
 SetCommonBuildFlag()
+message("CMAKE_CXX_FLAGS : ${CMAKE_CXX_FLAGS}")
+# 生成配置
 GenConfig()
+# 设置编译版本号
 SetCompilerVersion()
 
 # 查找依赖
 FindCommonLib()
-
 message("COMMON_LIBS ${COMMON_LIBS}")
 
 # 设置源码根目录(包含cmake的文件夹将被解析为一个编译target)
