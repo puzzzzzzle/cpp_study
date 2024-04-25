@@ -3,6 +3,7 @@
 #include "common_includes.h"
 #include "Stringable.h"
 #include "Jsonable.h"
+#define JSONABLE_LOG(log) LOG_DEBUG(log)
 #ifndef JSONABLE_LOG
 #define JSONABLE_LOG(log)
 #endif
