@@ -10,7 +10,3 @@ jobs:
       - run: echo "start action"
       - run: pwd
       - run: ls -al
-  Test-Job-2:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "start action"
