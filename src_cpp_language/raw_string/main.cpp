@@ -22,7 +22,7 @@ this is a new line)";
   std::cout << raw1 << std::endl;
   raw1 =
       R"(this is a long long long long long long long long long long long long long long long long long long)"
-      R"( long long long long long long long long long long long long long long long long long long line)";
+      R"(++ long long long long long long long long long long long long long long long long long long line)";
   std::cout << raw1 << std::endl;
 }
 

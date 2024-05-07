@@ -47,10 +47,3 @@ std::shared_ptr<std::function<void(int result, const Base& rsp)>> null0;
 
   LOG_DEBUG("")
 }
-int main(int argc, char** argv) {
-  int iRet = 0;
-
-  testing::InitGoogleTest(&argc, argv);
-  iRet = RUN_ALL_TESTS();
-  return iRet;
-}

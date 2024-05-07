@@ -132,10 +132,3 @@ int main() {
 }
 This valid C++03 code would bind this->f to A::f at instantiation time and everything is fine. C++11 however immediately binds it to B::f and requires a double-check when instantiating, checking whether the lookup still matches. However when instantiating C<A>::g, the Dominance Rule applies and lookup will find A::f instead.
  */
-int main(int argc, char **argv) {
-  int iRet = 0;
-
-  testing::InitGoogleTest(&argc, argv);
-  iRet = RUN_ALL_TESTS();
-  return iRet;
-}

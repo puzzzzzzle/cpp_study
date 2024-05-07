@@ -30,11 +30,3 @@ TEST(macro, 1) {
   ASSERT_EQ(42, get_value_2());
   ASSERT_EQ(100, get_value_3());
 }
-
-int main(int argc, char **argv) {
-  int iRet = 0;
-
-  testing::InitGoogleTest(&argc, argv);
-  iRet = RUN_ALL_TESTS();
-  return iRet;
-}
