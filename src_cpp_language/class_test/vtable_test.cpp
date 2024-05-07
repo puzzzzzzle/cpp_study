@@ -285,15 +285,7 @@ class RhombusDerivedE : public D, public E
   virtual void func() {}
   virtual void func1() {}
 };
-TEST(test_test, 1) {
+TEST(vtable_test, 1) {
   RhombusDerivedE n{};
   EXPECT_EQ(1, 1);
-}
-
-int main(int argc, char **argv) {
-  int iRet = 0;
-
-  testing::InitGoogleTest(&argc, argv);
-  iRet = RUN_ALL_TESTS();
-  return iRet;
 }

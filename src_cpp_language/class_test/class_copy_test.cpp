@@ -3,7 +3,7 @@
 //
 #include "CommonClass.h"
 #include "common_includes.h"
-
+namespace ClassCopyTests {
 void to_leaf(long value){LOG_DEBUG(value)}
 
 OperatorLogClass get_big_obj(long value) {
@@ -11,27 +11,21 @@ OperatorLogClass get_big_obj(long value) {
   OperatorLogClass obj{};
   return obj;
 }
-OperatorLogClass get_big_obj_1(long value) {
-  return get_big_obj(value);
-}
-TEST(oper, 2) {
-  auto obj = get_big_obj_1(42);
-}
+OperatorLogClass get_big_obj_1(long value) { return get_big_obj(value); }
+TEST(oper, 2) { auto obj = get_big_obj_1(42); }
 
-class Base{};
-std::ostream& operator<<(std::ostream& os, const Base & obj)
-{
+class Base {};
+std::ostream& operator<<(std::ostream& os, const Base& obj) {
   os << "cref \n";
   return os;
 }
-std::ostream& operator<<(std::ostream& os, const Base * const obj)
-{
+std::ostream& operator<<(std::ostream& os, const Base* const obj) {
   os << "cptr \n";
   return os;
 }
-class Sub : public Base{};
+class Sub : public Base {};
 
-TEST(oper, 3) {
+TEST(ClassCopyTests, oper) {
   auto obj = std::make_shared<Sub>();
   std::cout << *obj;
   std::cout << obj;
@@ -40,28 +34,18 @@ TEST(oper, 3) {
   std::cout << *cobj;
   std::cout << cobj;
   std::cout << cobj.get();
-
 }
-class OperatorLogClassSub :public OperatorLogClass
-{
+class OperatorLogClassSub : public OperatorLogClass {
   // 暴露父类的构造函数
   using OperatorLogClass::OperatorLogClass;
 };
-TEST(cp,1)
-{
-  OperatorLogClassSub sub1,sub2;
-  sub2=sub1;
-  sub2=std::move(sub1);
+TEST(ClassCopyTests, cp) {
+  OperatorLogClassSub sub1, sub2;
+  sub2 = sub1;
+  sub2 = std::move(sub1);
   // sub1 不再可用
   OperatorLogClassSub sub3(sub2);
   OperatorLogClassSub sub4(std::move(sub2));
   // sub2 不再可用
 }
-int main(int argc, char **argv) {
-  int iRet = 0;
-
-
-  testing::InitGoogleTest(&argc, argv);
-  iRet = RUN_ALL_TESTS();
-  return iRet;
-}
+}  // namespace ClassCopyTests

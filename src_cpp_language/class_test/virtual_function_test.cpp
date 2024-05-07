@@ -6,7 +6,7 @@
  * 多态只能通过指针类型（指针和引用）实现。当你使用值类型时，会发生对象切割（slicing）
  * 即子类对象被切割成父类对象，只保留父类部分的成员变量和方法。这样，多态就无法实现。
  */
-namespace VirtualTest {
+namespace VirtualFunctionTest {
 class Parent {
   public:
   int i1 = 1;
@@ -24,7 +24,7 @@ class Sub : public Parent {
   ~Sub() {}
 };
 
-TEST(p_s_test, p_s) {
+TEST(VirtualFunctionTest, 1) {
   {
     Parent p;
     p.hello();
