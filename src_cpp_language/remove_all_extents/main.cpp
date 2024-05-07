@@ -9,8 +9,8 @@
 
 template <class A>
 void foo(const A &) {
-  typedef typename std::remove_all_extents<A>::type Type;
-  std::cout << "underlying type: " << typeid(Type).name() << '\n';
+  using TypeT = std::remove_all_extents<A>::type;
+  std::cout << "underlying type: " << typeid(TypeT).name() << '\n';
 }
 
 void test() {
