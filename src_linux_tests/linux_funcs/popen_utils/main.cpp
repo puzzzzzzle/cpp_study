@@ -22,7 +22,7 @@ std::pair<int, std::string> CallSystem(const std::string &cmd) {
 TEST(test_test, 1) {
 #define CALL_CMD(cmd)                                             \
   {                                                               \
-    auto ret = CallSystem(cmd);                                   \
+    auto ret = CallSystem(std::string(cmd) + " 2>&1");             \
     LOG_DEBUG("call : [ " << cmd << " ] with ret: [" << ret.first \
                           << "]  and stdout :[\n"                 \
                           << ret.second << "\n]")                 \
