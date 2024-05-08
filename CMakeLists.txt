@@ -42,20 +42,21 @@ message("COMMON_LIBS ${COMMON_LIBS}")
 set(SRC_DIR_ROOTS "")
 # 一些算法
 list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src_algorithm)
+# c++ header tool 测试
+list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src_boost_study)
 # c++ 语法测试
 list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src_cpp_language)
 # c++ 工具类
 list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src_cpp_tools)
-# 一些c++工具库
-list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src_lib_tests)
-# linux 函数测试
-list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src_linux_tests)
-# c++ header tool 测试
-list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src_lib_clang_study)
 # 最新c++特性
 if (COMPILER_SUPPORTS_CXX20)
     list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src_cxx_newest)
 endif ()
+# 一些c++工具库
+list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src_lib_tests)
+# linux 函数测试
+list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src_linux_tests)
+
 message("all roots ${SRC_DIR_ROOTS}")
 
 # 开始加载
