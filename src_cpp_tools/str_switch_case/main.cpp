@@ -64,6 +64,33 @@ TEST(array_func, 1) {
 }
 }  // namespace ArrayFind
 
+namespace ArrayFindUnordered {
+// 使用find的版本, 不要去__all有序, 但是稍慢点
+static const std::array<std::string, 2> __all = {"func_a", "func_b"};
+
+void call_func(const std::string& name, int value) {
+  auto r = std::find(__all.begin(), __all.end(), name);
+  if (r == __all.end()) {
+    LOG_DEBUG("func not found " << name)
+    return;
+  }
+  switch (r - __all.begin()) {
+    case 0: {
+      func_a(value);
+      return;
+    }
+    case 1: {
+      func_b(value);
+    }
+  }
+}
+
+TEST(array_func_unordered, 1) {
+  call_func("func_a", 111);
+  call_func("func_b", 22);
+  call_func("func_c", 444);
+}
+}  // namespace ArrayFindUnordered
 int main(int argc, char** argv) {
   int iRet = 0;
 
