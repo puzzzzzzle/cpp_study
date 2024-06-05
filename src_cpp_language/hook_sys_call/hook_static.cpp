@@ -11,7 +11,7 @@
 
 #include "get_stack_str.h"
 
-#include "test_func.h"
+#include "funcs.h"
 
 typedef int (*hook_func_t)();
 static hook_func_t system_handle = NULL;

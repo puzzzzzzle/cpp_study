@@ -1,32 +1,40 @@
 //
 // Created by khalidzhang on 2021/8/26.
 //
-#include <cxxabi.h>
 #include <dlfcn.h>
-#include <execinfo.h>
-#include <unwind.h>
+#include <pthread.h>
+#include <unistd.h>
 
 #include <cassert>
-#include <iostream>
-
-#include "get_stack_str.h"
-
+#include <cstdio>
+#include <cstdlib>
 typedef void *(*malloc_type)(size_t __size);
 
-static malloc_type system_handle = NULL;
+static malloc_type system_handle = nullptr;
+static pthread_once_t init_once = PTHREAD_ONCE_INIT;
 
-__attribute__((constructor)) static void init_dyn_handle();
 static void init_dyn_handle() {
-  printf("init hook_malloc\n");
-  // 获取 __gxx_personality_v0 函数的下一个声明,
-  // 应为我们在后面会声明一个相同的, 所以下一个就是系统原有的
   system_handle = (malloc_type)dlsym(RTLD_NEXT, "malloc");
   assert(system_handle != nullptr);
 }
 
-// 动态链接的库也可以直接覆盖, 这样在本二进制中找到了, 就不会去动态库中找了
 extern "C" void *malloc(size_t __size) {
+  pthread_once(&init_once, init_dyn_handle);
+
+  // 使用一个简单的标志来防止递归调用
+  static thread_local bool in_malloc = false;
+  if (in_malloc) {
+    return system_handle(__size);
+  }
+
+  in_malloc = true;
   void *ret = system_handle(__size);
-  printf("malloc %d @ %p \n", __size, ret);
+  in_malloc = false;
+
+  // 使用 write 代替 printf 以避免递归调用
+  char buffer[256];
+  int len = snprintf(buffer, sizeof(buffer), "malloc %zu @ %p\n", __size, ret);
+  write(1, buffer, len);
+
   return ret;
 }
