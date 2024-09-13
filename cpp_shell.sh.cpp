@@ -1,5 +1,5 @@
-#if 0/* run cpp source file from shell directly, eg: ./cpp_shell.sh.cpp
-SOURCE_NAME=$(basename "$0") ; c++ -O3 -o /tmp/$SOURCE_NAME.out "$0" && /tmp/$SOURCE_NAME.out; exit $?; */
+#if 0/* run cpp source file from shell directly, eg: ./cpp_shell.sh.cpp arg1 arg2
+SOURCE_NAME=$(basename "$0") ; c++ -O3 -o /tmp/$SOURCE_NAME.out "$0" && /tmp/$SOURCE_NAME.out "$@"; exit $?; */
 #endif
 
 // 上面的部分, 会被shell解析, 然后自动编制并运行
@@ -14,8 +14,11 @@ SOURCE_NAME=$(basename "$0") && c++ -O3 -o /tmp/$SOURCE_NAME.out "$0" && /tmp/$S
 
 #include <iostream>
 
-int main() {
+int main(int argc, char *argv[]) {
     std::cout << "hello world form c++ 'script'." << std::endl;
+    for (int i = 0; i < argc; ++i) {
+        std::cout << "arg at " << i << " is " << argv[i] << std::endl;
+    }
     // 返回值也能正常收到
     return 22;
 }
