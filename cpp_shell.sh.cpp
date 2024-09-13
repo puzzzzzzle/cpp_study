@@ -16,6 +16,6 @@ SOURCE_NAME=$(basename "$0") && c++ -O3 -o /tmp/$SOURCE_NAME.out "$0" && /tmp/$S
 
 int main() {
     std::cout << "hello world form c++ 'script'." << std::endl;
-    exit(22);
+    // 返回值也能正常收到
     return 22;
 }
