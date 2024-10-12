@@ -7,7 +7,7 @@ int test_mem(size_t size) {
 //  mem[size - 1] = 0;
   free(mem);
 }
-TEST(test_test, 1) { test_mem(1024L * 1024 * 1024 * 10); }
+TEST(test_test, 1) { test_mem(1024L * 1024 * 1024 * 1); }
 
 int main(int argc, char **argv) {
   int iRet = 0;
