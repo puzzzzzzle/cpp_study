@@ -6,4 +6,4 @@ find_package(cpr REQUIRED)
 add_executable(${CURRENT_TASK} ${${CURRENT_TASK}_SRCS} )
 
 #通用动态链接库
-target_link_libraries(${CURRENT_TASK}  ${COMMON_LIBS} PRIVATE cpr::cpr)
+target_link_libraries(${CURRENT_TASK}  ${COMMON_LIBS} cpr::cpr)

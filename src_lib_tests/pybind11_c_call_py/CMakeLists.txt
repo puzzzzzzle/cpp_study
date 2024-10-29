@@ -1,6 +1,7 @@
 aux_source_directory(. ${CURRENT_TASK}_SRCS)
 include_directories(.)
 
+set(PYBIND11_FINDPYTHON ON)
 find_package(pybind11 REQUIRED)
 
 # 可执行文件
