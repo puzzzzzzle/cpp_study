@@ -45,6 +45,7 @@ class ShmObjMngBase {
   private:
   ObjAlloc *alloc_{};
   bip::managed_shared_memory segment_{};
+  std::string shmName_{};
 
   public:
   ~ShmObjMngBase() {
@@ -52,6 +53,7 @@ class ShmObjMngBase {
     alloc_ = nullptr;
   }
   void Init(const char *ShmName, size_t ShmMaxSize) {
+    shmName_ = ShmName;
     segment_ = bip::managed_shared_memory(ShmCreateType(), ShmName, ShmMaxSize);
     if constexpr (!std::is_fundamental<ManagedTypeT>::value) {
       alloc_ = new ObjAlloc(segment_.get_segment_manager());
@@ -64,6 +66,7 @@ class ShmObjMngBase {
    * @param objName
    * @return
    */
+  [[nodiscard]]
   ManagedType *Get(const char *objName, bool autoCreate = true,
                    bool safeGet = false) {
     if (safeGet) {
@@ -97,11 +100,11 @@ class ShmObjMngBase {
    */
   void Destroy(const char *objName) { segment_.destroy<ManagedType>(objName); }
   bip::managed_shared_memory *GetShm() { return &segment_; }
-  /**
-   * 基本类型这里返回空
-   * @return
-   */
-  ObjAlloc *GetAlloc() { return alloc_; }
+  const std::string &ShmName()
+
+  {
+    return shmName_;
+  };
 };
 
 // 普通对象适配, 必须满足放在shm上的对象要求

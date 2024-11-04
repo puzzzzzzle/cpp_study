@@ -137,8 +137,8 @@ TEST(shm_map_singleton, load_save) {
   auto &map = *ShmMap::GetInstance().Get("map1");
   int key = rand() % 1000;
   map[key] = Obj(key, 444.0);
-  for (const auto &item : map) {
-    LOG_DEBUG("map item : " << item.first << "\t" << item.second.ToString());
+  for (const auto &[k,v] : map) {
+    LOG_DEBUG("map item : " << k << "\t" << v.ToString());
   }
 }
 int main(int argc, char **argv) {
