@@ -28,10 +28,10 @@ TEST(test_test, fail) {
   m.erase(it);
 
   LOG_DEBUG(it->second.use_count()) // 0
-  //segment fault
+  //segment_ fault
 //  LOG_DEBUG("value\t"<<*(it->second))
   auto second = it->second;
-  //segment fault
+  //segment_ fault
 //  LOG_DEBUG(*second)
   LOG_DEBUG(second.use_count()) // 1
 }

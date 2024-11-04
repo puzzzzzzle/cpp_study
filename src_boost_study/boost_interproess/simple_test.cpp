@@ -62,7 +62,7 @@ TEST(offset_ptr,1)
 
   //Create shared memory
   bshm::managed_shared_memory segment(bshm::create_only,
-                                "MySharedMemory",  //segment name
+                                "MySharedMemory",  //segment_ name
                                 65536);
 
   //Create linked list with 10 nodes in shared memory
