@@ -32,7 +32,6 @@ class Obj {
   Obj(const Allocator &) : val1_(0), val2_(0) {}
 };
 
-
 TEST(raw_shm, save) {
   static constexpr char name[] = "raw_shm.shm";
   bip::shared_memory_object::remove(name);
@@ -77,8 +76,8 @@ TEST(raw_shm, save) {
   ASSERT_TRUE(errored);
 
   // error: 类型错误, 且比原始内容大时, 无法整除, 直接crash(assert fail)
-//  shm_allocator_t<LargeObj> large_alloc(segment.get_segment_manager());
-//  auto large_obj_find = segment.find<LargeObj>("obj1");
+  //  shm_allocator_t<LargeObj> large_alloc(segment.get_segment_manager());
+  //  auto large_obj_find = segment.find<LargeObj>("obj1");
 
   LOG_DEBUG("end")
 }
@@ -99,13 +98,19 @@ TEST(shm_vector_manual_instance, load_save) {
 
   // 在同一个名字重新加载, 类型变化, 类似指针强转了
   {
-//    using ShmIntMng = ShmObjMng<int, bip::open_or_create_t>;
-//    ShmIntMng intInstance{};
-//    intInstance.Init(name,0xffff);
-//    auto* val = intInstance.Get("test1",false);
-//    ASSERT_TRUE(val!= nullptr);
-//    val = intInstance.Get("test1",false,true);
-//    ASSERT_TRUE(val== nullptr);
+    using ShmIntMng = ShmObjMng<int, bip::open_or_create_t>;
+    ShmIntMng intInstance{};
+    intInstance.Init(name, 0xffff);
+    // int 比 Obj小, 且大小可以整除, 所以可以获取到地址, 但是数量不是1
+    auto *val = intInstance.Get("test1", false);
+    ASSERT_TRUE(val != nullptr);
+    // 这里额外检查了大小, 且对不上时不自动删除创建, 就获取不到了
+    val = intInstance.Get("test1", false, true);
+    ASSERT_TRUE(val == nullptr);
+
+    // 这里额外检查了大小, 没对上, 就重新创建了
+    val = intInstance.Get("test1", true, true);
+    ASSERT_TRUE(val != nullptr);
   }
 }
 TEST(shm_obj_singleton, load_save) {
@@ -130,7 +135,6 @@ TEST(shm_map_singleton, load_save) {
   using ShmMap =
       ShmMapMngSingleton<int, Obj, bip::open_or_create_t, name, 0xffff>;
   auto &map = *ShmMap::GetInstance().Get("map1");
-  int a = sizeof(map);
   int key = rand() % 1000;
   map[key] = Obj(key, 444.0);
   for (const auto &item : map) {

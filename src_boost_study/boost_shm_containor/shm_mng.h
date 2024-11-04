@@ -21,22 +21,15 @@
 namespace ShmMng {
 namespace bip = boost::interprocess;
 
-template <class T, class Enable = void>
-struct shm_allocator;
-
-// 特化用于非基本类型
+// c++20 更简化的enable_if 的使用放肆
 template <class T>
-struct shm_allocator<
-    T, typename std::enable_if<!std::is_fundamental<T>::value>::type> {
-  using type = bip::allocator<T, bip::managed_shared_memory::segment_manager>;
-};
-
-// 特化用于基本类型
-template <class T>
-struct shm_allocator<
-    T, typename std::enable_if<std::is_fundamental<T>::value>::type> {
-  using type =
-      bip::allocator<void, bip::managed_shared_memory::segment_manager>;
+struct shm_allocator {
+  using type = std::conditional_t<
+      std::is_fundamental_v<T>,
+      // 基本类型, 只是占位, 不实际使用, 也不会创建
+      bip::allocator<void, bip::managed_shared_memory::segment_manager>,
+      // 非基本类型, 需要定义分配器
+      bip::allocator<T, bip::managed_shared_memory::segment_manager>>;
 };
 
 // 统一访问接口
@@ -60,7 +53,9 @@ class ShmObjMngBase {
   }
   void Init(const char *ShmName, size_t ShmMaxSize) {
     segment_ = bip::managed_shared_memory(ShmCreateType(), ShmName, ShmMaxSize);
-    alloc_ = new ObjAlloc(segment_.get_segment_manager());
+    if constexpr (!std::is_fundamental<ManagedTypeT>::value) {
+      alloc_ = new ObjAlloc(segment_.get_segment_manager());
+    }
   }
 
   /**
@@ -90,7 +85,11 @@ class ShmObjMngBase {
     if (!autoCreate) {
       return nullptr;
     }
-    return segment_.construct<ManagedType>(objName)(*alloc_);
+    if constexpr (std::is_fundamental<ManagedTypeT>::value) {
+      return segment_.construct<ManagedType>(objName)();
+    } else {
+      return segment_.construct<ManagedType>(objName)(*alloc_);
+    }
   }
   /**
    * 按名字删除, 不管类型
@@ -98,13 +97,16 @@ class ShmObjMngBase {
    */
   void Destroy(const char *objName) { segment_.destroy<ManagedType>(objName); }
   bip::managed_shared_memory *GetShm() { return &segment_; }
+  /**
+   * 基本类型这里返回空
+   * @return
+   */
   ObjAlloc *GetAlloc() { return alloc_; }
 };
 
 // 普通对象适配, 必须满足放在shm上的对象要求
 template <typename T, typename ShmCreateType>
-using ShmObjMng =
-    ShmObjMngBase<ShmCreateType, shm_allocator_t<T>, T>;
+using ShmObjMng = ShmObjMngBase<ShmCreateType, shm_allocator_t<T>, T>;
 
 // 标准容器适配, vector set list 等
 template <typename ValueType, template <typename> typename ContainerType,
@@ -118,8 +120,7 @@ using ShmContainerMng =
 template <class K, class V, class CMP = std::less<K>,
           class Options = boost::container::tree_assoc_defaults>
 using shm_map =
-    bip::map<K, V, CMP, shm_allocator_t<std::pair<const K, V>>,
-             Options>;
+    bip::map<K, V, CMP, shm_allocator_t<std::pair<const K, V>>, Options>;
 template <typename KeyType, typename ValueType, typename ShmCreateType,
           typename CMP = std::less<KeyType>,
           class Options = boost::container::tree_assoc_defaults>
