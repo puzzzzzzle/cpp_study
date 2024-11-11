@@ -2,17 +2,6 @@
 // Created by tao on 19-1-17.
 //
 
-#include <new>
-
-#include "common_includes.h"
-char buff[4096]{0};
-
-TEST(test_test, 1) {
-  EXPECT_EQ(1, 1);
-  int *arr = new (buff) int[50];
-  ASSERT_TRUE(buff == (char *)arr);
-}
-
 struct HasArgType {
   int OnTimeOut(int) { return 0; }
 
@@ -73,9 +62,5 @@ int main(int argc, char **argv) {
   CallOnTimeOut(t1);
   CallOnTimeOut(t2);
 
-  int iRet = 0;
-
-  testing::InitGoogleTest(&argc, argv);
-  iRet = RUN_ALL_TESTS();
-  return iRet;
+  return 0;
 }
