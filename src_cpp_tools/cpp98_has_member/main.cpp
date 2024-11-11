@@ -34,7 +34,7 @@ struct HasOnTimeOutWithInt {
   static no &chk(...);
 
   // 如果 T 有 OnTimeOut(int) 函数，chk 函数会返回 yes&，否则返回 no&
-  static const bool value = sizeof(chk<T>(0)) == sizeof(yes);
+  static const bool value = sizeof(chk<T>(NULL)) == sizeof(yes);
 };
 template <class T, bool withArg>
 struct CallOnTimeOutSelector {};
