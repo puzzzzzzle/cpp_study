@@ -1,7 +1,8 @@
 #include <codecvt>
-
+#include <unicode/unistr.h>
+#include <unicode/ucnv.h>
 #include "common_includes.h"
-class invalid_u8_character_error: public std::runtime_error{
+class invalid_u8_character_error : public std::runtime_error {
   using std::runtime_error::runtime_error;
 };
 /**
@@ -36,7 +37,7 @@ std::vector<std::string> splitUtf8String(const std::string &utf8_string) {
     } else {
       // 无效字符
       throw invalid_u8_character_error("Invalid UTF-8 character at position " +
-                               std::to_string(i));
+                                       std::to_string(i));
     }
   }
 
@@ -98,23 +99,76 @@ TEST(c20test, 1) {
     LOG_DEBUG(item << "    " << item.size())
   }
 }
+
+// c++26 后彻底删除
+std::u32string utf8ToUtf32(const std::string &utf8) {
+  // 创建一个转换器
+  std::wstring_convert<std::codecvt_utf8<char32_t>, char32_t> converter;
+  // 使用转换器将 UTF-8 字符串转换为 UTF-32 字符串
+  std::u32string utf32 = converter.from_bytes(utf8);
+  return utf32;
+}
+std::string utf32ToUtf8(const std::u32string &utf32) {
+  // 创建一个转换器
+  std::wstring_convert<std::codecvt_utf8<char32_t>, char32_t> converter;
+
+  // 使用转换器将 UTF-32 字符串转换为 UTF-8 字符串
+  std::string utf8 = converter.to_bytes(utf32);
+
+  return utf8;
+}
 TEST(c17new, 1) {
   // 创建一个 UTF-8 编码的字符串
-  std::u8string u8str = u8"hello, 这是一个utf-8字符串, 包含复杂的字符.";
-
-  // 使用 std::wstring_convert 和 std::codecvt_utf8 转换为 UTF-32
-  std::wstring_convert<std::codecvt_utf8<char32_t>, char32_t> converter;
-  std::u32string u32str = converter.from_bytes(
-      reinterpret_cast<const char *>(u8str.data()),
-      reinterpret_cast<const char *>(u8str.data() + u8str.size()));
+  std::string str = "hello, 这是一个utf-8字符串, 包含复杂的字符.";
+  std::u32string utf32_str = utf8ToUtf32(str);    // 转换为 UTF-32 字符串
+  std::string utf8_str = utf32ToUtf8(utf32_str);  // 转换为 UTF-8 字符串
+  // 输出 UTF-8 字符串
+  std::cout << utf8_str << std::endl;
 
   // 输出 UTF-32 字符串的每个字符
-  for (char32_t ch : u32str) {
-    std::wcout << L"Character: " << static_cast<wchar_t>(ch)
-               << std::endl;  // 输出 UTF-32 字符
+  for (char32_t ch : utf32_str) {
+    std::u32string item32;
+    item32 = ch;
+    std::string item = utf32ToUtf8(item32);
+    LOG_DEBUG(item << "    " << item.size())
   }
 }
 
+namespace ICUTest
+{
+std::u32string utf8_to_utf32(const std::string& utf8_str) {
+  icu::UnicodeString unicode_str = icu::UnicodeString::fromUTF8(utf8_str);
+  std::u32string utf32_str;
+  for (int i = 0; i < unicode_str.length(); ++i) {
+    utf32_str.push_back(unicode_str.char32At(i));
+  }
+  return utf32_str;
+}
+
+std::string utf32_to_utf8(const std::u32string& utf32_str) {
+  icu::UnicodeString unicode_str;
+  for (char32_t ch : utf32_str) {
+    unicode_str.append(static_cast<UChar32>(ch));
+  }
+  std::string utf8_str;
+  unicode_str.toUTF8String(utf8_str);
+  return utf8_str;
+}
+TEST(icu_test, 1) {
+  std::string utf8_str = "hello, 这是一个utf-8字符串, 包含复杂的字符.";
+  std::u32string utf32_str = utf8_to_utf32(utf8_str);
+
+  for (char32_t ch : utf32_str) {
+    std::u32string item32;
+    item32 = ch;
+    std::string item = utf32_to_utf8(item32);
+    LOG_DEBUG(std::hex << (uint32_t)(ch) << " " << item << "    " << item.size());
+
+  }
+  std::string converted_back = utf32_to_utf8(utf32_str);
+}
+
+}
 int main(int argc, char **argv) {
   int iRet = 0;
 
