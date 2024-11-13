@@ -18,8 +18,8 @@ TEST(as_arr, row) {
   //    EXPECT_EQ(boost::size(csptr),strlen(csptr));      //compile wrong
   //    EXPECT_EQ(boost::size(csarr),strlen(csarr));        //wrong
   EXPECT_EQ(boost::size(caarr), sizeof(caarr) / sizeof(caarr[0]));
-  INFO("based on system, this size of ptr/sizeof(int) "
-       << sizeof(cparr) / sizeof(cparr[0]))
+  LOG_INFO("based on system, this size of ptr/sizeof(int) "
+       << (sizeof(cparr) / sizeof(cparr[0])))
 }
 
 TEST(as_arr, as_arr) {  // used for arr that can get size

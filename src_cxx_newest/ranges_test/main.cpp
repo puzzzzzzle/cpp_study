@@ -30,19 +30,27 @@ TEST(simple_test, 2) {
 
 TEST(simple_test, 3) {
   // 注意: transform 的结果用于filter时并不会被保存
+  // !!! 每次 filter 需要检查元素时, 都会重新计算前面的变换操作 !!!
+
   // 这意味着如果一个元素通过filter, 那么它对应的transform会被执行 filter
-  // 数量+1次 没通过的也会执行通过的filter数量+1次(最后一个没通过的也要执行一次
+  // 数量+1次
+
+  // eg: 对于 6,transform 打印 "transformd: 6",结果是 36,通过第一个 filter
+  // 和第二个 filter,被 for_each 打印 "+++ get 36". 总共访问3次,
+
+  // 所以 transform 6 会被执行3次, filter 同理,次数递增
+
   auto result = std::ranges::iota_view(1, 10) |
                 std::views::transform([](int i) {
-                  LOG_DEBUG("transformd: " << i);
+                  STD_LINE("transformd: " << i);
                   return i * i;
                 }) |
                 std::views::filter([](int i) { return i % 2 == 0; }) |
                 std::views::filter([](int i) { return i % 3 == 0; });
 
   // foreach 执行时才会求值
-  LOG_DEBUG("start for_each");
-  std::ranges::for_each(result, [](int n) { LOG_DEBUG("+++ get " << n) });
+  STD_LINE("start for_each");
+  std::ranges::for_each(result, [](int n) { STD_LINE("+++ get " << n) });
 }
 TEST(simple_test, 4) {
   // 每次filter, 都是从头开始求值的...
