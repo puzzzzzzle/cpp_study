@@ -1,6 +1,7 @@
 aux_source_directory(. ${CURRENT_TASK}_SRCS)
 include_directories(.)
 
+find_package(OpenSSL REQUIRED)
 find_package(cpr REQUIRED)
 # 可执行文件
 add_executable(${CURRENT_TASK} ${${CURRENT_TASK}_SRCS} )
