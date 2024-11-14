@@ -64,8 +64,7 @@ TEST(uring_write, 1) {
     ASSERT_TRUE_WITH_PERROR(sqe != nullptr);
     // prepare
     size_t startPos = i * EACH_TRUNK_SIZE;
-    size_t writeSize = EACH_TRUNK_SIZE;
-    writeSize = std::min(EACH_TRUNK_SIZE, TOTAL_MEM - startPos);
+    size_t writeSize = std::min(EACH_TRUNK_SIZE, TOTAL_MEM - startPos);
 
     io_uring_prep_write(sqe, fd, &buffer[startPos], writeSize, startPos);
 
