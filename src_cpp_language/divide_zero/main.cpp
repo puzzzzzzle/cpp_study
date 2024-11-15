@@ -1,6 +1,4 @@
 #include <cmath>
-#include <csignal>
-
 #include "common_includes.h"
 
 TEST(double, 1) {
