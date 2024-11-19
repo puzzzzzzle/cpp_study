@@ -1,7 +1,7 @@
 #include "common_includes.h"
 #include <csignal>
 #include <csetjmp>
-// linux 没有 类似Windows上结构化异常处理(SEH) 的能力, 这个需要内核支持, 只能用新号模拟
+// linux 没有 类似Windows上结构化异常处理(SEH) 的能力, 这个需要内核支持, 只能用信号模拟
 std::jmp_buf jumpBuffer;
 
 namespace LongJump
