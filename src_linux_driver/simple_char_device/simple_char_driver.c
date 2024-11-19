@@ -99,6 +99,6 @@ static void __exit simple_char_exit(void)
 module_init(simple_char_init);
 module_exit(simple_char_exit);
 
-MODULE_LICENSE("GPL");
-MODULE_AUTHOR("Your Name");
+MODULE_LICENSE("MIT");
+MODULE_AUTHOR("puzzzzzzle");
 MODULE_DESCRIPTION("A simple character device driver");
