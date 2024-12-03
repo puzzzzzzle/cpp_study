@@ -63,7 +63,21 @@ static struct file_operations fops = {
     .read = my_read,
     .write = my_write,
 };
-
+#define CMD_TO_COAPI_ERROR_CHECK(ret, msg...) \
+  if (ret != 0) {                             \
+    m_errorCode = ret;                        \
+  }                                           \
+  if (ErrorCode() != 0) {                     \
+    if (NeedErrorCodeLog()) {                 \
+      TRACESVR_PLAYER_ERROR(GetUin(), msg)    \
+    } else {                                  \
+      DEBUGLOG_UIN(GetUin(), msg)             \
+    }                                         \
+    OnError();                                \
+    return ErrorCode();                       \
+  }                                           \
+  do {                                        \
+  } while (0)
 static int __init simple_char_init(void)
 {
     dev_t dev;
