@@ -1,5 +1,6 @@
-// #include <cstdio>
-extern "C" int printf(const char *format, ...);class TestException {};
+extern "C" int printf(const char* format, ...);
+
+class TestException {};
 class MyClass {
   public:
   MyClass(int id) : id_(id) {
