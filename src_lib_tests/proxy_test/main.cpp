@@ -1,4 +1,5 @@
 #include "common_includes.h"
+#include "proxy/proxy.h"
 
 TEST(test_test, 1) { EXPECT_EQ(1, 1); }
 

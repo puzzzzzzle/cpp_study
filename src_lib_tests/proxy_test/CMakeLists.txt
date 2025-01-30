@@ -6,9 +6,11 @@ FetchContent_Declare(
         proxy
         GIT_REPOSITORY https://github.com/microsoft/proxy.git
         GIT_TAG main
-        SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/libs/proxy
+        SOURCE_DIR ${CMAKE_SOURCE_DIR}/exts/proxy
 )
 FetchContent_MakeAvailable(proxy)
+
+include_directories(${CMAKE_SOURCE_DIR}/exts)
 
 # 可执行文件
 add_executable(${CURRENT_TASK} ${${CURRENT_TASK}_SRCS})
