@@ -63,7 +63,6 @@ static struct file_operations fops = {
     .read = my_read,
     .write = my_write,
 };
-
 static int __init simple_char_init(void)
 {
     dev_t dev;
