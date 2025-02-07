@@ -1,10 +1,13 @@
 #include <benchmark/benchmark.h>
 
 #include <cstring>
+#include <format>
 #include <iostream>
 
 static void BM_StringCreation(benchmark::State& state) {
-  for (auto _ : state) std::string empty_string;
+  for (auto _ : state) {
+    std::string empty_string;
+  }
 }
 // Register the function as a benchmark
 BENCHMARK(BM_StringCreation);
@@ -41,15 +44,24 @@ static void BM_memcpy(benchmark::State& state) {
   char* dst = new char[currRange];
   memset(src, 'x', currRange);
   for (auto _ : state) memcpy(dst, src, currRange);
-  state.SetBytesProcessed(int64_t(state.iterations()) *
-                          int64_t(currRange));
+  state.SetBytesProcessed(int64_t(state.iterations()) * int64_t(currRange));
+  // 会按照 1 10 100 1000 ... 的方式运行一遍进行基准测试
+  // 然后运行一定的数量进行测试, 只取最后一次的作为测试结果
+  // counters 中的是最后一次测试的数据
+  state.counters["currRange"] = currRange;
+  state.counters["iterations"] = state.iterations();
+  state.counters["bytes"] =
+      benchmark::Counter(int64_t(state.iterations()) * int64_t(currRange),
+                         benchmark::Counter::kDefaults);
+  std::cout << std::format("currRange : {} , iterations : {} , bytes : {} \n",
+                           currRange, state.iterations(),
+                           int64_t(state.iterations()) * int64_t(currRange));
   delete[] src;
   delete[] dst;
 }
 // BENCHMARK(BM_memcpy)->Arg(8)->Arg(64)->Arg(512)->Arg(4<<10)->Arg(8<<10);
 // BENCHMARK(BM_memcpy)->Range(8, 8<<10);
 BENCHMARK(BM_memcpy)->RangeMultiplier(2)->Range(8, 8 << 10);
-
 
 // with arg and out
 template <class... Args>
