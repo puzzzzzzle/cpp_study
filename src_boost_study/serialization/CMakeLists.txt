@@ -2,7 +2,7 @@ aux_source_directory(. ${CURRENT_TASK}_SRCS)
 include_directories(.)
 
 # 查找Boost库
-find_package(Boost 1.65 REQUIRED COMPONENTS serialization)
+find_package(Boost CONFIG REQUIRED COMPONENTS serialization)
 include_directories(${Boost_INCLUDE_DIRS})
 
 # 可执行文件
