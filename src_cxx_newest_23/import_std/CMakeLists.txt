@@ -3,7 +3,8 @@ set(GCM_CACHE_DIR "${CMAKE_BINARY_DIR}")
 
 message(STATUS "GCM_CACHE_DIR: ${GCM_CACHE_DIR}")
 
-# 目前还没找到设置环境变量的方法
+# 目前还没找到设置环境变量的方法, 可能得用model-mapper
+# You can specify a mapper with the -fmodule-mapper=val option or CXX_MODULE_MAPPER environment variable. The value may have one of the following forms:
 #set(ENV{GCC_IMPORT_CACHE} ${GCM_CACHE_DIR})
 
 # 首先创建模块编译目标
