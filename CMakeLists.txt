@@ -50,8 +50,9 @@ list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src_cpp_language)
 list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src_cpp_tools)
 # 最新c++特性
 if (COMPILER_SUPPORTS_CXX20)
-    list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src_cxx_newest)
+    list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src_cxx_newest_20)
 endif ()
+
 # 一些c++工具库
 list(APPEND SRC_DIR_ROOTS ${CMAKE_SOURCE_DIR}/src_lib_tests)
 # linux 函数测试
