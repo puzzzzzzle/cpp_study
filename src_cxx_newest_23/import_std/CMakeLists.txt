@@ -1,10 +1,10 @@
-# 设置模块缓存目录
+# 设置模块缓存目录, 目前好像只有 CMAKE_BINARY_DIR 下才能查找到
 set(GCM_CACHE_DIR "${CMAKE_BINARY_DIR}")
 
 message(STATUS "GCM_CACHE_DIR: ${GCM_CACHE_DIR}")
 
-# 设置模块编译环境变量, 注意: cmake 编译过程中地址比较复杂, 需要手动指定
-set(ENV{GCC_IMPORT_CACHE} ${GCM_CACHE_DIR})
+# 目前还没找到设置环境变量的方法
+#set(ENV{GCC_IMPORT_CACHE} ${GCM_CACHE_DIR})
 
 # 首先创建模块编译目标
 add_custom_target(build_stdlib_modules
