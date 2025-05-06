@@ -33,7 +33,7 @@ cd *.d
 #cmake files
 
 cmake-build*
-build*
+build
 .idea
 .vscode*
 .clion*
