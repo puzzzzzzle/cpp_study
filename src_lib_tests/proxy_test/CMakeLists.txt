@@ -5,7 +5,7 @@ include(FetchContent)
 FetchContent_Declare(
         proxy
         GIT_REPOSITORY https://github.com/microsoft/proxy.git
-        GIT_TAG main
+        GIT_TAG 3.3.0
         SOURCE_DIR ${CMAKE_SOURCE_DIR}/exts/proxy
 )
 FetchContent_MakeAvailable(proxy)
