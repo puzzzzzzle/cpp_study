@@ -19,9 +19,9 @@ static int init_data(float src1[], float src2[], size_t n) {
 }
 // 使用堆变量, 防止编译器过渡优化
 const int n = 1024 * 1024;
-float* src1 = new float[n];
-float* src2 = new float[n];
-float* out = new float[n];
+float* src1 = static_cast<float*>(std::aligned_alloc(16, n * sizeof(float)));
+float* src2 = static_cast<float*>(std::aligned_alloc(16, n * sizeof(float)));
+float* out = static_cast<float*>(std::aligned_alloc(16, n * sizeof(float)));
 int init = init_data(src1, src2, n);
 
 #define TEST_TARGET_ADD_FUNC(func_name, simd_type)                            \
@@ -36,8 +36,9 @@ int init = init_data(src1, src2, n);
   }                                                                           \
   BENCHMARK(BM_##func_name)
 // 标量实现
-void add_scalar_restrict(const float* __restrict__ a, const float* __restrict__ b,
-                float* __restrict__ out, size_t n) {
+void add_scalar_restrict(const float* __restrict__ a,
+                         const float* __restrict__ b, float* __restrict__ out,
+                         size_t n) {
   for (size_t i = 0; i < n; ++i) out[i] = a[i] + b[i];
 }
 TEST_TARGET_ADD_FUNC(add_scalar_restrict, SIMD_SUPPORT_NONE);
@@ -60,6 +61,21 @@ void add_sse2(const float* a, const float* b, float* out, size_t n) {
   for (; i < n; ++i) out[i] = a[i] + b[i];
 }
 TEST_TARGET_ADD_FUNC(add_sse2, SIMD_SUPPORT_SSE2);
+
+void add_sse2_aligned(const float* a, const float* b, float* out, size_t n) {
+  // 假设a, b, out都16字节对齐
+  size_t i = 0;
+  for (; i + 3 < n; i += 4) {
+    __m128 va = _mm_load_ps(a + i);  // 对齐加载
+    __m128 vb = _mm_load_ps(b + i);
+    __m128 vo = _mm_add_ps(va, vb);
+    _mm_store_ps(out + i, vo);  // 对齐存储
+  }
+  for (; i < n; ++i) {
+    out[i] = a[i] + b[i];
+  }
+}
+TEST_TARGET_ADD_FUNC(add_sse2_aligned, SIMD_SUPPORT_SSE2);
 
 // AVX2实现（8个float一组）
 void add_avx2(const float* a, const float* b, float* out, size_t n) {
