@@ -16,7 +16,9 @@ __attribute__((target("default"))) void add(const float* __restrict__ a,
                                             const float* __restrict__ b,
                                             float* __restrict__ out, size_t n) {
   LOG_INFO("default")
-  for (size_t i = 0; i < n; ++i) out[i] = a[i] + b[i];
+  for (size_t i = 0; i < n; ++i) {
+    out[i] = a[i] + b[i];
+  }
 }
 
 // SSE2实现（4个float一组）
@@ -32,7 +34,9 @@ __attribute__((target("sse2"))) void add(const float* __restrict__ a,
     _mm_storeu_ps(out + i, vsum);
   }
   // 处理剩余
-  for (; i < n; ++i) out[i] = a[i] + b[i];
+  for (; i < n; ++i) {
+    out[i] = a[i] + b[i];
+  }
 }
 
 // AVX2实现（8个float一组）
@@ -48,12 +52,14 @@ __attribute__((target("avx2"))) void add(const float* __restrict__ a,
     _mm256_storeu_ps(out + i, vsum);
   }
   // 处理剩余
-  for (; i < n; ++i) out[i] = a[i] + b[i];
+  for (; i < n; ++i) {
+    out[i] = a[i] + b[i];
+  }
 }
-__attribute__((target("avx512f")))
-void add(const float* __restrict__ a,
-    const float* __restrict__ b,
-    float* __restrict__ out, size_t n) {
+
+__attribute__((target("avx512f"))) void add(const float* __restrict__ a,
+                                            const float* __restrict__ b,
+                                            float* __restrict__ out, size_t n) {
   LOG_INFO("avx512")
   size_t i = 0;
   for (; i + 15 < n; i += 16) {
@@ -63,7 +69,9 @@ void add(const float* __restrict__ a,
     _mm512_storeu_ps(out + i, vsum);
   }
   // 处理剩余
-  for (; i < n; ++i) out[i] = a[i] + b[i];
+  for (; i < n; ++i) {
+    out[i] = a[i] + b[i];
+  }
 }
 TEST(test_test, 1) {
   // 使用堆变量, 防止编译器过渡优化
@@ -71,9 +79,8 @@ TEST(test_test, 1) {
   float* src1 = static_cast<float*>(std::aligned_alloc(16, n * sizeof(float)));
   float* src2 = static_cast<float*>(std::aligned_alloc(16, n * sizeof(float)));
   float* out = static_cast<float*>(std::aligned_alloc(16, n * sizeof(float)));
-  int init = init_data(src1, src2, n);
+  init_data(src1, src2, n);
   add(src1, src2, out, n);
-
 }
 
 int main(int argc, char** argv) {
