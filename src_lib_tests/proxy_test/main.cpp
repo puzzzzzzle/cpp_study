@@ -2,7 +2,11 @@
 
 #include "common_includes.h"
 #include "proxy/proxy.h"
-struct Formattable : pro::facade_builder ::support_format ::build {};
+
+struct Formattable : pro::facade_builder
+                     ::support<pro::skills::format>
+                     ::build {};
+
 
 TEST(format, 1) {
   std::string str = "Hello World";
