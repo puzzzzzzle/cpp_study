@@ -2,7 +2,8 @@ cmake_minimum_required(VERSION 3.17)
 project(
         math_vec
         VERSION 1.0
-        LANGUAGES CXX)
+        LANGUAGES CXX
+)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -21,8 +22,10 @@ file(GLOB_RECURSE SRC
 add_library(math_vec ${SRC})
 
 # 头文件路径
-target_include_directories(math_vec PUBLIC $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/> $<INSTALL_INTERFACE:include>)
-
+target_include_directories(math_vec PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/math_vec>
+        $<INSTALL_INTERFACE:include/math_vec>
+)
 # 依赖
 # 必须
 find_package(ZLIB REQUIRED)
@@ -87,7 +90,7 @@ install(EXPORT math_vecTargets
 
 ########## 打包
 
-set(CPACK_PACKAGE_NAME "math-vec")
+set(CPACK_PACKAGE_NAME "math_vec")
 set(CPACK_PACKAGE_VENDOR "puzzzzzzle")
 set(CPACK_PACKAGE_CONTACT "2359173906@qq.com")
 set(CPACK_PACKAGE_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
@@ -105,15 +108,14 @@ set(CPACK_PACKAGING_INSTALL_PREFIX "/usr")
 set(CPACK_GENERATOR "DEB;RPM;TGZ")
 
 # deb包相关依赖
-set(CPACK_DEBIAN_PACKAGE_DEPENDS "zlib1g, libpng-dev")
-
+set(CPACK_DEBIAN_PACKAGE_DEPENDS "zlib1g")
 # rpm包相关依赖（对Fedora/Redhat有效）
-set(CPACK_RPM_PACKAGE_REQUIRES "zlib, libpng")
+set(CPACK_RPM_PACKAGE_REQUIRES "zlib")
 
-if (PNG_FOUND AND MATH_VEC_WITH_LIBPNG)
-    set(CPACK_DEBIAN_PACKAGE_DEPENDS "zlib1g, libpng-dev")
-    set(CPACK_RPM_PACKAGE_REQUIRES "zlib, libpng")
-endif ()
+if(PNG_FOUND AND MATH_VEC_WITH_LIBPNG)
+    set(CPACK_DEBIAN_PACKAGE_DEPENDS "${CPACK_DEBIAN_PACKAGE_DEPENDS}, libpng-dev")
+    set(CPACK_RPM_PACKAGE_REQUIRES "${CPACK_RPM_PACKAGE_REQUIRES}, libpng")
+endif()
 
 # arch pacman 包相关依赖
 set(CPACK_ARCHIVE_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-${PROJECT_VERSION}")
