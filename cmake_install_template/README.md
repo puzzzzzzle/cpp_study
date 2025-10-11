@@ -25,7 +25,7 @@ drwxr-xr-x 6 root root 4.0K Oct 11 15:50 install
 -rw-r--r-- 1 root root 4.5K Oct 11 15:49 math-vec-1.0.0-Linux.tar.gz
 -rwxr-xr-x 1 root root  16K Oct 11 15:49 math_vec_tool
 
-➜  build git:(master) ✗ tree install 
+➜  build git:(master) ✗ tree install
 install
 ├── bin
 │   └── math_vec_tool
@@ -35,6 +35,8 @@ install
 ├── lib
 │   ├── cmake
 │   │   └── math_vec
+│   │       ├── math_vecConfig.cmake
+│   │       ├── math_vecConfigVersion.cmake
 │   │       ├── math_vecTargets.cmake
 │   │       └── math_vecTargets-noconfig.cmake
 │   └── libmath_vec.a
@@ -43,6 +45,6 @@ install
         └── math_vec
             └── README.md
 
-9 directories, 6 files
+9 directories, 8 files
 
 ```

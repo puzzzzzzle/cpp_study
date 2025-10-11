@@ -5,7 +5,7 @@ project(
         LANGUAGES CXX
 )
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
@@ -77,17 +77,25 @@ install(EXPORT math_vecTargets
         DESTINATION lib/cmake/math_vec
         NAMESPACE math_vec::
 )
-# cmake config可选
-#include(CMakePackageConfigHelpers)
-#configure_package_config_file(
-#        ${CMAKE_CURRENT_SOURCE_DIR}/cmake/math_vecConfig.cmake.in
-#        ${CMAKE_CURRENT_BINARY_DIR}/math_vecConfig.cmake
-#        INSTALL_DESTINATION lib/cmake/math_vec
-#)
-#install(FILES ${CMAKE_CURRENT_BINARY_DIR}/math_vecConfig.cmake
-#        DESTINATION lib/cmake/math_vec
-#)
-
+# cmake config, find_package 依赖
+include(CMakePackageConfigHelpers)
+configure_package_config_file(
+        ${CMAKE_CURRENT_SOURCE_DIR}/cmake/math_vecConfig.cmake.in
+        ${CMAKE_CURRENT_BINARY_DIR}/math_vecConfig.cmake
+        INSTALL_DESTINATION lib/cmake/math_vec
+)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/math_vecConfig.cmake
+        DESTINATION lib/cmake/math_vec
+)
+# 可选: 版本文件
+write_basic_package_version_file(
+        ${CMAKE_CURRENT_BINARY_DIR}/math_vecConfigVersion.cmake
+        VERSION ${PROJECT_VERSION}
+        COMPATIBILITY AnyNewerVersion
+)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/math_vecConfigVersion.cmake
+        DESTINATION lib/cmake/math_vec
+)
 ########## 打包
 
 set(CPACK_PACKAGE_NAME "math_vec")

@@ -163,7 +163,7 @@ TEST(icu_test, 1) {
     item32 = ch;
     std::string item = utf32_to_utf8(item32);
     LOG_DEBUG(std::hex << (uint32_t)(ch) << " " << item << "    " << item.size());
-
+    FLOG_DEBUG("")
   }
   std::string converted_back = utf32_to_utf8(utf32_str);
 }
