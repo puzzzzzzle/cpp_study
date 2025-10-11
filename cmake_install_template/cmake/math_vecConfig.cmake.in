@@ -1,0 +1,5 @@
+@PACKAGE_INIT@
+
+include("${CMAKE_CURRENT_LIST_DIR}/math_vecTargets.cmake")
+
+# 如果有更多变量要导出，可以继续加
