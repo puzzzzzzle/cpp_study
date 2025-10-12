@@ -1,4 +1,6 @@
-- 测试cmake install 和 cpack
+## cmake install 和 cpack 样例
+- 支持make install和打包deb,rpm,tgz等打包格式
+
 - 构建命令
 ```
 cmake -DCMAKE_INSTALL_PREFIX=`pwd`/install .. # 避免安装到系统目录里去
