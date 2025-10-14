@@ -29,10 +29,10 @@ target_include_directories(math_vec PUBLIC
 # 依赖
 # 必须
 find_package(ZLIB REQUIRED)
-target_link_libraries(math_vec PUBLIC ZLIB::ZLIB)
+#target_link_libraries(math_vec PUBLIC ZLIB::ZLIB)
 
 find_package(Threads REQUIRED)
-target_link_libraries(math_vec PUBLIC Threads::Threads)
+target_link_libraries(math_vec PUBLIC ZLIB::ZLIB Threads::Threads)
 
 # 可选
 option(MATH_VEC_WITH_LIBPNG "Use libpng for PNG support" ON)
