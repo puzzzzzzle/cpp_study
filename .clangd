@@ -1,0 +1,92 @@
+# clangd 配置文件
+# 参考官方文档: https://clangd.llvm.org/config
+
+# 编译选项配置
+CompileFlags:
+  # 从当前目录加载 compile_commands.json 文件
+  CompilationDatabase: .
+  # 移除以下编译选项，避免将警告当作错误处理
+  Remove:
+    # 移除 -Werror：不将所有警告视为错误
+    - -Werror
+    # 移除 -Wfatal-errors：遇到错误时不立即停止编译
+    - -Wfatal-errors
+  # 添加编译选项
+  Add:
+    # 定义 _DEBUG_ 宏
+    - -D_DEBUG_
+    - -D_DEBUG
+    # 启用所有警告
+    - -Wall
+    # 启用额外警告
+    - -Wextra
+    # 屏蔽未使用参数警告（显式添加，确保生效）
+    - -Wno-unused-parameter
+# 索引配置
+Index:
+  Background: Build
+
+# clang-tidy 配置
+
+Diagnostics:
+  # 启用 Clang-Tidy 检查
+  # 参考 https://clang.llvm.org/extra/clang-tidy/
+  ClangTidy:
+    Add:
+      # 1. 性能优化 (包含你关心的结构体传参拷贝优化)
+      - performance-*
+      #- performance-unnecessary-value-param      # 提示：应将昂贵的按值传参改为 const &
+      #- performance-unnecessary-copy-initialization # 提示：应将昂贵的拷贝初始化改为引用
+      #- performance-move-const-arg               # 提示：std::move 在 const 对象上无效
+      #- performance-for-range-copy               # 提示：Range-loop 中应使用引用避免拷贝
+      
+      # 2. 现代化代码建议
+      - modernize-*
+      #- modernize-use-override                  # 强制要求 override
+      #- modernize-use-nullptr                   # 建议使用 nullptr 而非 NULL/0
+      #- modernize-pass-by-value                 # 构造函数中合理的 move 提示
+      #- modernize-avoid-c-arrays                 # 建议使用 std::array 或 std::vector
+      
+      # 3. 代码整洁与安全
+      - bugprone-*
+      - misc-*
+      - readability-*
+      
+      # 4. 内存安全检查
+      - cppcoreguidelines-*
+      - google-explicit-constructor           # 强制单参数构造函数使用 explicit
+
+    Remove:
+      - readability-braces-around-statements    # 移除强制要求单行 if 加大括号(可选)
+      - modernize-use-trailing-return-type     # 移除强制要求使用尾随返回类型
+      - readability-function-cognitive-complexity # 移除强制要求函数认知复杂度
+      - readability-isolate-declaration # 移除强制要求声明隔离
+      - cppcoreguidelines-pro-type-cstyle-cast # 移除强制要求使用 C 风格类型转换
+      - cppcoreguidelines-pro-type-vararg # 移除强制要求使用可变参数
+      - readability-redundant-access-specifiers # 移除强制要求使用冗余的访问修饰符
+      - misc-unused-parameters # 移除强制要求使用未使用的参数
+    # 允许在编辑器中通过注释停用检查 (例如 // NOLINT)
+    CheckOptions:
+      performance-unnecessary-value-param.AllowedTypes: ""
+
+  # 4. 未使用的 Include 提示 (Unused Includes)
+  # 设置为 Strict 会将未使用的头文件标记为警告，并提供一键删除建议
+  UnusedIncludes: Strict
+
+# 内联提示配置 (视觉增强)
+InlayHints:
+  Enabled: Yes
+  ParameterNames: Yes # 函数调用显示参数名: func(name: "value")
+  DeducedTypes: Yes # 显示 auto 自动推导的类型: auto i: int = 10
+  Designators: Yes # 显示结构体指定初始化名: Point{.x=1, .y=2}
+  TypeNameLimit: 25 # 类型提示过长时截断
+  BlockEnd: Yes # 在 } 后显示对应的函数名、if、for 等结尾标识
+  DefaultArguments: Yes # 显示函数调用时使用的默认参数
+
+# 补全配置
+Completion:
+  AllScopes: Yes               # 允许补全当前文件未包含头文件中的符号（会自动插入 include）
+
+# 悬停信息增强
+Hover:
+  ShowAKA: Yes                 # 显示类型的别名 (例如显示 size_t 的原始定义)

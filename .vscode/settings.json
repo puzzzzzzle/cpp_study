@@ -1,0 +1,30 @@
+{
+    // CMake 配置
+    "cmake.sourceDirectory": "${workspaceFolder}",
+    "cmake.buildDirectory": "${workspaceFolder}/build",
+    "cmake.configureOnOpen": true,
+    "cmake.configureSettings": {
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+    },
+    "cmake.buildBeforeRun": true,
+    // C++ 配置 - 使用 clangd
+    "clangd.path": "clangd",
+    "clangd.arguments": [
+        "--background-index",
+        "--clang-tidy",
+        "--completion-style=detailed",
+        "--header-insertion=iwyu",
+        "--pch-storage=memory"
+    ],
+    // 文件关联
+    "files.associations": {
+        "*.h": "cpp",
+        "*.hpp": "cpp"
+    },
+    // 编辑器配置
+    "editor.formatOnSave": false,
+    "files.exclude": {
+        "**/build": false,
+        "**/.git": true
+    },
+}
