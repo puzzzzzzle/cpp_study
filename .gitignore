@@ -40,3 +40,4 @@ build
 !.gitkeep
 common/data/log/*.log
 exts
+logs/*

@@ -7,7 +7,11 @@
 #define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_TRACE
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
+#include <spdlog/sinks/basic_file_sink.h>
+#include <spdlog/sinks/rotating_file_sink.h>
+#include <spdlog/sinks/daily_file_sink.h>
 #include <thread>
+#include <filesystem>
 
 TEST(test_test, 1) { EXPECT_EQ(1, 1); }
 
@@ -33,6 +37,30 @@ TEST(spdlog_example, format) {
   // 格式化输出（类似 fmt/printf）
   spdlog::info("整数 x={}, 浮点 y={:.2f}", x, y);
   spdlog::info("Hello, {}!", name);
+}
+
+// 文件 logger：基础 / 按大小滚动 / 按天滚动
+TEST(spdlog_example, file_logger) {
+  std::filesystem::create_directories("logs");
+
+  // 1) 基础文件：单文件，一直追加
+  auto basic = spdlog::basic_logger_mt("file_basic", "logs/basic.log");
+  basic->info("写入 basic.log");
+
+  // 2) 按大小滚动：单文件超过 max_size 后重命名为 xxx.1，新建空文件，最多保留 max_files 个
+  // rotating_logger_mt(name, path, max_size_bytes, max_files)
+  auto rotating =
+      spdlog::rotating_logger_mt("file_rotating", "logs/rotating.log", 1024 * 1024, 3);
+  rotating->info("写入 rotating.log，超过 1MB 后滚动，最多 3 个文件");
+
+  // 3) 按天滚动：每天在指定时刻切新文件，文件名带日期
+  // daily_logger_mt(name, path, hour, minute)
+  auto daily = spdlog::daily_logger_mt("file_daily", "logs/daily", 0, 0);
+  daily->info("写入 daily_YYYY-MM-DD.log，默认每天 00:00 切文件");
+
+  spdlog::drop("file_basic");
+  spdlog::drop("file_rotating");
+  spdlog::drop("file_daily");
 }
 
 TEST(spdlog_example, custom_logger) {
