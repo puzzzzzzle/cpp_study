@@ -7,6 +7,7 @@
 #define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_TRACE
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
+#include <thread>
 
 TEST(test_test, 1) { EXPECT_EQ(1, 1); }
 
@@ -97,6 +98,32 @@ TEST(spdlog_example, macro_if_expensive) {
   SPDLOG_LOGGER_INFO_IF(log, "info 会输出: {}", "expensive_arg_only_when_needed");
   SPDLOG_DEBUG_IF("default logger debug 也不求值");
   SPDLOG_INFO_IF("default logger info: {}", 42);
+}
+
+// Thread-local logger：每线程持有一个 logger，用 _st（单线程）sink，多线程时无需加锁
+// spdlog 无内置 thread_local default logger；做法：_st sink + 每线程一个 logger（不共享）
+// _mt = multi-threaded sink（内部加锁）；_st = single-threaded sink（无锁，仅本线程用）
+static spdlog::logger* thread_local_logger() {
+  static thread_local std::shared_ptr<spdlog::logger> t_log;
+  if (!t_log) {
+    auto sink = std::make_shared<spdlog::sinks::stdout_color_sink_st>();
+    t_log = std::make_shared<spdlog::logger>("tl", std::move(sink));
+    t_log->set_pattern("[%t] [%^%l%$] %v");
+  }
+  return t_log.get();
+}
+
+TEST(spdlog_example, thread_local_logger) {
+  const int N = 3;
+  std::vector<std::thread> threads;
+  for (int i = 0; i < N; ++i) {
+    threads.emplace_back([i]() {
+      auto* log = thread_local_logger();
+      log->set_level(spdlog::level::info);
+      log->info("thread {} tid={}", i, std::hash<std::thread::id>{}(std::this_thread::get_id()));
+    });
+  }
+  for (auto& t : threads) t.join();
 }
 
 // 宏包装：低于 SPDLOG_ACTIVE_LEVEL 的调用会展开为 (void)0，格式串和参数在编译期被去掉，零开销
