@@ -1,27 +1,30 @@
 #if 0
-# /* run cpp source file from shell directly, eg: ./cpp_shell.sh.cpp arg1 arg2 */
+#/* 自动检查更新并运行的 C++ 脚本模式 */
 SOURCE_NAME=$(basename "$0")
-c++ -O3 -o /tmp/$SOURCE_NAME.out "$0" && /tmp/$SOURCE_NAME.out "$@"
-exit $?
-#endif
+OUT_BIN="/tmp/${SOURCE_NAME}.out"
 
-// 上面的部分, 会被shell解析, 然后自动编制并运行
-// 这样就可以像shell一样运行c++源码"脚本"了
-// ./cpp_shell.sh.cpp 直接运行...
+#只有当二进制文件不存在，或者源代码比二进制文件更新时，才进行编译
+if [ ! -f "$OUT_BIN" ] || [ "$0" -nt "$OUT_BIN" ]; then
+    c++ -O3 -std=c++11 "$0" -o "$OUT_BIN" || exit 1
+fi
 
-// 下面这种也等价
-
-#if 0/*
-SOURCE_NAME=$(basename "$0") ; c++ -O3 -o /tmp/$SOURCE_NAME.out "$0" && /tmp/$SOURCE_NAME.out "$@"; exit $?; */
+#运行并传递所有参数
+exec "$OUT_BIN" "$@"
 #endif
 
 #include <iostream>
 
-int main(int argc, char *argv[]) {
-    std::cout << "hello world form c++ 'script'." << std::endl;
-    for (int i = 0; i < argc; ++i) {
-        std::cout << "arg at " << i << " is " << argv[i] << std::endl;
+int main(int argc, char* argv[]) {
+  std::cout << "C++ script running..." << std::endl;
+
+  if (argc > 1) {
+    std::cout << "Received parameters: " << std::endl;
+    for (int i = 1; i < argc; ++i) {
+      std::cout << "  - [" << i << "]: " << argv[i] << std::endl;
     }
-    // 返回值也能正常收到
-    return 22;
+  } else {
+    std::cout << "No external parameters detected." << std::endl;
+  }
+
+  return 0;
 }
