@@ -11,6 +11,7 @@ CompileFlags:
     - -Werror
     # 移除 -Wfatal-errors：遇到错误时不立即停止编译
     - -Wfatal-errors
+    - -fopt-info-vec-optimized
   # 添加编译选项
   Add:
     # 定义 _DEBUG_ 宏
