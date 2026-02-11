@@ -1,26 +1,7 @@
-#### 通用依赖
-- 使用conan 获取
-- 一些conan-center中没有的库打包到jfrog上了
-- 第一次运行conan时请使用运行一次：
-- ```
-    # run one times at one machine
-    conan remote add khalid https://api.bintray.com/conan/puzzzzzzle1/khalidzhang 
-    conan install libgo/v3.1-stable@tao/test -r khalid
-    conan install libco/v1.0@libco/tao -r khalid
-    ```
-- 删除cmake文件后请运行一次
--  ```
-    mkdir build 
-    cd build
-    # other libs
-    conan install .. --build missing -r=conan-center
-    cmake .. 
-    make -j8
-    ```
-- conan安装： pip3 install conan
-    - 最好是python3,python2版本的有bug
-- 拷贝conan 头文件
-    - cd到~/.conan/data下
-```
-find . -name package -type d|xargs -i{} find {} -name include -type d|xargs -i{} cp -vr {} include_bak/
-```
+# C++ 学习项目
+- 依赖在`cpp_bootstrap/Docker/arch_clion_local.Dockerfile`中定义, 使用 docker 管理
+- 编译方式: mkdir -p build && cd build && cmake .. && make TARGET 方式
+    - 二进制名字为相对路径把`/` 替换为`_`
+    - eg: `make src_linux_tests_src_asm_at_t_asm_c_call_asm`
+- cmake 自动扫描指定的文件夹下的子工程, 每个工程独立编译 bin/lib
+    - build 下额 makefile 下有完整的目标列表
