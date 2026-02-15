@@ -22,6 +22,36 @@
       "environment": [],
       "MIMode": "gdb",
       "preLaunchTask": "Build (CMake 当前项目)"
+    },
+    {
+      "name": "Debug 单测 (启动时输入 filter)",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${command:cmake.launchTargetPath}",
+      "args": ["--gtest_filter=${input:gtestFilter}"],
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "MIMode": "gdb",
+      "preLaunchTask": "Build (CMake 当前项目)"
+    },
+    {
+      "name": "Debug 单测 (用选中内容作 filter)",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${command:cmake.launchTargetPath}",
+      "args": ["--gtest_filter=${selectedText}"],
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "MIMode": "gdb",
+      "preLaunchTask": "Build (CMake 当前项目)"
+    }
+  ],
+  "inputs": [
+    {
+      "id": "gtestFilter",
+      "type": "promptString",
+      "description": "GTest filter (SuiteName.CaseName，如 LruBasic.put_and_get)",
+      "default": "*.put_and_get"
     }
   ]
 }

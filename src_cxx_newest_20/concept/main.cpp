@@ -34,6 +34,7 @@ template <typename T>
 T sub1(const T &a) {
   return a - a;
 }
+// concept_test.1
 TEST(concept_test, 1) {
   sub(1);
   sub1(1);
