@@ -1,30 +1,20 @@
 {
-    // CMake 配置
-    "cmake.sourceDirectory": "${workspaceFolder}",
-    "cmake.buildDirectory": "${workspaceFolder}/build",
-    "cmake.configureOnOpen": true,
-    "cmake.configureSettings": {
-        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
-    },
-    "cmake.buildBeforeRun": true,
-    // C++ 配置 - 使用 clangd
-    "clangd.path": "clangd",
-    "clangd.arguments": [
-        "--background-index",
-        "--clang-tidy",
-        "--completion-style=detailed",
-        "--header-insertion=iwyu",
-        "--pch-storage=memory"
-    ],
-    // 文件关联
-    "files.associations": {
-        "*.h": "cpp",
-        "*.hpp": "cpp"
-    },
-    // 编辑器配置
-    "editor.formatOnSave": false,
-    "files.exclude": {
-        "**/build": false,
-        "**/.git": true
-    },
+  // ---------- CMake Tools ----------
+  // 构建目录，与 CLAUDE.md 约定一致 (build/)
+  "cmake.buildDirectory": "${workspaceFolder}/build",
+  "cmake.sourceDirectory": "${workspaceFolder}",
+  // 配置后不自动构建，避免全量编译
+  "cmake.configureOnOpen": true,
+  "cmake.buildBeforeRun": false,
+  // 用 launch.json 的 preLaunchTask 统一构建，避免和 CMake 扩展的 build 重复触发、弹窗两次
+  // 多 executable 目标：在 CMake 面板里选择要运行/调试的目标即可
+  "cmake.installPrefix": "${workspaceFolder}/build/install",
+
+  // ---------- clangd ----------
+  // compile_commands.json 在 build/ 下，让 clangd 从该目录读取
+  "clangd.arguments": [
+    "--compile-commands-dir=${workspaceFolder}/build"
+  ],
+  // 使用 clangd 时关闭 C/C++ 扩展的 IntelliSense，避免冲突
+  "C_Cpp.intelliSenseEngine": "disabled"
 }

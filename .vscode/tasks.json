@@ -1,0 +1,18 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build (CMake 当前项目)",
+      "type": "shell",
+      "command": "bash",
+      "args": [
+        "-c",
+        "TARGET=$(basename \"${command:cmake.launchTargetPath}\"); if [ -z \"$TARGET\" ]; then cmake --build \"${workspaceFolder}/build\" --config Debug; else cmake --build \"${workspaceFolder}/build\" --config Debug --target \"$TARGET\"; fi"
+      ],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": { "kind": "build", "isDefault": true },
+      "problemMatcher": ["$gcc"],
+      "presentation": { "reveal": "silent", "panel": "shared" }
+    }
+  ]
+}
