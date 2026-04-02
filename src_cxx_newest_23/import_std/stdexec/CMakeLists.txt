@@ -12,6 +12,7 @@ FetchContent_MakeAvailable(stdexec)
 aux_source_directory(. ${CURRENT_TASK}_SRCS)
 include_directories(.)
 
+message("SRCS: ${${CURRENT_TASK}_SRCS}")
 add_executable(${CURRENT_TASK} ${${CURRENT_TASK}_SRCS})
 
 target_link_libraries(${CURRENT_TASK} ${COMMON_LIBS} STDEXEC::stdexec)
