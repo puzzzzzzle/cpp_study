@@ -2,6 +2,7 @@
 #include <linux/fs.h>
 #include <linux/cdev.h>
 #include <linux/uaccess.h>
+#include <linux/device.h>
 
 #define DEVICE_NAME "simple_char_device"
 #define BUFFER_SIZE 1024
@@ -9,6 +10,8 @@
 static int major;
 static char device_buffer[BUFFER_SIZE];
 static struct cdev simple_cdev;
+static struct class *simple_class;
+static struct device *simple_device;
 
 static int my_open(struct inode *inode, struct file *file)
 {
@@ -84,12 +87,31 @@ static int __init simple_char_init(void)
         return result;
     }
 
+    simple_class = class_create(DEVICE_NAME);
+    if (IS_ERR(simple_class)) {
+        cdev_del(&simple_cdev);
+        unregister_chrdev_region(dev, 1);
+        printk(KERN_WARNING "simple_char_device: can't create class\n");
+        return PTR_ERR(simple_class);
+    }
+
+    simple_device = device_create(simple_class, NULL, dev, NULL, DEVICE_NAME);
+    if (IS_ERR(simple_device)) {
+        class_destroy(simple_class);
+        cdev_del(&simple_cdev);
+        unregister_chrdev_region(dev, 1);
+        printk(KERN_WARNING "simple_char_device: can't create device\n");
+        return PTR_ERR(simple_device);
+    }
+
     printk(KERN_INFO "simple_char_device: registered with major number %d\n", major);
     return 0;
 }
 
 static void __exit simple_char_exit(void)
 {
+    device_destroy(simple_class, MKDEV(major, 0));
+    class_destroy(simple_class);
     cdev_del(&simple_cdev);
     unregister_chrdev_region(MKDEV(major, 0), 1);
     printk(KERN_INFO "simple_char_device: unregistered\n");
@@ -98,6 +120,6 @@ static void __exit simple_char_exit(void)
 module_init(simple_char_init);
 module_exit(simple_char_exit);
 
-MODULE_LICENSE("MIT");
+MODULE_LICENSE("GPL");
 MODULE_AUTHOR("puzzzzzzle");
 MODULE_DESCRIPTION("A simple character device driver");
