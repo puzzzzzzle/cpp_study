@@ -1,0 +1,10 @@
+Include /etc/ssh/sshd_config.d/*.conf
+AuthorizedKeysFile	.ssh/authorized_keys
+X11Forwarding yes
+X11DisplayOffset 10
+X11UseLocalhost yes
+Subsystem	sftp	/usr/lib/ssh/sftp-server
+PermitRootLogin yes
+SyslogFacility AUTH
+LogLevel DEBUG2
+PasswordAuthentication yes

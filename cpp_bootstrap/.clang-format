@@ -1,0 +1,22 @@
+---
+Language: Cpp
+BasedOnStyle: Google
+# cpp11风格
+Standard: Cpp11
+
+# public等控制符缩进
+AccessModifierOffset: -4
+
+---
+Language:    Proto
+
+# public等控制符缩进
+AccessModifierOffset: -4
+# 对齐连续的赋值
+AlignConsecutiveAssignments: true
+AlignConsecutiveDeclarations: true
+# 尾部的注释对齐
+AlignTrailingComments: true
+# 行宽
+ColumnLimit: 120
+...
