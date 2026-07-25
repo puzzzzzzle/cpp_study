@@ -7,4 +7,5 @@ qemu-system-i386 \
     -kernel build/kernel.bin \
     -nographic \
     -m 256M \
-    -smp 1
+    -smp 1 \
+    -device isa-debug-exit,iobase=0xF4

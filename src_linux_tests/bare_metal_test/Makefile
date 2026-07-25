@@ -6,7 +6,8 @@ CFLAGS  = -m32 -ffreestanding -nostdlib -fno-builtin \
 LDFLAGS = -m elf_i386 -T link.ld -nostdlib
 
 BUILD_DIR = build
-OBJS  = $(BUILD_DIR)/entry.o $(BUILD_DIR)/kernel.o $(BUILD_DIR)/gdt.o $(BUILD_DIR)/screen.o
+OBJS  = $(BUILD_DIR)/entry.o $(BUILD_DIR)/kernel.o $(BUILD_DIR)/gdt.o \
+        $(BUILD_DIR)/vga.o $(BUILD_DIR)/com.o $(BUILD_DIR)/screen.o
 TARGET = $(BUILD_DIR)/kernel.bin
 
 .PHONY: all clean run
@@ -24,6 +25,12 @@ $(BUILD_DIR)/kernel.o: kernel/kernel.c | $(BUILD_DIR)
 
 $(BUILD_DIR)/gdt.o: kernel/gdt.c | $(BUILD_DIR)
 	$(CC) $(CFLAGS) kernel/gdt.c -o $@
+
+$(BUILD_DIR)/vga.o: kernel/vga.c | $(BUILD_DIR)
+	$(CC) $(CFLAGS) kernel/vga.c -o $@
+
+$(BUILD_DIR)/com.o: kernel/com.c | $(BUILD_DIR)
+	$(CC) $(CFLAGS) kernel/com.c -o $@
 
 $(BUILD_DIR)/screen.o: kernel/screen.c | $(BUILD_DIR)
 	$(CC) $(CFLAGS) kernel/screen.c -o $@
