@@ -67,6 +67,56 @@ make ARCH=x86_64 defconfig
 # 关闭 KASLR，方便 GDB 定位符号
 ./scripts/config --disable CONFIG_RANDOMIZE_BASE
 
+
+# ---- 基础文件系统支持 ----
+./scripts/config \
+    --enable CONFIG_DEVTMPFS \
+    --enable CONFIG_DEVTMPFS_MOUNT \
+    --enable CONFIG_TMPFS \
+    --enable CONFIG_PROC_FS \
+    --enable CONFIG_SYSFS
+
+# ---- 磁盘与块设备 ----
+./scripts/config \
+    --enable CONFIG_BLK_DEV_SD \
+    --enable CONFIG_BLK_DEV_LOOP \
+    --enable CONFIG_ATA \
+    --enable CONFIG_ATA_PIIX
+
+# ---- 文件系统 ----
+./scripts/config \
+    --enable CONFIG_EXT4_FS \
+    --enable CONFIG_OVERLAY_FS
+
+# ---- VirtIO 驱动（QEMU 必需）----
+./scripts/config \
+    --enable CONFIG_VIRTIO_PCI \
+    --enable CONFIG_VIRTIO_BLK \
+    --enable CONFIG_VIRTIO_NET \
+    --enable CONFIG_VIRTIO_MMIO
+
+# ---- 网络协议栈（apk 下载包依赖）----
+./scripts/config \
+    --enable CONFIG_NET \
+    --enable CONFIG_INET \
+    --enable CONFIG_PACKET \
+    --enable CONFIG_UNIX
+
+# ---- 控制台支持 ----
+./scripts/config \
+    --enable CONFIG_TTY \
+    --enable CONFIG_SERIAL_8250 \
+    --enable CONFIG_SERIAL_8250_CONSOLE
+./scripts/config --enable CONFIG_VT --enable CONFIG_VT_CONSOLE
+
+# ---- virtio-9p 共享目录 ----
+./scripts/config \
+    --enable CONFIG_NET_9P \
+    --enable CONFIG_NET_9P_VIRTIO \
+    --enable CONFIG_9P_FS \
+    --enable CONFIG_9P_FS_POSIX_ACL
+
+
 # 检查更新配置
 make ARCH=x86_64 olddefconfig
 ```
@@ -421,8 +471,14 @@ cd ${L_BASE_DIR}/linux
     --enable CONFIG_TTY \
     --enable CONFIG_SERIAL_8250 \
     --enable CONFIG_SERIAL_8250_CONSOLE
-
 ./scripts/config --enable CONFIG_VT --enable CONFIG_VT_CONSOLE
+
+# ---- virtio-9p 共享目录 ----
+./scripts/config \
+    --enable CONFIG_NET_9P \
+    --enable CONFIG_NET_9P_VIRTIO \
+    --enable CONFIG_9P_FS \
+    --enable CONFIG_9P_FS_POSIX_ACL
 
 make ARCH=x86_64 olddefconfig
 ```
@@ -617,3 +673,145 @@ qemu-system-x86_64 \
 ```
 
 启动后即可在 Alpine 环境中使用 `apk add <package>` 安装任意依赖。
+
+---
+
+## 8. 使用 Arch Linux rootfs（pacstrap 造根，替代 Alpine）
+
+相比 Alpine，Arch 自带完整的 `pacman` 包管理器，软件生态与宿主机一致（同用 glibc），可以直接 `pacman -S gcc git ...` 安装开发依赖。构造 rootfs 的工具叫 **`pacstrap`**，由 `arch-install-scripts` 包提供，等价于 Debian 系的 `debootstrap`——都是从网络把一套自洽的 rootfs 拼到目录里，然后就能 chroot / 丢给 QEMU 跑。
+
+架构示意：
+
+```
+┌──────────────────────────────────────┐
+│         自编译 Linux 内核              │
+│         (本指南第 3 章的 bzImage)      │
+├──────────────────────────────────────┤
+│     Arch Linux rootfs                 │
+│   (pacman 包管理 / glibc / ...)       │
+└──────────────────────────────────────┘
+```
+
+### 8.1 内核必需选项
+
+与 Alpine 章节（7.1）基本一致，Arch 同样需要 `CONFIG_DEVTMPFS`、`CONFIG_VIRTIO_*`、`CONFIG_EXT4_FS` 等驱动编译进内核（`=y`）。直接复用 7.1 的配置命令即可，这里不再重复罗列，差异点只有一处：
+
+| 配置项 | 说明 |
+|---|---|
+| `CONFIG_DEVTMPFS=y` | Arch 的 init 流程依赖内核自动管理 `/dev`，与 Alpine 相同 |
+| `CONFIG_EXT4_FS=y` | 磁盘镜像默认用 ext4，与 Alpine 相同 |
+
+> 如果启动失败，直接回看 7.1 的对照表逐项检查。Arch 对内核选项没有比 Alpine 更苛刻的要求。
+
+### 8.2 用 pacstrap 构造 Arch rootfs
+
+`pacstrap` 是 Arch 官方安装脚本内部用来初始化 `/mnt` 的步骤，本质就是"用户态拼 rootfs"：
+
+```bash
+# 安装工具（宿主机需是 Arch，或能用 pacman 的环境）
+sudo pacman -S --needed arch-install-scripts
+
+# 等价于 debootstrap：把 base 组装进目标目录
+# 注意：pacstrap 没有 -d 选项；不传包名时默认就装 "base" 组
+sudo pacstrap -P ${L_BASE_DIR}/arch-rootfs base 
+
+# 常用可选选项（pacstrap -h 可见完整列表）：
+#   -M   不复制宿主机的 mirrorlist 到目标（目标用自带的 /etc/pacman.d/mirrorlist）
+#   -G   不复制宿主机的 pacman keyring 到目标（如需在目标内用 pacman，常配合 -K 初始化空 keyring）
+#   -K   在目标内初始化一个空的 pacman keyring（隐含 -G）
+#   -c   使用宿主机的包缓存，而非目标目录里的缓存（避免重复下载）
+# 示例：sudo pacstrap -M -G ${L_BASE_DIR}/arch-rootfs base
+
+# 装完 ${L_BASE_DIR}/arch-rootfs 里就有完整 /bin /lib /usr /etc，可直接 chroot
+```
+
+构造完成后，`arch-rootfs` 目录内已是一套自洽的 Arch 系统（glibc + coreutils + pacman）。
+
+### 8.3 可选：预装软件包 / 定制
+
+```bash
+# 配置 DNS（chroot 内联网下载需要）
+echo 'nameserver 8.8.8.8' | sudo tee ${L_BASE_DIR}/arch-rootfs/etc/resolv.conf
+
+# chroot 进入 Arch 环境
+sudo arch-chroot ${L_BASE_DIR}/arch-rootfs /bin/bash
+# 注：arch-chroot 会自动帮你挂 /proc /sys /dev 等伪文件系统
+
+# 在 chroot 内操作：
+pacman -Syu
+pacman -S curl git gcc make  # 按需安装
+# ... 装完退出
+exit
+
+# 清理 DNS（后续 QEMU 内 dhcp 会自动获取）
+sudo rm ${L_BASE_DIR}/arch-rootfs/etc/resolv.conf
+```
+
+`arch-chroot`（同样来自 `arch-install-scripts`）比普通 `chroot` 更省心：它会自动挂载 `/proc`、`/sys`、`/dev`，正好规避"光 chroot 不够、伪文件系统得自己挂"那个坑。
+
+### 8.4 启动方式
+
+#### 方式一：initramfs（临时、重启丢失改动）
+
+```bash
+# 把 arch-rootfs 打包成 initramfs
+cd ${L_BASE_DIR}/arch-rootfs
+find . -print0 | cpio --null -ov --format=newc | gzip -9 > ${L_BASE_DIR}/arch-initramfs.cpio.gz
+
+cd ${L_BASE_DIR}/linux
+qemu-system-x86_64 \
+    -kernel arch/x86/boot/bzImage \
+    -initrd ${L_BASE_DIR}/arch-initramfs.cpio.gz \
+    -append "console=ttyS0 nokaslr" \
+    -serial stdio -display none \
+    -m 8192M -smp 8 \
+    -nic user
+```
+
+> 注意：纯 `find | cpio` 方式产出的 initramfs，内核挂载后默认执行 `/init`。Arch rootfs 的 init 在 `/sbin/init`，需要像 Alpine 那样 `ln -sf /sbin/init init` 或自行提供一个 init 脚本（参考 4.4 / 7.2 的写法）。如果希望直接用 Arch 的 systemd init，更推荐用下面的磁盘镜像方式。
+
+#### 方式二：磁盘镜像（持久化、推荐开发用）
+
+```bash
+# 1. 创建 4G 磁盘镜像并格式化
+qemu-img create -f raw ${L_BASE_DIR}/arch-disk.raw 4G
+sudo mkfs.ext4 ${L_BASE_DIR}/arch-disk.raw
+mkdir -p /tmp/mnt-arch
+sudo mount -o loop ${L_BASE_DIR}/arch-disk.raw /tmp/mnt-arch
+sudo cp -a ${L_BASE_DIR}/arch-rootfs/* /tmp/mnt-arch/
+
+# 1.1 给 root 设固定密码（pacstrap 造出的 root 无密码且被锁定，需先解锁设密码才能登录）
+#     在挂载状态下直接用 chpasswd 写入，无需 chroot
+echo 'root:123456' | sudo chpasswd -R /tmp/mnt-arch
+
+sudo umount /tmp/mnt-arch
+
+# 2. 转成 qcow2（thin provisioning）
+qemu-img convert -f raw -O qcow2 ${L_BASE_DIR}/arch-disk.raw ${L_BASE_DIR}/arch-disk.qcow2
+rm ${L_BASE_DIR}/arch-disk.raw
+rmdir /tmp/mnt-arch
+
+# 3. 启动（改动持久化，systemd 作为 1 号进程）
+cd ${L_BASE_DIR}/linux
+qemu-system-x86_64 \
+    -kernel arch/x86/boot/bzImage \
+    -hda ${L_BASE_DIR}/arch-disk.qcow2 \
+    -append "console=ttyS0 nokaslr root=/dev/sda rw" \
+    -serial stdio -display none \
+    -m 8192M -smp 8 \
+    -nic user
+```
+
+启动后 1 号进程是 Arch 自带的 `systemd`，可用 `pacman -S <package>` 安装任意依赖，开发与宿主机体验一致。
+
+### 8.5 Alpine / BusyBox / Arch 对比
+
+| 维度 | BusyBox（第 4 章） | Alpine（第 7 章） | Arch（本章） |
+|---|---|---|---|
+| 包管理器 | 无 | `apk` | `pacman` |
+| libc | musl（静态内置） | musl | glibc |
+| 构造工具 | 源码编译 | 下载 minirootfs tarball | `pacstrap`（debootstrap 等价物）|
+| 1 号进程 | `init` 脚本（sh） | `getty` + sh（去 OpenRC）| `systemd` |
+| 适用场景 | 最小体积、纯内核调试 | 轻量、带包管理 | 与宿主机一致、glibc 生态 |
+
+> 一句话总结：`pacstrap -d <dir> base` 就是 Arch 世界里对应 `debootstrap` / Alpine minirootfs 的 rootfs 构造器，造完即可 chroot 或丢给 QEMU 跑。

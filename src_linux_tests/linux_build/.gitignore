@@ -2,3 +2,5 @@ linux*
 busybox*
 alpine*
 !alpine-disk.*
+arch-rootfs*
+arch-disk.*
