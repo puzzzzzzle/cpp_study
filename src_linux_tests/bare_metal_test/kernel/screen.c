@@ -7,8 +7,9 @@
 #define WHITE_ON_BLACK 0x0F
 
 #define COM1        0x3F8
-#define COM1_LSR    0x3F8 + 5
-#define LSR_THR_EMPTY 0x20
+#define COM1_LSR    (COM1 + 5)
+#define LSR_THR_EMPTY 0x20   /* 发送保持寄存器空 */
+#define LSR_DATA_READY 0x01  /* 接收数据就绪 */
 
 static u16 *const vga = (u16 *)VGA_BASE;
 
@@ -31,6 +32,14 @@ static void serial_putc(char c)
     while ((inb(COM1_LSR) & LSR_THR_EMPTY) == 0)
         ;
     outb(COM1, (u8)c);
+}
+
+/* 阻塞读取 COM1 一个字符（LSR bit0 指示数据就绪） */
+int serial_getc(void)
+{
+    while ((inb(COM1_LSR) & LSR_DATA_READY) == 0)
+        ;
+    return (int)inb(COM1);
 }
 
 void screen_clear(void)

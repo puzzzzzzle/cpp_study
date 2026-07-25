@@ -5,4 +5,7 @@
 void screen_clear(void);
 void screen_puts(const char *s);
 
+/* 从 COM1 串口阻塞读取一个字符（已含 LSR 就绪判断） */
+int serial_getc(void);
+
 #endif /* SCREEN_H */

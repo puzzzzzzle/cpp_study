@@ -12,9 +12,22 @@ void kmain(u32 magic, u32 mb_info)
     screen_clear();
     screen_puts("Hello from bare metal kernel!\n");
     screen_puts("32-bit protected mode, loaded by QEMU -kernel\n");
+    screen_puts("echo mode: type something, it will be echoed back.\n");
 
-    /* 停机：避免 CPU 跑飞 */
+    /* echo 模式：从 COM1 读字符并回显 */
+    screen_puts("echo> ");
     for (;;) {
-        asm volatile ("cli; hlt");
+        int c = serial_getc();
+
+        if (c == '\r' || c == '\n') {
+            screen_puts("\necho> ");
+        } else if (c == 0x7F || c == '\b') {
+            /* 退格：回退一格并清字符 */
+            screen_puts("\b \b");
+        } else {
+            char buf[2] = { (char)c, '\0' };
+            screen_puts(buf);
+        }
     }
 }
+
