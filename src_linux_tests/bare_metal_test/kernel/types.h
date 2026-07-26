@@ -1,9 +1,14 @@
-#ifndef TYPES_H
-#define TYPES_H
+#pragma once
 
 /* 裸机环境无系统头，使用编译器原生定宽类型 */
-typedef unsigned char  u8;
+typedef unsigned char u8;
 typedef unsigned short u16;
-typedef unsigned int   u32;
+typedef unsigned int u32;
+typedef unsigned long long u64;
+typedef signed char i8;
+typedef signed short i16;
+typedef signed int i32;
+typedef signed long long i64;
 
-#endif /* TYPES_H */
+/* size_t */
+typedef unsigned long size_t;

@@ -1,5 +1,4 @@
-#ifndef GDT_H
-#define GDT_H
+#pragma once
 
 #include "types.h"
 
@@ -21,5 +20,3 @@ struct gdt_ptr {
 
 /* 初始化 GDT 并加载（在 kmain 中调用） */
 void gdt_init(void);
-
-#endif /* GDT_H */
