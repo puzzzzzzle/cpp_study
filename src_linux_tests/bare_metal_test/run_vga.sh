@@ -6,7 +6,7 @@ set -e
 cd "$(dirname "$0")"
 
 qemu-system-i386 \
-    -kernel build/kernel.bin \
+    -kernel kernel.bin \
     -serial stdio \
     -m 256M \
     -smp 1 \

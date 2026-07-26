@@ -1,6 +1,5 @@
 CC      = gcc
 LD      = ld
-ASM     = nasm
 CFLAGS  = -m32 -ffreestanding -nostdlib -fno-builtin \
           -fno-stack-protector -Wall -Wextra -c
 LDFLAGS = -m elf_i386 -T link.ld -nostdlib
@@ -17,8 +16,8 @@ all: $(TARGET)
 $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
 
-$(BUILD_DIR)/entry.o: boot/entry.asm | $(BUILD_DIR)
-	$(ASM) -f elf32 boot/entry.asm -o $@
+$(BUILD_DIR)/entry.o: boot/entry.S | $(BUILD_DIR)
+	$(CC) $(CFLAGS) boot/entry.S -o $@
 
 $(BUILD_DIR)/kernel.o: kernel/kernel.c | $(BUILD_DIR)
 	$(CC) $(CFLAGS) kernel/kernel.c -o $@
