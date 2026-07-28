@@ -2,10 +2,10 @@
 
 #include <stdarg.h>
 
-size_t strlen(const char* s, size_t max_len)
+size_t strlen(const char* s)
 {
     size_t len = 0;
-    while (*s++ && len < max_len)
+    while (*s++)
         len++;
     return len;
 }
