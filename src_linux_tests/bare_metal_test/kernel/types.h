@@ -12,3 +12,7 @@ typedef signed long long i64;
 
 /* size_t */
 typedef unsigned long size_t;
+
+/* Stringify helper: STR(ARCH) → "X86_64" */
+#define _STR(s) #s
+#define STR(s) _STR(s)

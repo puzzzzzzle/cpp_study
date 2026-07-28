@@ -13,6 +13,11 @@ SECTIONS
     .rodata : { *(.rodata) }
     .data   : { *(.data) }
 
+    /* 页表段：必须 4KB 对齐 */
+    .pagetables ALIGN(4096) : {
+        *(.pagetables)
+    }
+
     .bss : {
         _bss_start = .;
         *(.bss)
