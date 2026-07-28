@@ -1,7 +1,8 @@
 #include "shell.h"
-#include "str.h"
-#include "screen.h"
+
 #include "com.h"
+#include "screen.h"
+#include "str.h"
 
 /* 请求 QEMU 退出：写 debug-exit 端口 0xF4（run.sh 需 -device isa-debug-exit）
  */
@@ -27,13 +28,26 @@ static void cmd_parse(const char* line) {
   screen_puts(line);
 }
 
-
+typedef struct {
+  // 行缓冲区
+  char line[512];
+  int len;
+} shell_line_state_t;
+void shell_line_state_reset(shell_line_state_t* state) { state->len = 0; }
+void shell_line_state_putc(shell_line_state_t* state, char c) {
+  if (state->len < (int)(sizeof(state->line) - 1)) {
+    state->line[state->len++] = c;
+  }
+}
+void shell_line_state_delete_last(shell_line_state_t* state) {
+  if (state->len > 0) {
+    state->len--;
+  }
+}
 void shell_run(void) {
-     /* 行缓冲区（echo 模式按行累积，用于 quit/exit 判断） */
-  static char line[64];
-  int len = 0;
+  /* 行缓冲区（echo 模式按行累积，用于 quit/exit 判断） */
+  static shell_line_state_t line_state;
   screen_puts("Hello from bare metal kernel!\n");
-  char buf[64];
   screen_puts(fmt("Running on %s arch mode\n", ARCH_STR));
   screen_puts("echo mode: type something, it will be echoed back.\n");
   screen_puts("type 'quit' or 'exit' to halt.\n");
@@ -44,18 +58,19 @@ void shell_run(void) {
     int c = com_getc();
 
     if (c == '\r' || c == '\n') {
-      line[len] = '\0';
+      shell_line_state_putc(&line_state, '\0');
       /* 处理命令 */
-      cmd_parse(line);
+      cmd_parse(line_state.line);
       /* 清空缓冲 */
-      len = 0;
+      shell_line_state_reset(&line_state);
+      /* 输出提示符 */
       screen_puts("\necho> ");
     } else if (c == 0x7F || c == '\b') {
       /* 退格：缓冲与屏幕各退一格 */
-      if (len > 0) len--;
+      shell_line_state_delete_last(&line_state);
       screen_puts("\b \b");
     } else {
-      if (len < (int)(sizeof(line) - 1)) line[len++] = (char)c;
+      shell_line_state_putc(&line_state, (char)c);
       char buf[2] = {(char)c, '\0'};
       screen_puts(buf);
     }
