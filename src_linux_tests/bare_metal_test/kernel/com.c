@@ -32,3 +32,12 @@ int com_getc(void)
         ;
     return (int)inb(COM1);
 }
+
+void com_puts(const char *s,size_t len)
+{
+    while (*s && len > 0)
+    {
+        com_putc(*s++);
+        len--;
+    }
+}

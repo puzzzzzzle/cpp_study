@@ -11,7 +11,13 @@ typedef signed int i32;
 typedef signed long long i64;
 
 /* size_t */
-typedef unsigned long size_t;
+#ifdef __x86_64__
+typedef u64 size_t;
+typedef i64 ssize_t;
+#else
+typedef u32 size_t;
+typedef i32 ssize_t;
+#endif
 
 /* Stringify helper: STR(ARCH) → "X86_64" */
 #define _STR(s) #s

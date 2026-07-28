@@ -15,7 +15,7 @@ endif
 # Common flags
 COMMON_CFLAGS  = -ffreestanding -nostdlib -fno-builtin \
                  -fno-stack-protector -Wall -Wextra -c -MMD \
-                 -I kernel -I arch/$(ARCH) -DARCH=\"$(ARCH)\"
+                 -I kernel -I arch/$(ARCH) -DARCH_STR=\"$(ARCH)\"
 COMMON_LDFLAGS = -T link.ld -nostdlib
 
 CFLAGS  = $(ARCH_CFLAGS) $(COMMON_CFLAGS)
