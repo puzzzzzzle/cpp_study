@@ -2,14 +2,6 @@
 
 #include <stdarg.h>
 
-size_t strlen(const char* s)
-{
-    size_t len = 0;
-    while (*s++)
-        len++;
-    return len;
-}
-
 /*
  * vsnprintf — core formatting engine (takes va_list directly).
  * Supported: %s %d %u %x %c %%
@@ -21,78 +13,21 @@ ssize_t vsnprintf(char* buf, size_t size, const char* fmt, va_list ap)
     if (!buf || !size)
         return -1;
 
-    char*       dst  = buf;
-    char*       end  = buf + size - 1;       /* reserve space for '\0' */
-    ssize_t     n    = 0;
+    char*   dst = buf;
+    char*   end = buf + size - 1;
+    ssize_t n   = 0;
 
-#define PUT(c)                        \
-    do {                              \
-        if (dst < end) *dst++ = (c);  \
-        n++;                          \
-    } while (0)
+    #define FMT_PUTC(c)  do { if (dst < end) *dst++ = (c); n++; } while (0)
+    #define FMT_VARGS(t) va_arg(ap, t)
+    #define FMT_DONE     fmt_done
+    #include "fmt_core.h"
+    #undef FMT_PUTC
+    #undef FMT_VARGS
+    #undef FMT_DONE
 
-    for (; *fmt; fmt++) {
-        if (*fmt != '%') {
-            PUT(*fmt);
-            continue;
-        }
-        fmt++;   /* skip '%' */
-        switch (*fmt) {
-        case '\0': goto done;
-        case '%':  PUT('%'); break;
-
-        case 'c': {
-            char c = (char)va_arg(ap, int);
-            PUT(c);
-            break;
-        }
-
-        case 's': {
-            const char* s = va_arg(ap, const char*);
-            if (!s) s = "(null)";
-            while (*s) PUT(*s++);
-            break;
-        }
-
-        case 'd': {
-            int val = va_arg(ap, int);
-            if (val < 0) { PUT('-'); val = -val; }
-            char rev[12]; int i = 0;
-            do { rev[i++] = (char)('0' + (val % 10)); val /= 10; } while (val);
-            while (i--) PUT(rev[i]);
-            break;
-        }
-
-        case 'u': {
-            u32 val = va_arg(ap, u32);
-            char rev[12]; int i = 0;
-            do { rev[i++] = (char)('0' + (val % 10)); val /= 10; } while (val);
-            while (i--) PUT(rev[i]);
-            break;
-        }
-
-        case 'x': {
-            u32 val = va_arg(ap, u32);
-            char rev[12]; int i = 0;
-            do {
-                int d = val & 0xF;
-                rev[i++] = (char)(d < 10 ? '0' + d : 'a' + d - 10);
-            } while (val >>= 4);
-            while (i--) PUT(rev[i]);
-            break;
-        }
-
-        default:
-            PUT('?');
-            break;
-        }
-    }
-
-done:
+fmt_done:
     *dst = '\0';
     return n;
-
-#undef PUT
 }
 
 /*

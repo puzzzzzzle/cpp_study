@@ -1,8 +1,7 @@
 #pragma once
 
-#include "types.h"
+#include "string.h"
 
-/* 组合层：同时输出到 VGA 文本模式与 COM1 串口 */
+/* 清屏 + 同时输出到 VGA 与 COM1 */
 void screen_clear(void);
-void screen_putsn(const char* s, size_t len);
-void screen_puts(const char* s);  /* null-terminated */
+void screen_puts(bstring_view sv);

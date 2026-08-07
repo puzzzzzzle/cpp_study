@@ -2,77 +2,60 @@
 
 #include "com.h"
 #include "screen.h"
-#include "str.h"
+#include "string.h"
 
-/* 请求 QEMU 退出：写 debug-exit 端口 0xF4（run.sh 需 -device isa-debug-exit）
- */
+/* QEMU debug-exit */
 static void qemu_exit(void) {
-  asm volatile("outb %0, %1" : : "a"((u8)0x00), "Nd"((u16)0xF4));
-}
-/* 关机 */
-static void power_off(void) { qemu_exit(); }
-/* 简单命令入口 */
-static void cmd_parse(const char* line) {
-  /* quit/exit */
-  if (streq(line, "quit") || streq(line, "exit")) {
-    screen_puts("\nbye.\n");
-    power_off();
-  }
-  /* clear */
-  if (streq(line, "clear")) {
-    screen_clear();
-    return;
-  }
-  /* default :echo */
-  screen_puts("\n[got] ");
-  screen_puts(line);
+    asm volatile("outb %0, %1" : : "a"((u8)0x00), "Nd"((u16)0xF4));
 }
 
-typedef struct {
-  // 行缓冲区
-  char line[512];
-  int len;
-} shell_line_state_t;
-void shell_line_state_reset(shell_line_state_t* state) { state->len = 0; }
-void shell_line_state_putc(shell_line_state_t* state, char c) {
-  if (state->len < (int)(sizeof(state->line) - 1)) {
-    state->line[state->len++] = c;
-  }
-}
-void shell_line_state_delete_last(shell_line_state_t* state) {
-  if (state->len > 0) {
-    state->len--;
-  }
-}
-void shell_run(void) {
-  /* 行缓冲区（echo 模式按行累积，用于 quit/exit 判断） */
-  static shell_line_state_t line_state;
-  screen_puts("Hello from bare metal kernel!\n");
-  screen_puts(fmt("Running on %s arch mode\n", ARCH_STR));
-  screen_puts("echo mode: type something, it will be echoed back.\n");
-  screen_puts("type 'quit' or 'exit' to halt.\n");
-
-  /* echo 模式：从 COM1 读字符并回显 */
-  screen_puts("echo> ");
-  for (;;) {
-    int c = com_getc();
-
-    if (c == '\r' || c == '\n') {
-      shell_line_state_putc(&line_state, '\0');
-      /* 处理命令 */
-      cmd_parse(line_state.line);
-      /* 清空缓冲 */
-      shell_line_state_reset(&line_state);
-      /* 输出提示符 */
-      screen_puts("\necho> ");
-    } else if (c == 0x7F || c == '\b') {
-      /* 退格：缓冲与屏幕各退一格 */
-      shell_line_state_delete_last(&line_state);
-      screen_puts("\b \b");
-    } else {
-      shell_line_state_putc(&line_state, (char)c);
-      char buf[2] = {(char)c, '\0'};
-      screen_puts(buf);
+/* 命令解析 */
+static void cmd_parse(bstring_view cmd) {
+    if (bstring_view_eq_cstr(cmd, "quit") || bstring_view_eq_cstr(cmd, "exit")) {
+        screen_puts(SV("\nbye.\n"));
+        qemu_exit();
     }
-  }
+    if (bstring_view_eq_cstr(cmd, "clear")) {
+        screen_clear();
+        return;
+    }
+    screen_puts(SV("\n[got] "));
+    screen_puts(cmd);
+}
+
+/* shell 主循环：行编辑 + 命令解析 */
+void shell_run(void) {
+    /* 行缓冲区：bstring 借出堆栈空间，不分配堆内存 */
+    char    line_buf[512];
+    bstring cmd_line;
+    bstring_init_from_buffer(&cmd_line, line_buf, sizeof(line_buf));
+
+    screen_puts(SV("Hello from bare metal kernel!\n"));
+
+    bstring tmp;
+    bstring_init(&tmp, 64);
+    bstring_fmt(&tmp, "Running on %s arch mode\n", ARCH_STR);
+    screen_puts(bstring_view_create(&tmp));
+    bstring_destroy(&tmp);
+
+    screen_puts(SV("echo mode: type something, it will be echoed back.\n"));
+    screen_puts(SV("type 'quit' or 'exit' to halt.\n"));
+    screen_puts(SV("echo> "));
+
+    for (;;) {
+        int c = com_getc();
+
+        if (c == '\r' || c == '\n') {
+            cmd_parse(bstring_view_create(&cmd_line));
+            bstring_clear(&cmd_line);
+            screen_puts(SV("\necho> "));
+        } else if (c == 0x7F || c == '\b') {
+            bstring_pop_back(&cmd_line, 1);
+            screen_puts(SV("\b \b"));
+        } else {
+            char ch = (char)c;
+            bstring_append(&cmd_line, &ch, 1);
+            screen_puts(bstring_view_from_cstr(&ch, 1));
+        }
+    }
 }

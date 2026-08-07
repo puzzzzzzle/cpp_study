@@ -22,3 +22,7 @@ typedef i32 ssize_t;
 /* Stringify helper: STR(ARCH) → "X86_64" */
 #define _STR(s) #s
 #define STR(s) _STR(s)
+
+#ifndef NULL
+#define NULL ((void*)0)
+#endif

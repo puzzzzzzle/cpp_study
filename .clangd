@@ -66,6 +66,7 @@ Diagnostics:
       - cppcoreguidelines-pro-type-vararg # 移除强制要求使用可变参数
       - readability-redundant-access-specifiers # 移除强制要求使用冗余的访问修饰符
       - misc-unused-parameters # 移除强制要求使用未使用的参数
+      - modernize-use-using # 移除强制要求用 using 替代 typedef (C 代码使用 typedef 更合适)
     # 允许在编辑器中通过注释停用检查 (例如 // NOLINT)
     CheckOptions:
       performance-unnecessary-value-param.AllowedTypes: ""

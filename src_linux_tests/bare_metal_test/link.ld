@@ -26,4 +26,6 @@ SECTIONS
     }
 
     /DISCARD/ : { *(.eh_frame) *(.comment) }
+
+    _kernel_end = .;
 }

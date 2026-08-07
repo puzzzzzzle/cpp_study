@@ -1,0 +1,61 @@
+# clangd 配置文件
+# 参考官方文档: https://clangd.llvm.org/config
+
+# 编译选项配置
+CompileFlags:
+  # 从当前目录加载 compile_commands.json 文件
+  # CompilationDatabase: .
+  # 移除以下编译选项，避免将警告当作错误处理
+  Remove:
+    # 移除 -Werror：不将所有警告视为错误
+    - -Werror
+  # 添加编译选项
+  Add:
+    # 如果编译命令中没有指定 C++ 标准，则使用 C++20
+    # 注意：如果 compile_commands.json 中已经有 -std=c++20，则不会被覆盖
+    # -std=c++20 
+# 索引配置
+Index:
+  Background: Build
+
+# clang-tidy 配置
+
+Diagnostics:
+  # 启用 Clang-Tidy 检查
+  # 参考 https://clang.llvm.org/extra/clang-tidy/
+  ClangTidy:
+    Add:
+      # 1. 性能优化 (包含你关心的结构体传参拷贝优化)
+      # - performance-*
+      # 2. 现代化代码建议
+      # - modernize-*
+
+    Remove:
+      - readability-braces-around-statements    # 移除强制要求单行 if 加大括号(可选)
+      # https://clang.llvm.org/extra/clang-tidy/checks/modernize/use-using.html
+      - use-using
+    # 允许在编辑器中通过注释停用检查 (例如 // NOLINT)
+    CheckOptions:
+      performance-unnecessary-value-param.AllowedTypes: ""
+
+  # 4. 未使用的 Include 提示 (Unused Includes)
+  # 设置为 Strict 会将未使用的头文件标记为警告，并提供一键删除建议
+  UnusedIncludes: Strict
+
+# 内联提示配置 (视觉增强)
+InlayHints:
+  Enabled: Yes
+  ParameterNames: Yes # 函数调用显示参数名: func(name: "value")
+  DeducedTypes: Yes # 显示 auto 自动推导的类型: auto i: int = 10
+  Designators: Yes # 显示结构体指定初始化名: Point{.x=1, .y=2}
+  TypeNameLimit: 25 # 类型提示过长时截断
+  BlockEnd: Yes # 在 } 后显示对应的函数名、if、for 等结尾标识
+  DefaultArguments: Yes # 显示函数调用时使用的默认参数
+
+# 补全配置
+Completion:
+  AllScopes: Yes               # 允许补全当前文件未包含头文件中的符号（会自动插入 include）
+
+# 悬停信息增强
+Hover:
+  ShowAKA: Yes                 # 显示类型的别名 (例如显示 size_t 的原始定义)
