@@ -318,6 +318,11 @@ ssize_t bstring_append_cstr(bstring* sb, const char* c)
     return bstring_append(sb, c, strlen(c));
 }
 
+ssize_t bstring_append_char(bstring* sb, char c)
+{
+    return bstring_append(sb, &c, 1);
+}
+
 ssize_t bstring_append_bstring(bstring* sb, const bstring* other)
 {
     if (!sb || !other) return -1;

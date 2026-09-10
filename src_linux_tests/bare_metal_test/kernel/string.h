@@ -143,6 +143,7 @@ bstring_view bstring_view_create(const bstring* sb);
 /* ---- 变更操作 ---- */
 ssize_t bstring_append(bstring* sb, const char* s, size_t len);
 ssize_t bstring_append_cstr(bstring* sb, const char* c);
+ssize_t bstring_append_char(bstring* sb, char c);
 ssize_t bstring_append_bstring(bstring* sb, const bstring* other);
 ssize_t bstring_append_sv(bstring* sb, const bstring_view* sv);
 ssize_t bstring_change_len(bstring* sb, size_t len);

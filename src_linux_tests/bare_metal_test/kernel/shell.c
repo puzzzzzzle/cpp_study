@@ -49,12 +49,12 @@ void shell_run(void) {
             cmd_parse(bstring_view_create(&cmd_line));
             bstring_clear(&cmd_line);
             screen_puts(SV("\necho> "));
-        } else if (c == 0x7F || c == '\b') {
+        } else if (c == 0x7F || c == '\b') {  /* DEL or Backspace */ 
             bstring_pop_back(&cmd_line, 1);
             screen_puts(SV("\b \b"));
         } else {
             char ch = (char)c;
-            bstring_append(&cmd_line, &ch, 1);
+            bstring_append_char(&cmd_line, ch);
             screen_puts(bstring_view_from_cstr(&ch, 1));
         }
     }
