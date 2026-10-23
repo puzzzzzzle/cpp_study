@@ -30,7 +30,7 @@ Binary naming convention: `src_linux_tests/src/asm/at_t_asm/c_call_asm` → targ
 
 - Dependencies managed via Docker (see `cpp_bootstrap/Docker/arch_clion_local.Dockerfile`)
 - Optional Conan support: `cd build && conan install .. --build missing`
-- `cpp_bootstrap` is a git submodule — clone with `--recursive` or run `git submodule update --init`
+- `cpp_bootstrap` is vendored directly in this repo — a plain clone is enough, no `--recursive`/`submodule update` needed
 - Required: GTest, pthread. Optional: Boost (static linking by default)
 
 ### C++ Standard
@@ -135,5 +135,5 @@ Run a test by building and executing the target binary directly: `./build/bin/<t
 | `src_linux_tests/` | Linux system programming (assembly, io_uring, dynamic loading) |
 | `src_linux_driver/` | Linux kernel driver development |
 | `src_old_uinx_study/` | Legacy Unix/POSIX (socket, epoll, select) |
-| `cpp_bootstrap/` | Shared CMake functions, common headers, Docker configs (git submodule) |
+| `cpp_bootstrap/` | Shared CMake functions, common headers, Docker configs (vendored in-repo) |
 | `_template/` | Template for new subprojects |
