@@ -14,7 +14,7 @@
 #include <ctime>
 #include <iostream>
 #include <cmath>
-#include <opencv4/opencv2/core/hal/interface.h>
+
 #define MICRO_NANO (1000)
 #define SEC_MICRO (MICRO_NANO * 1000)
 #define SEC_NANO (SEC_MICRO * 1000)
